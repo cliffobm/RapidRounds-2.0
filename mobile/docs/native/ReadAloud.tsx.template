@@ -1,0 +1,17 @@
+import React,{useEffect,useRef,useState} from 'react';
+import {Text,View} from 'react-native';
+import * as Speech from 'expo-speech';
+import {useAppearance,useStyles} from '../styles';
+import {Button} from './ui';
+
+export function ReadAloud({text,label='Read aloud'}:{text:string;label?:string}){
+ const p=useAppearance();const s=useStyles();const [speaking,setSpeaking]=useState(false);const [error,setError]=useState('');const run=useRef(0);
+ useEffect(()=>()=>{run.current++;void Speech.stop();},[text,p.readAloud]);
+ async function toggle(){run.current++;const token=run.current;try{await Speech.stop();if(speaking){setSpeaking(false);return;}setError('');setSpeaking(true);
+  const chunks=text.match(/[\s\S]{1,1500}/g)??[];
+  function read(index:number){if(token!==run.current)return;if(index>=chunks.length){setSpeaking(false);return;}Speech.speak(chunks[index],{language:'en-US',rate:p.speechRate,onDone:()=>read(index+1),onStopped:()=>{if(token===run.current)setSpeaking(false);},onError:()=>{setSpeaking(false);setError('Read aloud is unavailable. Check device voices and sound settings.');}});}
+  read(0);
+ }catch{setSpeaking(false);setError('Read aloud is unavailable on this device.');}}
+ if(!p.readAloud)return null;
+ return <View style={s.stack}><Button title={speaking?'Stop reading':label} secondary onPress={()=>void toggle()}/>{!!error&&<Text accessibilityRole="alert" style={s.notice}>{error}</Text>}</View>;
+}

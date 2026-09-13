@@ -1,0 +1,13 @@
+{
+  "cli": { "version": ">= 19.1.0", "appVersionSource": "remote" },
+  "build": {
+    "preview": { "distribution": "internal", "channel": "preview", "environment": "preview", "env": { "EXPO_PUBLIC_CONTENT_PREVIEW": "true" }, "android": { "buildType": "apk" } },
+    "simulator": { "extends": "preview", "ios": { "simulator": true } },
+    "beta": { "distribution": "store", "channel": "beta", "environment": "preview", "autoIncrement": true, "env": { "EXPO_PUBLIC_CONTENT_PREVIEW": "true" } },
+    "production": { "distribution": "store", "channel": "production", "environment": "production", "autoIncrement": true, "env": { "EXPO_PUBLIC_CONTENT_PREVIEW": "false" } }
+  },
+  "submit": {
+    "beta": { "ios": {} },
+    "production": { "ios": {} }
+  }
+}

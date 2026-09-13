@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Rapid Rounds",
+    "slug": "rapid-rounds",
+    "scheme": "rapidrounds",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app-icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rapidrounds.preview"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0C1122",
+        "foregroundImage": "./assets/rapid-rounds-icon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.rapidrounds.preview"
+    },
+    "web": {
+      "favicon": "./assets/rapid-rounds-icon.png"
+    },
+    "plugins": [
+      "expo-web-browser",
+      "expo-secure-store",
+      ["expo-image-picker", {
+        "photosPermission": "Choose a profile photo to save in Rapid Rounds on this device.",
+        "cameraPermission": false,
+        "microphonePermission": false
+      }]
+    ]
+  }
+}

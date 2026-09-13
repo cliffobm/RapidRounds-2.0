@@ -1,0 +1,105 @@
+import 'react-native-url-polyfill/auto';
+import {useEffect,useSyncExternalStore} from 'react';
+import {AppState,Linking,Platform} from 'react-native';
+import {createClient,type Session,type SupabaseClient} from '@supabase/supabase-js';
+import * as AuthSession from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
+import * as SecureStore from 'expo-secure-store';
+
+const serviceUrl=process.env.EXPO_PUBLIC_SUPABASE_URL?.trim()??'';
+const publicKey=process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY?.trim()??'';
+function isPublicClientKey(key:string):boolean{
+  if(/^sb_publishable_[A-Za-z0-9_-]+$/.test(key))return true;
+  try{
+    const parts=key.split('.');if(parts.length!==3)return false;
+    const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';let bits=0,value=0,payload='';
+    for(const char of parts[1].replace(/-/g,'+').replace(/_/g,'/').replace(/=+$/,'')){const digit=alphabet.indexOf(char);if(digit<0)return false;value=(value<<6)|digit;bits+=6;if(bits>=8){bits-=8;payload+=String.fromCharCode((value>>bits)&255);}}
+    return JSON.parse(payload).role==='anon';
+  }catch{return false;}
+}
+function configReady(){try{const url=new URL(serviceUrl);return url.protocol==='https:'&&!url.username&&!url.password&&isPublicClientKey(publicKey);}catch{return false;}}
+export const isAuthConfigured=configReady();
+export const authProviders={google:isAuthConfigured&&process.env.EXPO_PUBLIC_AUTH_GOOGLE_ENABLED==='true',apple:isAuthConfigured&&process.env.EXPO_PUBLIC_AUTH_APPLE_ENABLED==='true'};
+export const getAuthRedirectUri=()=>AuthSession.makeRedirectUri({scheme:'rapidrounds',path:'auth/callback'});
+if(Platform.OS==='web')WebBrowser.maybeCompleteAuthSession();
+
+// Chunk sessions because native keychain implementations can reject large values.
+// A manifest is committed last, so interrupted writes retain the old readable value.
+const secureOptions={keychainAccessible:SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY};
+const nativeStorage={
+  async getItem(key:string){
+    const raw=await SecureStore.getItemAsync(`${key}.manifest`);if(!raw)return null;
+    const manifest=JSON.parse(raw) as {generation:string;count:number};
+    if(!/^[a-z0-9-]+$/.test(manifest.generation)||!Number.isInteger(manifest.count)||manifest.count<1||manifest.count>128)throw new Error('Saved sign-in data could not be read.');
+    const chunks=await Promise.all(Array.from({length:manifest.count},(_,i)=>SecureStore.getItemAsync(`${key}.${manifest.generation}.${i}`)));
+    if(chunks.some(chunk=>chunk===null))throw new Error('Saved sign-in data is incomplete.');
+    return chunks.join('');
+  },
+  async setItem(key:string,value:string){
+    const count=Math.ceil(value.length/1500);if(count<1||count>128)throw new Error('The sign-in session is too large to save securely.');
+    const old=await SecureStore.getItemAsync(`${key}.manifest`);const generation=`${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+    try{for(let i=0;i<count;i++)await SecureStore.setItemAsync(`${key}.${generation}.${i}`,value.slice(i*1500,(i+1)*1500),secureOptions);
+      await SecureStore.setItemAsync(`${key}.manifest`,JSON.stringify({generation,count}),secureOptions);
+    }catch(error){await Promise.allSettled(Array.from({length:count},(_,i)=>SecureStore.deleteItemAsync(`${key}.${generation}.${i}`)));throw error;}
+    if(old){try{const prior=JSON.parse(old);if(/^[a-z0-9-]+$/.test(prior.generation)&&Number.isInteger(prior.count)&&prior.count>0&&prior.count<=128)await Promise.allSettled(Array.from({length:prior.count},(_,i)=>SecureStore.deleteItemAsync(`${key}.${prior.generation}.${i}`)));}catch{/* New manifest is already durable. */}}
+  },
+  async removeItem(key:string){
+    const raw=await SecureStore.getItemAsync(`${key}.manifest`);await SecureStore.deleteItemAsync(`${key}.manifest`);
+    if(raw){try{const prior=JSON.parse(raw);if(/^[a-z0-9-]+$/.test(prior.generation)&&Number.isInteger(prior.count)&&prior.count>0&&prior.count<=128)await Promise.all(Array.from({length:prior.count},(_,i)=>SecureStore.deleteItemAsync(`${key}.${prior.generation}.${i}`)));}catch{/* An unreadable manifest is removed and cannot restore a session. */}}
+  },
+};
+const webStorage={getItem:async(key:string)=>window.localStorage.getItem(key),setItem:async(key:string,value:string)=>{window.localStorage.setItem(key,value);},removeItem:async(key:string)=>{window.localStorage.removeItem(key);}};
+let client:SupabaseClient|null=null;
+export function getAuthClient():SupabaseClient|null {
+  if(!isAuthConfigured)return null;
+  if(!client)client=createClient(serviceUrl,publicKey,{auth:{storage:Platform.OS==='web'?webStorage:nativeStorage,storageKey:`rapidrounds.auth.${new URL(serviceUrl).hostname.replace(/[^a-zA-Z0-9._-]/g,'_')}`,flowType:'pkce',autoRefreshToken:true,persistSession:true,detectSessionInUrl:false}});
+  return client;
+}
+export interface AuthState {session:Session|null;loading:boolean;error:string|null;recovery:boolean}
+let snapshot:AuthState={session:null,loading:isAuthConfigured,error:null,recovery:false};
+const listeners=new Set<()=>void>();
+const update=(change:Partial<AuthState>)=>{snapshot={...snapshot,...change};listeners.forEach(listener=>listener());};
+let initialized=false;const handledCodes=new Set<string>();
+const describe=(error:unknown)=>error instanceof Error?error.message:'Sign-in could not be completed. Please try again.';
+function isCallback(url:URL){const expected=new URL(getAuthRedirectUri());return url.protocol===expected.protocol&&url.host===expected.host&&url.pathname===expected.pathname;}
+export async function handleAuthCallback(raw:string):Promise<boolean>{
+  const supabase=getAuthClient();if(!supabase)return false;
+  const url=new URL(raw);if(!isCallback(url))return false;
+  const fragment=new URLSearchParams(url.hash.slice(1));
+  const providerError=url.searchParams.get('error_description')??url.searchParams.get('error')??fragment.get('error_description')??fragment.get('error');
+  if(providerError)throw new Error(providerError);
+  if(fragment.has('access_token'))throw new Error('This link used an unsupported sign-in flow. Request a new link from this app.');
+  const code=url.searchParams.get('code');if(!code||handledCodes.has(code))return false;
+  handledCodes.add(code);if(url.searchParams.get('flow')==='recovery')update({recovery:true});
+  try{const {data,error}=await supabase.auth.exchangeCodeForSession(code);if(error)throw error;update({session:data.session,error:null,loading:false});
+    if(Platform.OS==='web')window.history.replaceState({},'',url.pathname);
+    return true;
+  }catch(error){handledCodes.delete(code);update({error:describe(error),loading:false});throw error;}
+}
+async function initializeAuth(){
+  if(initialized)return;initialized=true;const supabase=getAuthClient();if(!supabase){update({loading:false});return;}
+  supabase.auth.onAuthStateChange((event,session)=>{update({session,loading:false,...(event==='PASSWORD_RECOVERY'?{recovery:true}:event==='SIGNED_OUT'?{recovery:false}:{})});});
+  Linking.addEventListener('url',({url})=>{void handleAuthCallback(url).catch(error=>update({error:describe(error)}));});
+  if(Platform.OS!=='web'){
+    const refresh=(state:string)=>state==='active'?supabase.auth.startAutoRefresh():supabase.auth.stopAutoRefresh();
+    AppState.addEventListener('change',refresh);void refresh(AppState.currentState);
+  }
+  try{const {data,error}=await supabase.auth.getSession();if(error)throw error;update({session:data.session});const initialUrl=Platform.OS==='web'?window.location.href:await Linking.getInitialURL();if(initialUrl)await handleAuthCallback(initialUrl);update({loading:false});}
+  catch(error){update({loading:false,error:describe(error)});}
+}
+export function useAuthSession():AuthState {
+  const state=useSyncExternalStore(listener=>{listeners.add(listener);return()=>{listeners.delete(listener);};},()=>snapshot,()=>snapshot);
+  useEffect(()=>{void initializeAuth();},[]);return state;
+}
+function requireClient(){const supabase=getAuthClient();if(!supabase)throw new Error('Account sign-in is not configured in this preview. Continue as a guest.');return supabase;}
+export async function signInEmail(email:string,password:string){const {data,error}=await requireClient().auth.signInWithPassword({email:email.trim(),password});if(error)throw error;update({session:data.session,error:null});return data.session;}
+export async function signUpEmail(email:string,password:string,username:string){const {data,error}=await requireClient().auth.signUp({email:email.trim(),password,options:{emailRedirectTo:getAuthRedirectUri(),data:username?{username}:undefined}});if(error)throw error;if(data.session)update({session:data.session,error:null});return data.session;}
+export async function requestPasswordReset(email:string){const {error}=await requireClient().auth.resetPasswordForEmail(email.trim(),{redirectTo:`${getAuthRedirectUri()}?flow=recovery`});if(error)throw error;}
+export async function updatePassword(password:string){if(!snapshot.recovery||!snapshot.session)throw new Error('Open the password-reset link before choosing a new password.');const {error}=await requireClient().auth.updateUser({password});if(error)throw error;update({recovery:false,error:null});}
+export async function signInProvider(provider:'google'|'apple'){
+  if(!authProviders[provider])throw new Error(`${provider==='google'?'Google':'Apple'} sign-in has not been configured.`);
+  const redirectTo=getAuthRedirectUri();const {data,error}=await requireClient().auth.signInWithOAuth({provider,options:{redirectTo,skipBrowserRedirect:true}});if(error)throw error;if(!data.url)throw new Error('The sign-in provider did not return a sign-in page.');
+  if(Platform.OS==='web'){window.location.assign(data.url);return;}
+  const result=await WebBrowser.openAuthSessionAsync(data.url,redirectTo);if(result.type==='success')await handleAuthCallback(result.url);else throw new Error('Sign-in was cancelled. You can continue as a guest.');
+}
+export async function signOut(){const supabase=getAuthClient();if(supabase){const {error}=await supabase.auth.signOut({scope:'local'});if(error)throw error;}update({session:null,recovery:false,error:null});}

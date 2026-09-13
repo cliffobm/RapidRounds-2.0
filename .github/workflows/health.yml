@@ -1,0 +1,70 @@
+name: Rapid Rounds health checks
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 13 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: health-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  health:
+    name: App health
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CI: '1'
+      EXPO_PUBLIC_CONTENT_PREVIEW: 'true'
+    steps:
+      - name: Get this version of the app
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Locate the mobile app
+        id: project
+        shell: bash
+        run: |
+          if [ -f mobile/package.json ]; then
+            echo "directory=mobile" >> "$GITHUB_OUTPUT"
+          else
+            echo "directory=." >> "$GITHUB_OUTPUT"
+          fi
+      - name: Prepare Node 24
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: ${{ steps.project.outputs.directory }}/package-lock.json
+      - name: Install libraries from the lockfile
+        id: install
+        continue-on-error: true
+        working-directory: ${{ steps.project.outputs.directory }}
+        run: npm ci --no-fund
+      - name: Check the app and write an understandable report
+        id: health
+        if: steps.install.outcome == 'success'
+        continue-on-error: true
+        working-directory: ${{ steps.project.outputs.directory }}
+        run: npm run health:ci
+      - name: Explain an installation failure
+        if: steps.install.outcome == 'failure'
+        working-directory: ${{ steps.project.outputs.directory }}
+        run: node scripts/health-check.mjs --install-failed
+      - name: Keep the health report and supporting logs
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: rapid-rounds-health-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ steps.project.outputs.directory }}/reports/health/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Mark failed checks as a failed run
+        if: always() && (steps.install.outcome != 'success' || steps.health.outcome != 'success')
+        run: exit 1
