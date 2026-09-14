@@ -16,6 +16,8 @@ export function SessionResults({result,state,onReport,onReview,onAgain,onHome,on
  <Button title="Review my explanations" onPress={()=>page(0)}/><Button title="Open my review queue" secondary onPress={onReview}/><Button title={result.mode==='case'?'Practice this case again':'Choose my next practice'} secondary onPress={onAgain}/>
  </>:<>
  <View style={s.row}><Pill text={`Question ${index+1} of ${result.questions.length}`}/><Text style={s.caption}>{result.responses[index].earned}/{result.responses[index].max} points</Text></View><PatientChart key={`chart-${index}`} question={result.questions[index]} stage={index+1} initialOpen={false}/><Text style={s.questionTitle}>{result.questions[index].prompt}</Text><Rationale key={index} question={result.questions[index]} response={result.responses[index]} onReport={reason=>onReport(result.questions[index],reason)}/>
- {index+1<result.questions.length&&<Button title="Next explanation" onPress={()=>page(index+1)}/>} {index>0&&<Button title="Previous explanation" secondary onPress={()=>page(index-1)}/>}<Button title="Back to results" secondary onPress={()=>page(null)}/>
+ {index+1<result.questions.length&&<Button title="Next explanation" onPress={()=>page(index+1)}/>}
+ {index>0&&<Button title="Previous explanation" secondary onPress={()=>page(index-1)}/>}
+ <Button title="Back to results" secondary onPress={()=>page(null)}/>
  </>}<Button title="Back to Today" secondary onPress={onHome}/></View>;
 }
