@@ -25,11 +25,20 @@
     "plugins": [
       "expo-web-browser",
       "expo-secure-store",
-      ["expo-image-picker", {
-        "photosPermission": "Choose a profile photo to save in Rapid Rounds on this device.",
-        "cameraPermission": false,
-        "microphonePermission": false
-      }]
-    ]
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose a profile photo to save in Rapid Rounds on this device.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "fb960321-798e-4739-9f14-b2fe76844b87"
+      }
+    },
+    "owner": "cliffobm"
   }
 }

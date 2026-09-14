@@ -33,6 +33,8 @@ These checks do not create an `.ipa` or validate real Apple/Google sign-in, nati
 
 ## 3. Connect Expo ownership and updates
 
+This checkout is already linked to [@cliffobm/rapid-rounds](https://expo.dev/accounts/cliffobm/projects/rapid-rounds), project `fb960321-798e-4739-9f14-b2fe76844b87`. The owner and public project ID are saved in `app.json`. The Expo project has `EXPO_PUBLIC_CONTENT_PREVIEW=true` in preview and `false` in production. Do not create a second project for this app. On a fresh computer, sign in and verify the existing link; use `init` only if restoring an unlinked checkout.
+
 Run the commands one at a time from the same folder:
 
 ```powershell
@@ -52,6 +54,8 @@ npx.cmd expo config --type public
 ```
 
 Confirm the expected app name, iOS bundle identifier, owner/project ID, `https://u.expo.dev/` update URL for that same project, and fingerprint runtime policy. Public configuration may include public service values, so do not post its full output publicly. Preserve the configured profiles in `eas.json` if setup proposes replacing them.
+
+For this repository's `mobile/` layout, EAS reads upload exclusions from the repository-root `.easignore`. Keep that file when cloning or reorganizing the project; it excludes Git history, local environment files, reports, dependencies, and signing files from the upload.
 
 ## 4. Set the beta and production environment values
 
