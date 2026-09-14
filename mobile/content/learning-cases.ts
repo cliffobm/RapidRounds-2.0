@@ -1,3 +1,4 @@
+import type {TeachingMetadata} from './teaching-metadata';
 export type ClinicalStep = 'recognize' | 'analyze' | 'prioritize' | 'generate' | 'action' | 'evaluate';
 
 export interface LearningSource {
@@ -6,6 +7,8 @@ export interface LearningSource {
 }
 
 export interface CaseStage {
+  metadata?:TeachingMetadata;
+  optionRationales?:{id:string;text:string;rationale:string;correct:boolean}[];
   id: string;
   conceptId?: string;
   conceptLabel?: string;
@@ -31,6 +34,7 @@ export interface CaseStage {
 }
 
 export interface LearningCase {
+  metadata?:TeachingMetadata;
   id: string;
   title: string;
   subtitle: string;

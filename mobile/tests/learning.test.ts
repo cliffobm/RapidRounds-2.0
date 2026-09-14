@@ -8,6 +8,7 @@ import { advance, answer, begin, emptyState } from '../lib/mobile';
 import { CARDIAC_ITEMS } from '../content/cardiac-pack';
 import { catalogItems, migrateItemId, migrateOptionId } from '../content/catalog';
 import { expandedQuestions } from '../content/expanded-content';
+import {neuroQuestions} from '../content/neuro-loc-pack';
 import type { NgnResponse } from '../lib/ngn';
 
 const DAY = 86_400_000;
@@ -40,7 +41,7 @@ function completeCorrect(state: LearningState, now = START + 1000, confidence: C
 
 describe('learning modes and completion', () => {
   it('exposes real preview items while keeping unreviewed content out of production', () => {
-    expect(studyItems(true)).toHaveLength(catalogItems.length + expandedQuestions.length);
+    expect(studyItems(true)).toHaveLength(catalogItems.length + expandedQuestions.length + neuroQuestions.length);
     expect(studyItems(false)).toEqual([]);
     expect(availableCases(true).length).toBeGreaterThan(0);
     expect(availableCases(false)).toEqual([]);

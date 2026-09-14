@@ -1,5 +1,6 @@
 import type { StudyQuestion } from '../lib/learning';
 import type { CaseStage, LearningCase, LearningSource } from './learning-cases';
+import type {TeachingMetadata,LessonReferenceChart,DocumentationExercise} from './teaching-metadata';
 
 // Original fictional educational material. Sources support principles, not the
 // validity of these items. Independent clinical and item-writing review is pending.
@@ -46,6 +47,8 @@ export const expandedScenarios = expandedConcepts.map(c => ({
 }));
 
 export type ConceptLesson = {
+  version?:string;estimatedMinutes?:number;objectives?:string[];metadata?:TeachingMetadata;
+  referenceCharts?:LessonReferenceChart[];documentationExercises?:DocumentationExercise[];
   id: string; conceptId: string; title: string; summary: string; steps: string[];
   workedExample: string; reflection: string; sources: LearningSource[]; status: 'needs_review';
 };
@@ -93,15 +96,15 @@ function question(s:QuestionSpec): StudyQuestion & {scenarioId:string;difficulty
   const options=s.options.map(([id,text])=>({id:`${s.id}-${id}`,text}));
   const correctIds=s.options.filter(o=>o[3]).map(o=>`${s.id}-${o[0]}`);
   const rubric=s.format==='selectN'?{format:'selectN' as const,options,correctIds,selectCount:correctIds.length}:{format:s.format??'single',options,correctIds};
-  return {id:s.id,version:s.id==='rr-ext-fluid-02'?revisedVersion:version,scenarioId:`${concept.id}-round`,difficulty:s.difficulty,conceptId:concept.id,conceptLabel:concept.label,objective:s.objective,prompt:s.prompt,status:'needs_review',rubric,rationale:s.takeaway,
+  return {id:s.id,version:s.id==='rr-ext-oxygenation-01'?'2026-09-14.1':s.id==='rr-ext-fluid-02'?revisedVersion:version,scenarioId:`${concept.id}-round`,difficulty:s.difficulty,conceptId:concept.id,conceptLabel:concept.label,objective:s.objective,prompt:s.prompt,status:'needs_review',rubric,rationale:s.takeaway,
     optionRationales:s.options.map(([id,text,rationale,correct])=>({id:`${s.id}-${id}`,text,rationale,correct:!!correct})),sources:s.sources,timerSeconds:90,cues:s.cues,mechanism:s.mechanism,transferPrompt:s.transfer};
 }
 
 export const expandedQuestions = [
   question({id:'rr-ext-oxygenation-01',concept:'oxygenation',difficulty:'application',objective:'Detect breathing deterioration despite an unchanged saturation',
-    prompt:'An adult received an opioid after surgery. SpO₂ remains 95% on prescribed oxygen, but respirations are 8/min and the patient is difficult to wake. Which response takes priority?',
+    prompt:'An adult received an opioid after surgery. SpO₂ remains 95% on prescribed oxygen, but respirations are 8/min and the patient is difficult to arouse. Which response takes priority?',
     options:[['assess','Assess breathing immediately and activate the local urgent response','Slow breathing with reduced alertness is a potentially serious change despite the saturation.',true],['routine','Continue routine observations because SpO₂ is within the ordered range','The saturation alone cannot establish adequate ventilation.'],['pain','Ask for a pain score before deciding whether to escalate','A pain score does not take priority over breathing and responsiveness.'],['device','Replace the oximeter before assessing the patient','Equipment checks should not delay response to the observed deterioration.']],
-    takeaway:'Treat the patient’s breathing and alertness as essential evidence.',cues:['Respirations 8/min','Difficult to wake','Recent opioid'],mechanism:'Sedating medicines can impair breathing. Supplemental oxygen and a reassuring display do not exclude a dangerous ventilation problem.',transfer:'What if the oxygen saturation were 98% but the same slow breathing and drowsiness remained?',sources:[S.sedatives,S.respiratory,S.oximetry]}),
+    takeaway:'Treat the patient’s breathing and alertness as essential evidence.',cues:['Respirations 8/min','Difficult to arouse','Recent opioid'],mechanism:'Sedating medicines can impair breathing. Supplemental oxygen and a reassuring display do not exclude a dangerous ventilation problem.',transfer:'What if the oxygen saturation were 98% but the same slow breathing and drowsiness remained?',sources:[S.sedatives,S.respiratory,S.oximetry]}),
   question({id:'rr-ext-oxygenation-02',concept:'oxygenation',difficulty:'foundation',objective:'Interpret a response without declaring recovery',
     prompt:'After prescribed treatment for an asthma flare, an adult speaks in full sentences rather than short phrases, breathes with less effort, and reports less chest tightness. Which interpretation is best?',
     options:[['resolved','The asthma has resolved and monitoring can stop','Improvement is not enough to establish complete recovery or a discharge plan.'],['improving','The breathing trend is improving; continue the planned reassessment','Several related clinical findings improved, supporting a response while monitoring continues.',true],['normal','A normal heart rate is required before any improvement can be recognized','Response can be recognized across multiple findings without this single requirement.'],['irrelevant','Symptoms cannot help evaluate an asthma treatment response','Speech, effort, and reported breathlessness contribute useful clinical evidence.']],

@@ -2,6 +2,8 @@ import { catalogItems, catalogConcepts, migrateItemId, migrateOptionId } from '.
 import { learningCases } from '../content/learning-cases';
 import { CARDIAC_SCENARIOS } from '../content/cardiac-pack';
 import { expandedQuestions, expandedScenarios, expandedConcepts, expandedCases, lessons } from '../content/expanded-content';
+import {neuroQuestions,neuroScenarios,neuroConcepts,neuroCases,neuroLessons} from '../content/neuro-loc-pack';
+import type {TeachingMetadata} from '../content/teaching-metadata';
 import { scoreNgn, type NgnItem, type NgnResponse } from './ngn';
 import { recordResponseReward, recordCompletionReward, validRewardLedger, type RewardLedger } from './rewards';
 import { calculateRapidRoundScore, type RapidRoundScoreBreakdown } from './rapidRound/scoring';
@@ -14,10 +16,11 @@ export type QuestionDifficulty = 'foundation' | 'application' | 'advanced';
 export type SessionOptions = { questionCount?: 5 | 10 | 20 | 30 | 50; difficulty?: 'all' | QuestionDifficulty };
 export type StudyScenario = { id:string; title:string; description:string; estimatedMinutes:number };
 export type StudyConcept = { id:string; label:string; description?:string };
-export const studyScenarios:StudyScenario[] = [...CARDIAC_SCENARIOS,...expandedScenarios];
-export const studyConcepts:StudyConcept[] = [...catalogConcepts,...expandedConcepts];
+export const studyScenarios:StudyScenario[] = [...CARDIAC_SCENARIOS,...expandedScenarios,...neuroScenarios];
+export const studyConcepts:StudyConcept[] = [...catalogConcepts,...expandedConcepts,...neuroConcepts];
 export const sessionQuestionCounts = [5,10,20,30,50] as const;
 export type StudyQuestion = {
+  metadata?:TeachingMetadata;
   id: string; version: string; conceptId: string; conceptLabel: string; objective: string;
   prompt: string; status: string; rubric: NgnItem; rationale: string;
   optionRationales: {id:string; text:string; rationale:string; correct:boolean}[];
@@ -45,17 +48,17 @@ export function studyItems(preview=isContentPreview):StudyQuestion[] {
     rationale:q.rationale,optionRationales:q.options.map(o=>({id:o.id,text:o.text,rationale:o.rationale,correct:o.isCorrect})),sources:[{title:q.referenceText??'Source review pending'}],timerSeconds:q.timerSeconds,
     transferPrompt:'Which change in the patient’s findings would make a different option more appropriate? Compare your reasoning with the explanations above.',
   }));
-  const combined=[...inherited,...expandedQuestions.filter(q=>allowed(q.status,preview)).map(q=>({...q,difficulty:q.difficulty??'application' as const}))];
+  const combined=[...inherited,...[...expandedQuestions,...neuroQuestions].filter(q=>allowed(q.status,preview)).map(q=>({...q,difficulty:q.difficulty??'application' as const}))];
   return [...new Map(combined.map(q=>[q.id,q])).values()];
 }
-export function availableCases(preview=isContentPreview){return [...learningCases,...expandedCases].filter(c=>allowed(c.status,preview)&&c.stages.every(stage=>allowed(stage.status,preview)));}
-export function availableLessons(preview=isContentPreview){return lessons.filter(lesson=>allowed(lesson.status,preview));}
+export function availableCases(preview=isContentPreview){return [...learningCases,...expandedCases,...neuroCases].filter(c=>allowed(c.status,preview)&&c.stages.every(stage=>allowed(stage.status,preview)));}
+export function availableLessons(preview=isContentPreview){return [...lessons,...neuroLessons].filter(lesson=>allowed(lesson.status,preview));}
 export function caseQuestions(caseId:string,preview=isContentPreview):StudyQuestion[]{
   const c=availableCases(preview).find(c=>c.id===caseId); if(!c)return [];
   return c.stages.map((stage,stageIndex):StudyQuestion=>{
     const conceptId=stage.conceptId??({recognize:'oxygenation-fluid',analyze:'oxygenation-fluid',prioritize:'perfusion',generate:'medication-safety',action:'perfusion',evaluate:'oxygenation-fluid'} as const)[stage.step];
     const rubric:NgnItem=stage.format==='matrix' ? {format:'matrix',options:stage.options,rows:stage.rows!} : stage.format==='selectN' ? {format:'selectN',options:stage.options,correctIds:stage.correctIds,selectCount:stage.selectCount!} : {format:stage.format,options:stage.options,correctIds:stage.correctIds};
-    return {id:stage.id,version:stage.contentVersion,conceptId,conceptLabel:stage.conceptLabel??studyConcepts.find(x=>x.id===conceptId)?.label??stage.title,scenarioId:c.id,difficulty:'application',objective:stage.title,prompt:stage.prompt,status:stage.status,rubric,rationale:stage.rationale.takeaway,optionRationales:stage.rationale.distractors.map((text,i)=>({id:`explanation-${i}`,text:'Reasoning note',rationale:text,correct:false})),sources:stage.sources,timerSeconds:0,chart:[c.patient,...stage.chart],previousChart:c.stages.slice(0,stageIndex).flatMap(prior=>prior.chart),step:stage.title,cues:stage.rationale.cues,mechanism:stage.rationale.mechanism,transferPrompt:stage.rationale.transferPrompt};
+    return {id:stage.id,version:stage.contentVersion,conceptId,conceptLabel:stage.conceptLabel??studyConcepts.find(x=>x.id===conceptId)?.label??stage.title,scenarioId:c.id,difficulty:'application',objective:stage.title,prompt:stage.prompt,status:stage.status,rubric,rationale:stage.rationale.takeaway,optionRationales:stage.optionRationales??stage.rationale.distractors.map((text,i)=>({id:`explanation-${i}`,text:'Reasoning note',rationale:text,correct:false})),sources:stage.sources,timerSeconds:0,chart:[c.patient,...stage.chart],previousChart:c.stages.slice(0,stageIndex).flatMap(prior=>prior.chart),step:stage.title,cues:stage.rationale.cues,mechanism:stage.rationale.mechanism,transferPrompt:stage.rationale.transferPrompt,metadata:stage.metadata};
   });
 }
 /** Full eligible pool, before the requested session length is applied. */
