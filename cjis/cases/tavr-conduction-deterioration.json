@@ -1,0 +1,40 @@
+{
+  "id": "TAVR-AVBLOCK-001",
+  "title": "Post-TAVR conduction deterioration",
+  "review_status": "draft",
+  "clinical_domain": "cardiovascular",
+  "patient_context": "Following transcatheter aortic valve replacement, a patient develops a new wide-QRS conduction abnormality, intermittent nonconducted P waves, heart rate 36/min, blood pressure 82/48 mmHg, and lightheadedness.",
+  "stages": [
+    {
+      "id": "TAVR-01",
+      "level": 1,
+      "competency": "analyze_cues",
+      "objective": "Explain the normal atrioventricular conduction pathway."
+    },
+    {
+      "id": "TAVR-02",
+      "level": 2,
+      "competency": "recognize_cues",
+      "objective": "Recognize symptomatic bradycardia with hypotension as clinical instability."
+    },
+    {
+      "id": "TAVR-03",
+      "level": 3,
+      "competency": "analyze_cues",
+      "objective": "Connect postprocedural conduction injury to high-grade AV block and reduced cardiac output."
+    },
+    {
+      "id": "TAVR-04",
+      "level": 4,
+      "competency": "take_action",
+      "objective": "Prioritize urgent escalation and preparation for pacing per local protocols."
+    },
+    {
+      "id": "TAVR-05",
+      "level": 5,
+      "competency": "evaluate_outcomes",
+      "objective": "Reassess electrical and mechanical capture and perfusion after pacing."
+    }
+  ],
+  "release_gate": "Clinical SME review, source verification, full option/rationale authoring, and assessment QA required before production."
+}
