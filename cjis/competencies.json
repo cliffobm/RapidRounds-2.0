@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "framework": "NCSBN Clinical Judgment Measurement Model",
+  "operations": [
+    "recognize_cues",
+    "analyze_cues",
+    "prioritize_hypotheses",
+    "generate_solutions",
+    "take_action",
+    "evaluate_outcomes"
+  ],
+  "clinical_domains": [
+    "cardiovascular",
+    "respiratory",
+    "neurologic",
+    "renal",
+    "endocrine_metabolic",
+    "sepsis_infectious",
+    "multisystem"
+  ],
+  "complexity_levels": [
+    {
+      "level": 1,
+      "label": "foundation"
+    },
+    {
+      "level": 2,
+      "label": "recognition"
+    },
+    {
+      "level": 3,
+      "label": "application"
+    },
+    {
+      "level": 4,
+      "label": "prioritization"
+    },
+    {
+      "level": 5,
+      "label": "dynamic_judgment"
+    }
+  ],
+  "notes": "Complexity is not empirically calibrated difficulty. Cognitive operations and clinical domains are distinct dimensions."
+}
