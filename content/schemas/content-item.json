@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Nursing Content Item",
+  "description": "Schema for evidence-based nursing question items",
+  "type": "object",
+  "required": [
+    "category",
+    "scenario_title", 
+    "question_type",
+    "prompt",
+    "options",
+    "correct",
+    "rationale"
+  ],
+  "properties": {
+    "category": {
+      "type": "string",
+      "description": "Body system category",
+      "enum": [
+        "cardiovascular",
+        "respiratory", 
+        "gastrointestinal",
+        "endocrine",
+        "integumentary",
+        "musculoskeletal",
+        "neurological",
+        "genitourinary",
+        "psychiatric"
+      ]
+    },
+    "scenario_title": {
+      "type": "string",
+      "description": "Title of the clinical scenario",
+      "minLength": 5,
+      "maxLength": 100
+    },
+    "question_type": {
+      "type": "string",
+      "description": "Type of question",
+      "enum": ["single", "multi", "order"]
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Question text/prompt",
+      "minLength": 20,
+      "maxLength": 500
+    },
+    "options": {
+      "type": "array",
+      "description": "Answer options",
+      "items": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 200
+      },
+      "minItems": 4,
+      "maxItems": 5
+    },
+    "correct": {
+      "type": "array",
+      "description": "Correct answer(s)",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Explanation with citations",
+      "minLength": 100,
+      "maxLength": 1000
+    },
+    "difficulty": {
+      "type": "string",
+      "description": "Difficulty level",
+      "enum": ["beginner", "intermediate", "advanced"],
+      "default": "intermediate"
+    },
+    "priority_type": {
+      "type": "string",
+      "description": "Type of priority question",
+      "enum": ["assessment", "intervention", "evaluation", "planning"],
+      "default": "assessment"
+    },
+    "learning_objectives": {
+      "type": "array",
+      "description": "Learning objectives addressed",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5
+    },
+    "tags": {
+      "type": "array",
+      "description": "Content tags",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10
+    }
+  },
+  "additionalProperties": false
+}

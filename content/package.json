@@ -1,0 +1,46 @@
+{
+  "name": "rapidrounds-content-generation",
+  "version": "1.0.0",
+  "description": "Content generation system for evidence-based nursing questions",
+  "main": "index.js",
+  "scripts": {
+    "generate": "tsx scripts/generate-content.ts",
+    "import": "tsx scripts/import-content.ts", 
+    "validate": "tsx scripts/validate-content.ts",
+    "generate:all": "npm run generate:cardiovascular && npm run generate:respiratory && npm run generate:gastrointestinal && npm run generate:endocrine && npm run generate:integumentary && npm run generate:musculoskeletal && npm run generate:neurological && npm run generate:genitourinary && npm run generate:psychiatric",
+    "generate:cardiovascular": "tsx scripts/generate-content.ts cardiovascular \"Acute MI\" intermediate 10 30 true",
+    "generate:respiratory": "tsx scripts/generate-content.ts respiratory \"COPD Exacerbation\" intermediate 10 30 true",
+    "generate:gastrointestinal": "tsx scripts/generate-content.ts gastrointestinal \"GI Bleed\" intermediate 10 30 true",
+    "generate:endocrine": "tsx scripts/generate-content.ts endocrine \"DKA Management\" intermediate 10 30 true",
+    "generate:integumentary": "tsx scripts/generate-content.ts integumentary \"Pressure Ulcer\" intermediate 10 30 true",
+    "generate:musculoskeletal": "tsx scripts/generate-content.ts musculoskeletal \"Fracture Care\" intermediate 10 30 true",
+    "generate:neurological": "tsx scripts/generate-content.ts neurological \"Stroke Management\" intermediate 10 30 true",
+    "generate:genitourinary": "tsx scripts/generate-content.ts genitourinary \"AKI Management\" intermediate 10 30 true",
+    "generate:psychiatric": "tsx scripts/generate-content.ts psychiatric \"Crisis Intervention\" intermediate 10 30 true",
+    "import:all": "find categories -name '*.jsonl' -exec tsx scripts/import-content.ts {} \\;",
+    "validate:all": "find categories -name '*.jsonl' -exec tsx scripts/validate-content.ts {} \\;",
+    "setup": "mkdir -p categories/{cardiovascular,respiratory,gastrointestinal,endocrine,integumentary,musculoskeletal,neurological,genitourinary,psychiatric} generated validation",
+    "clean": "rm -rf generated/* categories/*/*.jsonl validation/*.md"
+  },
+  "keywords": [
+    "nursing",
+    "education",
+    "content-generation",
+    "nclex",
+    "medical-education"
+  ],
+  "author": "RapidRounds Team",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

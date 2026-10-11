@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "bank_id": "heart_sounds_v1",
+  "title": "Cardiac Auscultation",
+  "source_note": "Original items.",
+  "items": [
+    {
+      "id": "30ec6c90-3edc-4868-bc2f-00014b2e9ffe",
+      "topic": "Cardio \u2022 Normal heart sounds",
+      "difficulty": "easy",
+      "stem": "Where is S1 loudest and what does it mark?",
+      "question": "Best answer:",
+      "options": [
+        "Apex; onset systole",
+        "Base; end diastole",
+        "Apex; end systole",
+        "Base; onset systole"
+      ],
+      "correct_answer": "A",
+      "rationale": "S1 (AV closure) loudest at apex; marks start of systole.",
+      "clinical_pearl": "Use diaphragm for S1/S2; bell for S3/S4.",
+      "tags": [
+        "S1",
+        "apex"
+      ]
+    }
+  ]
+}

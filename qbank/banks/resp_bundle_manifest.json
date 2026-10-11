@@ -1,0 +1,20 @@
+{
+  "bundle": "resp_core_extra40_split",
+  "files": [
+    "resp_assessment_8.json",
+    "resp_abg_acidbase_8.json",
+    "resp_oxygen_devices_8.json",
+    "resp_imaging_diagnostics_8.json",
+    "resp_ventilation_mechanics_8.json"
+  ],
+  "total_items": 40,
+  "themes": {
+    "assessment": 8,
+    "abg_acidbase": 8,
+    "oxygen_devices": 8,
+    "imaging_diagnostics": 8,
+    "ventilation_mechanics": 8
+  },
+  "schema_version": "1.0.0",
+  "import_instructions": "Drop JSON files into your repo’s /data or /questions directory. Each file is a list of items conforming to the schema. Your loader should merge by 'id'. Flags support 'review' and 'bookmarked' toggling."
+}

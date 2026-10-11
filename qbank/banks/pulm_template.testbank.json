@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "bank_id": "pulm_template",
+  "title": "Pulm • Template",
+  "source_note": "Locally-authored bank (generalized).",
+  "items": [
+    {
+      "id": "pulm-demo-1",
+      "topic": "Pulm • Vent basics",
+      "difficulty": "easy",
+      "stem": "Intubated on AC: VT 6 mL/kg, RR 16, FiO2 0.6, PEEP 8.",
+      "question": "Lower plateau pressure while preserving VE?",
+      "options": [
+        "Increase VT, decrease RR",
+        "Decrease VT, increase RR",
+        "Increase PEEP only",
+        "Set FiO2 to 100%"
+      ],
+      "correct_answer": "B",
+      "rationale": "Lower VT reduces overdistension; higher RR maintains minute ventilation."
+    }
+  ]
+}
+
+

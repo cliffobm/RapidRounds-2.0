@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "bank_id": "scenario_vignettes_v1",
+  "title": "Rapid Response Scenario Vignettes",
+  "source_note": "Original mini-cases.",
+  "items": [
+    {
+      "id": "53d52afa-cfa9-4b1e-9d8e-e7f90977b5f6",
+      "topic": "Multisystem \u2022 Anaphylaxis",
+      "difficulty": "moderate",
+      "stem": "36\u2011yo with hives, tongue swelling, wheeze; BP 82/50; SpO\u2082 89% RA.",
+      "question": "Which immediate action is BEST?",
+      "options": [
+        "Albuterol + steroid",
+        "Epinephrine 0.3\u20130.5 mg IM (1:1,000)",
+        "Diphenhydramine IV and observe",
+        "Epinephrine 1 mg IV push"
+      ],
+      "correct_answer": "B",
+      "rationale": "IM epinephrine first; others are adjuncts.",
+      "tags": [
+        "anaphylaxis"
+      ]
+    },
+    {
+      "id": "c0c0ffbb-35a5-48d4-8ccb-662f4199ace1",
+      "topic": "Multisystem \u2022 Sepsis",
+      "difficulty": "moderate",
+      "stem": "79\u2011yo with RLL infiltrate, lactate 5.2 after 2 L; BP 84/40.",
+      "question": "Stage + next two priorities:",
+      "options": [
+        "Infection; acetaminophen and fluids",
+        "Sepsis; narrow antibiotics",
+        "Septic shock; start norepinephrine while obtaining two blood cultures and giving broad\u2011spectrum antibiotics",
+        "Septic shock; delay antibiotics for procalcitonin"
+      ],
+      "correct_answer": "C",
+      "rationale": "Persistent hypotension + high lactate after fluids = septic shock; NE + cultures + broad abx.",
+      "tags": [
+        "septic shock"
+      ]
+    }
+  ]
+}

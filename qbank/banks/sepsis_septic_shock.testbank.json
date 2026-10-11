@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "bank_id": "sepsis_septic_shock_v1",
+  "title": "Sepsis & Septic Shock",
+  "source_note": "Original items.",
+  "items": [
+    {
+      "id": "6ed0562b-5707-48fe-a441-7ebcb16a063c",
+      "topic": "Multisystem \u2022 Sepsis definitions",
+      "difficulty": "easy",
+      "stem": "Sepsis-3 definition centers on what?",
+      "question": "Choose the best phrase:",
+      "options": [
+        "SIRS of any cause",
+        "Bacteremia with fever",
+        "Life\u2011threatening organ dysfunction due to dysregulated response to infection",
+        "Any infection with leukocytosis"
+      ],
+      "correct_answer": "C",
+      "rationale": "Organ dysfunction + infection.",
+      "tags": [
+        "Sepsis-3"
+      ]
+    },
+    {
+      "id": "6eccbb21-9716-4a71-ac68-2a04aea63d04",
+      "topic": "Multisystem \u2022 Pressors",
+      "difficulty": "moderate",
+      "stem": "Hypotension persists after 30 mL/kg crystalloid.",
+      "question": "First\u2011line vasopressor:",
+      "options": [
+        "Dopamine",
+        "Norepinephrine",
+        "Phenylephrine",
+        "Vasopressin (alone)"
+      ],
+      "correct_answer": "B",
+      "rationale": "NE is first\u2011line; vasopressin is adjunct.",
+      "tags": [
+        "pressors"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "id": "sepsis-mr-j",
+  "title": "Mr. J - Pneumonia with Hypotension",
+  "description": "A 72-year-old male presents with chest pain, shortness of breath, and signs of infection. Manage his care through the critical first hours.",
+  "difficulty": "intermediate",
+  "category": "Critical Care",
+  "estimatedTime": 20,
+  "learningObjectives": [
+    "Recognize early signs of sepsis",
+    "Prioritize interventions for hypotensive patients",
+    "Understand fluid resuscitation principles",
+    "Apply antibiotic stewardship in sepsis"
+  ],
+  "prerequisites": [
+    "Basic vital signs interpretation",
+    "Understanding of sepsis criteria"
+  ],
+  "initialVitals": [
+    {
+      "name": "Heart Rate",
+      "value": 110,
+      "unit": "bpm",
+      "normalRange": [60, 100],
+      "criticalRange": [40, 150],
+      "trend": "deteriorating"
+    },
+    {
+      "name": "Blood Pressure",
+      "value": 88,
+      "unit": "mmHg",
+      "normalRange": [90, 140],
+      "criticalRange": [70, 180],
+      "trend": "deteriorating"
+    },
+    {
+      "name": "Temperature",
+      "value": 38.5,
+      "unit": "°C",
+      "normalRange": [36.1, 37.2],
+      "criticalRange": [35, 40],
+      "trend": "deteriorating"
+    },
+    {
+      "name": "Respiratory Rate",
+      "value": 24,
+      "unit": "breaths/min",
+      "normalRange": [12, 20],
+      "criticalRange": [8, 30],
+      "trend": "deteriorating"
+    },
+    {
+      "name": "Oxygen Saturation",
+      "value": 92,
+      "unit": "%",
+      "normalRange": [95, 100],
+      "criticalRange": [85, 100],
+      "trend": "deteriorating"
+    }
+  ],
+  "initialNodeId": "presentation",
+  "vitalsDeltaPerMinute": {
+    "Heart Rate": {
+      "perMinute": 0.5,
+      "trend": "deteriorating"
+    },
+    "Blood Pressure": {
+      "perMinute": -0.8,
+      "trend": "deteriorating"
+    },
+    "Temperature": {
+      "perMinute": 0.1,
+      "trend": "deteriorating"
+    },
+    "Respiratory Rate": {
+      "perMinute": 0.3,
+      "trend": "deteriorating"
+    },
+    "Oxygen Saturation": {
+      "perMinute": -0.2,
+      "trend": "deteriorating"
+    }
+  },
+  "nodes": {
+    "presentation": {
+      "id": "presentation",
+      "type": "observation",
+      "title": "Initial Presentation",
+      "description": "Mr. J arrives in the emergency department",
+      "content": "Mr. J, a 72-year-old male, is brought to the ED by his daughter. He reports chest pain, shortness of breath, and feeling 'terrible' for the past 2 days. He has a history of COPD and diabetes. His daughter mentions he's been coughing up yellow-green sputum and seems more confused than usual.",
+      "vitals": [
+        {
+          "name": "Heart Rate",
+          "value": 110,
+          "unit": "bpm",
+          "normalRange": [60, 100],
+          "trend": "deteriorating"
+        },
+        {
+          "name": "Blood Pressure",
+          "value": 88,
+          "unit": "mmHg",
+          "normalRange": [90, 140],
+          "trend": "deteriorating"
+        },
+        {
+          "name": "Temperature",
+          "value": 38.5,
+          "unit": "°C",
+          "normalRange": [36.1, 37.2],
+          "trend": "deteriorating"
+        },
+        {
+          "name": "Respiratory Rate",
+          "value": 24,
+          "unit": "breaths/min",
+          "normalRange": [12, 20],
+          "trend": "deteriorating"
+        },
+        {
+          "name": "Oxygen Saturation",
+          "value": 92,
+          "unit": "%",
+          "normalRange": [95, 100],
+          "trend": "deteriorating"
+        }
+      ],
+      "options": [
+        {
+          "id": "assess-immediately",
+          "text": "Perform immediate assessment and start oxygen",
+          "isCorrect": true,
+          "rationale": "Correct. Given the vital signs showing hypotension, tachycardia, and hypoxia, immediate assessment and oxygen therapy are essential. This patient meets SIRS criteria and needs urgent intervention.",
+          "hint": "Consider the patient's vital signs - what do they suggest about his condition?",
+          "consequences": {
+            "nextNodeId": "assessment"
+          }
+        },
+        {
+          "id": "wait-for-doctor",
+          "text": "Wait for the doctor to arrive before doing anything",
+          "isCorrect": false,
+          "rationale": "Incorrect. This patient shows signs of sepsis with hypotension and hypoxia. Immediate nursing interventions are required while waiting for medical orders.",
+          "hint": "Think about what you can do as a nurse before the doctor arrives.",
+          "consequences": {
+            "nextNodeId": "deterioration"
+          }
+        },
+        {
+          "id": "routine-vitals",
+          "text": "Take routine vital signs and document",
+          "isCorrect": false,
+          "rationale": "Incorrect. While documentation is important, this patient requires immediate intervention. His vital signs indicate a potentially life-threatening condition.",
+          "hint": "Look at the vital signs again - are they within normal limits?",
+          "consequences": {
+            "nextNodeId": "deterioration"
+          }
+        }
+      ]
+    },
+    "assessment": {
+      "id": "assessment",
+      "type": "action",
+      "title": "Initial Assessment",
+      "description": "You've started oxygen and are assessing the patient",
+      "content": "You immediately start 2L oxygen via nasal cannula and begin your assessment. Mr. J is alert but appears anxious and slightly confused. He's diaphoretic and his skin is warm to touch. His breathing is labored and you can hear crackles in his left lower lobe.",
+      "timeRequired": 5,
+      "options": [
+        {
+          "id": "start-iv",
+          "text": "Start IV access and draw blood cultures",
+          "isCorrect": true,
+          "rationale": "Correct. IV access is essential for fluid resuscitation and medication administration. Blood cultures should be drawn before antibiotics to ensure accurate results.",
+          "hint": "What interventions are needed for a patient with suspected sepsis?",
+          "consequences": {
+            "nextNodeId": "cultures"
+          }
+        },
+        {
+          "id": "give-antibiotics",
+          "text": "Give antibiotics immediately",
+          "isCorrect": false,
+          "rationale": "Incorrect. While antibiotics are crucial in sepsis, blood cultures should be drawn first to ensure accurate identification of the pathogen.",
+          "hint": "What should be done before administering antibiotics?",
+          "consequences": {
+            "nextNodeId": "cultures"
+          }
+        },
+        {
+          "id": "wait-for-orders",
+          "text": "Wait for doctor's orders before starting IV",
+          "isCorrect": false,
+          "rationale": "Incorrect. In a suspected sepsis case, immediate IV access is a nursing priority. You can start the IV while waiting for specific medication orders.",
+          "hint": "What can you do as a nurse without waiting for orders?",
+          "consequences": {
+            "nextNodeId": "cultures"
+          }
+        }
+      ]
+    },
+    "cultures": {
+      "id": "cultures",
+      "type": "action",
+      "title": "Blood Cultures Drawn",
+      "description": "You've obtained IV access and drawn blood cultures",
+      "content": "You successfully start a large-bore IV in the antecubital fossa and draw blood cultures from two different sites. The patient's condition appears stable for now, but you notice his blood pressure is still low at 85/50 mmHg.",
+      "timeRequired": 3,
+      "options": [
+        {
+          "id": "fluid-bolus",
+          "text": "Administer 500ml normal saline bolus",
+          "isCorrect": true,
+          "rationale": "Correct. Fluid resuscitation is a key component of sepsis management. A 500ml bolus is appropriate for initial fluid challenge in this hypotensive patient.",
+          "hint": "What is the first-line treatment for hypotension in sepsis?",
+          "consequences": {
+            "vitalsChange": {
+              "Blood Pressure": {
+                "perMinute": 2.0,
+                "trend": "improving"
+              }
+            },
+            "nextNodeId": "antibiotics"
+          }
+        },
+        {
+          "id": "vasopressors",
+          "text": "Start vasopressor medication",
+          "isCorrect": false,
+          "rationale": "Incorrect. Vasopressors are typically used after adequate fluid resuscitation has been attempted. Start with fluid bolus first.",
+          "hint": "What should be tried before vasopressors in sepsis?",
+          "consequences": {
+            "nextNodeId": "antibiotics"
+          }
+        },
+        {
+          "id": "monitor-only",
+          "text": "Continue monitoring without intervention",
+          "isCorrect": false,
+          "rationale": "Incorrect. This patient needs active intervention. His blood pressure is critically low and requires immediate treatment.",
+          "hint": "Is monitoring alone sufficient for this patient's condition?",
+          "consequences": {
+            "nextNodeId": "deterioration"
+          }
+        }
+      ]
+    },
+    "antibiotics": {
+      "id": "antibiotics",
+      "type": "action",
+      "title": "Antibiotic Administration",
+      "description": "Time to administer antibiotics",
+      "content": "The doctor has ordered ceftriaxone 1g IV and vancomycin 15mg/kg IV. The patient's blood pressure has improved slightly to 95/60 mmHg after the fluid bolus. You need to administer the antibiotics.",
+      "timeRequired": 2,
+      "options": [
+        {
+          "id": "give-both",
+          "text": "Administer both antibiotics as ordered",
+          "isCorrect": true,
+          "rationale": "Correct. Broad-spectrum antibiotics should be given within 1 hour of sepsis recognition. Both ceftriaxone and vancomycin provide good coverage for common pathogens.",
+          "hint": "What is the time goal for antibiotic administration in sepsis?",
+          "consequences": {
+            "nextNodeId": "monitoring"
+          }
+        },
+        {
+          "id": "wait-cultures",
+          "text": "Wait for culture results before giving antibiotics",
+          "isCorrect": false,
+          "rationale": "Incorrect. In sepsis, antibiotics should be given immediately, not after culture results. Delaying antibiotics increases mortality risk.",
+          "hint": "What is the golden hour principle in sepsis management?",
+          "consequences": {
+            "nextNodeId": "monitoring"
+          }
+        },
+        {
+          "id": "single-antibiotic",
+          "text": "Give only ceftriaxone, skip vancomycin",
+          "isCorrect": false,
+          "rationale": "Incorrect. Both antibiotics are needed for broad-spectrum coverage. Vancomycin covers MRSA and other resistant organisms that ceftriaxone doesn't.",
+          "hint": "Why might two different antibiotics be ordered?",
+          "consequences": {
+            "nextNodeId": "monitoring"
+          }
+        }
+      ]
+    },
+    "monitoring": {
+      "id": "monitoring",
+      "type": "observation",
+      "title": "Ongoing Monitoring",
+      "description": "Monitor patient response to treatment",
+      "content": "You've administered the antibiotics and the patient is receiving ongoing fluid therapy. His vital signs are: HR 105 bpm, BP 98/65 mmHg, Temp 38.2°C, RR 22/min, SpO2 94% on 2L O2. He appears more comfortable and is asking for water.",
+      "timeRequired": 10,
+      "options": [
+        {
+          "id": "continue-monitoring",
+          "text": "Continue current treatment and monitor closely",
+          "isCorrect": true,
+          "rationale": "Correct. The patient is showing signs of improvement. Continue current treatment and monitor for any changes in condition.",
+          "hint": "What signs indicate the patient is responding to treatment?",
+          "consequences": {
+            "nextNodeId": "improvement"
+          }
+        },
+        {
+          "id": "increase-fluids",
+          "text": "Increase fluid rate significantly",
+          "isCorrect": false,
+          "rationale": "Incorrect. While the patient may need more fluids, increasing the rate significantly without monitoring could lead to fluid overload, especially in an elderly patient.",
+          "hint": "What are the risks of aggressive fluid administration?",
+          "consequences": {
+            "nextNodeId": "monitoring"
+          }
+        },
+        {
+          "id": "discharge-planning",
+          "text": "Start discharge planning",
+          "isCorrect": false,
+          "rationale": "Incorrect. This patient is still in the early stages of sepsis treatment. He needs continued monitoring and treatment, not discharge planning.",
+          "hint": "How long should a sepsis patient be monitored?",
+          "consequences": {
+            "nextNodeId": "monitoring"
+          }
+        }
+      ]
+    },
+    "improvement": {
+      "id": "improvement",
+      "type": "terminal",
+      "title": "Patient Improving",
+      "description": "The patient is responding well to treatment",
+      "content": "After 2 hours of treatment, Mr. J's condition has stabilized. His vital signs are: HR 95 bpm, BP 105/70 mmHg, Temp 37.8°C, RR 18/min, SpO2 96% on room air. He's alert, oriented, and comfortable. The blood cultures are pending, but his clinical improvement suggests the antibiotics are working.",
+      "isTerminal": true,
+      "score": 25,
+      "rationale": "Excellent management! You recognized the signs of sepsis early, initiated appropriate interventions promptly, and followed evidence-based protocols. Key points: 1) Early recognition of sepsis signs, 2) Immediate oxygen and IV access, 3) Blood cultures before antibiotics, 4) Fluid resuscitation for hypotension, 5) Broad-spectrum antibiotics within 1 hour, 6) Ongoing monitoring and reassessment.",
+      "hints": [
+        "Sepsis requires immediate intervention - every minute counts",
+        "Blood cultures before antibiotics ensure accurate pathogen identification",
+        "Fluid resuscitation is first-line treatment for sepsis-induced hypotension",
+        "Broad-spectrum antibiotics should be given within 1 hour of sepsis recognition"
+      ]
+    },
+    "deterioration": {
+      "id": "deterioration",
+      "type": "terminal",
+      "title": "Patient Deteriorating",
+      "description": "The patient's condition has worsened",
+      "content": "Unfortunately, Mr. J's condition has deteriorated. His blood pressure has dropped to 75/45 mmHg, heart rate is 125 bpm, and he's becoming more confused. He requires immediate intensive care intervention and may need vasopressor support.",
+      "isTerminal": true,
+      "score": 5,
+      "rationale": "The patient's condition deteriorated due to delayed or inappropriate interventions. In sepsis, early recognition and prompt treatment are crucial. Key learning points: 1) Recognize sepsis early using SIRS criteria, 2) Don't delay essential interventions, 3) Fluid resuscitation is critical for hypotension, 4) Antibiotics must be given within 1 hour, 5) Continuous monitoring and reassessment are essential.",
+      "hints": [
+        "Sepsis is a medical emergency requiring immediate action",
+        "Delayed treatment significantly increases mortality risk",
+        "Nursing interventions can be initiated while waiting for medical orders",
+        "Early recognition and treatment save lives"
+      ]
+    }
+  },
+  "author": "RapidRounds Clinical Team",
+  "version": "1.0.0",
+  "lastUpdated": "2024-01-15",
+  "tags": ["sepsis", "critical care", "pneumonia", "hypotension", "antibiotics", "fluid resuscitation"]
+}

@@ -1,0 +1,440 @@
+{
+  "version": "1.0.0",
+  "bank_id": "pulmonary_system_core_advanced",
+  "title": "Pulmonary System \u2022 Core Concepts (Advanced)",
+  "source_note": "Generalized from teaching notes; curated for advanced proficiency; no copyrighted verbatim.",
+  "metadata": {
+    "recommended_min_proficiency": "expert",
+    "allow_flag_for_review": true,
+    "tags": [
+      "pulmonary",
+      "physiology",
+      "advanced",
+      "ccrn",
+      "expert"
+    ]
+  },
+  "items": [
+    {
+      "id": "anatomy-31c0274c",
+      "topic": "Anatomy & Physiology (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "A right mainstem aspiration is more common during blind ETT advancement primarily because the right bronchus is:",
+      "options": [
+        "Shorter, more vertical, and wider than the left",
+        "Longer, more horizontal, and narrower than the left",
+        "Supported by fewer cartilage rings than the left",
+        "Innervated differently by the phrenic nerve"
+      ],
+      "correct_answer": "A",
+      "rationale": "Right main bronchus: shallower angle (~25\u00b0), wider, shorter \u2192 inadvertent intubation/aspiration risk.",
+      "clinical_pearl": "Unilateral breath sounds after ETT advancement: withdraw 1\u20132 cm and reassess.",
+      "tags": [
+        "airway",
+        "intubation"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "anatomy-1731feec",
+      "topic": "Anatomy & Physiology (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Stimulation at the carina during suctioning can precipitate bradycardia and hypotension due to:",
+      "options": [
+        "Sympathetic surge via beta-1 receptors",
+        "Vagal reflex activation from rich parasympathetic fibers",
+        "Direct suppression of SA node automaticity by hypoxia alone",
+        "Bezold\u2013Jarisch reflex from RV underfilling"
+      ],
+      "correct_answer": "B",
+      "rationale": "Carina is vagally rich; mechanical stimulation triggers parasympathetic response.",
+      "clinical_pearl": null,
+      "tags": [
+        "airway",
+        "reflexes"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "anatomy-0f98bbe6",
+      "topic": "Anatomy & Physiology (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Type II pneumocytes primarily:",
+      "options": [
+        "Maintain the air\u2013blood barrier",
+        "Produce/recycle surfactant and can differentiate after injury",
+        "Form tight junctions impermeable to water under normal states",
+        "Phagocytose pathogens within alveoli"
+      ],
+      "correct_answer": "B",
+      "rationale": "Type II cells synthesize surfactant and proliferate after type I injury.",
+      "clinical_pearl": "Surfactant loss \u2192 \u2191 surface tension \u2192 atelectasis \u2192 \u2193 compliance.",
+      "tags": [
+        "alveoli",
+        "surfactant"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "anatomy-c0d3064c",
+      "topic": "Anatomy & Physiology (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Loss of negative intrapleural pressure results in immediate alveolar collapse because:",
+      "options": [
+        "Airway resistance increases dramatically",
+        "Alveolar elastic recoil exceeds transmural distending pressure",
+        "Bronchial circulation shunts blood to the pleura",
+        "Diaphragmatic tone is unopposed"
+      ],
+      "correct_answer": "B",
+      "rationale": "Without negative pleural pressure, distending pressure falls and elastic recoil collapses alveoli (e.g., pneumothorax).",
+      "clinical_pearl": null,
+      "tags": [
+        "pleura",
+        "mechanics"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "ventilation/perfusion/diffusion-82309263",
+      "topic": "Ventilation/Perfusion/Diffusion (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Movement from normal to markedly high V/Q in a lung unit most likely occurs with:",
+      "options": [
+        "Bronchospasm",
+        "Pulmonary embolism",
+        "Lobar pneumonia",
+        "Mucus plugging"
+      ],
+      "correct_answer": "B",
+      "rationale": "PE decreases perfusion with preserved ventilation \u2192 high V/Q (dead space).",
+      "clinical_pearl": "High V/Q = wasted ventilation; Low V/Q = shunt-like.",
+      "tags": [
+        "vq",
+        "pe"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "ventilation/perfusion/diffusion-479802cf",
+      "topic": "Ventilation/Perfusion/Diffusion (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Clinically significant shunt is suspected when PaO2 remains <60 mm Hg despite:",
+      "options": [
+        "Increasing minute ventilation",
+        "Raising FiO2 to \u22480.5 or higher",
+        "Reducing dead space to <0.3",
+        "Lowering plateau pressure below 20 cm H2O"
+      ],
+      "correct_answer": "B",
+      "rationale": "Failure to correct hypoxemia with moderate-to-high FiO2 suggests shunt physiology (e.g., ARDS).",
+      "clinical_pearl": null,
+      "tags": [
+        "shunt",
+        "oxygenation"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "ventilation/perfusion/diffusion-f9b8d8cb",
+      "topic": "Ventilation/Perfusion/Diffusion (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "In the upright patient, accurate PAOP measurements require the catheter tip be in:",
+      "options": [
+        "Zone 1",
+        "Zone 2",
+        "Zone 3",
+        "Any zone"
+      ],
+      "correct_answer": "C",
+      "rationale": "Only zone 3 reliably reflects left atrial pressure: Pa > Pv > PA.",
+      "clinical_pearl": null,
+      "tags": [
+        "zones",
+        "hemodynamics"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "ventilation/perfusion/diffusion-6a135b75",
+      "topic": "Ventilation/Perfusion/Diffusion (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "On mechanical ventilation, a progressive rise in peak pressure with stable plateau pressure most strongly indicates:",
+      "options": [
+        "Worsening lung compliance",
+        "Increasing airway resistance",
+        "Auto-PEEP",
+        "Circuit leak"
+      ],
+      "correct_answer": "B",
+      "rationale": "Peak\u2013plateau gap widens with resistance (bronchospasm, secretions).",
+      "clinical_pearl": "Rising plateau implies compliance problem (edema, ARDS).",
+      "tags": [
+        "mechanics",
+        "pressures"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "ventilation/perfusion/diffusion-8b781205",
+      "topic": "Ventilation/Perfusion/Diffusion (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Which intervention increases alveolar driving pressure for O2 diffusion without directly changing FiO2?",
+      "options": [
+        "Raise tidal volume from 6 to 10 ml/kg",
+        "Apply PEEP/CPAP appropriately",
+        "Decrease respiratory rate",
+        "Give loop diuretic"
+      ],
+      "correct_answer": "B",
+      "rationale": "PEEP/CPAP elevates mean airway pressure and maintains alveolar patency.",
+      "clinical_pearl": null,
+      "tags": [
+        "peep",
+        "diffusion"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "ventilation/perfusion/diffusion-7358ff9f",
+      "topic": "Ventilation/Perfusion/Diffusion (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Which positioning best improves oxygenation in right-sided pneumonia?",
+      "options": [
+        "Right lateral (bad lung down)",
+        "Left lateral (good lung down)",
+        "Trendelenburg",
+        "Prone head low"
+      ],
+      "correct_answer": "B",
+      "rationale": "Good-lung-down maximizes V/Q matching.",
+      "clinical_pearl": null,
+      "tags": [
+        "positioning",
+        "vq"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "gas-636d37c7",
+      "topic": "Gas Transport & Oxyhemoglobin Curve (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "A leftward shift of the oxyhemoglobin curve will most likely:",
+      "options": [
+        "Impair O2 loading in the lungs",
+        "Enhance O2 unloading at tissues",
+        "Improve loading in lungs but hinder unloading in tissues",
+        "Have no effect on O2 affinity"
+      ],
+      "correct_answer": "C",
+      "rationale": "Left shift increases affinity\u2014easier pickup, tougher delivery (alkalosis, hypothermia, \u21932,3\u2011DPG).",
+      "clinical_pearl": null,
+      "tags": [
+        "ohdc",
+        "left-shift"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "gas-499c3f41",
+      "topic": "Gas Transport & Oxyhemoglobin Curve (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Banked PRBC transfusions can transiently reduce tissue O2 delivery because of:",
+      "options": [
+        "High dissolved O2 in the unit",
+        "Decreased 2,3\u2011DPG shifting the curve left",
+        "Increased carbonic anhydrase activity",
+        "Reduction in plasma oncotic pressure"
+      ],
+      "correct_answer": "B",
+      "rationale": "Stored blood has low 2,3\u2011DPG \u2192 greater Hb\u2013O2 affinity \u2192 reduced tissue unloading.",
+      "clinical_pearl": null,
+      "tags": [
+        "transfusion",
+        "2,3-DPG"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "gas-14f528ff",
+      "topic": "Gas Transport & Oxyhemoglobin Curve (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Which intervention increases CaO2 most effectively?",
+      "options": [
+        "Raise FiO2 from 0.5 to 0.8 in severe anemia (Hgb 6 g/dl)",
+        "Transfuse to raise Hgb with adequate saturation",
+        "Hyperventilation to PaCO2 25 mm Hg",
+        "Small increase in PaO2 from 80 to 120 mm Hg"
+      ],
+      "correct_answer": "B",
+      "rationale": "O2 content ~ Hgb \u00d7 1.34 \u00d7 SaO2; dissolved O2 is minor.",
+      "clinical_pearl": null,
+      "tags": [
+        "content",
+        "delivery"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "gas-c58e3b25",
+      "topic": "Gas Transport & Oxyhemoglobin Curve (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "The Haldane effect explains:",
+      "options": [
+        "Why hypoventilation causes hypercapnia before hypoxemia",
+        "How oxygenation of Hb in the lungs promotes CO2 unloading",
+        "How acidosis raises affinity for O2",
+        "Why CO2 diffuses 20\u00d7 slower than O2"
+      ],
+      "correct_answer": "B",
+      "rationale": "Oxygenation reduces Hb affinity for CO2, facilitating CO2 release; deoxygenation allows CO2 uptake.",
+      "clinical_pearl": null,
+      "tags": [
+        "haldane",
+        "co2-transport"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "gas-70a8a761",
+      "topic": "Gas Transport & Oxyhemoglobin Curve (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Which scenario most likely increases O2 unloading at tissues (right shift)?",
+      "options": [
+        "Core temp 34\u00b0C, pH 7.50",
+        "Sepsis with fever and lactic acidosis",
+        "Acute respiratory alkalosis",
+        "Multiple PRBC units just transfused"
+      ],
+      "correct_answer": "B",
+      "rationale": "Acidemia/hyperthermia shift right.",
+      "clinical_pearl": null,
+      "tags": [
+        "right-shift",
+        "sepsis"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "clinical-6a9f9244",
+      "topic": "Clinical Integration (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "A volume-control patient shows rising plateau and peak pressures, falling compliance, and hypoxemia refractory to FiO2 0.6. Most consistent physiology is:",
+      "options": [
+        "Pure dead space ventilation",
+        "Shunt physiology such as diffuse atelectasis/ARDS",
+        "Circuit obstruction only",
+        "PE with normal compliance"
+      ],
+      "correct_answer": "B",
+      "rationale": "Refractory hypoxemia with low compliance points to shunt physiology (e.g., ARDS).",
+      "clinical_pearl": null,
+      "tags": [
+        "ards",
+        "shunt",
+        "compliance"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "clinical-e6db8635",
+      "topic": "Clinical Integration (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "High-flow nasal cannula (HFNC) improves oxygenation by all EXCEPT:",
+      "options": [
+        "Precise high FiO2 delivery",
+        "Washout of nasopharyngeal dead space",
+        "Providing some PEEP effect",
+        "Directly increasing hemoglobin concentration"
+      ],
+      "correct_answer": "D",
+      "rationale": "HFNC aids oxygenation/ventilation mechanics but does not change hemoglobin.",
+      "clinical_pearl": null,
+      "tags": [
+        "hfnc",
+        "oxygenation"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "clinical-409a1ab1",
+      "topic": "Clinical Integration (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "PEEP titration that reduces driving pressure (plateau \u2212 PEEP) while maintaining PaO2 \u226560 mm Hg suggests:",
+      "options": [
+        "Overdistension",
+        "Recruitment with better mechanics",
+        "Permissive hypercapnia failure",
+        "Inevitable barotrauma"
+      ],
+      "correct_answer": "B",
+      "rationale": "Lower driving pressure correlates with improved outcomes.",
+      "clinical_pearl": null,
+      "tags": [
+        "peep",
+        "driving-pressure"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "clinical-89b480bc",
+      "topic": "Clinical Integration (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "During severe asthma, which ventilator change best addresses dynamic hyperinflation?",
+      "options": [
+        "Increase rate and I:E 1:1",
+        "Decrease rate and prolong expiratory time (lower minute ventilation target)",
+        "Increase tidal volume to 10 ml/kg",
+        "Add high PEEP immediately"
+      ],
+      "correct_answer": "B",
+      "rationale": "Allow more time for exhalation to reduce air trapping; avoid high VT.",
+      "clinical_pearl": null,
+      "tags": [
+        "asthma",
+        "mechanical-ventilation"
+      ],
+      "review_flag": false
+    },
+    {
+      "id": "clinical-bfde28b0",
+      "topic": "Clinical Integration (Advanced)",
+      "difficulty": "advanced",
+      "stem": null,
+      "question": "Kerley B lines on CXR most directly reflect:",
+      "options": [
+        "Airspace consolidation from pneumonia",
+        "Thickened interlobular septa from interstitial edema and lymphatic engorgement",
+        "Alveolar overdistension from emphysema",
+        "Pleural plaques from asbestos"
+      ],
+      "correct_answer": "B",
+      "rationale": "Kerley B lines = interstitial edema with lymphatic congestion.",
+      "clinical_pearl": null,
+      "tags": [
+        "imaging",
+        "edema"
+      ],
+      "review_flag": false
+    }
+  ]
+}

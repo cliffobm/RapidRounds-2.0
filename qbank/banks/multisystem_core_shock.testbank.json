@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "bank_id": "multisystem_core_shock_v1",
+  "title": "Multisystem Core & Shock",
+  "source_note": "Original items.",
+  "items": [
+    {
+      "id": "cacbca99-0894-4bdd-847b-1478274806bc",
+      "topic": "Multisystem \u2022 Shock basics",
+      "difficulty": "easy",
+      "stem": "Define shock in one line.",
+      "question": "Best definition:",
+      "options": [
+        "Low BP only",
+        "Cellular failure of O2 delivery/usage",
+        "Always hemorrhage",
+        "Synonymous with HF"
+      ],
+      "correct_answer": "B",
+      "rationale": "Shock is a perfusion/oxygen utilization problem; BP can be normal early.",
+      "tags": [
+        "shock"
+      ]
+    }
+  ]
+}
