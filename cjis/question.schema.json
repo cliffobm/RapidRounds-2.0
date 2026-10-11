@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rapid Rounds CJIS Question",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "case_family_id",
+    "stem",
+    "options",
+    "correct_option_id",
+    "primary_competency",
+    "clinical_domain",
+    "complexity_level",
+    "learning_objective",
+    "rationale",
+    "review_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_family_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stem": {
+      "type": "string",
+      "minLength": 20
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "correct_option_id": {
+      "type": "string"
+    },
+    "primary_competency": {
+      "enum": [
+        "recognize_cues",
+        "analyze_cues",
+        "prioritize_hypotheses",
+        "generate_solutions",
+        "take_action",
+        "evaluate_outcomes"
+      ]
+    },
+    "clinical_domain": {
+      "enum": [
+        "cardiovascular",
+        "respiratory",
+        "neurologic",
+        "renal",
+        "endocrine_metabolic",
+        "sepsis_infectious",
+        "multisystem"
+      ]
+    },
+    "complexity_level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "learning_objective": {
+      "type": "string"
+    },
+    "prerequisite_concepts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rationale": {
+      "type": "object",
+      "required": [
+        "normal_physiology",
+        "pathophysiology",
+        "decisive_cues",
+        "correct_answer",
+        "distractors",
+        "nursing_implications",
+        "reassessment"
+      ],
+      "properties": {
+        "normal_physiology": {
+          "type": "string"
+        },
+        "pathophysiology": {
+          "type": "string"
+        },
+        "decisive_cues": {
+          "type": "string"
+        },
+        "correct_answer": {
+          "type": "string"
+        },
+        "distractors": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "nursing_implications": {
+          "type": "string"
+        },
+        "reassessment": {
+          "type": "string"
+        }
+      }
+    },
+    "review_status": {
+      "enum": [
+        "draft",
+        "clinical_review",
+        "approved"
+      ]
+    },
+    "calibration_status": {
+      "enum": [
+        "uncalibrated",
+        "calibrating",
+        "calibrated"
+      ]
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
