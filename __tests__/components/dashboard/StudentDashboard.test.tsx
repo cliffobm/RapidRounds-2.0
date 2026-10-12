@@ -1,18 +1,21 @@
+import { getLastInProgressScenario } from '@/lib/db/progress'
+import { vi } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { EducatorDashboard } from '@/components/dashboard/EducatorDashboard'
 import { StudentDashboard } from '@/components/dashboard/StudentDashboard'
 import { User } from '@/types'
 
 // Mock the router
-const mockPush = jest.fn()
-jest.mock('next/navigation', () => ({
+const mockPush = vi.hoisted(() => vi.fn())
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: mockPush
   })
 }))
 
 // Mock the progress function
-jest.mock('@/lib/db/progress', () => ({
-  getLastInProgressScenario: jest.fn()
+vi.mock('@/lib/db/progress', () => ({
+  getLastInProgressScenario: vi.fn()
 }))
 
 const mockUser: User = {
@@ -28,7 +31,8 @@ const mockUser: User = {
 
 describe('StudentDashboard', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.resetAllMocks()
+    vi.mocked(getLastInProgressScenario).mockResolvedValue(null)
   })
 
   it('renders dashboard with user information', () => {
@@ -65,8 +69,7 @@ describe('StudentDashboard', () => {
   })
 
   it('shows continue learning message when no in-progress scenario', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue(null)
+    vi.mocked(getLastInProgressScenario).mockResolvedValue(null)
 
     render(<StudentDashboard user={mockUser} />)
 
@@ -76,11 +79,10 @@ describe('StudentDashboard', () => {
   })
 
   it('shows resume message when in-progress scenario exists', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue({
+    vi.mocked(getLastInProgressScenario).mockResolvedValue({
       progress: { id: 'progress1' },
       scenario: { id: 'scenario1', title: 'Test Scenario' }
-    })
+    } as any)
 
     render(<StudentDashboard user={mockUser} />)
 
@@ -90,11 +92,10 @@ describe('StudentDashboard', () => {
   })
 
   it('navigates to scenario when Continue Learning is clicked with in-progress scenario', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue({
+    vi.mocked(getLastInProgressScenario).mockResolvedValue({
       progress: { id: 'progress1' },
       scenario: { id: 'scenario1', title: 'Test Scenario' }
-    })
+    } as any)
 
     render(<StudentDashboard user={mockUser} />)
 
@@ -106,8 +107,7 @@ describe('StudentDashboard', () => {
   })
 
   it('navigates to scenarios list when Continue Learning is clicked without in-progress scenario', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue(null)
+    vi.mocked(getLastInProgressScenario).mockResolvedValue(null)
 
     render(<StudentDashboard user={mockUser} />)
 
@@ -116,5 +116,28 @@ describe('StudentDashboard', () => {
       fireEvent.click(continueButton)
       expect(mockPush).toHaveBeenCalledWith('/scenarios')
     })
+  })
+})
+
+
+describe('dashboard user transitions', () => {
+  it('handles missing, loaded, and removed students without changing hook order', async () => {
+    vi.mocked(getLastInProgressScenario).mockResolvedValue(null)
+    const view = render(<StudentDashboard user={null as any} />)
+    expect(screen.getByText('No user data available')).toBeInTheDocument()
+    view.rerender(<StudentDashboard user={mockUser} />)
+    await waitFor(() => expect(getLastInProgressScenario).toHaveBeenCalledWith(mockUser.id))
+    expect(screen.getByText('Welcome back, Test User')).toBeInTheDocument()
+    view.rerender(<StudentDashboard user={null as any} />)
+    expect(screen.getByText('No user data available')).toBeInTheDocument()
+  })
+
+  it('handles missing, loaded, and removed educators without changing hook order', () => {
+    const view = render(<EducatorDashboard user={null as any} />)
+    expect(screen.getByText('No user data available')).toBeInTheDocument()
+    view.rerender(<EducatorDashboard user={mockUser} />)
+    expect(screen.getByText('Educator Dashboard')).toBeInTheDocument()
+    view.rerender(<EducatorDashboard user={null as any} />)
+    expect(screen.getByText('No user data available')).toBeInTheDocument()
   })
 })

@@ -70,7 +70,7 @@ function getSampleScenarios(filters: ScenarioFilters = {}): Scenario[] {
     limit = 50 
   } = filters
 
-  let filteredScenarios = sampleScenarios.filter(scenario => {
+  const filteredScenarios = sampleScenarios.filter(scenario => {
     if (isPublished && !scenario.is_published) return false
     if (category && scenario.category !== category) return false
     if (difficulty && scenario.difficulty !== difficulty) return false

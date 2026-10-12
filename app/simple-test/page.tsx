@@ -1,3 +1,4 @@
+import Link from 'next/link'
 // Simple test page without AppShell to isolate routing issues
 export default function SimpleTestPage() {
   return (
@@ -29,9 +30,9 @@ export default function SimpleTestPage() {
               <div className="space-y-2">
                 <p className="text-blue-800">Try these URLs:</p>
                 <ul className="text-blue-700 space-y-1">
-                  <li>• <a href="/simple" className="underline hover:text-blue-900">/simple</a> - Basic page with AppShell</li>
-                  <li>• <a href="/debug" className="underline hover:text-blue-900">/debug</a> - Environment diagnostics</li>
-                  <li>• <a href="/" className="underline hover:text-blue-900">/</a> - Full application</li>
+                  <li>• <Link href="/simple" className="underline hover:text-blue-900">/simple</Link> - Basic page with AppShell</li>
+                  <li>• <Link href="/debug" className="underline hover:text-blue-900">/debug</Link> - Environment diagnostics</li>
+                  <li>• <Link href="/" className="underline hover:text-blue-900">/</Link> - Full application</li>
                 </ul>
               </div>
             </div>

@@ -25,7 +25,7 @@ export async function fetchScenarioQuestionsByCode(code: string): Promise<{ scen
 
   // data rows shape per migration: one row per option; need to group by question_id
   const byQuestion = new Map<string, { stem: string; options: Array<{ id: string; text: string }>; }>()
-  let scenarioTitle = code
+  const scenarioTitle = code
 
   for (const row of (data as any[] || [])) {
     const qid = row.question_id as string

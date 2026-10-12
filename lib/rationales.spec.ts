@@ -1,245 +1,62 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { RationaleService, canSeeFullRationale, getRationaleForDisplay } from './rationales'
-import { PaymentService } from './payments/stripe'
+import { supabase } from './supabase'
 
-// Mock dependencies
-vi.mock('./supabase', () => ({
-  supabase: {
-    from: vi.fn(() => ({
-      select: vi.fn(() => ({
-        eq: vi.fn(() => ({
-          single: vi.fn(),
-        })),
-      })),
-      upsert: vi.fn(),
-    })),
-  },
-}))
-
-vi.mock('./payments/stripe', () => ({
-  PaymentService: {
-    isTrialActive: vi.fn(),
-  },
-}))
+vi.mock('./supabase', () => ({ supabase: { from: vi.fn() } }))
+const rationale = { hint: 'Consider the patient symptoms', full: 'The complete clinical explanation' }
+const query = (data: unknown, error: unknown = null) => {
+  const builder: any = { single: vi.fn().mockResolvedValue({ data, error }) }
+  builder.select = vi.fn(() => builder)
+  builder.eq = vi.fn(() => builder)
+  builder.upsert = vi.fn().mockResolvedValue({ error: null })
+  return builder
+}
+beforeEach(() => vi.resetAllMocks())
 
 describe('RationaleService', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
+  it('grants premium access without querying free usage', async () => {
+    expect(await RationaleService.canSeeFullRationale('u', { subscription_tier: 'premium' })).toMatchObject({ canAccess: true, reason: 'premium' })
+    expect(supabase.from).not.toHaveBeenCalled()
   })
-
-  describe('canSeeFullRationale', () => {
-    it('should return true for premium users', async () => {
-      const mockProfile = { subscription_tier: 'premium' }
-      
-      const result = await RationaleService.canSeeFullRationale('user-123', mockProfile)
-      
-      expect(result.canAccess).toBe(true)
-      expect(result.reason).toBe('premium')
-    })
-
-    it('should return true for active trial users', async () => {
-      const mockProfile = { 
-        subscription_tier: 'free',
-        trial_active: true,
-        trial_expires_at: new Date(Date.now() + 86400000).toISOString()
-      }
-
-      vi.mocked(PaymentService.isTrialActive).mockReturnValue(true)
-      
-      const result = await RationaleService.canSeeFullRationale('user-123', mockProfile)
-      
-      expect(result.canAccess).toBe(true)
-      expect(result.reason).toBe('trial')
-    })
-
-    it('should enforce free limits correctly', async () => {
-      const mockProfile = { subscription_tier: 'free' }
-      
-      vi.mocked(PaymentService.isTrialActive).mockReturnValue(false)
-      
-      // Mock getFreeRationaleCount to return 3
-      const { supabase } = await import('./supabase')
-      const mockFrom = supabase.from as any
-      mockFrom.mockReturnValue({
-        select: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            single: vi.fn(() => Promise.resolve({
-              data: { count: 3 },
-              error: null,
-            })),
-          })),
-        })),
-      })
-
-      const result = await RationaleService.canSeeFullRationale('user-123', mockProfile)
-      
-      expect(result.canAccess).toBe(true)
-      expect(result.reason).toBe('free_limit')
-      expect(result.remainingFree).toBe(2)
-    })
-
-    it('should deny access when free limit exceeded', async () => {
-      const mockProfile = { subscription_tier: 'free' }
-      
-      vi.mocked(PaymentService.isTrialActive).mockReturnValue(false)
-      
-      // Mock getFreeRationaleCount to return 5 (limit reached)
-      const { supabase } = await import('./supabase')
-      const mockFrom = supabase.from as any
-      mockFrom.mockReturnValue({
-        select: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            single: vi.fn(() => Promise.resolve({
-              data: { count: 5 },
-              error: null,
-            })),
-          })),
-        })),
-      })
-
-      const result = await RationaleService.canSeeFullRationale('user-123', mockProfile)
-      
-      expect(result.canAccess).toBe(false)
-      expect(result.reason).toBe('exceeded_limit')
-      expect(result.upgradeRequired).toBe(true)
-    })
+  it('grants an active trial', async () => {
+    expect(await RationaleService.canSeeFullRationale('u', { trial_active: true, trial_expires_at: new Date(Date.now() + 86400000).toISOString() })).toMatchObject({ canAccess: true, reason: 'trial' })
   })
-
-  describe('getRationaleContent', () => {
-    it('should return full content for users with access', async () => {
-      const mockProfile = { subscription_tier: 'premium' }
-      const mockRationale = {
-        hint: 'Consider the patient symptoms',
-        full: 'The patient presents with classic signs of...'
-      }
-
-      const { supabase } = await import('./supabase')
-      const mockFrom = supabase.from as any
-      mockFrom.mockReturnValue({
-        select: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            single: vi.fn(() => Promise.resolve({
-              data: mockRationale,
-              error: null,
-            })),
-          })),
-        })),
-      })
-
-      const result = await RationaleService.getRationaleContent(
-        'item-123',
-        'user-123',
-        mockProfile
-      )
-
-      expect(result.hint).toBe(mockRationale.hint)
-      expect(result.full).toBe(mockRationale.full)
-    })
-
-    it('should return upgrade message for users without access', async () => {
-      const mockProfile = { subscription_tier: 'free' }
-      const mockRationale = {
-        hint: 'Consider the patient symptoms',
-        full: 'The patient presents with classic signs of...'
-      }
-
-      vi.mocked(PaymentService.isTrialActive).mockReturnValue(false)
-
-      const { supabase } = await import('./supabase')
-      const mockFrom = supabase.from as any
-      
-      // Mock rationale query
-      mockFrom.mockReturnValueOnce({
-        select: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            single: vi.fn(() => Promise.resolve({
-              data: mockRationale,
-              error: null,
-            })),
-          })),
-        })),
-      })
-
-      // Mock usage count query (over limit)
-      mockFrom.mockReturnValueOnce({
-        select: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            single: vi.fn(() => Promise.resolve({
-              data: { count: 5 },
-              error: null,
-            })),
-          })),
-        })),
-      })
-
-      const result = await RationaleService.getRationaleContent(
-        'item-123',
-        'user-123',
-        mockProfile
-      )
-
-      expect(result.hint).toBe(mockRationale.hint)
-      expect(result.full).toContain('Upgrade to Premium')
-    })
+  it('enforces free limits and filters usage by user and type', async () => {
+    const usage = query({ count: 3 })
+    vi.mocked(supabase.from).mockReturnValue(usage)
+    expect(await RationaleService.canSeeFullRationale('u', { subscription_tier: 'free' })).toMatchObject({ canAccess: true, remainingFree: 2, reason: 'free_limit' })
+    expect(usage.eq).toHaveBeenCalledWith('user_id', 'u')
+    expect(usage.eq).toHaveBeenCalledWith('usage_type', 'free')
+  })
+  it('denies free access at the limit', async () => {
+    vi.mocked(supabase.from).mockReturnValue(query({ count: 5 }))
+    expect(await RationaleService.canSeeFullRationale('u', { subscription_tier: 'free' })).toMatchObject({ canAccess: false, upgradeRequired: true, remainingFree: 0 })
+  })
+  it('returns full content for premium users', async () => {
+    vi.mocked(supabase.from).mockReturnValue(query(rationale))
+    expect(await RationaleService.getRationaleContent('item', 'u', { subscription_tier: 'premium' })).toEqual(rationale)
+    expect(supabase.from).toHaveBeenCalledWith('rationales')
+  })
+  it('returns a hint and upgrade message when usage is exhausted', async () => {
+    vi.mocked(supabase.from).mockReturnValueOnce(query({ count: 5 })).mockReturnValueOnce(query(rationale))
+    const result = await RationaleService.getRationaleContent('item', 'u', { subscription_tier: 'free' })
+    expect(result.hint).toBe(rationale.hint)
+    expect(result.full).toContain('Upgrade to Premium')
+  })
+  it('increments usage after a free rationale is returned', async () => {
+    const usage = query({ count: 3 })
+    vi.mocked(supabase.from).mockImplementation(table => table === 'rationales' ? query(rationale) : usage)
+    expect(await RationaleService.getRationaleContent('item', 'u', { subscription_tier: 'free' })).toEqual(rationale)
+    expect(usage.upsert).toHaveBeenCalledWith(expect.objectContaining({ user_id: 'u', usage_type: 'free', count: 4 }))
   })
 })
-
-describe('Helper Functions', () => {
-  describe('canSeeFullRationale', () => {
-    it('should return true for premium users', () => {
-      const userProfile = { subscription_tier: 'premium' }
-      const result = canSeeFullRationale(userProfile, 10)
-      expect(result).toBe(true)
-    })
-
-    it('should return true for trial users', () => {
-      const userProfile = { 
-        subscription_tier: 'free',
-        trial_active: true,
-        trial_expires_at: new Date(Date.now() + 86400000).toISOString()
-      }
-      
-      vi.mocked(PaymentService.isTrialActive).mockReturnValue(true)
-      
-      const result = canSeeFullRationale(userProfile, 10)
-      expect(result).toBe(true)
-    })
-
-    it('should return false when free limit exceeded', () => {
-      const userProfile = { subscription_tier: 'free' }
-      
-      vi.mocked(PaymentService.isTrialActive).mockReturnValue(false)
-      
-      const result = canSeeFullRationale(userProfile, 5) // At limit
-      expect(result).toBe(false)
-    })
-
-    it('should return true when under free limit', () => {
-      const userProfile = { subscription_tier: 'free' }
-      
-      vi.mocked(PaymentService.isTrialActive).mockReturnValue(false)
-      
-      const result = canSeeFullRationale(userProfile, 3) // Under limit
-      expect(result).toBe(true)
-    })
-  })
-
-  describe('getRationaleForDisplay', () => {
-    const mockRationale = {
-      hint: 'Think about the symptoms',
-      full: 'The complete clinical explanation...'
-    }
-
-    it('should return full content when user has access', () => {
-      const result = getRationaleForDisplay(mockRationale, true)
-      expect(result).toBe(mockRationale.full)
-    })
-
-    it('should return hint when user lacks access', () => {
-      const result = getRationaleForDisplay(mockRationale, false)
-      expect(result).toBe(mockRationale.hint)
-    })
-  })
+describe('rationale helpers', () => {
+  it('grants premium access', () => expect(canSeeFullRationale({ subscription_tier: 'premium' }, 10)).toBe(true))
+  it('grants an active trial', () => expect(canSeeFullRationale({ trial_active: true, trial_expires_at: new Date(Date.now() + 86400000).toISOString() }, 10)).toBe(true))
+  it('denies an expired trial at the free limit', () => expect(canSeeFullRationale({ trial_active: true, trial_expires_at: new Date(Date.now() - 86400000).toISOString() }, 5)).toBe(false))
+  it('denies at the free limit', () => expect(canSeeFullRationale({ subscription_tier: 'free' }, 5)).toBe(false))
+  it('grants below the free limit', () => expect(canSeeFullRationale({ subscription_tier: 'free' }, 3)).toBe(true))
+  it('denies a missing profile', () => expect(canSeeFullRationale(null, 0)).toBe(false))
+  it('shows full content with access', () => expect(getRationaleForDisplay(rationale, true)).toBe(rationale.full))
+  it('shows the hint without access', () => expect(getRationaleForDisplay(rationale, false)).toBe(rationale.hint))
 })
-
-

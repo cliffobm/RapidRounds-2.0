@@ -1,3 +1,4 @@
+import { vi } from 'vitest'
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { DndContext } from '@dnd-kit/core'
@@ -42,7 +43,7 @@ describe('OrderQuestion', () => {
       </TestWrapper>
     )
 
-    expect(screen.getByText('Prioritize these nursing interventions:')).toBeInTheDocument()
+    expect(screen.getByText('Drag and drop to prioritize (or click to move to end):')).toBeInTheDocument()
     expect(screen.getByText('Administer oxygen')).toBeInTheDocument()
     expect(screen.getByText('Obtain IV access')).toBeInTheDocument()
     expect(screen.getByText('Monitor vital signs')).toBeInTheDocument()
@@ -65,7 +66,7 @@ describe('OrderQuestion', () => {
       </TestWrapper>
     )
 
-    expect(screen.getByText('Correct order!')).toBeInTheDocument()
+    expect(screen.getByText('Correct order!', { selector: 'span' })).toBeInTheDocument()
   })
 
   it('shows try again when answer is incorrect', () => {
@@ -84,11 +85,11 @@ describe('OrderQuestion', () => {
       </TestWrapper>
     )
 
-    expect(screen.getByText('Try again!')).toBeInTheDocument()
+    expect(screen.getByText('Try again!', { selector: 'span' })).toBeInTheDocument()
   })
 
   it('calls onAnswer when item is clicked', () => {
-    const onAnswerMock = jest.fn()
+    const onAnswerMock = vi.fn()
     
     render(
       <TestWrapper>

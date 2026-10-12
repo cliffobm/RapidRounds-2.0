@@ -16,7 +16,7 @@ export default function NotFound() {
             Page Not Found
           </CardTitle>
           <p className="text-slate-600 mt-2">
-            The page you're looking for doesn't exist or has been moved.
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
         </CardHeader>
         

@@ -224,7 +224,7 @@ export function ScenarioViewer({ scenario, onComplete, onExit }: ScenarioViewerP
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center">
         <h2 className="text-xl font-semibold text-gray-900 mb-2">No questions available</h2>
-        <p className="text-gray-600">This scenario doesn't have any questions.</p>
+        <p className="text-gray-600">This scenario doesn&apos;t have any questions.</p>
       </div>
     </div>
   }

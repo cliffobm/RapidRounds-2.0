@@ -244,22 +244,8 @@ export async function getLeaderboardWithUserRank(
 }> {
   const leaderboard = await getLeaderboard(filters)
   
-  // For demo purposes, if using sample data and no user found, create a mock user entry
-  let userEntry = leaderboard.find(entry => entry.student_id === userId)
-  
-  if (!userEntry && leaderboard.length > 0) {
-    // Create a mock user entry for demo purposes
-    userEntry = {
-      student_id: userId,
-      student_name: 'Demo User',
-      total_points: 1200,
-      scenarios_completed: 5,
-      average_score: 75,
-      rank: Math.min(leaderboard.length + 1, 15), // Place user in a reasonable rank
-      institution_id: 'institution-1'
-    }
-  }
-  
+  const userEntry = leaderboard.find(entry => entry.student_id === userId)
+
   const userRank = userEntry?.rank || null
 
   return {

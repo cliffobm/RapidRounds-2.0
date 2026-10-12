@@ -223,6 +223,8 @@ export function canSeeFullRationale(
   userProfile: any,
   rationaleCount: number
 ): boolean {
+  if (!userProfile) return false
+
   // Premium users always have access
   if (userProfile?.subscription_tier === 'premium') {
     return true

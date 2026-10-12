@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 export default function MinimalPage() {
   return (
     <div className="min-h-screen bg-white">
@@ -15,7 +17,7 @@ export default function MinimalPage() {
           
           <div className="bg-blue-50 p-6 rounded-lg">
             <h2 className="text-lg font-semibold text-blue-900 mb-4">
-              ✅ What's Working:
+              ✅ What&apos;s Working:
             </h2>
             <ul className="text-left text-blue-800 space-y-2">
               <li>• Next.js 15 app router</li>
@@ -45,24 +47,24 @@ export default function MinimalPage() {
               Test the Application:
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              <a href="/simple" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+              <Link href="/simple" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                 Simple Test
-              </a>
-              <a href="/debug" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+              </Link>
+              <Link href="/debug" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
                 Debug Info
-              </a>
-              <a href="/" className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+              </Link>
+              <Link href="/" className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                 Full App
-              </a>
-              <a href="/test" className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
+              </Link>
+              <Link href="/test" className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
                 Test Scenarios
-              </a>
-              <a href="/study" className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition-colors">
+              </Link>
+              <Link href="/study" className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition-colors">
                 Study Materials
-              </a>
-              <a href="/leaderboard" className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition-colors">
+              </Link>
+              <Link href="/leaderboard" className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition-colors">
                 Leaderboard
-              </a>
+              </Link>
             </div>
           </div>
           

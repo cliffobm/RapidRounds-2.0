@@ -94,7 +94,7 @@ describe('AnswerBlock', () => {
       )
       
       expect(screen.getByText('What is the normal heart rate range for adults?')).toBeInTheDocument()
-      expect(screen.getByText('40-60 bpm')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /40-60 bpm/ })).toBeInTheDocument()
       expect(screen.getByText('60-100 bpm')).toBeInTheDocument()
       expect(screen.getByText('80-120 bpm')).toBeInTheDocument()
       expect(screen.getByText('100-140 bpm')).toBeInTheDocument()
@@ -289,14 +289,14 @@ describe('AnswerBlock', () => {
       
       // Tab to first option
       await user.tab()
-      const firstOption = screen.getByText('40-60 bpm')
+      const firstOption = screen.getByRole('button', { name: /40-60 bpm/ })
       expect(firstOption).toHaveFocus()
       
       // Press Enter to select
       await user.keyboard('{Enter}')
       
-      // Tab to submit button
-      await user.tab()
+      // Traverse the remaining answer buttons before the submit button.
+      for (let i = 0; i < mockMCQQuestion.options!.length; i++) await user.tab()
       const submitButton = screen.getByText('Submit Answer')
       expect(submitButton).toHaveFocus()
       

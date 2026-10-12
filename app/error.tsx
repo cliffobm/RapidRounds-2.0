@@ -27,7 +27,7 @@ export default function Error({
             Oops! Something went wrong
           </CardTitle>
           <p className="text-slate-600 mt-2">
-            We encountered an unexpected error. This has been logged and we'll look into it.
+            We encountered an unexpected error. This has been logged and we&apos;ll look into it.
           </p>
         </CardHeader>
         

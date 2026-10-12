@@ -158,7 +158,7 @@ export default function CardiacFundamentalsPage() {
               <div className="space-y-3">
                 <p className="text-slate-700 dark:text-slate-300">
                   This lesson covers the essential concepts and skills needed to master {currentLesson?.title?.toLowerCase()}. 
-                  You'll learn through interactive content, videos, and practical exercises.
+                  You&apos;ll learn through interactive content, videos, and practical exercises.
                 </p>
                 <p className="text-slate-700 dark:text-slate-300">
                   Take your time to understand each concept before moving on to the next lesson. 

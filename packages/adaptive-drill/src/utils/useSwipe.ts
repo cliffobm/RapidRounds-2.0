@@ -25,6 +25,13 @@ export function useSwipe<T extends HTMLElement>({
 
     const onPointerDown = (e: PointerEvent) => {
       if (e.isPrimary === false) return;
+      // Capturing an answer button's pointer retargets its click to the deck.
+      // Keep native button/link/input interaction intact; swipe on the card surface.
+      if (e.target instanceof Element && e.target.closest('button, a, input, textarea, select, [role="button"]')) {
+        start.current = null;
+        moved.current = false;
+        return;
+      }
       start.current = { x: e.clientX, y: e.clientY };
       moved.current = false;
       el.setPointerCapture?.(e.pointerId);

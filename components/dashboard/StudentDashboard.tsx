@@ -30,8 +30,6 @@ interface StudentStats {
 }
 
 export function StudentDashboard({ user }: StudentDashboardProps) {
-  const router = useRouter()
-  
   // Safety check for user
   if (!user) {
     return (
@@ -43,6 +41,11 @@ export function StudentDashboard({ user }: StudentDashboardProps) {
     )
   }
   
+  return <StudentDashboardContent user={user} />
+}
+
+function StudentDashboardContent({ user }: StudentDashboardProps) {
+  const router = useRouter()
   const [stats, setStats] = useState<StudentStats>({
     totalPoints: 0,
     scenariosCompleted: 0,
@@ -103,30 +106,31 @@ export function StudentDashboard({ user }: StudentDashboardProps) {
   ])
 
   useEffect(() => {
-    // Load user data
-    loadUserData()
-  }, [user.id])
+    let active = true
+    const loadUserData = async () => {
+      try {
+        // Load last in-progress scenario
+        const lastScenario = await getLastInProgressScenario(user.id)
+        if (!active) return
+        setLastInProgressScenario(lastScenario)
 
-  const loadUserData = async () => {
-    try {
-      // Load last in-progress scenario
-      const lastScenario = await getLastInProgressScenario(user.id)
-      setLastInProgressScenario(lastScenario)
-
-      // Simulate loading other stats (in real app, these would come from API)
-      setStats({
-        totalPoints: 1250,
-        scenariosCompleted: 8,
-        currentStreak: 5,
-        badgesEarned: 3,
-        averageScore: 87,
-        timeSpent: 12.5,
-        rank: 2
-      })
-    } catch (error) {
-      console.error('Error loading user data:', error)
+        // Simulate loading other stats (in real app, these would come from API)
+        setStats({
+          totalPoints: 1250,
+          scenariosCompleted: 8,
+          currentStreak: 5,
+          badgesEarned: 3,
+          averageScore: 87,
+          timeSpent: 12.5,
+          rank: 2
+        })
+      } catch (error) {
+        console.error('Error loading user data:', error)
+      }
     }
-  }
+    void loadUserData()
+    return () => { active = false }
+  }, [user.id])
 
   const getBadgeById = (badgeId: string) => {
     return availableBadges.find(badge => badge.id === badgeId)

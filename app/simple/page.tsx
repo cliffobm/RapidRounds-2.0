@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 export default function SimplePage() {
   return (
     <div className="min-h-screen bg-white p-8">
@@ -17,7 +19,7 @@ export default function SimplePage() {
           <ol className="list-decimal list-inside space-y-1 text-blue-800">
             <li>Check environment variables in Vercel dashboard</li>
             <li>Verify Supabase connection</li>
-            <li>Test the main app at <a href="/" className="underline">homepage</a></li>
+            <li>Test the main app at <Link href="/" className="underline">homepage</Link></li>
           </ol>
         </div>
         
@@ -46,24 +48,24 @@ export default function SimplePage() {
         <div className="mt-8">
           <h3 className="font-semibold text-gray-900 mb-2">Quick Navigation Test</h3>
           <div className="flex flex-wrap gap-2">
-            <a href="/" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <Link href="/" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
               Home
-            </a>
-            <a href="/test" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            </Link>
+            <Link href="/test" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
               Test
-            </a>
-            <a href="/study" className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+            </Link>
+            <Link href="/study" className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
               Study
-            </a>
-            <a href="/leaderboard" className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+            </Link>
+            <Link href="/leaderboard" className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
               Leaderboard
-            </a>
-            <a href="/profile" className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+            </Link>
+            <Link href="/profile" className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
               Profile
-            </a>
-            <a href="/debug" className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+            </Link>
+            <Link href="/debug" className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
               Debug
-            </a>
+            </Link>
           </div>
         </div>
       </div>

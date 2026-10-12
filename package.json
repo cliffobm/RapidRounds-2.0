@@ -18,7 +18,7 @@
     "check:db": "npx tsx scripts/check-database.ts",
     "create:tables": "npx tsx scripts/run-missing-tables.ts",
     "setup:complete": "npm run setup:env && npm run test:supabase && npm run create:tables",
-    "qbank:validate": "tsx packages/qbank-tools/src/validate.ts qbank/banks",
+    "qbank:validate": "node --import tsx packages/qbank-tools/src/validate.ts qbank/banks",
     "qbank:merge:cardio": "ts-node packages/qbank-tools/src/mergeByTopic.ts qbank/banks/cardio_combined.testbank.json \"Cardio \u2022\" qbank/banks",
     "qbank:merge:multisystem": "ts-node packages/qbank-tools/src/mergeByTopic.ts qbank/banks/multisystem_combined.testbank.json \"Multisystem \u2022\" qbank/banks",
     "test:watch": "vitest",

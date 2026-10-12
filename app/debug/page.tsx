@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { useEffect, useState } from 'react'
 
 export default function DebugPage() {
@@ -80,11 +82,11 @@ export default function DebugPage() {
         <div>
           <h2 className="text-lg font-semibold">Navigation Test</h2>
           <div className="space-x-4">
-            <a href="/" className="text-blue-600 underline">Home</a>
-            <a href="/test" className="text-blue-600 underline">Test</a>
-            <a href="/study" className="text-blue-600 underline">Study</a>
-            <a href="/leaderboard" className="text-blue-600 underline">Leaderboard</a>
-            <a href="/profile" className="text-blue-600 underline">Profile</a>
+            <Link href="/" className="text-blue-600 underline">Home</Link>
+            <Link href="/test" className="text-blue-600 underline">Test</Link>
+            <Link href="/study" className="text-blue-600 underline">Study</Link>
+            <Link href="/leaderboard" className="text-blue-600 underline">Leaderboard</Link>
+            <Link href="/profile" className="text-blue-600 underline">Profile</Link>
           </div>
         </div>
       </div>

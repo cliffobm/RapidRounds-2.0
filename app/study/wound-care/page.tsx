@@ -396,7 +396,7 @@ export default function WoundCarePage() {
           <CardContent className="p-6 text-center">
             <CheckCircle className="w-12 h-12 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">Congratulations!</h3>
-            <p>You've completed the Advanced Wound Care course. You're now equipped with essential wound care knowledge and skills.</p>
+            <p>You&apos;ve completed the Advanced Wound Care course. You&apos;re now equipped with essential wound care knowledge and skills.</p>
           </CardContent>
         </Card>
       )}

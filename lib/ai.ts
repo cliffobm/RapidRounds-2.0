@@ -10,7 +10,6 @@ export function getOpenAI() {
     throw new Error('Missing OPENAI_API_KEY')
   }
   // Use dynamic require to avoid build-time evaluation
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const OpenAI = require('openai')
   return new OpenAI({ apiKey: key })
 }

@@ -2608,8 +2608,8 @@
       "reason": "Pin Ajv and add deterministic validation commands"
     },
     "package.json": {
-      "migrated_sha": "ff7d2e8750684ffcf2abdcdf9fbe60e6b1df2146",
-      "reason": "Pin Ajv and add deterministic validation commands"
+      "migrated_sha": "4200abae685a535b1a765edeaff33cdb8ad8fe3b",
+      "reason": "Pin Ajv and add deterministic validation commands; run bank validation through the tsx import loader without a CLI IPC socket"
     },
     "scripts/configure-supabase.ts": {
       "migrated_sha": "9dd9b7aab86f816d7f74c027936f0d8e2d9f0882",
@@ -2670,6 +2670,126 @@
     "scripts/test-openai-simple.ts": {
       "reason": "Remove embedded API credentials",
       "migrated_sha": "d30cf8f2cd14dacdfbc9b0d0e6501f414b0a7758"
+    },
+    "__tests__/components/dashboard/StudentDashboard.test.tsx": {
+      "migrated_sha": "5f6a25a7bfdf60bbc8f5bf474c573d1e1724cec4",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "__tests__/lib/db/achievements.test.ts": {
+      "migrated_sha": "ede9c927735cce2cd337032775ae559cdea9b5fe",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "__tests__/lib/db/leaderboard.test.ts": {
+      "migrated_sha": "0b33b4800a663a8e4a7f708b608ff1bf87e76583",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "app/debug/page.tsx": {
+      "migrated_sha": "01f6712fa201e3d849f332bffccfa2bd9cb7be50",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/error.tsx": {
+      "migrated_sha": "c74a6382860b5140a307749156941747aec459ce",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/minimal/page.tsx": {
+      "migrated_sha": "050121acdf23c8ab225ca98ff32becc3802bfcde",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/not-found.tsx": {
+      "migrated_sha": "7c13f19b0e497869c1dda2b58d863151fc971cff",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/rr/[code]/page.tsx": {
+      "migrated_sha": "67883cdbc68a852447f8c0ea12390a35ae0f93f7",
+      "reason": "Await dynamic route params to satisfy Next.js 15 PageProps"
+    },
+    "app/scenario/[id]/page.tsx": {
+      "migrated_sha": "ff1c2192b88724983961160d92ec1eb928611470",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/scenarios/[id]/page.tsx": {
+      "migrated_sha": "e3c3a624a768dcc1d25a329fe4a583cf73f2a545",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/simple-test/page.tsx": {
+      "migrated_sha": "ec53c2a79b6f5555dd7ccd73c677c28a48f99a9d",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "app/simple/page.tsx": {
+      "migrated_sha": "0fb8d6424b069c7c90e78d52ab11d24e78554d33",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/study/cardiac-fundamentals/page.tsx": {
+      "migrated_sha": "3d0a7a8227d351139205b5cb0c247c52811e1d55",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/study/wound-care/page.tsx": {
+      "migrated_sha": "cf0743c4ab323ed210585058b0273b3ffdee65a5",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "components/dashboard/EducatorDashboard.tsx": {
+      "migrated_sha": "981520513a4fdbd18f0e3975865a02ae7b5643c8",
+      "reason": "Isolate loaded dashboard hooks from missing-user early return"
+    },
+    "components/dashboard/StudentDashboard.tsx": {
+      "migrated_sha": "21533d3c63299837df4d8fd4f3a01369a88f4b30",
+      "reason": "Isolate loaded dashboard hooks and cancel stale progress requests on user changes"
+    },
+    "components/learning/__tests__/OrderQuestion.test.tsx": {
+      "migrated_sha": "918bec851026d9ae6b640cd673ee9c84a900e4b7",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "components/scenario/AnswerBlock.spec.tsx": {
+      "migrated_sha": "2420795e8ddc98ed7def8498e2da12156028684a",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "components/scenario/AnswerBlock.tsx": {
+      "migrated_sha": "2cfd8fad959fec79dd9fe6cc4a6b323059183868",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "components/scenario/ScenarioCard.tsx": {
+      "migrated_sha": "37e07ecb72efce36a3f98c646572ab181482eb5a",
+      "reason": "Display the existing patient allergy data required by scenario tests"
+    },
+    "components/scenarios/ScenarioViewer.tsx": {
+      "migrated_sha": "814aef14a9e5afe3849d35013efeaa4c90bd55cd",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "lib/ai.ts": {
+      "migrated_sha": "1ef1452b0cbfc995453c8647060963da55c20e56",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "lib/db/leaderboard.ts": {
+      "migrated_sha": "4ba2138439fca92fd3f4877387ccee9c7c62a9f4",
+      "reason": "Repair missing-user rank behavior: return no fabricated progress; retain ranking/scoring of actual rows"
+    },
+    "lib/db/scenarios.ts": {
+      "migrated_sha": "875c40b5693f66a7f071f198c86f4b044e3e7ef9",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "lib/qbank/rr.ts": {
+      "migrated_sha": "49695e10f359f34c626ffc1c96bed7fb38c9ce30",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "lib/rationales.spec.ts": {
+      "migrated_sha": "b004e9dd0e15c826acf456e822354e74b04482bd",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "lib/rationales.ts": {
+      "migrated_sha": "54860386e28fe49f3af0675efa9581b4d74a4332",
+      "reason": "Deny rationale access for absent profiles; retain free/premium/trial limits"
+    },
+    "store/useAuth.spec.ts": {
+      "migrated_sha": "73babff8ff9124f5cf2c1c5b7d96710cc37048e1",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "playwright.config.ts": {
+      "migrated_sha": "09ff7de473e62c336b4852e21d54701a50c5a194",
+      "reason": "Use explicit localhost binding and an optional production server command for browser regression tests"
+    },
+    "packages/adaptive-drill/src/utils/useSwipe.ts": {
+      "migrated_sha": "b733b7b3a7c29134f79692efb21e86180d91a4bb",
+      "reason": "Preserve native answer-button pointer/touch clicks instead of capturing them on the swipe deck"
     }
   }
 }

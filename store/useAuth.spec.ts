@@ -1,9 +1,12 @@
+import { canSeeFullRationale, getRationaleForDisplay } from '@/lib/rationales'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useAuth } from './useAuth'
 
+vi.mock('@/lib/supabase', () => ({ supabase: { from: vi.fn() } }))
+
 // Mock Supabase
-vi.mock('../lib/supabase', () => ({
-  supabase: {
+vi.mock('../lib/supabase-client', () => ({
+  supabaseClient: {
     auth: {
       signInWithPassword: vi.fn(),
       signUp: vi.fn(),
@@ -16,13 +19,13 @@ vi.mock('../lib/supabase', () => ({
     from: vi.fn(() => ({
       select: vi.fn(() => ({
         eq: vi.fn(() => ({
-          single: vi.fn(),
+          single: vi.fn().mockResolvedValue({ data: null, error: null }),
         })),
       })),
       update: vi.fn(() => ({
         eq: vi.fn(() => ({
           select: vi.fn(() => ({
-            single: vi.fn(),
+            single: vi.fn().mockResolvedValue({ data: null, error: null }),
           })),
         })),
       })),
@@ -84,7 +87,7 @@ describe('useAuth Store', () => {
       const mockUser = { id: 'user-123', email: 'test@example.com' }
       const mockSession = { access_token: 'token-123' }
 
-      const { supabase } = await import('../lib/supabase')
+      const { supabaseClient: supabase } = await import('../lib/supabase-client')
       vi.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
         data: { user: mockUser, session: mockSession },
         error: null,
@@ -100,7 +103,7 @@ describe('useAuth Store', () => {
     it('should handle sign in errors', async () => {
       const mockError = { message: 'Invalid credentials' }
 
-      const { supabase } = await import('../lib/supabase')
+      const { supabaseClient: supabase } = await import('../lib/supabase-client')
       vi.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
         data: { user: null, session: null },
         error: mockError,
@@ -120,7 +123,7 @@ describe('useAuth Store', () => {
         profile: { id: 'user-123' } as any,
       })
 
-      const { supabase } = await import('../lib/supabase')
+      const { supabaseClient: supabase } = await import('../lib/supabase-client')
       vi.mocked(supabase.auth.signOut).mockResolvedValue({ error: null })
 
       await useAuth.getState().signOut()

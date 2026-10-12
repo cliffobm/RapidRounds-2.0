@@ -40,6 +40,10 @@ export function EducatorDashboard({ user }: EducatorDashboardProps) {
     )
   }
   
+  return <EducatorDashboardContent user={user} />
+}
+
+function EducatorDashboardContent({ user }: EducatorDashboardProps) {
   const [stats, setStats] = useState<DashboardStats>({
     totalStudents: 0,
     activeStudents: 0,

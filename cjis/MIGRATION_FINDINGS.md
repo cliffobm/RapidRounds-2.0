@@ -24,4 +24,4 @@ Do not blindly copy the full legacy repository or overwrite 2.0 main. Introduce 
 - Discovery found 11 wrapped letter-key banks and 6 zero-based-answer respiratory arrays. The adapter now supports both explicit formats, rejects ambiguous keys, and retains the complete original item payload.
 - The original 10-bank quiz registry remains unchanged. `qbank/cjis.ts` stages its items against the competency registry; CLI checks additionally cover the seven unregistered datasets.
 - Local type checking, 28 focused contract/integration/regression tests, the 168-item staging audit, original bank validation, and localhost route smoke checks pass.
-- Legacy unit/lint failures and the resulting build failure remain merge blockers. See `docs/SPRINT4_REVIEW.md`; a draft PR is for review only.
+- Follow-up repairs pass 94 legacy tests, lint, type checking, and the production build on Node 20.20.2. Full browser/test-database verification and CI review remain required. See `docs/SPRINT4_REVIEW.md`; the PR remains draft.

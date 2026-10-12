@@ -285,6 +285,15 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
         </Card>
       </div>
 
+      <Card>
+        <CardHeader><CardTitle className="text-base">Allergies</CardTitle></CardHeader>
+        <CardContent>
+          {scenario.patientInfo.allergies.length > 0 ? (
+            <ul>{scenario.patientInfo.allergies.map(allergy => <li key={allergy}>{allergy}</li>)}</ul>
+          ) : <p>No known allergies reported</p>}
+        </CardContent>
+      </Card>
+
       {/* Lab Results (if available) */}
       {scenario.labResults && Object.keys(scenario.labResults).length > 0 && (
         <Card>
