@@ -9,7 +9,7 @@ The PR is a draft. Main and the production database have not been modified. No d
 ## What changed
 
 1. Imported the canonical root application from `cliffobm/RapidRounds`, pinned to commit `9094ae6ddc97ec2c99e4d26fe88d11f661ad20fe` (source commit dated 2025-10-02). This is the verified GitHub source, not an assertion that it contains later work from other environments.
-2. Imported 273 source/config/content/test files. Retained the two committed Playwright reference images. Excluded 296 files: OneDrive copies, machine-specific `-EliteBook` copies, generated reports, archives, duplicate enhancement bundles, and stray command output. All source blobs were hash-verified before editing. The updated manifest records 209 unchanged imports and 64 intentional changes, including subsequent blocker repairs.
+2. Imported 273 source/config/content/test files. Retained the two committed Playwright reference images. Excluded 296 files: OneDrive copies, machine-specific `-EliteBook` copies, generated reports, archives, duplicate enhancement bundles, and stray command output. All source blobs were hash-verified before editing. The updated manifest records 203 unchanged imports and 70 intentional changes, including subsequent blocker repairs.
 3. Removed embedded database JWTs, including privileged setup-script credentials, OpenAI API keys, and remote database fallbacks. Development defaults use localhost and a placeholder key. Environment examples use UTF-8. Credentials from the original private repository are not published in this migration; rotation of existing credentials remains an administrator task.
 4. Added a lossless draft adapter for wrapped letter-key banks and respiratory arrays with explicit zero-based numeric answers. Invalid or ambiguous keys fail validation. Original payloads, item identities, answer meaning, rationales, tags, assets, and bank metadata remain available.
 5. Added a bridge to the original 10-bank registry, validated versioned competency sidecars, and a development-only read endpoint. The endpoint and CLI do not write to any database. The quiz catalog, game scoring, scheduler, local storage keys, and progress models are preserved.
@@ -23,19 +23,19 @@ Current local validation uses Node 20.20.2 (matching the Node 20.x CI major vers
 | Check | Result |
 | --- | --- |
 | `npm ci --ignore-scripts` | Passed with the locked source dependencies |
-| `npm run migration:verify` | Passed: 209 unchanged imports, 64 documented changes, 296 excluded files absent |
+| `npm run migration:verify` | Passed: 203 unchanged imports, 70 documented changes, 296 excluded files absent |
 | `npm run typecheck` | Passed |
 | `npm run test:cjis` | Passed: 12 native Node tests and 16 Vitest integration/regression tests |
 | `npm run cjis:validate` | Passed: 17 datasets / 168 draft items |
 | `npm run qbank:validate` | Passed: 11 wrapped legacy banks |
 | Local Next development API smoke | Passed: catalog has 10 banks; acute MI response preserves item/bank identity |
 | Local `/quiz` HTTP smoke | Passed: HTTP 200 and route compilation; component regression also selects a bank and submits an answer |
-| `npm run test -- --maxWorkers=2 --minWorkers=1` | Passed: 10 test files / 94 tests |
+| `npm run test -- --maxWorkers=2 --minWorkers=1` | Passed: 10 test files / 95 tests, including server-owned profile timestamp payload |
 | `npm run lint` | Passed: no blocking errors; inherited warnings remain |
 | `npm run build` | Passed: complete production build on Node 20.20.2, with lint and type gates enabled |
 | Focused production browser checks | Passed: 4 checks across desktop Chromium and mobile Chrome; bank selection, shuffled correct-answer submission, and production preview gating |
 | Full browser suite | Initial desktop run: 36 passed / 8 failed; repaired run: 42 passed / 2 failed, with final scenario rerun 14/14 passed. Signed-in profile/bookmark coverage remains unresolved; mobile run and fresh CI add broader coverage. |
-| Isolated PostgreSQL schema/RLS audit | Failed in GitHub Actions: duplicate trigger in migration 003 and infinite recursion in learner profile policy. Full Supabase Auth/PostgREST application integration remains unverified. |
+| Isolated PostgreSQL schema/RLS audit | Passed at `76676cb3a6611b12a99d15c967d364334c8d0e97`: all five migration scripts; initial and complete schema learner/educator reads, own/cross-user edits, privilege escalation denial and role revocation; billing/trial field protections. Full Supabase Auth/PostgREST application integration remains unverified. |
 
 Focused regression checks cover every source question's answer meaning and original payload, shuffled-answer grading for the registered banks, quiz bank selection/submission, existing speed/incorrect/unanswered scoring, scheduler outcomes, persistent learner progress, registry sidecars, malformed data, and preview gating. They do not establish full production equivalence. The focused browser run still reports missing-asset/auth-placeholder network failures; it asserts no uncaught page errors, not a clean console across every route.
 
@@ -93,7 +93,7 @@ The PR remains draft until the new gates and remaining application/database gaps
 The repaired Chromium run improved to 42 passes / 2 failures; one remaining navigation failure was another ambiguous text selector and is now replaced with explicit button/state assertions. The protected profile/bookmark check still requires an actual signed-in fixture and implemented bookmark presentation. Both the complete browser suite and database audit now run as blocking CI jobs.
 
 
-## Confirmed database blockers
+## Historical database blockers — repaired in the development candidate
 
 The [disposable PostgreSQL audit](https://github.com/cliffobm/RapidRounds-2.0/actions/runs/38251697440) ran on PostgreSQL 16.15 and produced these failures:
 
@@ -116,3 +116,14 @@ Current verification at commit `b85b6c6b308dec9e5cde8248b75aa5184605702a`: GitHu
 - These changes repair the unmerged development bootstrap. They are not a deployment migration for an already-populated hosted project, and none has been run against production. Full Supabase Auth/API/browser verification remains a separate requirement.
 
 The disposable PostgreSQL audit will validate this candidate; no passing database result is claimed until the CI queries complete.
+
+
+## Database repair verification — passed
+
+The [GitHub audit run](https://github.com/cliffobm/RapidRounds-2.0/actions/runs/38253356986) at `76676cb3a6611b12a99d15c967d364334c8d0e97` passes all five migration applications, both initial/full profile isolation suites, and billing/trial escalation-denial checks. These queries execute as ordinary `authenticated` and `anon` PostgreSQL roles; superuser privileges are used only to create fixtures and exercise administrative role revocation. RLS remains enabled.
+
+The fixes include the additionally discovered reserved `full` rationale-column identifier, duplicate revamp profile policies/triggers, missing columns on preexisting tables, invalid demo UUID literals, and omitted legacy-required JSON content in demo inserts. SQL sample IDs now use stable UUID v5 values; source question bank identities are preserved.
+
+Client profile updates no longer write the server-owned `updated_at` column. The added unit regression verifies the store sends only the actual edited field and retains the returned profile. All 95 unit tests and local type checking pass; GitHub Sprint 4 checks also pass on the repair commit.
+
+The blocking SQL/RLS audit is resolved. Remaining readiness work concerns actual Supabase Auth/API integration, meaningful signed-in bookmark/trial tests, and mobile browser failures. The PR stays draft; no deployment or hosted database operation has been performed.
