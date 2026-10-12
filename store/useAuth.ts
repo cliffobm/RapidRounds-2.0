@@ -149,8 +149,7 @@ export const useAuth = create<AuthState>()(
           const { data, error } = await supabase
             .from('profiles')
             .update({
-              ...updates,
-              updated_at: new Date().toISOString()
+              ...updates
             })
             .eq('id', user.id)
             .select()

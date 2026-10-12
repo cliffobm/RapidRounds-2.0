@@ -2780,8 +2780,8 @@
       "reason": "Deny rationale access for absent profiles; retain free/premium/trial limits"
     },
     "store/useAuth.spec.ts": {
-      "migrated_sha": "73babff8ff9124f5cf2c1c5b7d96710cc37048e1",
-      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+      "migrated_sha": "8983f2a5ab1ddf716011a957d63f69b9c61b0da7",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
     },
     "playwright.config.ts": {
       "migrated_sha": "09ff7de473e62c336b4852e21d54701a50c5a194",
@@ -2813,19 +2813,27 @@
     },
     "supabase/migrations/001_initial_schema.sql": {
       "migrated_sha": "ba27a697df5e8a6b932c827b053fef91c59880ef",
-      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
     },
     "supabase/migrations/002_enhanced_schema.sql": {
       "migrated_sha": "6516e0436e921c9d294507e372c89ed0fe27035e",
-      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
     },
     "supabase/migrations/003_complete_schema.sql": {
       "migrated_sha": "163f86838ae60c99efe7dea65e88b314189aa18d",
-      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
     },
     "supabase/migrations/20241214_design_revamp.sql": {
-      "migrated_sha": "d2658f9cdd1aa90cace0892131311407df8f0137",
-      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
+      "migrated_sha": "a675ef1ad61489126b07a0cd703ac212bb1e4ff3",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+    },
+    "lib/db/profile.ts": {
+      "migrated_sha": "465dfdd4aee20145f7b3e28fdb7c3d7b43d65872",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+    },
+    "store/useAuth.ts": {
+      "migrated_sha": "55d979fac40dc6c795ba4c7b3e68e6e6c350f712",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
     }
   }
 }

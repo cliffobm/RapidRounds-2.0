@@ -108,8 +108,7 @@ export async function updateUserProfile(userId: string, formData: ProfileFormDat
   const { error: profileError } = await supabase
     .from('profiles')
     .update({
-      display_name: formData.display_name,
-      updated_at: new Date().toISOString()
+      display_name: formData.display_name
     })
     .eq('id', userId)
 

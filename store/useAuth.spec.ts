@@ -245,3 +245,17 @@ describe('Helper Functions', () => {
 })
 
 
+
+
+describe('profile edit payload', () => {
+  it('leaves updated_at to the database trigger', async () => {
+    const { supabaseClient } = await import('../lib/supabase-client')
+    const saved = { id: 'user-123', credentials: ['RN'] } as any
+    const update = vi.fn(() => ({ eq: () => ({ select: () => ({ single: async () => ({ data: saved, error: null }) }) }) }))
+    vi.mocked(supabaseClient.from).mockReturnValue({ update } as any)
+    useAuth.setState({ user: { id: 'user-123' } as any, profile: { id: 'user-123' } as any })
+    await useAuth.getState().updateProfile({ credentials: ['RN'] })
+    expect(update).toHaveBeenCalledWith({ credentials: ['RN'] })
+    expect(useAuth.getState().profile).toEqual(saved)
+  })
+})

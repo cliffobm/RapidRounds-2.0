@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS rationales (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   scenario_item_id UUID NOT NULL REFERENCES scenario_items(id) ON DELETE CASCADE,
   hint TEXT NOT NULL,
-  full TEXT NOT NULL,
+  "full" TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
