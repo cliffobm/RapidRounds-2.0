@@ -1,0 +1,504 @@
+{
+  "version": "1.0.0",
+  "bank_id": "cv_hypertensive_crises",
+  "title": "Cardio \u2022 Hypertensive Crises",
+  "source_note": "Generalized from teaching notes; no copyrighted verbatim.",
+  "items": [
+    {
+      "id": "htn-1",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which definition best matches a hypertensive emergency?",
+      "options": [
+        "Severe BP elevation without acute target-organ injury",
+        "Abrupt BP rise with acute target-organ injury requiring IV therapy",
+        "Any BP \u2265 140/90 on three visits",
+        "Any systolic BP \u2265 180 regardless of symptoms"
+      ],
+      "correct_answer": "B",
+      "rationale": "Emergency = severe hypertension WITH new/progressive end-organ injury and need for rapid IV therapy.",
+      "clinical_pearl": null,
+      "tags": [
+        "definition",
+        "triage"
+      ]
+    },
+    {
+      "id": "htn-2",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which BP profile most strongly suggests a hypertensive emergency?",
+      "options": [
+        "242/142 with new pulmonary edema",
+        "190/120, asymptomatic",
+        "150/90 with headache only",
+        "128/78 with epistaxis"
+      ],
+      "correct_answer": "A",
+      "rationale": "Very high BP plus acute organ injury defines emergency.",
+      "clinical_pearl": null,
+      "tags": [
+        "definition",
+        "organ-damage"
+      ]
+    },
+    {
+      "id": "htn-3",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Hypertensive urgency is best managed by:",
+      "options": [
+        "Immediate IV vasodilators in ICU",
+        "Oral agents with gradual BP reduction over 24\u201348 hours",
+        "Thrombolysis within 30 minutes",
+        "Emergent surgery"
+      ],
+      "correct_answer": "B",
+      "rationale": "Urgency lacks acute organ injury; oral agents and close follow-up are appropriate.",
+      "clinical_pearl": null,
+      "tags": [
+        "urgency",
+        "outpatient"
+      ]
+    },
+    {
+      "id": "htn-4",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "In hypertensive emergency (non\u2013aortic dissection), initial BP goal within the first hour is to:",
+      "options": [
+        "Normalize BP to < 120/80 immediately",
+        "Reduce mean arterial pressure by ~20\u201325%",
+        "Reduce systolic BP by 60 mm Hg regardless of baseline",
+        "Lower diastolic BP below 70 mm Hg"
+      ],
+      "correct_answer": "B",
+      "rationale": "Excessive early reduction risks cerebral/renal ischemia; target \u224820\u201325% MAP reduction in first hour.",
+      "clinical_pearl": null,
+      "tags": [
+        "management",
+        "targets"
+      ]
+    },
+    {
+      "id": "htn-5",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which scenario warrants faster and more aggressive BP control than usual?",
+      "options": [
+        "Chronic kidney disease without symptoms",
+        "Aortic dissection",
+        "Uncomplicated epistaxis",
+        "Mild proteinuria"
+      ],
+      "correct_answer": "B",
+      "rationale": "Aortic dissection requires rapid BP and shear stress reduction within minutes.",
+      "clinical_pearl": null,
+      "tags": [
+        "aortic-dissection",
+        "exception"
+      ]
+    },
+    {
+      "id": "htn-6",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "A patient with a T4 spinal cord injury develops severe hypertension and bradycardia after bladder distention. What is the likely mechanism?",
+      "options": [
+        "Adrenal crisis",
+        "Autonomic dysreflexia",
+        "Thyroid storm",
+        "Pheochromocytoma"
+      ],
+      "correct_answer": "B",
+      "rationale": "Noxious stimuli below the lesion can trigger autonomic dysreflexia (usually lesions at/above T6).",
+      "clinical_pearl": null,
+      "tags": [
+        "etiology",
+        "neuro"
+      ]
+    },
+    {
+      "id": "htn-7",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which finding increases suspicion for renovascular hypertension?",
+      "options": [
+        "Gradual onset hypertension responsive to thiazide",
+        "Abdominal bruit and sudden refractory hypertension",
+        "Hyperkalemia on ACE inhibitor",
+        "Low LDL level"
+      ],
+      "correct_answer": "B",
+      "rationale": "Renal artery stenosis often presents with abdominal bruit and resistant/sudden-onset HTN.",
+      "clinical_pearl": null,
+      "tags": [
+        "secondary",
+        "renal"
+      ]
+    },
+    {
+      "id": "htn-8",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which lab pattern supports primary hyperaldosteronism as a cause of hypertension?",
+      "options": [
+        "Hyponatremia, hyperkalemia",
+        "Hypernatremia, hypokalemia",
+        "Hypercalcemia, alkalosis",
+        "Low creatinine, low BUN"
+      ],
+      "correct_answer": "B",
+      "rationale": "Excess aldosterone leads to sodium retention and potassium wasting (hypokalemia).",
+      "clinical_pearl": null,
+      "tags": [
+        "secondary",
+        "endocrine"
+      ]
+    },
+    {
+      "id": "htn-9",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "A pregnant patient has severe hypertension, headache, and visual symptoms. Priority action?",
+      "options": [
+        "Start nitroprusside infusion",
+        "Assess for preeclampsia/eclampsia and initiate appropriate protocol",
+        "Begin clonidine patch",
+        "Avoid magnesium due to seizure risk"
+      ],
+      "correct_answer": "B",
+      "rationale": "Severe features suggest preeclampsia/eclampsia; follow obstetric hypertensive emergency protocols.",
+      "clinical_pearl": null,
+      "tags": [
+        "pregnancy"
+      ]
+    },
+    {
+      "id": "htn-10",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which ocular finding is most concerning for malignant hypertension?",
+      "options": [
+        "Arteriolar narrowing only",
+        "Isolated cotton-wool spot",
+        "Retinal hemorrhages/exudates with papilledema",
+        "Mild AV nicking"
+      ],
+      "correct_answer": "C",
+      "rationale": "Hemorrhages/exudates plus papilledema signify severe hypertensive retinopathy.",
+      "clinical_pearl": null,
+      "tags": [
+        "retina",
+        "diagnosis"
+      ]
+    },
+    {
+      "id": "htn-11",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which exam/ECG combination suggests long-standing pressure overload from hypertension?",
+      "options": [
+        "Right axis deviation with RBBB",
+        "Displaced PMI with S4 and ECG LVH pattern",
+        "Low voltage QRS in all leads",
+        "Delta waves with short PR"
+      ],
+      "correct_answer": "B",
+      "rationale": "LVH plus S4 and lateral voltage criteria point to chronic hypertensive remodeling.",
+      "clinical_pearl": null,
+      "tags": [
+        "cardio",
+        "lvh"
+      ]
+    },
+    {
+      "id": "htn-12",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Severe hypertension with acute pulmonary edema\u2014most appropriate first-line IV approach?",
+      "options": [
+        "IV labetalol only",
+        "IV nitroglycerin titrated plus diuretics as needed",
+        "High-dose beta-agonist nebulizers",
+        "Immediate ACE inhibitor bolus"
+      ],
+      "correct_answer": "B",
+      "rationale": "In pulmonary edema, venodilators reduce preload/afterload; diuretics adjunctively.",
+      "clinical_pearl": null,
+      "tags": [
+        "pulmonary-edema",
+        "therapy"
+      ]
+    },
+    {
+      "id": "htn-13",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which is a reasonable initial IV agent for many hypertensive emergencies requiring arterial dilation and easy titration?",
+      "options": [
+        "Nicardipine infusion",
+        "Oral nifedipine immediate release",
+        "IM hydralazine",
+        "IV digoxin"
+      ],
+      "correct_answer": "A",
+      "rationale": "IV nicardipine is a titratable arterial vasodilator commonly used in hypertensive emergencies.",
+      "clinical_pearl": null,
+      "tags": [
+        "meds",
+        "vasodilator"
+      ]
+    },
+    {
+      "id": "htn-14",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Key safety consideration with nitroprusside infusion is risk of:",
+      "options": [
+        "Bradyarrhythmia from beta blockade",
+        "Cyanide/thiocyanate toxicity with prolonged/high-dose use or renal/hepatic impairment",
+        "Profound hyperkalemia",
+        "Serotonin syndrome"
+      ],
+      "correct_answer": "B",
+      "rationale": "Nitroprusside can generate cyanide/thiocyanate; monitor dose/duration and organ function.",
+      "clinical_pearl": null,
+      "tags": [
+        "meds",
+        "safety"
+      ]
+    },
+    {
+      "id": "htn-15",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "In hypertensive emergency with aortic dissection, which combo is most appropriate early?",
+      "options": [
+        "Start vasodilator alone to lower BP quickly",
+        "Beta-blocker first to reduce shear, then add vasodilator",
+        "ACE inhibitor only",
+        "Diuretic only"
+      ],
+      "correct_answer": "B",
+      "rationale": "Heart-rate and dP/dt control with beta-blockade precedes/accompanies vasodilation in dissection.",
+      "clinical_pearl": null,
+      "tags": [
+        "aortic-dissection",
+        "beta-blocker"
+      ]
+    },
+    {
+      "id": "htn-16",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "During initial treatment, the patient develops confusion while BP is falling appropriately. Best action?",
+      "options": [
+        "Further accelerate BP reduction",
+        "Pause/slacken BP reduction and reassess for hypoperfusion",
+        "Administer IV thrombolysis",
+        "Switch to oral therapy immediately"
+      ],
+      "correct_answer": "B",
+      "rationale": "New neuro symptoms during lowering suggest cerebral hypoperfusion; slow or pause reduction.",
+      "clinical_pearl": null,
+      "tags": [
+        "safety",
+        "neuro"
+      ]
+    },
+    {
+      "id": "htn-17",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Best monitoring approach for a true hypertensive emergency starting IV therapy is:",
+      "options": [
+        "Cuff checks every 2 hours",
+        "Ambulatory BP monitor",
+        "Intra-arterial line for continuous monitoring",
+        "No monitoring needed if asymptomatic"
+      ],
+      "correct_answer": "C",
+      "rationale": "An arterial line enables tight titration and detection of rapid changes.",
+      "clinical_pearl": null,
+      "tags": [
+        "monitoring",
+        "icu"
+      ]
+    },
+    {
+      "id": "htn-18",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which can precipitate a hypertensive crisis after abrupt cessation?",
+      "options": [
+        "Metformin",
+        "Clonidine",
+        "Statin",
+        "PPI"
+      ],
+      "correct_answer": "B",
+      "rationale": "Abrupt clonidine withdrawal can cause rebound sympathetic surge.",
+      "clinical_pearl": null,
+      "tags": [
+        "etiology",
+        "withdrawal"
+      ]
+    },
+    {
+      "id": "htn-19",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "A patient on an MAOI develops severe headache and hypertension after a wine-and-cheese party. Likely trigger?",
+      "options": [
+        "High vitamin C intake",
+        "Tyramine interaction",
+        "Dehydration",
+        "Hypoglycemia"
+      ],
+      "correct_answer": "B",
+      "rationale": "Tyramine with MAOIs can cause catecholamine surge and crisis.",
+      "clinical_pearl": null,
+      "tags": [
+        "drug-interaction"
+      ]
+    },
+    {
+      "id": "htn-20",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "In pregnancy-related hypertensive emergency with seizures, which adjunct is indicated?",
+      "options": [
+        "Magnesium sulfate",
+        "Phenytoin only",
+        "Diazoxide routinely",
+        "Heparin infusion"
+      ],
+      "correct_answer": "A",
+      "rationale": "Magnesium sulfate is indicated for eclampsia for seizure control/prophylaxis.",
+      "clinical_pearl": null,
+      "tags": [
+        "pregnancy",
+        "seizure"
+      ]
+    },
+    {
+      "id": "htn-21",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which lifestyle change provides a meaningful BP benefit post-crisis?",
+      "options": [
+        "High-sodium diet for volume expansion",
+        "Aerobic exercise and reduced sodium intake",
+        "Daily ethanol for vasodilation",
+        "Avoid fruits/vegetables due to potassium"
+      ],
+      "correct_answer": "B",
+      "rationale": "Aerobic activity and sodium restriction are cornerstone nonpharmacologic strategies.",
+      "clinical_pearl": null,
+      "tags": [
+        "lifestyle"
+      ]
+    },
+    {
+      "id": "htn-22",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "In acute pulmonary edema with severe hypertension, which diuretic strategy is typical?",
+      "options": [
+        "Loop diuretics acutely; consider thiazide for long-term control",
+        "Thiazide acutely; loop only long term",
+        "Potassium-sparing only",
+        "No role for diuretics"
+      ],
+      "correct_answer": "A",
+      "rationale": "Loops for acute decongestion; thiazide-type for maintenance BP control.",
+      "clinical_pearl": null,
+      "tags": [
+        "diuretics"
+      ]
+    },
+    {
+      "id": "htn-23",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which scenario highlights a niche role for IV phentolamine?",
+      "options": [
+        "Uncomplicated essential hypertension",
+        "Catecholamine surge states (e.g., pheochromocytoma, autonomic dysreflexia)",
+        "Heart block with hypotension",
+        "Renal colic"
+      ],
+      "correct_answer": "B",
+      "rationale": "Alpha blockade counters catecholamine-mediated vasoconstriction in specific crises.",
+      "clinical_pearl": null,
+      "tags": [
+        "alpha-blocker",
+        "pheochromocytoma"
+      ]
+    },
+    {
+      "id": "htn-24",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Chest radiography in suspected thoracic aortic dissection may show:",
+      "options": [
+        "Diffuse hyperinflation",
+        "Widened mediastinum",
+        "Pleural calcifications",
+        "Pericardial air"
+      ],
+      "correct_answer": "B",
+      "rationale": "A widened mediastinum can suggest dissection and prompts definitive imaging.",
+      "clinical_pearl": null,
+      "tags": [
+        "diagnostics",
+        "aorta"
+      ]
+    },
+    {
+      "id": "htn-25",
+      "topic": "Hypertensive Crises",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which lab trend best signals hypertensive kidney injury during crisis?",
+      "options": [
+        "Falling creatinine and BUN",
+        "Rising creatinine with new hematuria/proteinuria",
+        "Low triglycerides",
+        "Eosinophilia"
+      ],
+      "correct_answer": "B",
+      "rationale": "AKI manifests as rising creatinine and often hematuria/proteinuria.",
+      "clinical_pearl": null,
+      "tags": [
+        "renal",
+        "organ-damage"
+      ]
+    }
+  ]
+}

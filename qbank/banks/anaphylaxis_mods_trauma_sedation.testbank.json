@@ -1,0 +1,83 @@
+{
+  "version": "1.0.0",
+  "bank_id": "anaphylaxis_mods_trauma_sedation_v1",
+  "title": "Anaphylaxis, MODS, Trauma, Sedation",
+  "source_note": "Original items.",
+  "items": [
+    {
+      "id": "faf14853-70b6-4d8a-b6e9-65653ae63b5f",
+      "topic": "Multisystem \u2022 Anaphylaxis",
+      "difficulty": "moderate",
+      "stem": "Hives, angioedema, wheeze minutes after bee sting; BP 82/50.",
+      "question": "Immediate first\u2011line action:",
+      "options": [
+        "Albuterol neb",
+        "Epinephrine 0.3\u20130.5 mg IM (1:1,000)",
+        "Diphenhydramine 50 mg IV",
+        "Epinephrine 1 mg IV push"
+      ],
+      "correct_answer": "B",
+      "rationale": "IM epi to mid\u2011thigh is first\u2011line; IV push dosing here is unsafe.",
+      "tags": [
+        "anaphylaxis",
+        "epi"
+      ]
+    },
+    {
+      "id": "7be87882-26a7-4b01-bc8d-4ef7393ca182",
+      "topic": "Multisystem \u2022 MODS",
+      "difficulty": "moderate",
+      "stem": "Which cluster fits MODS?",
+      "question": "Pick the best set:",
+      "options": [
+        "Thrombocytosis, \u2191albumin, alkalosis",
+        "Thrombocytopenia, coagulopathy, rising creatinine, dysglycemia",
+        "Bradycardia, narrow PP, hypercalcemia",
+        "Low troponin, \u2191albumin, alkalosis"
+      ],
+      "correct_answer": "B",
+      "rationale": "Hallmarks include platelet drop, coagulation issues, renal/endocrine derangements.",
+      "tags": [
+        "MODS"
+      ]
+    },
+    {
+      "id": "43fda3ea-d1a3-45ec-95fa-5471fb5c0152",
+      "topic": "Trauma \u2022 ABCDE",
+      "difficulty": "easy",
+      "stem": "21\u2011yo rider, GCS 12.",
+      "question": "First in primary survey:",
+      "options": [
+        "FAST exam",
+        "Airway with C\u2011spine control",
+        "Pelvic x\u2011ray",
+        "CT head"
+      ],
+      "correct_answer": "B",
+      "rationale": "Airway + C\u2011spine protection first.",
+      "tags": [
+        "trauma",
+        "ABCDE"
+      ]
+    },
+    {
+      "id": "b7561b97-5f1f-4adc-a311-559b4e4ffd10",
+      "topic": "ICU Sedation \u2022 Strategy",
+      "difficulty": "moderate",
+      "stem": "Intubated patient agitated on fentanyl + benzo drip; RASS +3.",
+      "question": "Best next step:",
+      "options": [
+        "Paralyze immediately",
+        "Increase benzo without assessment",
+        "Analgesia\u2011first, set target RASS, plan daily SAT/SBT",
+        "Stop analgesia and start propofol only"
+      ],
+      "correct_answer": "C",
+      "rationale": "Avoid oversedation; pain/physiology first; light sedation targets; daily SAT/SBT.",
+      "tags": [
+        "sedation",
+        "RASS"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+[
+  {
+    "id": "resp_ventilation_mechanics_01",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Dynamic compliance decreases while static compliance is unchanged. Which problem does this pattern suggest?",
+    "options": [
+      "Worsening pulmonary edema",
+      "Bronchospasm or mucus plugging",
+      "Increasing pleural effusion",
+      "Chest wall restriction"
+    ],
+    "answer": 1,
+    "rationale": "Static compliance reflects elastic properties; dynamic includes airway resistance. A drop in dynamic alone → increased airway resistance.",
+    "tags": [
+      "compliance",
+      "airway_resistance"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_ventilation_mechanics_02",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which change most directly reduces work of breathing in severe asthma?",
+    "options": [
+      "Increase inspiratory time",
+      "Decrease expiratory time",
+      "Reduce airflow resistance (e.g., bronchodilator)",
+      "Lower FiO2"
+    ],
+    "answer": 2,
+    "rationale": "WOB in asthma is driven by high airway resistance; bronchodilators reduce resistance and dynamic hyperinflation.",
+    "tags": [
+      "WOB",
+      "asthma"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_ventilation_mechanics_03",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "RSBI (f/VT in liters) of 80 suggests:",
+    "options": [
+      "Not ready for weaning",
+      "Ready for weaning/extubation candidacy",
+      "Impending respiratory arrest",
+      "Metabolic alkalosis"
+    ],
+    "answer": 1,
+    "rationale": "An RSBI ≤105 is associated with higher probability of successful weaning/extubation (consider whole clinical picture).",
+    "tags": [
+      "RSBI",
+      "weaning"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_ventilation_mechanics_04",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A patient on volume‑control ventilation develops auto‑PEEP. Which adjustment helps most?",
+    "options": [
+      "Decrease expiratory time",
+      "Increase respiratory rate",
+      "Lengthen expiratory time (reduce rate or I:E)",
+      "Add more tidal volume"
+    ],
+    "answer": 2,
+    "rationale": "Auto‑PEEP arises from incomplete exhalation; allowing more expiratory time reduces air trapping.",
+    "tags": [
+      "auto_PEEP",
+      "vent_settings"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_ventilation_mechanics_05",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which bedside measure best reflects adequate inspiratory muscle strength for extubation?",
+    "options": [
+      "MIP (NIF) more negative than −25 cm H2O",
+      "Vital capacity <10 ml/kg",
+      "VT <5 ml/kg",
+      "MVV 60 l/min"
+    ],
+    "answer": 0,
+    "rationale": "An MIP/NIF more negative than −25 cm H2O supports inspiratory strength; VC ≥10–15 ml/kg and VT ≥5–7 ml/kg are also used.",
+    "tags": [
+      "extubation",
+      "MIP"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_ventilation_mechanics_06",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which finding most suggests dead‑space ventilation increase?",
+    "options": [
+      "PaCO2 – PetCO2 gradient rising",
+      "PaO2/FiO2 improving",
+      "Decreasing A–a gradient",
+      "Increased static compliance"
+    ],
+    "answer": 0,
+    "rationale": "A larger PaCO2–PetCO2 gradient indicates more alveolar dead space or decreased pulmonary blood flow.",
+    "tags": [
+      "dead_space",
+      "capnography"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_ventilation_mechanics_07",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "During transport on 100% O2 via NRB, SpO2 falls from 98% to 82%, and the patient becomes tachypneic. First action?",
+    "options": [
+      "Switch to Venturi 50%",
+      "Apply BVM with PEEP and prepare for escalation",
+      "Reduce oxygen to avoid toxicity",
+      "Give IV fluids"
+    ],
+    "answer": 1,
+    "rationale": "Acute desaturation on NRB suggests failure to ventilate or shunt; immediate assisted ventilation with PEEP may be required.",
+    "tags": [
+      "hypoxemia",
+      "BVM",
+      "PEEP"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_ventilation_mechanics_08",
+    "theme": "ventilation_mechanics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which intervention most directly increases mean airway pressure and can improve oxygenation in ARDS?",
+    "options": [
+      "Decrease PEEP",
+      "Shorten inspiratory time",
+      "Increase PEEP",
+      "Lower FiO2"
+    ],
+    "answer": 2,
+    "rationale": "Increasing PEEP elevates mean airway pressure and recruits alveoli, improving oxygenation in ARDS (balance with hemodynamics).",
+    "tags": [
+      "ARDS",
+      "PEEP"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  }
+]

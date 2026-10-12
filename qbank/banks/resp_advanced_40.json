@@ -1,0 +1,1063 @@
+[
+  {
+    "id": "assessment-adv-001",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "A 64-year-old with COPD presents with increased dyspnea. On exam: tripod posture, pursed-lip breathing, paradoxical inward movement of the lower rib cage in inspiration, and an I:E of 1:4. Which single finding best indicates impending ventilatory muscle fatigue?",
+    "options": [
+      "Paradoxical breathing pattern",
+      "Pursed\u2011lip breathing",
+      "Use of sternocleidomastoids",
+      "Barrel chest with \u2191AP diameter"
+    ],
+    "answer": 0,
+    "rationale": "Paradoxical (abdominal) breathing indicates diaphragmatic fatigue and impending ventilatory failure more than accessory muscle use alone.",
+    "tags": [
+      "assessment",
+      "work_of_breathing",
+      "fatigue"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "assessment-adv-002",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "During vocal fremitus assessment the right lower posterior lung field has markedly increased fremitus compared with the contralateral side. Breath sounds are bronchial in that region. Most likely explanation?",
+    "options": [
+      "Pleural effusion",
+      "Emphysema",
+      "Lobar pneumonia with consolidation",
+      "Tension pneumothorax"
+    ],
+    "answer": 2,
+    "rationale": "Both increased fremitus and bronchial breath sounds over a peripheral region point to airspace consolidation (e.g., lobar pneumonia).",
+    "tags": [
+      "assessment",
+      "auscultation",
+      "fremitus"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "assessment-adv-003",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which bedside sign most reliably separates central (warm) cyanosis from peripheral (cold) cyanosis?",
+    "options": [
+      "Presence on lips and mucous membranes",
+      "Presence on nailbeds",
+      "Presence on toes only",
+      "Capillary refill >3 s"
+    ],
+    "answer": 0,
+    "rationale": "Central cyanosis manifests on lips and mucous membranes and reflects \u22655 g/dL deoxygenated Hgb; peripheral cyanosis affects extremities from low flow/vasoconstriction.",
+    "tags": [
+      "assessment",
+      "cyanosis"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "assessment-adv-004",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "A patient with suspected right mainstem intubation will most likely have which combination?",
+    "options": [
+      "Absent left breath sounds, unequal chest rise, SpO2 drop",
+      "Diffuse wheeze bilaterally, hyperresonance, normal SpO2",
+      "Coarse crackles right > left, fever, \u2191 fremitus",
+      "Stridor and hoarse voice with normal symmetric excursion"
+    ],
+    "answer": 0,
+    "rationale": "Right mainstem intubation produces absent/markedly reduced left breath sounds, asymmetric chest rise, and hypoxemia.",
+    "tags": [
+      "assessment",
+      "airway",
+      "intubation"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "assessment-adv-005",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "In a dark\u2011skinned patient, the best site to assess central cyanosis is:",
+    "options": [
+      "Palms",
+      "Conjunctivae and oral mucosa",
+      "Nailbeds",
+      "Ear lobes"
+    ],
+    "answer": 1,
+    "rationale": "Central cyanosis is best assessed at mucous membranes (inner lips, oral mucosa) or conjunctivae across skin tones.",
+    "tags": [
+      "assessment",
+      "cyanosis",
+      "equity"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "assessment-adv-006",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "During chest expansion assessment, you note markedly diminished excursion on the right posterior base with dullness to percussion and decreased breath sounds. Tactile fremitus is decreased. Most consistent with:",
+    "options": [
+      "Right lower lobe consolidation",
+      "Right pleural effusion",
+      "Right pneumothorax",
+      "Right lower lobe atelectasis with patent bronchus"
+    ],
+    "answer": 1,
+    "rationale": "Pleural effusion causes dullness, decreased breath sounds, and decreased fremitus (fluid dampens transmission) with reduced excursion.",
+    "tags": [
+      "assessment",
+      "percussion",
+      "effusion"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "assessment-adv-007",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "A trauma patient has subcutaneous emphysema across the anterior neck after a difficult intubation. First priority bedside action?",
+    "options": [
+      "Start high\u2011flow oxygen via nonrebreather",
+      "Immediate needle thoracostomy",
+      "Check ET tube depth and confirm tracheal placement with capnography",
+      "Administer IV steroids"
+    ],
+    "answer": 2,
+    "rationale": "Widespread cervical crepitus after instrumentation raises concern for airway injury or malposition; verify tracheal placement with waveform capnography and depth before other steps.",
+    "tags": [
+      "assessment",
+      "airway",
+      "capnography"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "assessment-adv-008",
+    "theme": "assessment",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which respiratory pattern best correlates with pontine lesions?",
+    "options": [
+      "Cheyne\u2013Stokes",
+      "Apneustic breathing",
+      "Kussmaul breathing",
+      "Biot breathing"
+    ],
+    "answer": 1,
+    "rationale": "Apneustic pattern (prolonged inspiratory gasp with inadequate expiration) is classically linked to pontine lesions.",
+    "tags": [
+      "assessment",
+      "neuro",
+      "breathing_patterns"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-001",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "ABG: pH 7.12, PaCO2 68, HCO3\u2013 22, PaO2 58 on 50% FiO2. What is the primary disorder and next best action?",
+    "options": [
+      "Acute respiratory acidosis; escalate ventilatory support",
+      "Metabolic acidosis; give sodium bicarbonate",
+      "Mixed metabolic and respiratory alkalosis; reduce minute ventilation",
+      "Chronic respiratory acidosis with compensation; observe"
+    ],
+    "answer": 0,
+    "rationale": "Low pH with high PaCO2 and normal HCO3\u2013 indicates an acute respiratory acidosis. Hypoxemia despite FiO2 0.5 warrants ventilatory support escalation.",
+    "tags": [
+      "abg",
+      "acid_base",
+      "ventilation"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-002",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "A septic patient has pH 7.32, PaCO2 30, HCO3\u2013 15, lactate 6 mmol/L. Describe disorder and compensation status.",
+    "options": [
+      "Primary metabolic acidosis with partial respiratory compensation",
+      "Primary respiratory alkalosis with renal compensation",
+      "Mixed metabolic acidosis and respiratory acidosis",
+      "Normal acid\u2013base with elevated lactate only"
+    ],
+    "answer": 0,
+    "rationale": "Low HCO3\u2013 with low pH indicates metabolic acidosis. Low PaCO2 shows appropriate respiratory compensation (partial if pH remains acidemic).",
+    "tags": [
+      "abg",
+      "sepsis",
+      "lactate"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-003",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which change shifts the oxyhemoglobin dissociation curve to the LEFT, impairing tissue oxygen unloading?",
+    "options": [
+      "Hyperthermia",
+      "Acidemia",
+      "Increased 2,3\u2011DPG",
+      "Hypocapnia"
+    ],
+    "answer": 3,
+    "rationale": "Left shift (\u2191 affinity) occurs with alkalemia, hypothermia, hypocapnia, and decreased 2,3\u2011DPG\u2014reducing O2 unloading to tissues.",
+    "tags": [
+      "abg",
+      "oxyhemoglobin_curve"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-004",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Calculate expected PaCO2 in metabolic acidosis (Winter\u2019s formula) for HCO3\u2013 12 mEq/L.",
+    "options": [
+      "Expected PaCO2 \u2248 1.5\u00d712 + 8 \u00b12 \u2192 ~26\u201332 mm Hg",
+      "Expected PaCO2 \u2248 0.7\u00d712 + 20 \u00b12 \u2192 ~28\u201330 mm Hg",
+      "Expected PaCO2 \u2248 12 + 15 \u00b12 \u2192 ~25\u201329 mm Hg",
+      "Expected PaCO2 \u2248 40 \u2212 (24 \u2212 12) \u2192 ~28 mm Hg"
+    ],
+    "answer": 0,
+    "rationale": "Winter\u2019s formula: expected PaCO2 = 1.5\u00d7HCO3\u2013 + 8 \u00b12; for 12 \u2192 26\u201332 mm Hg. Values outside this imply a mixed disorder.",
+    "tags": [
+      "abg",
+      "calculations"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-005",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "In COPD with chronic hypercapnia, which target is safest to avoid CO2 narcosis while correcting hypoxemia?",
+    "options": [
+      "PaO2 100 mm Hg",
+      "SpO2 88\u201392%",
+      "PaO2 80\u201390 mm Hg",
+      "SpO2 \u226598%"
+    ],
+    "answer": 1,
+    "rationale": "Titrate oxygen to SpO2 ~88\u201392% (PaO2 \u2248 55\u201365) to avoid suppression of hypoxic drive and worsening V/Q in chronic CO2 retainers.",
+    "tags": [
+      "oxygen",
+      "copd",
+      "targets"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-006",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "ABG: pH 7.44, PaCO2 55, HCO3\u2013 36. Interpretation?",
+    "options": [
+      "Fully compensated metabolic alkalosis",
+      "Partially compensated respiratory acidosis",
+      "Fully compensated respiratory acidosis",
+      "Mixed metabolic alkalosis and respiratory alkalosis"
+    ],
+    "answer": 2,
+    "rationale": "Normal pH leaning acid with high PaCO2 and high HCO3\u2013 indicates fully compensated chronic respiratory acidosis (renal HCO3\u2013 retention).",
+    "tags": [
+      "abg",
+      "compensation"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-007",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which technical error most likely causes spuriously LOW PaO2 on ABG?",
+    "options": [
+      "Air bubble in syringe",
+      "Not chilling specimen",
+      "Too much heparin diluent",
+      "Drawing during FiO2 increase"
+    ],
+    "answer": 1,
+    "rationale": "Delayed analysis (not chilled) allows ongoing metabolism \u2192 \u2193 pH, \u2193 PaO2, \u2191 PaCO2. Air bubbles raise PaO2 and pH.",
+    "tags": [
+      "abg",
+      "preanalytical"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "abg_acidbase-adv-008",
+    "theme": "abg_acidbase",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "A 24\u2011year\u2011old with salicylate toxicity shows pH 7.48, PaCO2 22, HCO3\u2013 16. Best description?",
+    "options": [
+      "Simple respiratory alkalosis",
+      "Simple metabolic acidosis",
+      "Mixed primary respiratory alkalosis and metabolic acidosis",
+      "Metabolic alkalosis with respiratory compensation"
+    ],
+    "answer": 2,
+    "rationale": "Salicylates cause a classic mixed disorder: respiratory alkalosis (CNS stimulation) plus metabolic acidosis (uncoupled oxidative phosphorylation).",
+    "tags": [
+      "abg",
+      "tox",
+      "mixed"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-001",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which device provides the most RELIABLE, fixed FiO2 in tachypneic patients with irregular VT?",
+    "options": [
+      "Simple face mask",
+      "Venturi mask",
+      "Nonrebreather mask",
+      "Nasal cannula at 6 L/min"
+    ],
+    "answer": 1,
+    "rationale": "Venturi (air\u2011entrainment) masks deliver a precise FiO2 independent of patient\u2019s minute ventilation\u2014ideal for irregular VT/RR.",
+    "tags": [
+      "oxygen_devices",
+      "venturi"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-002",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Nonrebreather at 15 L/min delivers an FiO2 CLOSEST to which range under ideal fit?",
+    "options": [
+      "0.30\u20130.40",
+      "0.40\u20130.60",
+      "0.60\u20130.80",
+      "0.80\u20131.00"
+    ],
+    "answer": 3,
+    "rationale": "Nonrebreather with one\u2011way valves and reservoir can approach 0.80\u20131.00, though true 1.0 is rare without a tight seal.",
+    "tags": [
+      "oxygen_devices",
+      "nrB"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-003",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "In hypercapnic respiratory failure from COPD, which is the most appropriate INITIAL device?",
+    "options": [
+      "Nonrebreather at 15 L/min",
+      "Venturi mask 24\u201328%",
+      "High\u2011flow nasal cannula (HFNC) 60 L/min, FiO2 0.9",
+      "Simple mask 10 L/min"
+    ],
+    "answer": 1,
+    "rationale": "Controlled low FiO2 via Venturi (24\u201328%) is appropriate initially; titrate to SpO2 88\u201392% while monitoring CO2.",
+    "tags": [
+      "oxygen_devices",
+      "copd"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-004",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "High\u2011flow nasal cannula (HFNC) physiologic benefits include ALL EXCEPT:",
+    "options": [
+      "Washout of nasopharyngeal dead space",
+      "Provision of low\u2011level PEEP",
+      "Reduction of inspiratory resistance",
+      "Guaranteed fixed FiO2 independent of mouth breathing"
+    ],
+    "answer": 3,
+    "rationale": "HFNC improves oxygenation via high flows (dead\u2011space washout, mild PEEP, \u2193 inspiratory resistance) but FiO2 can be affected by entrainment and mouth leak.",
+    "tags": [
+      "oxygen_devices",
+      "hfnc"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-005",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which oxygen safety statement is TRUE?",
+    "options": [
+      "Petroleum\u2011based ointments are safe under masks",
+      "Keep source \u226510 feet from open flame",
+      "Use household extension cords with concentrators",
+      "Smoking is acceptable with nasal cannulas \u22644 L/min"
+    ],
+    "answer": 1,
+    "rationale": "Fire safety requires distance from flame/heat and avoidance of petroleum products and smoking around oxygen.",
+    "tags": [
+      "oxygen_devices",
+      "safety"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-006",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "A patient on 70% Venturi mask is transferred to NRB at 15 L/min and becomes drowsy with rising PaCO2. Most likely mechanism?",
+    "options": [
+      "Absorptive atelectasis",
+      "Suppression of hypoxic ventilatory drive and worsened V/Q mismatch",
+      "Methemoglobinemia",
+      "Acute oxygen toxicity"
+    ],
+    "answer": 1,
+    "rationale": "High FiO2 may worsen V/Q by reversing hypoxic pulmonary vasoconstriction and suppressing hypoxic drive in CO2 retainers, increasing PaCO2.",
+    "tags": [
+      "oxygen_devices",
+      "copd",
+      "hypercapnia"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-007",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "For preoxygenation before intubation in severe shunt physiology (ARDS), which approach best maximizes alveolar oxygenation?",
+    "options": [
+      "NRB alone",
+      "Venturi 60%",
+      "HFNC plus tight\u2011fitting NIV/CPAP with PEEP",
+      "Nasal cannula 6 L/min"
+    ],
+    "answer": 2,
+    "rationale": "Shunt requires alveolar recruitment: CPAP/NIV with PEEP plus HFNC during apneic phase improves preoxygenation vs NRB alone.",
+    "tags": [
+      "oxygen_devices",
+      "preoxygenation",
+      "ARDS"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "oxygen_devices-adv-008",
+    "theme": "oxygen_devices",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "After 24 h at FiO2 1.0 on ventilator, which is the most effective strategy to reduce oxygen toxicity risk while maintaining PaO2 \u226560?",
+    "options": [
+      "Increase FiO2 further to ensure margin",
+      "Add PEEP and titrate FiO2 down",
+      "Switch to Venturi mask 50%",
+      "Accept SpO2 84% to avoid toxicity"
+    ],
+    "answer": 1,
+    "rationale": "Use PEEP to maintain oxygenation at a LOWER FiO2 (\u22640.6 ideally), reducing oxygen toxicity risk.",
+    "tags": [
+      "oxygen_devices",
+      "peep",
+      "toxicity"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-001",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "On upright CXR you see a sharp horizontal air\u2013fluid level over the right costophrenic angle with blunting; breath sounds decreased and fremitus decreased. Most likely diagnosis:",
+    "options": [
+      "Lobar pneumonia",
+      "Pleural effusion",
+      "Pneumothorax",
+      "Atelectasis"
+    ],
+    "answer": 1,
+    "rationale": "A pleural air\u2013fluid level and blunted costophrenic angle point to pleural effusion; fluid dampens fremitus and breath sounds.",
+    "tags": [
+      "cxr",
+      "effusion"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-002",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which CXR feature favors atelectasis over consolidation?",
+    "options": [
+      "Air bronchograms",
+      "Mediastinal shift TOWARD the opaque side",
+      "Hyperinflation of affected lobe",
+      "Bronchial breath sounds over periphery"
+    ],
+    "answer": 1,
+    "rationale": "Atelectasis often pulls structures toward the affected side (volume loss). Consolidation typically preserves volume.",
+    "tags": [
+      "cxr",
+      "atelectasis"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-003",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Classic progression of ARDS on CXR includes which sequence?",
+    "options": [
+      "Normal \u2192 ground\u2011glass \u2192 patchy consolidations \u2192 near white\u2011out",
+      "Hyperinflation \u2192 bullae \u2192 pneumothorax",
+      "Lobar opacity \u2192 cavitation \u2192 air\u2011fluid levels",
+      "Hilar adenopathy \u2192 miliary nodules \u2192 fibrosis"
+    ],
+    "answer": 0,
+    "rationale": "ARDS evolves from normal/near\u2011normal to ground\u2011glass, then patchy dependent consolidations, potentially progressing to diffuse opacification.",
+    "tags": [
+      "cxr",
+      "ards"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-004",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Post\u2011intubation CXR shows ET tube tip 1 cm above the carina in a patient with planned neck flexion in OR. Best adjustment now?",
+    "options": [
+      "Advance 2\u20133 cm",
+      "Withdraw 2\u20133 cm",
+      "Leave as is",
+      "Extubate and reintubate with shorter tube"
+    ],
+    "answer": 1,
+    "rationale": "Neck flexion advances the ET tube caudally; at only 1 cm above carina, withdraw now to 3\u20135 cm above to avoid mainstem intubation when flexed.",
+    "tags": [
+      "airway",
+      "cxr",
+      "et_tube"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-005",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "A tension pneumothorax is MOST reliably diagnosed bedside by which combination?",
+    "options": [
+      "Absent unilateral breath sounds, hyperresonance, tracheal shift away, hypotension",
+      "Crackles, dullness, fever, leukocytosis",
+      "Diffuse wheeze, prolonged expiratory phase, pulsus paradoxus",
+      "Bronchial breath sounds, increased fremitus, egophony"
+    ],
+    "answer": 0,
+    "rationale": "Classic triad plus hemodynamic compromise strongly suggests tension pneumothorax.",
+    "tags": [
+      "assessment",
+      "cxr",
+      "pneumothorax"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-006",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Capnography during CPR shows PetCO2 rising from 8 \u2192 18 mm Hg with the same compression rate/depth. Interpretation?",
+    "options": [
+      "Worsening ventilation",
+      "Improved chest compression quality and perfusion",
+      "Return of spontaneous circulation (ROSC) definitely occurred",
+      "Airway obstruction"
+    ],
+    "answer": 1,
+    "rationale": "Higher PetCO2 during constant ventilation reflects improved pulmonary blood flow (better compressions). A sudden sustained jump often heralds ROSC.",
+    "tags": [
+      "capnography",
+      "cpr"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-007",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which factor MOST limits the accuracy of pulse oximetry in carbon monoxide poisoning?",
+    "options": [
+      "Motion artifact",
+      "Methemoglobin presence",
+      "Overestimation of SaO2 due to carboxyhemoglobin",
+      "Hypoperfusion with vasopressors"
+    ],
+    "answer": 2,
+    "rationale": "Carboxyhemoglobin is read as oxyhemoglobin, falsely elevating SpO2; thus ABG with co\u2011oximetry is required.",
+    "tags": [
+      "pulse_ox",
+      "co_poisoning"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "imaging_diagnostics-adv-008",
+    "theme": "imaging_diagnostics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "During V/Q scanning, a normal ventilation with multiple peripheral wedge\u2011shaped perfusion defects most strongly suggests:",
+    "options": [
+      "Emphysema",
+      "Pulmonary edema",
+      "Pulmonary emboli",
+      "Atelectasis"
+    ],
+    "answer": 2,
+    "rationale": "Mismatch with normal ventilation and segmental perfusion defects is classic for pulmonary emboli.",
+    "tags": [
+      "vq_scan",
+      "pe"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-001",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "On the ventilator: rising peak inspiratory pressure (PIP) with unchanged plateau pressure. Most likely cause?",
+    "options": [
+      "Decreasing lung compliance (e.g., edema)",
+      "Increasing airway resistance (e.g., bronchospasm, secretions)",
+      "Pneumothorax",
+      "Mainstem intubation"
+    ],
+    "answer": 1,
+    "rationale": "\u2191PIP with stable plateau isolates the problem to resistive components\u2014airway resistance\u2014rather than compliance.",
+    "tags": [
+      "ventilation",
+      "mechanics",
+      "pip_plateau"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-002",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Dynamic compliance has fallen substantially while static compliance is unchanged. Which intervention targets the pathophysiology?",
+    "options": [
+      "Bronchodilator and suctioning",
+      "Increase PEEP",
+      "Decrease tidal volume",
+      "Paralyze patient"
+    ],
+    "answer": 0,
+    "rationale": "A drop in dynamic (but not static) compliance indicates increased airway resistance; bronchodilators and airway clearance address this.",
+    "tags": [
+      "ventilation",
+      "compliance"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-003",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which setting change most effectively reduces ventilator\u2011induced lung injury in ARDS?",
+    "options": [
+      "Increase VT to 8\u201310 ml/kg predicted body weight",
+      "Set VT 4\u20136 ml/kg predicted body weight and limit plateau \u226430 cmH2O",
+      "Eliminate PEEP",
+      "Target SpO2 \u226598% with FiO2 \u22650.8"
+    ],
+    "answer": 1,
+    "rationale": "Lung\u2011protective ventilation with low VT and limited plateau pressure is the cornerstone for ARDS to minimize VILI/overdistension.",
+    "tags": [
+      "ards",
+      "lung_protective"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-004",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Auto\u2011PEEP is suspected. Which bedside maneuver confirms dynamic hyperinflation?",
+    "options": [
+      "End\u2011expiratory hold on the ventilator",
+      "Inspiratory hold on the ventilator",
+      "Decreasing inspiratory flow",
+      "Increasing FiO2 transiently"
+    ],
+    "answer": 0,
+    "rationale": "An end\u2011expiratory hold measures intrinsic PEEP by equilibrating airway pressure at end\u2011expiration.",
+    "tags": [
+      "ventilation",
+      "auto_peep"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-005",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which change lowers minute ventilation WITHOUT reducing alveolar ventilation in COPD with significant dead space?",
+    "options": [
+      "Decrease VT and increase rate",
+      "Increase inspiratory flow to shorten I\u2011time and allow more expiratory time",
+      "Add PEEP above intrinsic PEEP",
+      "Switch to pressure support"
+    ],
+    "answer": 1,
+    "rationale": "Higher inspiratory flow shortens I\u2011time, lengthening expiratory time to reduce air trapping while maintaining effective alveolar ventilation.",
+    "tags": [
+      "ventilation",
+      "copd",
+      "iat_eat"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-006",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "During pressure control ventilation, PaCO2 rises despite adequate oxygenation. First-line change?",
+    "options": [
+      "Increase inspiratory pressure (\u0394P) or prolong inspiratory time to increase VT",
+      "Increase PEEP only",
+      "Increase FiO2 to 1.0",
+      "Decrease set rate"
+    ],
+    "answer": 0,
+    "rationale": "In PCV, CO2 elimination tracks with delivered VT (and rate). Raising driving pressure or I\u2011time increases VT and minute ventilation.",
+    "tags": [
+      "ventilation",
+      "pcv",
+      "co2"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-007",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "Which bedside indicator most closely reflects increased work of breathing on the ventilator?",
+    "options": [
+      "Rising plateau pressure with constant PIP",
+      "Large negative deflections in airway pressure prior to machine breaths",
+      "Stable RSBI <50",
+      "PaO2/FiO2 ratio improving"
+    ],
+    "answer": 1,
+    "rationale": "Large negative swings indicate high patient effort to trigger\u2014suggesting dyssynchrony or inadequate support.",
+    "tags": [
+      "ventilation",
+      "work",
+      "asynchrony"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  },
+  {
+    "id": "ventilation_mechanics-adv-008",
+    "theme": "ventilation_mechanics",
+    "difficulty": "advanced",
+    "proficiency_level": "expert",
+    "stem": "In severe shunt physiology, what is the expected response to increasing FiO2 without PEEP?",
+    "options": [
+      "Marked rise in PaO2",
+      "Minimal change in PaO2",
+      "Immediate normalization of A\u2013a gradient",
+      "Reduction in dead space"
+    ],
+    "answer": 1,
+    "rationale": "True shunt does not improve substantially with FiO2 alone; alveolar recruitment with PEEP is required.",
+    "tags": [
+      "ventilation",
+      "shunt",
+      "peep"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": [
+      "Respiratory system advanced content, internal notes"
+    ]
+  }
+]

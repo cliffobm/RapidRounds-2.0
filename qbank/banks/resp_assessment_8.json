@@ -1,0 +1,196 @@
+[
+  {
+    "id": "resp_assessment_01",
+    "theme": "assessment",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A 68-year-old with COPD sits leaning forward with hands on knees, breathing through pursed lips. Which finding most specifically indicates increased work of breathing?",
+    "options": [
+      "Use of accessory muscles of inspiration",
+      "Tachypnea at 26/min",
+      "Speaking in 3–4 word phrases",
+      "Prolonged expiratory phase (I:E 1:3)"
+    ],
+    "answer": 0,
+    "rationale": "Accessory muscle recruitment signals that the patient is generating additional negative intrathoracic pressure to meet ventilatory demand and is a classic sign of increased WOB.",
+    "tags": [
+      "exam",
+      "WOB",
+      "COPD"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_assessment_02",
+    "theme": "assessment",
+    "difficulty": "easy",
+    "proficiency_level": "core",
+    "stem": "During vocal fremitus assessment the vibrations are decreased over the right lower lung field. Which is the most likely cause?",
+    "options": [
+      "Pneumonia",
+      "Pleural effusion",
+      "Large patent airway",
+      "Pulmonary fibrosis"
+    ],
+    "answer": 1,
+    "rationale": "Fluid in the pleural space (effusion) dampens transmission of sound, reducing fremitus. Consolidation increases fremitus.",
+    "tags": [
+      "fremitus",
+      "pleural_effusion"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_assessment_03",
+    "theme": "assessment",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A patient with severe asthma has marked intercostal retractions on inspiration. What does this most directly suggest?",
+    "options": [
+      "Upper-airway obstruction at the larynx",
+      "Increased dynamic airway resistance",
+      "Decreased static lung compliance only",
+      "Impending pneumothorax"
+    ],
+    "answer": 1,
+    "rationale": "Retractions reflect the patient generating very negative intrathoracic pressure to overcome high airway resistance in obstructive states like asthma.",
+    "tags": [
+      "asthma",
+      "airway_resistance"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_assessment_04",
+    "theme": "assessment",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which combination best supports cor pulmonale in a patient with chronic bronchitis?",
+    "options": [
+      "Peripheral cyanosis, hepatomegaly, JVD, edema",
+      "Central cyanosis, hypotension, narrow pulse pressure",
+      "Pink skin, clubbing, tachycardia",
+      "Pleural friction rub, sharp lateral chest pain"
+    ],
+    "answer": 0,
+    "rationale": "Chronic hypoxemia → pulmonary HTN → RVH/RVF (cor pulmonale): JVD, hepatomegaly, peripheral edema; cyanosis may be present.",
+    "tags": [
+      "cor_pulmonale",
+      "COPD"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_assessment_05",
+    "theme": "assessment",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "In a dark‑skinned patient, which site is best to detect central cyanosis from hypoxemia?",
+    "options": [
+      "Nailbeds",
+      "Lips and oral mucosa",
+      "Palms",
+      "Earlobes"
+    ],
+    "answer": 1,
+    "rationale": "Central (warm) cyanosis is best seen on the lips and oral mucosa regardless of skin pigmentation.",
+    "tags": [
+      "cyanosis",
+      "assessment"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_assessment_06",
+    "theme": "assessment",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which breathing pattern is most consistent with metabolic acidosis from DKA?",
+    "options": [
+      "Cheyne–Stokes",
+      "Kussmaul respirations",
+      "Biot respirations",
+      "Apneustic breathing"
+    ],
+    "answer": 1,
+    "rationale": "DKA produces metabolic acidosis; the compensatory pattern is deep, rapid Kussmaul respirations.",
+    "tags": [
+      "resp_patterns",
+      "DKA"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_assessment_07",
+    "theme": "assessment",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "You auscultate bronchial breath sounds over the right lower posterior lung field. What does this imply?",
+    "options": [
+      "Normal finding",
+      "Partial consolidation only",
+      "Alveolar consolidation (e.g., pneumonia)",
+      "Large pleural effusion"
+    ],
+    "answer": 2,
+    "rationale": "Bronchial quality outside the trachea/main bronchi indicates consolidation that transmits high‑frequency sounds to the chest wall.",
+    "tags": [
+      "auscultation",
+      "pneumonia",
+      "consolidation"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_assessment_08",
+    "theme": "assessment",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A chronic smoker has clubbing with an angle >180° at the nail bed. Which condition most strongly associates with this finding?",
+    "options": [
+      "Acute asthma",
+      "Pneumothorax",
+      "Pulmonary fibrosis",
+      "Pulmonary embolism"
+    ],
+    "answer": 2,
+    "rationale": "Digital clubbing reflects chronic tissue hypoxia—commonly seen with interstitial lung disease (fibrosis) and some malignancies.",
+    "tags": [
+      "clubbing",
+      "ILD"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  }
+]

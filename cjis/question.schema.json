@@ -40,12 +40,15 @@
         ],
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "text": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
-        }
+        },
+        "additionalProperties": false
       }
     },
     "correct_option_id": {
@@ -78,7 +81,8 @@
       "maximum": 5
     },
     "learning_objective": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "prerequisite_concepts": {
       "type": "array",
@@ -99,30 +103,38 @@
       ],
       "properties": {
         "normal_physiology": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "pathophysiology": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "decisive_cues": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "correct_answer": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "distractors": {
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
         },
         "nursing_implications": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "reassessment": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         }
-      }
+      },
+      "additionalProperties": false
     },
     "review_status": {
       "enum": [
@@ -141,7 +153,8 @@
     "references": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     }
   }

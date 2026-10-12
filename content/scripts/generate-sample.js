@@ -1,0 +1,116 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+
+console.log('🎯 Generating sample content for all body systems...\n');
+
+// Sample content templates for each body system
+const contentTemplates = {
+  cardiovascular: {
+    title: "Acute Myocardial Infarction",
+    questions: [
+      {
+        type: "single",
+        prompt: "A 65-year-old male presents with severe chest pain radiating to his left arm. Vital signs: HR 110 bpm, BP 90/60 mmHg. What is the priority nursing intervention?",
+        options: [
+          "A. Administer morphine 2mg IV for pain",
+          "B. Obtain 12-lead ECG immediately", 
+          "C. Start oxygen at 2L/min via nasal cannula",
+          "D. Draw blood for cardiac enzymes"
+        ],
+        correct: ["B"],
+        rationale: "The correct answer is B. In suspected acute MI, obtaining a 12-lead ECG immediately is the priority intervention to confirm diagnosis and determine treatment approach. While pain management (A) and oxygen (C) are important, the ECG is essential for diagnosis. References: O'Gara et al. (2013). 2013 ACCF/AHA guideline for the management of ST-elevation myocardial infarction. Circulation, 127(4), e362-e425."
+      },
+      {
+        type: "order",
+        prompt: "Prioritize these nursing interventions for a patient with acute MI:",
+        options: [
+          "Obtain 12-lead ECG",
+          "Administer oxygen", 
+          "Start IV access",
+          "Give aspirin 325mg",
+          "Notify cardiologist"
+        ],
+        correct: [
+          "Obtain 12-lead ECG",
+          "Start IV access",
+          "Administer oxygen", 
+          "Give aspirin 325mg",
+          "Notify cardiologist"
+        ],
+        rationale: "The correct order prioritizes immediate diagnostic and therapeutic interventions. ECG confirms diagnosis, IV access enables medication administration, oxygen improves oxygenation, aspirin prevents further clot formation, and cardiologist notification ensures specialist care. References: Ibanez et al. (2018). 2017 ESC Guidelines for the management of acute myocardial infarction. European Heart Journal, 39(2), 119-177."
+      }
+    ]
+  },
+  respiratory: {
+    title: "COPD Exacerbation",
+    questions: [
+      {
+        type: "single",
+        prompt: "A 58-year-old female with COPD presents with increased dyspnea, productive cough, and wheezing. What is the priority nursing assessment?",
+        options: [
+          "A. Check oxygen saturation",
+          "B. Assess breath sounds",
+          "C. Monitor respiratory rate",
+          "D. All of the above"
+        ],
+        correct: ["D"],
+        rationale: "The correct answer is D. All assessments are priority in COPD exacerbation. Oxygen saturation indicates oxygenation status, breath sounds reveal airway obstruction, and respiratory rate shows work of breathing. References: Global Initiative for Chronic Obstructive Lung Disease (2023). Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease. GOLD."
+      }
+    ]
+  },
+  gastrointestinal: {
+    title: "GI Bleed Management",
+    questions: [
+      {
+        type: "multi",
+        prompt: "A patient with upper GI bleed is receiving blood transfusion. Which nursing assessments are essential? (Select all that apply)",
+        options: [
+          "A. Monitor vital signs every 15 minutes",
+          "B. Assess for signs of transfusion reaction",
+          "C. Check hemoglobin and hematocrit levels",
+          "D. Observe for continued bleeding",
+          "E. Document intake and output"
+        ],
+        correct: ["A", "B", "C", "D", "E"],
+        rationale: "All options are correct. Vital signs monitoring (A) detects hemodynamic changes, transfusion reaction assessment (B) ensures safety, lab monitoring (C) evaluates response, bleeding observation (D) detects complications, and I&O documentation (E) tracks fluid balance. References: Laine et al. (2021). ACG Clinical Guideline: Upper Gastrointestinal and Ulcer Bleeding. American Journal of Gastroenterology, 116(5), 899-917."
+      }
+    ]
+  }
+};
+
+// Generate content for each category
+Object.entries(contentTemplates).forEach(([category, data]) => {
+  const items = data.questions.map(question => ({
+    category,
+    scenario_title: data.title,
+    question_type: question.type,
+    prompt: question.prompt,
+    options: question.options,
+    correct: question.correct,
+    rationale: question.rationale,
+    difficulty: "intermediate",
+    priority_type: question.type === "order" ? "intervention" : "assessment",
+    learning_objectives: [`Demonstrate ${category} nursing skills`],
+    tags: [category, question.type === "order" ? "priority" : "assessment"]
+  }));
+
+  // Convert to JSONL format
+  const jsonlContent = items.map(item => JSON.stringify(item)).join('\n');
+  
+  // Save to file
+  const filename = `${category}-${data.title.toLowerCase().replace(/\s+/g, '-')}.jsonl`;
+  const filepath = path.join(__dirname, '..', 'categories', category, filename);
+  
+  fs.writeFileSync(filepath, jsonlContent);
+  console.log(`✅ Generated ${items.length} items for ${category}: ${filename}`);
+});
+
+console.log('\n🎉 Sample content generation complete!');
+console.log('\n📊 Generated content:');
+console.log('- Cardiovascular: 2 questions (1 single, 1 order)');
+console.log('- Respiratory: 1 question (1 single)');
+console.log('- Gastrointestinal: 1 question (1 multi)');
+console.log('\n📁 Files saved in content/categories/[category]/');
+console.log('\n🔍 Next step: Review the generated content files');

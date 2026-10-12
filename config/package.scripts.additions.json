@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "qbank:validate": "ts-node packages/qbank-tools/src/validate.ts qbank/banks",
+    "qbank:merge:cardio": "ts-node packages/qbank-tools/src/mergeByTopic.ts qbank/banks/cardio_combined.testbank.json \"Cardio \u2022\" qbank/banks",
+    "qbank:merge:multisystem": "ts-node packages/qbank-tools/src/mergeByTopic.ts qbank/banks/multisystem_combined.testbank.json \"Multisystem \u2022\" qbank/banks"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
+}

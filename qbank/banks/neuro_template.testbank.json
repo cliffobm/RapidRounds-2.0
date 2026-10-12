@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "bank_id": "neuro_template",
+  "title": "Neuro • Template",
+  "source_note": "Locally-authored bank (generalized).",
+  "items": [
+    {
+      "id": "neuro-demo-1",
+      "topic": "Neuro • Stroke basics",
+      "difficulty": "moderate",
+      "stem": "A 68-year-old with aphasia; last known well 45 min ago.",
+      "question": "Most immediate action?",
+      "options": [
+        "Non-contrast head CT",
+        "Start heparin",
+        "Long-acting antihypertensive",
+        "Wait for consult"
+      ],
+      "correct_answer": "A",
+      "rationale": "CT differentiates ischemic vs hemorrhagic; guides reperfusion."
+    }
+  ]
+}
+
+

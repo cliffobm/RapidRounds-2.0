@@ -1,0 +1,120 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+
+interface LogoProps {
+  className?: string
+  showText?: boolean
+  size?: 'sm' | 'md' | 'lg'
+  variant?: 'default' | 'horizontal' | 'icon' | 'monochrome'
+}
+
+export function Logo({ className = '', showText = true, size = 'md', variant = 'default' }: LogoProps) {
+  const sizeClasses = {
+    sm: 'h-8',
+    md: 'h-12', 
+    lg: 'h-16'
+  }
+
+  const logoSrc = {
+    default: '/brand/rapidrounds-logo.svg',
+    horizontal: '/brand/rapidrounds-logo-horizontal.svg',
+    icon: '/brand/rapidrounds-logo-icon.svg',
+    monochrome: '/brand/rapidrounds-logo-monochrome.svg'
+  }
+
+  // For icon variant, don't show text
+  const shouldShowText = showText && variant !== 'icon'
+
+  return (
+    <motion.div 
+      className={`flex items-center gap-3 ${className}`}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2 }}
+    >
+      <div className="relative">
+        <Image
+          src={logoSrc[variant]}
+          alt="RapidRounds Logo"
+          width={variant === 'icon' ? 40 : 220}
+          height={variant === 'icon' ? 40 : 60}
+          className={`${sizeClasses[size]} w-auto drop-shadow-sm`}
+          priority
+        />
+      </div>
+    </motion.div>
+  )
+}
+
+// Export the enhanced SVG to public/brand/rapidrounds-logo.svg
+export const logoSVG = `
+<svg width="220" height="60" viewBox="0 0 220 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="phoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A66C2" />
+      <stop offset="50%" stop-color="#0E3A5D" />
+      <stop offset="100%" stop-color="#0B1220" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FC4C02" />
+      <stop offset="100%" stop-color="#FF6B35" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1220" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Modern smartphone with medical theme -->
+  <g transform="translate(10, 8)">
+    <!-- Phone body -->
+    <rect x="0" y="0" width="18" height="32" fill="url(#phoneGradient)" rx="4" />
+    
+    <!-- Phone screen -->
+    <rect x="2" y="4" width="14" height="20" fill="#F8FAFC" rx="2" />
+    
+    <!-- Screen content - medical cross -->
+    <rect x="7" y="10" width="4" height="8" fill="#0A66C2" rx="1" />
+    <rect x="6" y="12" width="6" height="4" fill="#0A66C2" rx="1" />
+    
+    <!-- Pulsating rhythm line on screen -->
+    <path
+      d="M4 16 L6 16 L7 14 L8 18 L9 12 L10 16 L12 16 L14 14 L16 16"
+      stroke="#FC4C02"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+    />
+    
+    <!-- Phone home indicator -->
+    <rect x="7" y="26" width="4" height="1" fill="#94A3B8" rx="0.5" />
+    
+    <!-- Signal bars -->
+    <g transform="translate(20, 2)">
+      <rect x="0" y="8" width="1.5" height="4" fill="url(#accentGradient)" rx="0.5" />
+      <rect x="2" y="6" width="1.5" height="6" fill="url(#accentGradient)" rx="0.5" />
+      <rect x="4" y="4" width="1.5" height="8" fill="url(#accentGradient)" rx="0.5" />
+      <rect x="6" y="2" width="1.5" height="10" fill="url(#accentGradient)" rx="0.5" />
+    </g>
+    
+    <!-- Floating pulse dots -->
+    <circle cx="22" cy="8" r="1.5" fill="#FC4C02" opacity="0.8" />
+    <circle cx="26" cy="12" r="1" fill="#FC4C02" opacity="0.6" />
+    <circle cx="24" cy="16" r="0.8" fill="#FC4C02" opacity="0.4" />
+  </g>
+  
+  <!-- Modern typography -->
+  <text x="50" y="25" fill="url(#textGradient)" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">
+    Rapid
+  </text>
+  <text x="50" y="45" fill="url(#textGradient)" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">
+    Rounds
+  </text>
+  
+  <!-- Accent underline -->
+  <rect x="50" y="48" width="80" height="2" fill="url(#accentGradient)" rx="1" opacity="0.3" />
+</svg>
+`
+

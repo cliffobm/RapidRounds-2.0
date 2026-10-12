@@ -1,0 +1,17 @@
+@layer utilities {
+  /* Headings: strong contrast in both color schemes */
+  :where(h1,h2,h3){ @apply text-slate-900 dark:text-slate-100; }
+
+  /* Body text defaults: keep it readable */
+  :where(p,li,span){ @apply text-slate-700 dark:text-slate-200; }
+
+  /* Buttons/links on primary backgrounds: ensure white text */
+  .on-primary { @apply text-white; }
+  .btn-primary { @apply bg-primary-700 hover:bg-primary-800 text-white; }
+  .btn-outline-contrast { @apply border-slate-700 text-slate-700 hover:bg-slate-100; }
+
+  /* Utility to bump contrast where needed without hunting classes */
+  .force-contrast { @apply text-slate-900 dark:text-slate-100; }
+}
+
+

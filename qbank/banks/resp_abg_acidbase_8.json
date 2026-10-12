@@ -1,0 +1,192 @@
+[
+  {
+    "id": "resp_abg_acidbase_01",
+    "theme": "abg_acidbase",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "ABG: pH 7.24, PaCO2 58, HCO3– 24. Interpretation?",
+    "options": [
+      "Metabolic acidosis",
+      "Respiratory acidosis",
+      "Metabolic alkalosis with compensation",
+      "Respiratory alkalosis"
+    ],
+    "answer": 1,
+    "rationale": "Low pH (acidemia) with elevated PaCO2 and normal HCO3– indicates primary respiratory acidosis without metabolic compensation.",
+    "tags": [
+      "ABG",
+      "acid_base"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_abg_acidbase_02",
+    "theme": "abg_acidbase",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "ABG: pH 7.37, PaCO2 30, HCO3– 17. Interpretation?",
+    "options": [
+      "Uncompensated metabolic acidosis",
+      "Respiratory alkalosis",
+      "Metabolic acidosis with partial respiratory compensation",
+      "Metabolic acidosis with full respiratory compensation"
+    ],
+    "answer": 3,
+    "rationale": "pH in normal range but leaning acid, low HCO3–, low PaCO2 → fully compensated metabolic acidosis.",
+    "tags": [
+      "ABG",
+      "compensation"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_abg_acidbase_03",
+    "theme": "abg_acidbase",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which change shifts the oxyhemoglobin dissociation curve to the right, enhancing O2 unloading?",
+    "options": [
+      "Alkalemia",
+      "Hypothermia",
+      "Decreased 2,3-DPG",
+      "Hypercapnia"
+    ],
+    "answer": 3,
+    "rationale": "Right shift (↓affinity) occurs with acidosis, hypercapnia, hyperthermia, and ↑2,3‑DPG—improving tissue O2 delivery.",
+    "tags": [
+      "oxyhemoglobin_curve"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_abg_acidbase_04",
+    "theme": "abg_acidbase",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which ABG change is the hallmark of alveolar hypoventilation?",
+    "options": [
+      "↓PaO2 only",
+      "↑PaCO2",
+      "↓HCO3–",
+      "↑pH"
+    ],
+    "answer": 1,
+    "rationale": "Hypoventilation leads to CO2 retention → elevated PaCO2. Hypoxemia may occur later depending on V/Q.",
+    "tags": [
+      "ventilation",
+      "PaCO2"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_abg_acidbase_05",
+    "theme": "abg_acidbase",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A patient with an anion gap of 24 has metabolic acidosis. Which is a classic cause of increased anion gap?",
+    "options": [
+      "Diarrhea",
+      "Renal tubular acidosis",
+      "Vomiting",
+      "Lactic acidosis"
+    ],
+    "answer": 3,
+    "rationale": "Increased anion gap acidosis: MUDPILES—includes lactic acidosis, ketoacidosis, toxins, renal failure, etc.",
+    "tags": [
+      "anion_gap",
+      "lactic_acidosis"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_abg_acidbase_06",
+    "theme": "abg_acidbase",
+    "difficulty": "easy",
+    "proficiency_level": "core",
+    "stem": "PaO2/FiO2 ratio of 180 most closely corresponds to an estimated intrapulmonary shunt of:",
+    "options": [
+      "~5%",
+      "~10%",
+      "~20%",
+      "~40%"
+    ],
+    "answer": 2,
+    "rationale": "A P/F ratio ≈200 suggests ~20% shunt (rough correlation used at bedside).",
+    "tags": [
+      "PF_ratio",
+      "shunt"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_abg_acidbase_07",
+    "theme": "abg_acidbase",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which scenario most likely causes a widened A–a gradient?",
+    "options": [
+      "Hypoventilation from opioid overdose",
+      "High altitude exposure",
+      "Pure anemia",
+      "Pneumonia with consolidation"
+    ],
+    "answer": 3,
+    "rationale": "V/Q mismatch or shunt (e.g., pneumonia, ARDS) widens the A–a gradient; pure hypoventilation increases PaCO2 but keeps A–a normal.",
+    "tags": [
+      "A_a_gradient",
+      "VQ_mismatch"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_abg_acidbase_08",
+    "theme": "abg_acidbase",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "ABG: pH 7.52, PaCO2 30, HCO3– 24. Best interpretation?",
+    "options": [
+      "Respiratory alkalosis",
+      "Metabolic alkalosis",
+      "Normal ABG",
+      "Mixed alkalosis"
+    ],
+    "answer": 0,
+    "rationale": "High pH with low PaCO2 and normal bicarbonate indicates acute respiratory alkalosis (e.g., anxiety, pain, hypoxemia).",
+    "tags": [
+      "resp_alkalosis"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  }
+]
