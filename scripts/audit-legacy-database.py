@@ -1,4 +1,4 @@
-"""Audit original SQL in disposable CI Postgres; never connect to a hosted database."""
+"""Audit development SQL in disposable CI Postgres; never connect to a hosted database."""
 import json
 import os
 from pathlib import Path
@@ -33,26 +33,27 @@ for path in sorted((root / 'supabase/migrations').glob('*.sql')):
 
 rls_bootstrap = bootstrap.replace('CREATE ROLE authenticated NOLOGIN;', '').replace('CREATE ROLE anon NOLOGIN;', '')
 if require(sql('rapidrounds_rls_audit', rls_bootstrap + '\n' + (root / 'supabase/migrations/001_initial_schema.sql').read_text()), 'RLS audit initial schema'):
-    fixture = """
-INSERT INTO auth.users VALUES ('00000000-0000-0000-0000-000000000001'), ('00000000-0000-0000-0000-000000000002');
-INSERT INTO public.profiles(id,email,role) VALUES
-('00000000-0000-0000-0000-000000000001','learner1@example.test','student'),
-('00000000-0000-0000-0000-000000000002','learner2@example.test','student');
-GRANT USAGE ON SCHEMA public TO authenticated;
-GRANT SELECT ON public.profiles TO authenticated;
-SET ROLE authenticated;
+    require(sql('rapidrounds_rls_audit', (root / 'tests/database/profile-isolation.sql').read_text()), 'initial schema learner/educator isolation, edits and escalation denial')
+
+# Check the final schema independently, only after every migration succeeded.
+if all(item['passed'] for item in report):
+    require(sql('rapidrounds_schema_audit', (root / 'tests/database/profile-isolation.sql').read_text()), 'complete schema learner/educator isolation, edits and escalation denial')
+    billing_check = """SET ROLE authenticated;
 SET request.jwt.claim.sub = '00000000-0000-0000-0000-000000000001';
-SET request.jwt.claim.role = 'authenticated';
-SELECT id FROM public.profiles;
-"""
-    result = sql('rapidrounds_rls_audit', fixture)
-    if require(result, 'learner profile read under RLS'):
-        require(sql('rapidrounds_rls_audit', """SET ROLE authenticated;
-SET request.jwt.claim.sub = '00000000-0000-0000-0000-000000000001';
-DO $$ BEGIN IF (SELECT count(*) FROM public.profiles) <> 1 THEN RAISE EXCEPTION 'Learner profile isolation failed'; END IF; END $$;"""), 'learner cannot read another learner profile')
+DO $$ BEGIN
+  BEGIN
+    UPDATE profiles SET subscription_tier = 'premium' WHERE id = auth.uid();
+    RAISE EXCEPTION 'Self premium escalation allowed';
+  EXCEPTION WHEN insufficient_privilege THEN NULL; END;
+  BEGIN
+    UPDATE profiles SET trial_active = true WHERE id = auth.uid();
+    RAISE EXCEPTION 'Self trial escalation allowed';
+  EXCEPTION WHEN insufficient_privilege THEN NULL; END;
+END $$;"""
+    require(sql('rapidrounds_schema_audit', billing_check), 'billing and trial fields remain administrative')
 
 output = root / 'database-audit.json'
-output.write_text(json.dumps({'scope': 'Original SQL replay and real PostgreSQL RLS with synthetic auth claims; not full Supabase API/Auth integration', 'checks': report}, indent=2) + '\n')
+output.write_text(json.dumps({'scope': 'Development migration replay and real PostgreSQL RLS with synthetic auth claims; not full Supabase API/Auth integration', 'checks': report}, indent=2) + '\n')
 for item in report:
     print(('PASS ' if item['passed'] else 'FAIL ') + item['check'])
     if not item['passed']:

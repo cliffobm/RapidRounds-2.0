@@ -73,8 +73,8 @@ CREATE TABLE student_answers (
 );
 
 -- Create leaderboard view
-CREATE OR REPLACE VIEW leaderboard_v AS
-SELECT 
+CREATE OR REPLACE VIEW leaderboard_v WITH (security_invoker = true) AS
+SELECT
   p.id as student_id,
   p.full_name as student_name,
   p.institution_id,
@@ -126,7 +126,7 @@ CREATE POLICY "Categories are publicly readable" ON categories
 CREATE POLICY "Questions are readable for published scenarios" ON questions
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM scenarios 
+      SELECT 1 FROM scenarios
       WHERE id = questions.scenario_id AND is_published = true
     )
   );
@@ -147,7 +147,7 @@ CREATE POLICY "Students can manage own answers" ON student_answers
 CREATE POLICY "Educators can view all answers" ON student_answers
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM profiles 
+      SELECT 1 FROM profiles
       WHERE id = auth.uid() AND role IN ('educator', 'admin')
     )
   );
@@ -172,11 +172,11 @@ DECLARE
   points INTEGER := 0;
 BEGIN
   SELECT * INTO question_record FROM questions WHERE id = p_question_id;
-  
+
   IF question_record.correct_answer = p_answer THEN
     points := question_record.points;
   END IF;
-  
+
   RETURN points;
 END;
 $$ LANGUAGE plpgsql;
@@ -193,26 +193,26 @@ DECLARE
 BEGIN
   -- Calculate total points earned
   SELECT COALESCE(SUM(points_earned), 0) INTO total_points
-  FROM student_answers 
+  FROM student_answers
   WHERE student_id = p_student_id AND scenario_id = p_scenario_id;
-  
+
   -- Calculate total possible points
   SELECT COALESCE(SUM(points), 0) INTO total_questions
-  FROM questions 
+  FROM questions
   WHERE scenario_id = p_scenario_id AND is_active = true;
-  
+
   -- Calculate score percentage
   IF total_questions > 0 THEN
     score_percentage := (total_points * 100) / total_questions;
   ELSE
     score_percentage := 0;
   END IF;
-  
+
   -- Update or insert student progress
   INSERT INTO student_progress (student_id, scenario_id, score, status, completed_at)
   VALUES (p_student_id, p_scenario_id, score_percentage, 'completed', NOW())
-  ON CONFLICT (student_id, scenario_id) 
-  DO UPDATE SET 
+  ON CONFLICT (student_id, scenario_id)
+  DO UPDATE SET
     score = score_percentage,
     status = 'completed',
     completed_at = NOW(),

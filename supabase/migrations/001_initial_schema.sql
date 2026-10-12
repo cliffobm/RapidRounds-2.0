@@ -13,6 +13,32 @@ CREATE TABLE profiles (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Internal role registry avoids querying profiles from its own SELECT policy.
+-- Administrative profile inserts/role changes synchronize it as the caller;
+-- authenticated users never receive write privileges to this registry.
+CREATE SCHEMA IF NOT EXISTS private;
+CREATE TABLE private.profile_roles (
+  user_id UUID PRIMARY KEY REFERENCES public.profiles(id) ON DELETE CASCADE,
+  role TEXT NOT NULL CHECK (role IN ('student', 'educator', 'admin'))
+);
+ALTER TABLE private.profile_roles ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Read own administrative role" ON private.profile_roles
+  FOR SELECT TO authenticated USING (user_id = (SELECT auth.uid()));
+REVOKE ALL ON private.profile_roles FROM PUBLIC, anon, authenticated;
+GRANT USAGE ON SCHEMA private TO authenticated;
+GRANT SELECT ON private.profile_roles TO authenticated;
+CREATE FUNCTION private.sync_profile_role() RETURNS trigger
+LANGUAGE plpgsql SECURITY INVOKER SET search_path = '' AS $$
+BEGIN
+  INSERT INTO private.profile_roles(user_id, role) VALUES (NEW.id, NEW.role)
+  ON CONFLICT (user_id) DO UPDATE SET role = EXCLUDED.role;
+  RETURN NEW;
+END;
+$$;
+REVOKE ALL ON FUNCTION private.sync_profile_role() FROM PUBLIC, anon, authenticated;
+CREATE TRIGGER sync_profile_role AFTER INSERT OR UPDATE OF role ON public.profiles
+  FOR EACH ROW EXECUTE FUNCTION private.sync_profile_role();
+
 -- Create institutions table
 CREATE TABLE institutions (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -157,13 +183,13 @@ CREATE POLICY "Users can view own profile" ON profiles
 CREATE POLICY "Educators can view all profiles" ON profiles
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM profiles 
-      WHERE id = auth.uid() AND role IN ('educator', 'admin')
+      SELECT 1 FROM private.profile_roles
+      WHERE user_id = auth.uid() AND role IN ('educator', 'admin')
     )
   );
 
 CREATE POLICY "Users can update own profile" ON profiles
-  FOR UPDATE USING (auth.uid() = id);
+  FOR UPDATE TO authenticated USING (auth.uid() = id) WITH CHECK (auth.uid() = id);
 
 -- Scenarios: Published scenarios are readable by all, custom scenarios by author
 CREATE POLICY "Published scenarios are readable" ON scenarios
@@ -175,8 +201,8 @@ CREATE POLICY "Authors can manage own scenarios" ON scenarios
 CREATE POLICY "Educators can manage all scenarios" ON scenarios
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM profiles 
-      WHERE id = auth.uid() AND role IN ('educator', 'admin')
+      SELECT 1 FROM private.profile_roles
+      WHERE user_id = auth.uid() AND role IN ('educator', 'admin')
     )
   );
 
@@ -187,8 +213,8 @@ CREATE POLICY "Students can manage own progress" ON student_progress
 CREATE POLICY "Educators can view all progress" ON student_progress
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM profiles 
-      WHERE id = auth.uid() AND role IN ('educator', 'admin')
+      SELECT 1 FROM private.profile_roles
+      WHERE user_id = auth.uid() AND role IN ('educator', 'admin')
     )
   );
 
@@ -250,3 +276,8 @@ INSERT INTO badges (name, description, icon, criteria, points, category) VALUES
 ('Week Warrior', 'Complete scenarios for 7 days in a row', '⚔️', '{"type": "streak_days", "value": 7}', 75, 'streak'),
 ('Cardiac Expert', 'Complete all cardiac scenarios', '❤️', '{"type": "category_mastery", "category": "Cardiac"}', 40, 'achievement'),
 ('Neuro Specialist', 'Complete all neurological scenarios', '🧠', '{"type": "category_mastery", "category": "Neurological"}', 40, 'achievement');
+
+-- RLS controls rows; column grants additionally protect role/identity/tenant fields.
+REVOKE ALL ON profiles FROM PUBLIC, anon, authenticated;
+GRANT SELECT ON profiles TO authenticated;
+GRANT UPDATE (full_name, avatar_url) ON profiles TO authenticated;

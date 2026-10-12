@@ -105,3 +105,14 @@ The audit fails its CI gate and preserves a JSON artifact. No hosted database is
 Required follow-up: reconcile the canonical legacy schema and migration order, repair profile authorization without relying on user-editable claims, test own-user and other-user reads/writes under RLS, then create actual disposable Supabase users for signed-in browser tests. Bookmark persistence and its profile presentation also need real assertions; existing conditional browser passes do not prove those features.
 
 Current verification at commit `b85b6c6b308dec9e5cde8248b75aa5184605702a`: GitHub `sprint4` and `legacy-regression` jobs pass; the new database gate fails for the two confirmed defects. All 14 desktop scenario-flow tests pass locally after the navigation repair. The PR remains draft.
+
+
+## Database repair candidate — development only
+
+- Migration 003 and the design-revamp script replace conflicting timestamp triggers before recreating them. The revamp extends existing tables explicitly, preserves their original required content fields, and uses deterministic UUIDs for previously invalid demo IDs. Question bank identifiers remain unchanged.
+- Initial profile authorization now reads a protected `private.profile_roles` registry instead of recursively querying profiles. Administrative profile inserts/role changes synchronize it using an invoker trigger. Authenticated users can read only their own registry row and cannot modify it. Existing educator/admin access follows the same database-owned role and revocation takes effect immediately.
+- Profile column grants permit ordinary profile edits and deny learner updates to identity, role, tenant and billing/trial fields. Learner/educator reads, own/cross-user edits, escalation attempts, untrusted metadata and role revocation are exercised against both the initial and full replay schemas.
+- Legacy leaderboard views use invoker security; revamp functions retain the caller's privileges rather than bypassing RLS.
+- These changes repair the unmerged development bootstrap. They are not a deployment migration for an already-populated hosted project, and none has been run against production. Full Supabase Auth/API/browser verification remains a separate requirement.
+
+The disposable PostgreSQL audit will validate this candidate; no passing database result is claimed until the CI queries complete.

@@ -44,6 +44,21 @@ CREATE TABLE IF NOT EXISTS scenarios (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Extend the existing legacy tables; CREATE TABLE IF NOT EXISTS does not add columns.
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS credentials TEXT[] DEFAULT '{}';
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS subscription_tier TEXT DEFAULT 'free' CHECK (subscription_tier IN ('free', 'trial', 'premium'));
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS trial_active BOOLEAN DEFAULT false;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS trial_expires_at TIMESTAMPTZ;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS trial_rationales_used INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS stripe_customer_id TEXT;
+ALTER TABLE scenarios ADD COLUMN IF NOT EXISTS system TEXT;
+ALTER TABLE scenarios ADD COLUMN IF NOT EXISTS vignette TEXT;
+ALTER TABLE lessons ADD COLUMN IF NOT EXISTS duration_min INTEGER DEFAULT 10;
+ALTER TABLE lessons ADD COLUMN IF NOT EXISTS content_url TEXT;
+ALTER TABLE lessons ADD COLUMN IF NOT EXISTS content_type TEXT DEFAULT 'video';
+ALTER TABLE lessons ADD COLUMN IF NOT EXISTS difficulty TEXT DEFAULT 'beginner';
+ALTER TABLE lessons ADD COLUMN IF NOT EXISTS tags TEXT[] DEFAULT '{}';
+
 -- Scenario items table (questions/interactions)
 CREATE TABLE IF NOT EXISTS scenario_items (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -182,12 +197,14 @@ CREATE INDEX IF NOT EXISTS idx_rationale_usage_user ON rationale_usage(user_id);
 
 -- Profiles: Users can read/update their own profile
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can view own profile" ON profiles FOR SELECT USING (auth.uid() = id);
-CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
+DROP POLICY IF EXISTS "Users can view own profile" ON profiles;
+CREATE POLICY "Users can view own profile" ON profiles FOR SELECT TO authenticated USING (auth.uid() = id);
+DROP POLICY IF EXISTS "Users can update own profile" ON profiles;
+CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE TO authenticated USING (auth.uid() = id) WITH CHECK (auth.uid() = id);
 
 -- Public read access for scenarios and lessons
 ALTER TABLE scenarios ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Anyone can view published scenarios" ON scenarios FOR SELECT USING (true);
+CREATE POLICY "Anyone can view published scenarios" ON scenarios FOR SELECT USING (is_published = true);
 
 ALTER TABLE scenario_items ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone can view scenario items" ON scenario_items FOR SELECT USING (true);
@@ -246,12 +263,12 @@ RETURNS TABLE(current_streak INTEGER, longest_streak INTEGER, last_activity TIME
 BEGIN
   -- This is a simplified version - in production you'd calculate based on daily activity
   RETURN QUERY
-  SELECT 
+  SELECT
     7 as current_streak,
     15 as longest_streak,
     NOW() as last_activity;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY INVOKER;
 
 -- Function to calculate leaderboard rankings
 CREATE OR REPLACE FUNCTION calculate_leaderboard(
@@ -269,14 +286,14 @@ RETURNS TABLE(
 BEGIN
   RETURN QUERY
   WITH user_stats AS (
-    SELECT 
+    SELECT
       p.user_id,
       COALESCE(SUM(p.score * 10), 0)::INTEGER as total_xp,
       COUNT(p.scenario_id)::INTEGER as scenarios_completed,
       COALESCE(AVG(p.score), 0)::NUMERIC as average_score
     FROM progress p
     JOIN profiles pr ON p.user_id = pr.id
-    WHERE 
+    WHERE
       (scope_param = 'global' OR pr.institution_id = institution_uuid)
       AND (
         period_param = 'alltime' OR
@@ -285,7 +302,7 @@ BEGIN
       )
     GROUP BY p.user_id
   )
-  SELECT 
+  SELECT
     us.user_id,
     us.total_xp,
     us.scenarios_completed,
@@ -294,7 +311,7 @@ BEGIN
   FROM user_stats us
   ORDER BY us.total_xp DESC;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY INVOKER;
 
 -- Trigger to update updated_at timestamps
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -306,46 +323,54 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Apply triggers
+DROP TRIGGER IF EXISTS update_profiles_updated_at ON profiles;
 CREATE TRIGGER update_profiles_updated_at BEFORE UPDATE ON profiles FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+DROP TRIGGER IF EXISTS update_scenarios_updated_at ON scenarios;
 CREATE TRIGGER update_scenarios_updated_at BEFORE UPDATE ON scenarios FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+DROP TRIGGER IF EXISTS update_lessons_updated_at ON lessons;
 CREATE TRIGGER update_lessons_updated_at BEFORE UPDATE ON lessons FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+DROP TRIGGER IF EXISTS update_institutions_updated_at ON institutions;
 CREATE TRIGGER update_institutions_updated_at BEFORE UPDATE ON institutions FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Insert sample data
 
 -- Sample institution
-INSERT INTO institutions (id, name, domain) VALUES 
+INSERT INTO institutions (id, name, domain) VALUES
   ('550e8400-e29b-41d4-a716-446655440000', 'Metro Health University', 'metro.edu')
 ON CONFLICT (id) DO NOTHING;
 
 -- Sample achievements
 INSERT INTO achievements (id, title, description, icon, category, rarity, xp_reward, requirements) VALUES
-  ('achievement-first-scenario', 'First Steps', 'Completed your first scenario', 'star', 'milestone', 'common', 50, '{"scenarios_completed": 1}'),
-  ('achievement-week-warrior', 'Week Warrior', 'Maintained a 7-day study streak', 'flame', 'consistency', 'rare', 200, '{"streak_days": 7}'),
-  ('achievement-perfect-score', 'Perfect Score', 'Achieved 100% on a scenario', 'trophy', 'performance', 'uncommon', 150, '{"perfect_scores": 1}'),
-  ('achievement-cardiac-master', 'Cardiac Master', 'Complete all cardiac scenarios', 'heart', 'learning', 'epic', 500, '{"cardiac_scenarios": 12}'),
-  ('achievement-speed-demon', 'Speed Demon', 'Complete a scenario in under 5 minutes', 'zap', 'performance', 'rare', 300, '{"fast_completion": 1}'),
-  ('achievement-scholar', 'Scholar', 'Complete 10 lessons', 'book', 'learning', 'uncommon', 250, '{"lessons_completed": 10}'),
-  ('achievement-mentor', 'Mentor', 'Help 5 students in discussion forums', 'users', 'social', 'rare', 400, '{"students_helped": 5}'),
-  ('achievement-century', 'Century Club', 'Complete 100 scenarios', 'award', 'milestone', 'legendary', 1000, '{"scenarios_completed": 100}')
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-first-scenario'), 'First Steps', 'Completed your first scenario', 'star', 'milestone', 'common', 50, '{"scenarios_completed": 1}'),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-week-warrior'), 'Week Warrior', 'Maintained a 7-day study streak', 'flame', 'consistency', 'rare', 200, '{"streak_days": 7}'),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-perfect-score'), 'Perfect Score', 'Achieved 100% on a scenario', 'trophy', 'performance', 'uncommon', 150, '{"perfect_scores": 1}'),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-cardiac-master'), 'Cardiac Master', 'Complete all cardiac scenarios', 'heart', 'learning', 'epic', 500, '{"cardiac_scenarios": 12}'),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-speed-demon'), 'Speed Demon', 'Complete a scenario in under 5 minutes', 'zap', 'performance', 'rare', 300, '{"fast_completion": 1}'),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-scholar'), 'Scholar', 'Complete 10 lessons', 'book', 'learning', 'uncommon', 250, '{"lessons_completed": 10}'),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-mentor'), 'Mentor', 'Help 5 students in discussion forums', 'users', 'social', 'rare', 400, '{"students_helped": 5}'),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:achievement-century'), 'Century Club', 'Complete 100 scenarios', 'award', 'milestone', 'legendary', 1000, '{"scenarios_completed": 100}')
 ON CONFLICT (id) DO NOTHING;
 
 -- Sample scenarios
-INSERT INTO scenarios (id, system, title, vignette, difficulty, category) VALUES
-  ('scenario-cardiac-1', 'Cardiovascular', 'Acute Chest Pain Assessment', 'A 58-year-old male presents to the ED with crushing chest pain...', 'intermediate', 'cardiac'),
-  ('scenario-respiratory-1', 'Respiratory', 'COPD Exacerbation Management', 'A 65-year-old female with history of COPD presents with increased dyspnea...', 'beginner', 'respiratory'),
-  ('scenario-neuro-1', 'Neurological', 'Stroke Recognition and Response', 'A 72-year-old male brought by family for sudden onset weakness...', 'advanced', 'neurological')
+INSERT INTO scenarios (id, system, title, vignette, difficulty, category, content) VALUES
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:scenario-cardiac-1'), 'Cardiovascular', 'Acute Chest Pain Assessment', 'A 58-year-old male presents to the ED with crushing chest pain...', 'intermediate', 'cardiac', '{}'::jsonb),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:scenario-respiratory-1'), 'Respiratory', 'COPD Exacerbation Management', 'A 65-year-old female with history of COPD presents with increased dyspnea...', 'beginner', 'respiratory', '{}'::jsonb),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:scenario-neuro-1'), 'Neurological', 'Stroke Recognition and Response', 'A 72-year-old male brought by family for sudden onset weakness...', 'advanced', 'neurological', '{}'::jsonb)
 ON CONFLICT (id) DO NOTHING;
 
 -- Sample lessons
-INSERT INTO lessons (id, title, description, duration_min, content_type, difficulty, learning_objectives, is_published) VALUES
-  ('lesson-cardiac-fundamentals', 'Cardiac Assessment Fundamentals', 'Master the essentials of cardiac assessment and ECG interpretation', 45, 'video', 'beginner', 
-   ARRAY['Perform systematic cardiac assessment', 'Interpret basic ECG rhythms', 'Recognize cardiac emergencies'], true),
-  ('lesson-respiratory-care', 'Respiratory Care Essentials', 'Comprehensive guide to respiratory assessment and oxygen therapy', 60, 'interactive', 'intermediate',
-   ARRAY['Assess respiratory function', 'Select oxygen therapy', 'Monitor ventilation'], true),
-  ('lesson-medication-safety', 'Medication Administration Safety', 'Critical safety protocols for medication administration', 35, 'assessment', 'advanced',
-   ARRAY['Apply five rights of medication', 'Calculate dosages', 'Prevent medication errors'], true)
+INSERT INTO lessons (id, title, description, duration_min, content_type, difficulty, learning_objectives, is_published, content) VALUES
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:lesson-cardiac-fundamentals'), 'Cardiac Assessment Fundamentals', 'Master the essentials of cardiac assessment and ECG interpretation', 45, 'video', 'beginner',
+   ARRAY['Perform systematic cardiac assessment', 'Interpret basic ECG rhythms', 'Recognize cardiac emergencies'], true, '{}'::jsonb),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:lesson-respiratory-care'), 'Respiratory Care Essentials', 'Comprehensive guide to respiratory assessment and oxygen therapy', 60, 'interactive', 'intermediate',
+   ARRAY['Assess respiratory function', 'Select oxygen therapy', 'Monitor ventilation'], true, '{}'::jsonb),
+  (uuid_generate_v5(uuid_ns_url(), 'rapidrounds:lesson-medication-safety'), 'Medication Administration Safety', 'Critical safety protocols for medication administration', 35, 'assessment', 'advanced',
+   ARRAY['Apply five rights of medication', 'Calculate dosages', 'Prevent medication errors'], true, '{}'::jsonb)
 ON CONFLICT (id) DO NOTHING;
 
 
 
+
+-- Keep billing/role/tenant/identity fields admin-controlled after adding columns.
+REVOKE UPDATE ON profiles FROM PUBLIC, anon, authenticated;
+GRANT UPDATE (full_name, avatar_url, display_name, credentials) ON profiles TO authenticated;

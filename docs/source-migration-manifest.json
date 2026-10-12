@@ -2810,6 +2810,22 @@
     "e2e/scenario-flow.spec.ts": {
       "migrated_sha": "d0e6106843359414a60e4472879a378416f84396",
       "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "supabase/migrations/001_initial_schema.sql": {
+      "migrated_sha": "ba27a697df5e8a6b932c827b053fef91c59880ef",
+      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
+    },
+    "supabase/migrations/002_enhanced_schema.sql": {
+      "migrated_sha": "6516e0436e921c9d294507e372c89ed0fe27035e",
+      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
+    },
+    "supabase/migrations/003_complete_schema.sql": {
+      "migrated_sha": "163f86838ae60c99efe7dea65e88b314189aa18d",
+      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
+    },
+    "supabase/migrations/20241214_design_revamp.sql": {
+      "migrated_sha": "d2658f9cdd1aa90cace0892131311407df8f0137",
+      "reason": "Repair fresh development schema replay, protected nonrecursive profile role registry, column privileges and legacy schema compatibility; no hosted migration executed"
     }
   }
 }

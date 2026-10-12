@@ -82,8 +82,8 @@ ALTER TABLE scenarios ADD COLUMN IF NOT EXISTS category_id UUID REFERENCES categ
 ALTER TABLE scenarios ADD COLUMN IF NOT EXISTS tags TEXT[] DEFAULT '{}';
 
 -- Create leaderboard view
-CREATE OR REPLACE VIEW leaderboard_v AS
-SELECT 
+CREATE OR REPLACE VIEW leaderboard_v WITH (security_invoker = true) AS
+SELECT
   p.id as student_id,
   p.full_name as student_name,
   p.institution_id,
@@ -145,7 +145,7 @@ CREATE POLICY "Categories are publicly readable" ON categories
 CREATE POLICY "Questions are readable for published scenarios" ON questions
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM scenarios 
+      SELECT 1 FROM scenarios
       WHERE id = questions.scenario_id AND is_published = true
     )
   );
@@ -166,18 +166,21 @@ CREATE POLICY "Students can manage own answers" ON student_answers
 CREATE POLICY "Educators can view all answers" ON student_answers
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM profiles 
+      SELECT 1 FROM profiles
       WHERE id = auth.uid() AND role IN ('educator', 'admin')
     )
   );
 
 -- Create triggers for updated_at
+DROP TRIGGER IF EXISTS update_categories_updated_at ON categories;
 CREATE TRIGGER update_categories_updated_at BEFORE UPDATE ON categories
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_questions_updated_at ON questions;
 CREATE TRIGGER update_questions_updated_at BEFORE UPDATE ON questions
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_profile_options_updated_at ON profile_options;
 CREATE TRIGGER update_profile_options_updated_at BEFORE UPDATE ON profile_options
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
@@ -191,11 +194,11 @@ DECLARE
   points INTEGER := 0;
 BEGIN
   SELECT * INTO question_record FROM questions WHERE id = p_question_id;
-  
+
   IF question_record.correct_answer = p_answer THEN
     points := question_record.points;
   END IF;
-  
+
   RETURN points;
 END;
 $$ LANGUAGE plpgsql;
@@ -212,26 +215,26 @@ DECLARE
 BEGIN
   -- Calculate total points earned
   SELECT COALESCE(SUM(points_earned), 0) INTO total_points
-  FROM student_answers 
+  FROM student_answers
   WHERE student_id = p_student_id AND scenario_id = p_scenario_id;
-  
+
   -- Calculate total possible points
   SELECT COALESCE(SUM(points), 0) INTO total_questions
-  FROM questions 
+  FROM questions
   WHERE scenario_id = p_scenario_id AND is_active = true;
-  
+
   -- Calculate score percentage
   IF total_questions > 0 THEN
     score_percentage := (total_points * 100) / total_questions;
   ELSE
     score_percentage := 0;
   END IF;
-  
+
   -- Update or insert student progress
   INSERT INTO student_progress (student_id, scenario_id, score, status, completed_at)
   VALUES (p_student_id, p_scenario_id, score_percentage, 'completed', NOW())
-  ON CONFLICT (student_id, scenario_id) 
-  DO UPDATE SET 
+  ON CONFLICT (student_id, scenario_id)
+  DO UPDATE SET
     score = score_percentage,
     status = 'completed',
     completed_at = NOW(),
@@ -245,15 +248,16 @@ RETURNS TRIGGER AS $$
 BEGIN
   -- Calculate points earned for this answer
   NEW.points_earned := calculate_question_points(NEW.question_id, NEW.answer);
-  
+
   -- Determine if answer is correct
   NEW.is_correct := (NEW.points_earned > 0);
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
 -- Create trigger to automatically calculate points
+DROP TRIGGER IF EXISTS calculate_points_trigger ON student_answers;
 CREATE TRIGGER calculate_points_trigger
   BEFORE INSERT OR UPDATE ON student_answers
   FOR EACH ROW EXECUTE FUNCTION calculate_student_answer_points();
@@ -267,24 +271,25 @@ DECLARE
 BEGIN
   -- Count total active questions for this scenario
   SELECT COUNT(*) INTO total_questions
-  FROM questions 
+  FROM questions
   WHERE scenario_id = NEW.scenario_id AND is_active = true;
-  
+
   -- Count answered questions for this student and scenario
   SELECT COUNT(DISTINCT question_id) INTO answered_questions
-  FROM student_answers 
+  FROM student_answers
   WHERE student_id = NEW.student_id AND scenario_id = NEW.scenario_id;
-  
+
   -- If all questions answered, update progress
   IF answered_questions >= total_questions THEN
     PERFORM update_student_progress(NEW.student_id, NEW.scenario_id);
   END IF;
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
 -- Create trigger to check scenario completion
+DROP TRIGGER IF EXISTS check_completion_trigger ON student_answers;
 CREATE TRIGGER check_completion_trigger
   AFTER INSERT OR UPDATE ON student_answers
   FOR EACH ROW EXECUTE FUNCTION check_scenario_completion();
