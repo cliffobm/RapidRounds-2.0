@@ -2560,12 +2560,12 @@
       "reason": "Normalize UTF-16 to UTF-8 and document disabled CJIS preview"
     },
     ".github/workflows/test.yml": {
-      "migrated_sha": "915cd96b2a13d87b30e8ebdd6a5c83d3bcb991ee",
-      "reason": "Run development-branch CI with local placeholders and retain blocking legacy gates"
+      "migrated_sha": "f5e70659384c5c6d48e31cf3e9c96ec9c8c30352",
+      "reason": "Run development-branch CI with local placeholders and retain blocking legacy gates; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     ".gitignore": {
-      "migrated_sha": "15ad7d597c28cd9eb8ff09d949b37797ee14389f",
-      "reason": "Exclude generated reports, archives, and duplicate working copies"
+      "migrated_sha": "b54dd9082fbf1a4d6d3f9bc5a2d918af3a27239e",
+      "reason": "Exclude generated reports, archives, and duplicate working copies; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "components/qbank/RRScenarioClient.tsx": {
       "migrated_sha": "81476e9a4afa790574623073eafd0f3c3f9340a5",
@@ -2790,6 +2790,26 @@
     "packages/adaptive-drill/src/utils/useSwipe.ts": {
       "migrated_sha": "b733b7b3a7c29134f79692efb21e86180d91a4bb",
       "reason": "Preserve native answer-button pointer/touch clicks instead of capturing them on the swipe deck"
+    },
+    "app/test/page.tsx": {
+      "migrated_sha": "5dce395a86dfad83d7889c0f21f4af994b28de1c",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "components/layout/AppShell.tsx": {
+      "migrated_sha": "6fabf64fcc309797af689c8f5074736df8e77377",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "components/scenario/SwipeDeck.tsx": {
+      "migrated_sha": "5e08ce5e6bc43b9d79f49224053c99f994b3db2a",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "e2e/leaderboard.spec.ts": {
+      "migrated_sha": "f39ce8d22090ea9aa4d42e3ff203082942aa1d43",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "e2e/scenario-flow.spec.ts": {
+      "migrated_sha": "d0e6106843359414a60e4472879a378416f84396",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     }
   }
 }

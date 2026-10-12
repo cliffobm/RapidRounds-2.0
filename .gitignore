@@ -184,3 +184,8 @@ playwright-report/
 test-results/
 OneDrive/
 *.zip
+
+# Disposable database verification evidence
+database-audit.json
+
+__pycache__/

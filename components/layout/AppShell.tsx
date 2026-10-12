@@ -52,6 +52,7 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className={`min-h-screen ${isDark ? 'dark' : ''} bg-slate-50 dark:bg-slate-900 transition-all duration-300`}>
+      <a href="#app-main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-white p-3 text-slate-900">Skip to main content</a>
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 safe-top shadow-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -141,7 +142,7 @@ export function AppShell({ children }: AppShellProps) {
       </header>
 
       {/* Main content */}
-      <main className="pb-20" role="main">
+      <main id="app-main-content" className="pb-20" role="main" tabIndex={-1}>
         {children}
       </main>
 

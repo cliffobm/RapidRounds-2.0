@@ -209,6 +209,8 @@ export function SwipeDeck({
           <Button
             variant="ghost"
             size="sm"
+            aria-label={currentItem.isBookmarked ? "Remove bookmark" : "Bookmark current item"}
+            aria-pressed={Boolean(currentItem.isBookmarked)}
             onClick={() => { handleSwipeRight() }}
             className={`p-2 ${currentItem.isBookmarked ? 'text-accent' : 'text-slate-400'}`}
           >
@@ -222,7 +224,7 @@ export function SwipeDeck({
       </div>
 
       {/* Progress bar */}
-      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mb-6">
+      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mb-6" {...aria.progress(currentIndex + 1, items.length, `Content progress: ${currentIndex + 1} of ${items.length}`)}>
         <div 
           className="bg-primary h-2 rounded-full transition-all duration-300"
           style={{ width: `${((currentIndex + 1) / items.length) * 100}%` }}
@@ -235,7 +237,8 @@ export function SwipeDeck({
         className={`relative overflow-hidden rounded-2xl min-h-[400px] max-h-[600px] bg-white dark:bg-slate-800 shadow-soft focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${pulse ? 'ring-2 ring-primary/40 animate-pulse' : ''}`}
         tabIndex={0}
         aria-describedby="swipe-instructions"
-        {...aria.progress(currentIndex + 1, items.length, `Content progress: ${currentIndex + 1} of ${items.length}`)}
+        role="region"
+        aria-label="Scenario content"
       >
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div

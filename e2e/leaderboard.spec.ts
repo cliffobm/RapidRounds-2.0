@@ -10,8 +10,8 @@ test.describe('Leaderboard View', () => {
     await expect(page.locator('h1')).toContainText('Leaderboards')
     
     // Should see tab switcher
-    await expect(page.locator('text=Global')).toBeVisible()
-    await expect(page.locator('text=Institution')).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Global', exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Institution', exact: true })).toBeVisible()
   })
 
   test('should switch between global and institution tabs', async ({ page }) => {
@@ -173,8 +173,8 @@ test.describe('Mobile Leaderboard', () => {
     await expect(page.locator('h1')).toBeVisible()
     
     // Tab switcher should be accessible
-    await expect(page.locator('text=Global')).toBeVisible()
-    await expect(page.locator('text=Institution')).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Global', exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Institution', exact: true })).toBeVisible()
   })
 
   test('should have proper touch targets', async ({ page }) => {

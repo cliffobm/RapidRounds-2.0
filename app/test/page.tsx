@@ -112,9 +112,7 @@ export default function TestPage() {
             <Stethoscope className="w-8 h-8 text-primary" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-              Testing Categories
-            </h1>
+
             <p className="text-slate-700 dark:text-slate-200">
               Choose a category to start practicing clinical scenarios
             </p>

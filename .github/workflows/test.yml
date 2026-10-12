@@ -40,3 +40,61 @@ jobs:
       - name: Build gate
         if: ${{ !cancelled() }}
         run: npm run build
+
+  database-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 55432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit legacy SQL replay and learner profile RLS
+        env:
+          RAPIDROUNDS_DISPOSABLE_DB: 'true'
+        run: python3 scripts/audit-legacy-database.py
+      - name: Save database audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-database-audit
+          path: database-audit.json
+          if-no-files-found: error
+
+  browser-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: local-development-key
+      PLAYWRIGHT_SERVER_COMMAND: npm run start -- --hostname 127.0.0.1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Full desktop and mobile Chromium regression
+        run: npx playwright test --project=chromium --project="Mobile Chrome" --workers=2
+      - name: Save browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-regression-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: warn

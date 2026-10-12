@@ -75,3 +75,18 @@ Use a separate local/staging database for application integration; supply its en
 ## Rollback
 
 Close the draft PR to leave `feature/cjis-foundation` at its current foundation commit. If this review branch is later merged into the development branch, revert the migration commit after review. There are no database changes to roll back.
+
+
+## Next verification phase — 2026-10-12
+
+- GitHub push and pull-request runs at commit `47de3f3f54343dd2a8b629a8096c986c15d630a3` both passed the existing Node 20 workflow (including production build).
+- Running every Chromium test revealed 8 failures / 36 passes. Several passing legacy tests conditionally check a feature only when it is present, so the pass count alone does not establish feature coverage.
+- Corrected ambiguous leaderboard selectors, removed a duplicate Testing Categories h1, added a working skip link, and labeled the scenario region and bookmark control. The progressbar now labels the actual bar instead of the whole interactive deck.
+- The inherited screenshot test claimed to measure layout shifts but used missing platform-dependent reference images. It now measures actual browser layout-shift entries against a 0.1 threshold, without creating an unreviewed visual baseline.
+- Added a blocking disposable PostgreSQL 16 CI audit. It replays the unchanged legacy SQL in a fresh database and independently tests the initial learner profile RLS with synthetic auth claims. No hosted connection, Supabase login/link, real user data, or production secret is involved. This is SQL/RLS verification, not full Supabase Auth/PostgREST application integration.
+- Static inspection identifies duplicate policy/trigger creation across `002_enhanced_schema.sql` and `003_complete_schema.sql`, plus a profile SELECT policy that queries the same RLS-protected profiles table. The new audit will determine the actual runtime errors. No legacy SQL was changed to conceal them.
+- The protected profile/bookmark test lacks an authenticated fixture and profile bookmark implementation; it remains a review gap. Auth/trial tests also use obsolete storage fixtures and weak conditional assertions. Full signed-in coverage requires a reconciled disposable Supabase schema and actual test users.
+
+The PR remains draft until the new gates and remaining application/database gaps are resolved.
+
+The repaired Chromium run improved to 42 passes / 2 failures; one remaining navigation failure was another ambiguous text selector and is now replaced with explicit button/state assertions. The protected profile/bookmark check still requires an actual signed-in fixture and implemented bookmark presentation. Both the complete browser suite and database audit now run as blocking CI jobs.

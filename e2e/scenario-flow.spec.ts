@@ -40,17 +40,16 @@ test.describe('Scenario Flow', () => {
     await expect(page.locator('[role="region"]')).toBeVisible()
     
     // Should see navigation buttons
-    await expect(page.locator('text=Previous')).toBeVisible()
-    await expect(page.locator('text=Next')).toBeVisible()
+    await expect(page.getByRole('button', { name: /Go to previous item/ })).toBeVisible()
+    await expect(page.getByRole('button', { name: /Go to next item/ })).toBeVisible()
     
-    // Test next navigation
-    const nextButton = page.locator('text=Next')
-    if (await nextButton.isEnabled()) {
-      await nextButton.click()
-      
-      // Should announce navigation change
-      await page.waitForTimeout(500) // Wait for animation
-    }
+    const nextButton = page.getByRole('button', { name: /Go to next item/ })
+    const previousButton = page.getByRole('button', { name: /Go to previous item/ })
+    await expect(previousButton).toBeDisabled()
+    await expect(nextButton).toBeEnabled()
+    await nextButton.click()
+    await expect(previousButton).toBeEnabled()
+
   })
 
   test('should handle bookmark functionality', async ({ page }) => {
@@ -193,15 +192,17 @@ test.describe('Performance', () => {
     expect(loadTime).toBeLessThan(5000) // 5 seconds max
   })
 
-  test('should not have layout shifts', async ({ page }) => {
+  test('should not have excessive layout shifts', async ({ page }) => {
+    await page.addInitScript(() => {
+      (window as any).__layoutShiftScore = 0
+      new PerformanceObserver(list => {
+        for (const entry of list.getEntries() as any) {
+          if (!entry.hadRecentInput) (window as any).__layoutShiftScore += entry.value
+        }
+      }).observe({ type: 'layout-shift', buffered: true })
+    })
     await page.goto('/')
-    
-    // Wait for initial load
     await page.waitForLoadState('networkidle')
-    
-    // Take screenshot for visual comparison
-    await expect(page).toHaveScreenshot('homepage-loaded.png')
+    expect(await page.evaluate(() => (window as any).__layoutShiftScore)).toBeLessThan(0.1)
   })
 })
-
-
