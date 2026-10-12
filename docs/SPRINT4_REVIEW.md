@@ -9,7 +9,7 @@ The PR is a draft. Main and the production database have not been modified. No d
 ## What changed
 
 1. Imported the canonical root application from `cliffobm/RapidRounds`, pinned to commit `9094ae6ddc97ec2c99e4d26fe88d11f661ad20fe` (source commit dated 2025-10-02). This is the verified GitHub source, not an assertion that it contains later work from other environments.
-2. Imported 273 source/config/content/test files. Retained the two committed Playwright reference images. Excluded 296 files: OneDrive copies, machine-specific `-EliteBook` copies, generated reports, archives, duplicate enhancement bundles, and stray command output. All source blobs were hash-verified before editing. The updated manifest records 214 unchanged imports and 59 intentional changes, including subsequent blocker repairs.
+2. Imported 273 source/config/content/test files. Retained the two committed Playwright reference images. Excluded 296 files: OneDrive copies, machine-specific `-EliteBook` copies, generated reports, archives, duplicate enhancement bundles, and stray command output. All source blobs were hash-verified before editing. The updated manifest records 209 unchanged imports and 64 intentional changes, including subsequent blocker repairs.
 3. Removed embedded database JWTs, including privileged setup-script credentials, OpenAI API keys, and remote database fallbacks. Development defaults use localhost and a placeholder key. Environment examples use UTF-8. Credentials from the original private repository are not published in this migration; rotation of existing credentials remains an administrator task.
 4. Added a lossless draft adapter for wrapped letter-key banks and respiratory arrays with explicit zero-based numeric answers. Invalid or ambiguous keys fail validation. Original payloads, item identities, answer meaning, rationales, tags, assets, and bank metadata remain available.
 5. Added a bridge to the original 10-bank registry, validated versioned competency sidecars, and a development-only read endpoint. The endpoint and CLI do not write to any database. The quiz catalog, game scoring, scheduler, local storage keys, and progress models are preserved.
@@ -23,7 +23,7 @@ Current local validation uses Node 20.20.2 (matching the Node 20.x CI major vers
 | Check | Result |
 | --- | --- |
 | `npm ci --ignore-scripts` | Passed with the locked source dependencies |
-| `npm run migration:verify` | Passed: 214 unchanged imports, 59 documented changes, 296 excluded files absent |
+| `npm run migration:verify` | Passed: 209 unchanged imports, 64 documented changes, 296 excluded files absent |
 | `npm run typecheck` | Passed |
 | `npm run test:cjis` | Passed: 12 native Node tests and 16 Vitest integration/regression tests |
 | `npm run cjis:validate` | Passed: 17 datasets / 168 draft items |
@@ -34,7 +34,8 @@ Current local validation uses Node 20.20.2 (matching the Node 20.x CI major vers
 | `npm run lint` | Passed: no blocking errors; inherited warnings remain |
 | `npm run build` | Passed: complete production build on Node 20.20.2, with lint and type gates enabled |
 | Focused production browser checks | Passed: 4 checks across desktop Chromium and mobile Chrome; bank selection, shuffled correct-answer submission, and production preview gating |
-| Full legacy browser suite / database integration | Not verified: isolated populated test database not configured |
+| Full browser suite | Initial desktop run: 36 passed / 8 failed; repaired run: 42 passed / 2 failed, with final scenario rerun 14/14 passed. Signed-in profile/bookmark coverage remains unresolved; mobile run and fresh CI add broader coverage. |
+| Isolated PostgreSQL schema/RLS audit | Failed in GitHub Actions: duplicate trigger in migration 003 and infinite recursion in learner profile policy. Full Supabase Auth/PostgREST application integration remains unverified. |
 
 Focused regression checks cover every source question's answer meaning and original payload, shuffled-answer grading for the registered banks, quiz bank selection/submission, existing speed/incorrect/unanswered scoring, scheduler outcomes, persistent learner progress, registry sidecars, malformed data, and preview gating. They do not establish full production equivalence. The focused browser run still reports missing-asset/auth-placeholder network failures; it asserts no uncaught page errors, not a clean console across every route.
 
@@ -90,3 +91,17 @@ Close the draft PR to leave `feature/cjis-foundation` at its current foundation 
 The PR remains draft until the new gates and remaining application/database gaps are resolved.
 
 The repaired Chromium run improved to 42 passes / 2 failures; one remaining navigation failure was another ambiguous text selector and is now replaced with explicit button/state assertions. The protected profile/bookmark check still requires an actual signed-in fixture and implemented bookmark presentation. Both the complete browser suite and database audit now run as blocking CI jobs.
+
+
+## Confirmed database blockers
+
+The [disposable PostgreSQL audit](https://github.com/cliffobm/RapidRounds-2.0/actions/runs/38251697440) ran on PostgreSQL 16.15 and produced these failures:
+
+1. `001_initial_schema.sql`, `002_enhanced_schema.sql`, and `002_profile_options.sql` apply successfully. `003_complete_schema.sql` aborts with `trigger "update_categories_updated_at" for relation "categories" already exists`. Migration 003 duplicates schema objects from migration 002. Later migrations are intentionally not treated as verified after this failure.
+2. On a separate fresh initial-schema database, a learner with synthetic authenticated claims cannot read their own profile: `infinite recursion detected in policy for relation "profiles"`. The educator SELECT policy queries the same table it protects.
+
+The audit fails its CI gate and preserves a JSON artifact. No hosted database is involved and no RLS policy was bypassed to make the check pass. The synthetic auth fixture models claim lookup only; it does not verify Supabase Auth or the REST API.
+
+Required follow-up: reconcile the canonical legacy schema and migration order, repair profile authorization without relying on user-editable claims, test own-user and other-user reads/writes under RLS, then create actual disposable Supabase users for signed-in browser tests. Bookmark persistence and its profile presentation also need real assertions; existing conditional browser passes do not prove those features.
+
+Current verification at commit `b85b6c6b308dec9e5cde8248b75aa5184605702a`: GitHub `sprint4` and `legacy-regression` jobs pass; the new database gate fails for the two confirmed defects. All 14 desktop scenario-flow tests pass locally after the navigation repair. The PR remains draft.
