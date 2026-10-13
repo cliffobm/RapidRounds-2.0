@@ -5,11 +5,36 @@ import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Loader2 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/store/useAuth'
 
 export default function SignInPage() {
   const [loading, setLoading] = useState(false)
   const supabase = supabaseClient
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const handleEmailSignIn = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setErrorMessage('')
+    setLoading(true)
+    try {
+      const { error } = await useAuth.getState().signIn(email.trim(), password)
+      if (error) {
+        setErrorMessage(error.message || 'Unable to sign in. Please try again.')
+        return
+      }
+      router.replace('/')
+      router.refresh()
+    } catch {
+      setErrorMessage('Unable to sign in. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleOAuthSignIn = async (provider: 'google' | 'github' | 'discord') => {
     setLoading(true)
@@ -63,6 +88,26 @@ export default function SignInPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            <form onSubmit={handleEmailSignIn} className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                <input id="email" name="email" type="email" autoComplete="username" required
+                  value={email} onChange={(event) => setEmail(event.target.value)} disabled={loading}
+                  className="w-full rounded-md border border-gray-300 p-2 text-gray-900" />
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
+                <input id="password" name="password" type="password" autoComplete="current-password" required
+                  value={password} onChange={(event) => setPassword(event.target.value)} disabled={loading}
+                  className="w-full rounded-md border border-gray-300 p-2 text-gray-900" />
+              </div>
+              {errorMessage && <p role="alert" className="text-sm text-red-700">{errorMessage}</p>}
+              <Button type="submit" disabled={loading} className="w-full">
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Sign in with email
+              </Button>
+            </form>
+            <p className="text-center text-sm text-gray-500">Or continue with</p>
             <Button
               type="button"
               onClick={() => handleOAuthSignIn('google')}

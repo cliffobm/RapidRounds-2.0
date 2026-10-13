@@ -127,3 +127,12 @@ The fixes include the additionally discovered reserved `full` rationale-column i
 Client profile updates no longer write the server-owned `updated_at` column. The added unit regression verifies the store sends only the actual edited field and retains the returned profile. All 95 unit tests and local type checking pass; GitHub Sprint 4 checks also pass on the repair commit.
 
 The blocking SQL/RLS audit is resolved. Remaining readiness work concerns actual Supabase Auth/API integration, meaningful signed-in bookmark/trial tests, and mobile browser failures. The PR stays draft; no deployment or hosted database operation has been performed.
+
+
+## Email/password sign-in for existing test accounts
+
+The sign-in page now accepts an existing user's email and password. Both browser-client import paths share the Supabase SSR browser singleton, which writes cookie sessions that middleware can read. Auth callbacks defer profile reads until Supabase releases its auth lock, clear a previous account's profile, and ignore profile responses that arrive after switching accounts.
+
+Validation: all 100 unit tests pass, including successful/failed/pending form submissions, real SSR client cookie creation/removal with a mocked Auth response, and a stale-profile response regression. The production build passes its lint/type gates (inherited warnings remain). All 28 CJIS checks and the 17-bank validation pass. Desktop and mobile Chromium tests pass for invalid-password presentation (mocked Auth endpoint), existing quiz submission, and the production staging-endpoint block. The browser test selector scopes the error to the form because Next.js also renders an alert for route announcements.
+
+The user has applied the five SQL files to a separate hosted test project, provisioned two learners, and reported passing own-profile isolation/edit/escalation SQL tests. Actual hosted email/password sign-in and session persistence after refresh remain to be verified with these accounts. The profile page still presents legacy mock profile data; its edit UI does not yet prove database persistence. OAuth provisioning, full signed-in bookmark/trial flows, remaining mobile-suite failures, and dependency vulnerabilities remain follow-up work. No production database or main branch is changed; the PR remains draft.

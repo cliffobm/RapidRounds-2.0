@@ -259,3 +259,19 @@ describe('profile edit payload', () => {
     expect(useAuth.getState().profile).toEqual(saved)
   })
 })
+
+
+describe('profile response ownership', () => {
+  it('ignores an old account response after switching users', async () => {
+    const { supabaseClient } = await import('../lib/supabase-client')
+    let resolveProfile!: (value: any) => void
+    const response = new Promise(resolve => { resolveProfile = resolve })
+    vi.mocked(supabaseClient.from).mockReturnValue({ select: () => ({ eq: () => ({ single: () => response }) }) } as any)
+    useAuth.setState({ user: { id: 'learner-a' } as any, profile: null })
+    const request = useAuth.getState().fetchProfile()
+    useAuth.setState({ user: { id: 'learner-b' } as any, profile: null })
+    resolveProfile({ data: { id: 'learner-a', role: 'student' }, error: null })
+    await request
+    expect(useAuth.getState().profile).toBeNull()
+  })
+})

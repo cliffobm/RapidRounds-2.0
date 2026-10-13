@@ -69,7 +69,7 @@ export const useAuth = create<AuthState>()(
           
           if (error) return { error }
           
-          set({ user: data.user, session: data.session })
+          set({ user: data.user, session: data.session, profile: null })
           await get().fetchProfile()
           
           return {}
@@ -90,7 +90,7 @@ export const useAuth = create<AuthState>()(
           
           if (error) return { error }
           
-          set({ user: data.user, session: data.session })
+          set({ user: data.user, session: data.session, profile: null })
           
           return {}
         } catch (error) {
@@ -135,7 +135,7 @@ export const useAuth = create<AuthState>()(
             return
           }
 
-          set({ profile: data })
+          if (get().user?.id === user.id) set({ profile: data })
         } catch (error) {
           console.error('Error fetching profile:', error)
         }
@@ -160,7 +160,7 @@ export const useAuth = create<AuthState>()(
             throw error
           }
 
-          set({ profile: data })
+          if (get().user?.id === user.id) set({ profile: data })
         } catch (error) {
           console.error('Error updating profile:', error)
           throw error
@@ -216,22 +216,23 @@ export const useAuth = create<AuthState>()(
   )
 )
 
-// Initialize auth listener
+// Restore cookie sessions and follow sign-in/sign-out changes, including other tabs.
 if (typeof window !== 'undefined') {
-  supabase.auth.onAuthStateChange((event, session) => {
-    const { setUser, setSession, setLoading, fetchProfile } = useAuth.getState()
-    
-    setUser(session?.user ?? null)
-    setSession(session)
-    
+  supabase.auth.onAuthStateChange((_event, session) => {
+    const previousUserId = useAuth.getState().user?.id
+    useAuth.setState({
+      user: session?.user ?? null,
+      session,
+      loading: false,
+      ...(previousUserId !== session?.user.id || !session ? { profile: null } : {}),
+    })
+
+    // Supabase auth callbacks hold an internal lock. Fetch after it is released.
     if (session?.user) {
-      fetchProfile()
-    } else {
-      useAuth.setState({ profile: null })
+      const userId = session.user.id
+      setTimeout(() => {
+        if (useAuth.getState().user?.id === userId) void useAuth.getState().fetchProfile()
+      }, 0)
     }
-    
-    setLoading(false)
   })
 }
-
-

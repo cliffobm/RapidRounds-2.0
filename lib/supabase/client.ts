@@ -1,14 +1,14 @@
 'use client'
 
-import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { createBrowserClient } from '@supabase/ssr'
 import { SUPABASE_CONFIG, validateEnvironment } from '@/lib/env'
 
 // Validate environment on import
 validateEnvironment()
 
-// Export a function that creates a new client instance
+// The browser client shares a cookie-backed session with server middleware.
 export function createClient() {
-  return createSupabaseClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey, {
+  return createBrowserClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey, {
     auth: { 
       persistSession: true, 
       autoRefreshToken: true,

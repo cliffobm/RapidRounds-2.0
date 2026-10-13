@@ -2780,8 +2780,8 @@
       "reason": "Deny rationale access for absent profiles; retain free/premium/trial limits"
     },
     "store/useAuth.spec.ts": {
-      "migrated_sha": "8983f2a5ab1ddf716011a957d63f69b9c61b0da7",
-      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+      "migrated_sha": "b12f5e8c134438f38ba10229705eed184577ef1c",
+      "reason": "Verify profile updates omit server timestamps and ignore stale profile responses after switching accounts."
     },
     "playwright.config.ts": {
       "migrated_sha": "09ff7de473e62c336b4852e21d54701a50c5a194",
@@ -2832,8 +2832,20 @@
       "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
     },
     "store/useAuth.ts": {
-      "migrated_sha": "55d979fac40dc6c795ba4c7b3e68e6e6c350f712",
-      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+      "migrated_sha": "ea983a408c51f9a007056999c24af681a44b93a0",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses."
+    },
+    "app/auth/sign-in/page.tsx": {
+      "migrated_sha": "4a500cde1095fabd6c118b76d9d55950217a1d1b",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses."
+    },
+    "lib/supabase/client.ts": {
+      "migrated_sha": "c78e33ce64a317d2b9b02951f42d0d0000322e2a",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses."
+    },
+    "lib/supabase-client.ts": {
+      "migrated_sha": "c4c73e6ea67befd0bcdccce0dc11b6bf4f21a63c",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses."
     }
   }
 }
