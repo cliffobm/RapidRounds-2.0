@@ -2740,12 +2740,12 @@
       "reason": "Repair inherited Vitest mocks and behavioral assertions"
     },
     "components/scenario/AnswerBlock.spec.tsx": {
-      "migrated_sha": "2420795e8ddc98ed7def8498e2da12156028684a",
-      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+      "migrated_sha": "a441ab3ec4760c9b7bbb7de21ac1852dd568e9d9",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
     },
     "components/scenario/AnswerBlock.tsx": {
-      "migrated_sha": "2cfd8fad959fec79dd9fe6cc4a6b323059183868",
-      "reason": "Repair blocking lint without disabling validation rules"
+      "migrated_sha": "e82a4cfff390e9e80ec360c2bc5344007802a166",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
     },
     "components/scenario/ScenarioCard.tsx": {
       "migrated_sha": "37e07ecb72efce36a3f98c646572ab181482eb5a",
@@ -2800,8 +2800,8 @@
       "reason": "Keep signed-in header and bottom navigation within phone viewport so profile edit controls remain reachable."
     },
     "components/scenario/SwipeDeck.tsx": {
-      "migrated_sha": "5e08ce5e6bc43b9d79f49224053c99f994b3db2a",
-      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+      "migrated_sha": "a15c5c0b6d881689256acd45701a7367aa40b5a8",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
     },
     "e2e/leaderboard.spec.ts": {
       "migrated_sha": "f39ce8d22090ea9aa4d42e3ff203082942aa1d43",
@@ -2850,6 +2850,10 @@
     "app/profile/page.tsx": {
       "migrated_sha": "94622525323ea7b3176760233b93148db3fbdd11",
       "reason": "Connect own-account profile reads and allowlisted edits to Supabase; handle errors, account switches and pending saves; remove sample identity, billing and activity statistics."
+    },
+    "app/test/[slug]/page.tsx": {
+      "migrated_sha": "176e04a1d27531d38a3d9b1cbd932567b588bad0",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
     }
   }
 }

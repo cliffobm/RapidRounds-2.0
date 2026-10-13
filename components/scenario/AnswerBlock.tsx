@@ -12,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { useAuth } from '@/store/useAuth'
 import { useProgress } from '@/store/useProgress'
 import { useRationaleAccess } from '@/lib/hooks/useAccess'
+import { isQuestionAnswerCorrect } from '@/lib/question-answer'
 import { 
   CheckCircle, 
   XCircle, 
@@ -59,15 +60,16 @@ interface AnswerBlockProps {
 }
 
 // Sortable item for drag-to-order questions
-function SortableItem({ id, children }: { id: string; children: React.ReactNode }) {
+function SortableItem({ id, label, disabled, children }: { id: string; label: string; disabled: boolean; children: React.ReactNode }) {
   const {
     attributes,
     listeners,
     setNodeRef,
+    setActivatorNodeRef,
     transform,
     transition,
     isDragging,
-  } = useSortable({ id })
+  } = useSortable({ id, disabled })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -79,12 +81,11 @@ function SortableItem({ id, children }: { id: string; children: React.ReactNode 
     <div
       ref={setNodeRef}
       style={style}
-      {...attributes}
       className="flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl cursor-move hover:shadow-md transition-all duration-200"
     >
-      <div {...listeners} className="cursor-grab active:cursor-grabbing">
+      <button ref={setActivatorNodeRef} type="button" {...attributes} {...listeners} disabled={disabled} aria-label={`Reorder ${label}`} className="touch-none cursor-grab active:cursor-grabbing p-2">
         <GripVertical className="w-4 h-4 text-slate-400" />
-      </div>
+      </button>
       <div className="flex-1">
         {children}
       </div>
@@ -117,7 +118,7 @@ export function AnswerBlock({
   const [submitted, setSubmitted] = useState(false)
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -151,8 +152,12 @@ export function AnswerBlock({
     }
   }
 
+  const hasAnswer = question.type === 'drag_to_order'
+    ? orderItems.length > 0
+    : question.type === 'text_input' ? Boolean(textAnswer.trim()) : selectedAnswers.length > 0
+
   const handleSubmit = () => {
-    if (submitted) return
+    if (disabled || submitted || !hasAnswer) return
 
     let answers: string[] = []
     
@@ -173,8 +178,7 @@ export function AnswerBlock({
     onAnswer(answers)
     
     // Check if answer is correct and trigger confetti
-    const isCorrect = question.correctAnswers?.every(correct => answers.includes(correct)) &&
-                     answers.every(answer => question.correctAnswers?.includes(answer))
+    const isCorrect = isQuestionAnswerCorrect(question, answers)
     
     // Award XP for correct answers
     if (isCorrect) {
@@ -317,7 +321,7 @@ export function AnswerBlock({
                     if (!option) return null
                     
                     return (
-                      <SortableItem key={itemId} id={itemId}>
+                      <SortableItem key={itemId} id={itemId} label={option.text} disabled={disabled || submitted}>
                         <div className="flex items-center justify-between w-full">
                           <div className="flex items-center space-x-3">
                             <Badge variant="outline" size="sm">
@@ -400,11 +404,7 @@ export function AnswerBlock({
         <div className="flex justify-center">
           <Button
             onClick={handleSubmit}
-            disabled={
-              disabled ||
-              (question.type === 'text_input' && !textAnswer.trim()) ||
-              (question.type !== 'text_input' && selectedAnswers.length === 0)
-            }
+            disabled={disabled || !hasAnswer}
             size="lg"
           >
             Submit Answer

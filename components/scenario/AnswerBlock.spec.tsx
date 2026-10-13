@@ -3,6 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { AnswerBlock, Question } from './AnswerBlock'
 
+const mockAddXP = vi.hoisted(() => vi.fn())
+
 // Mock dependencies
 vi.mock('@/store/useAuth', () => ({
   useAuth: () => ({
@@ -13,7 +15,7 @@ vi.mock('@/store/useAuth', () => ({
 
 vi.mock('@/store/useProgress', () => ({
   useProgress: () => ({
-    addXP: vi.fn()
+    addXP: mockAddXP
   })
 }))
 
@@ -82,6 +84,34 @@ describe('AnswerBlock', () => {
   
   beforeEach(() => {
     vi.clearAllMocks()
+  })
+
+  describe('Ordering submission', () => {
+    it('submits the displayed order without requiring a multiple-choice selection', () => {
+      render(<AnswerBlock question={mockOrderQuestion} onAnswer={mockOnAnswer} />)
+      const submit = screen.getByRole('button', { name: 'Submit Answer' })
+      expect(submit).toBeEnabled()
+      fireEvent.click(submit)
+      expect(mockOnAnswer).toHaveBeenCalledWith(['a', 'b', 'c', 'd'])
+      expect(mockOnAnswer).toHaveBeenCalledOnce()
+      expect(screen.getByRole('button', { name: 'Reorder Call for help' })).toBeDisabled()
+    })
+    it('does not reward a sequence containing all the right items in the wrong order', () => {
+      const correct = vi.fn()
+      render(<AnswerBlock question={{ ...mockOrderQuestion, correctAnswers: ['b', 'a', 'c', 'd'] }} onAnswer={mockOnAnswer} onCorrectAnswer={correct} />)
+      fireEvent.click(screen.getByRole('button', { name: 'Submit Answer' }))
+      expect(correct).not.toHaveBeenCalled()
+      expect(mockAddXP).not.toHaveBeenCalled()
+      expect(mockOnAnswer).toHaveBeenCalledWith(['a', 'b', 'c', 'd'])
+    })
+    it('keeps empty or externally disabled ordering questions unsubmitable', () => {
+      const view = render(<AnswerBlock question={{ ...mockOrderQuestion, options: [] }} onAnswer={mockOnAnswer} />)
+      expect(screen.getByRole('button', { name: 'Submit Answer' })).toBeDisabled()
+      view.unmount()
+      render(<AnswerBlock question={mockOrderQuestion} onAnswer={mockOnAnswer} disabled />)
+      expect(screen.getByRole('button', { name: 'Submit Answer' })).toBeDisabled()
+      expect(screen.getByRole('button', { name: 'Reorder Call for help' })).toBeDisabled()
+    })
   })
 
   describe('Multiple Choice Questions', () => {

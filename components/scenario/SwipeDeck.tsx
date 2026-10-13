@@ -113,7 +113,8 @@ export function SwipeDeck({
       
       // Focus the new content for screen readers
       setTimeout(() => {
-        contentRef.current?.focus()
+        // Do not steal focus from a question control the learner already reached.
+        if (!contentRef.current?.contains(document.activeElement)) contentRef.current?.focus()
       }, 350)
     }
   }, [currentIndex, hasNext, items, onSwipeLeft, triggerPulse])

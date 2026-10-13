@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { SwipeDeck, SwipeItem } from '@/components/scenario/SwipeDeck'
 import { ScenarioCard, ScenarioData } from '@/components/scenario/ScenarioCard'
 import { AnswerBlock, Question } from '@/components/scenario/AnswerBlock'
+import { isQuestionAnswerCorrect } from '@/lib/question-answer'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { Confetti } from '@/components/ui/Confetti'
@@ -484,10 +485,8 @@ export default function TestCategoryPage() {
     questions.forEach(question => {
       totalPoints += question.points
       const userAnswers = answers[question.id] || []
-      const correctAnswers = question.correctAnswers || []
-      
-      // Simple scoring logic - can be enhanced
-      if (JSON.stringify(userAnswers.sort()) === JSON.stringify(correctAnswers.sort())) {
+      // Ordering questions require the exact sequence, not just the same items.
+      if (isQuestionAnswerCorrect(question, userAnswers)) {
         earnedPoints += question.points
       }
     })
