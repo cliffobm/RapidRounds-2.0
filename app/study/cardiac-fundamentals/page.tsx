@@ -179,7 +179,7 @@ export default function CardiacFundamentalsPage() {
               <Button 
                 onClick={() => {
                   // Mark lesson as completed
-                  const updatedLessons = courseLessons.map(lesson => 
+                  const updatedLessons = courseLessons.map(lesson =>
                     lesson.id === currentLesson?.id ? { ...lesson, completed: true } : lesson
                   )
                   setCourseLessons(updatedLessons)

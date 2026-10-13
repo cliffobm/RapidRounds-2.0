@@ -474,7 +474,7 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              <Button disabled title="Not connected yet" 
+              <Button disabled title="Not connected yet"
                 variant="destructive"
                 onClick={() => setShowDeleteConfirm(true)}
               >

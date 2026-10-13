@@ -2720,7 +2720,7 @@
       "reason": "Repair blocking lint without disabling validation rules"
     },
     "app/study/cardiac-fundamentals/page.tsx": {
-      "migrated_sha": "774725ed831f53f42065635b923866472ff414d2",
+      "migrated_sha": "835d95165f1ec6d5eebdfe48149587b91100cda6",
       "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/study/wound-care/page.tsx": {
@@ -2804,7 +2804,7 @@
       "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "e2e/leaderboard.spec.ts": {
-      "migrated_sha": "f39ce8d22090ea9aa4d42e3ff203082942aa1d43",
+      "migrated_sha": "d1bc3732dfb63e8ed8767ee8216a7e9604015292",
       "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "e2e/scenario-flow.spec.ts": {
@@ -2892,7 +2892,7 @@
       "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/settings/page.tsx": {
-      "migrated_sha": "7d20fc2ff46899a67bae348968acdf7cb1d736dd",
+      "migrated_sha": "257eb388b9f191f4aaa84c4b22573e690af00ff8",
       "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/study/page.tsx": {
