@@ -418,6 +418,7 @@ export default function TestCategoryPage() {
     // Scenario card
     {
       id: `scenario-${currentScenario.id}`,
+      isBookmarked: bookmarkedItems.has(`scenario-${currentScenario.id}`),
       title: currentScenario.title,
       content: <ScenarioCard scenario={currentScenario} />,
       metadata: {
@@ -431,6 +432,7 @@ export default function TestCategoryPage() {
       title: `Question ${index + 1}`,
       content: (
         <AnswerBlock
+        submittedAnswer={answers[question.id]}
           question={question}
           onAnswer={(userAnswers) => {
             setAnswers(prev => ({
@@ -608,8 +610,8 @@ export default function TestCategoryPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 min-w-0">
           <Button
             variant="ghost"
             size="sm"

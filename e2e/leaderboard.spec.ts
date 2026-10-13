@@ -66,16 +66,8 @@ test.describe('Leaderboard View', () => {
 
   test('should expand user details', async ({ page }) => {
     // Look for expandable user entries
-    const expandButtons = page.locator('button:has([class*="chevron"])')
-    const count = await expandButtons.count()
-    
-    if (count > 0) {
-      // Click first expand button
-      await expandButtons.first().click()
-      
-      // Should show expanded details
-      await page.waitForTimeout(300) // Wait for animation
-    }
+    await page.getByRole('button', { name: 'Expand details', exact: true }).first().click()
+    await expect(page.getByRole('button', { name: 'Collapse details', exact: true })).toBeVisible()
   })
 
   test('should show achievement showcase', async ({ page }) => {

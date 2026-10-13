@@ -54,6 +54,7 @@ interface AnswerBlockProps {
   rationaleCount?: number
   maxFreeRationales?: number
   disabled?: boolean
+  submittedAnswer?: string[] | undefined
   onCorrectAnswer?: () => void
   passingThreshold?: number
   className?: string
@@ -65,6 +66,7 @@ function SortableItem({ id, label, disabled, children }: { id: string; label: st
     attributes,
     listeners,
     setNodeRef,
+    setActivatorNodeRef,
     transform,
     transition,
     isDragging,
@@ -82,7 +84,7 @@ function SortableItem({ id, label, disabled, children }: { id: string; label: st
       style={style}
       className="flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl cursor-move hover:shadow-md transition-all duration-200"
     >
-      <button type="button" {...attributes} {...listeners} disabled={disabled} aria-label={`Reorder ${label}`} className="touch-none cursor-grab active:cursor-grabbing p-2">
+      <button ref={setActivatorNodeRef} type="button" {...attributes} {...listeners} disabled={disabled} aria-label={`Reorder ${label}`} className="touch-none cursor-grab active:cursor-grabbing p-2">
         <GripVertical className="w-4 h-4 text-slate-400" />
       </button>
       <div className="flex-1">
@@ -100,6 +102,7 @@ export function AnswerBlock({
   rationaleCount = 0,
   maxFreeRationales = 5,
   disabled = false,
+  submittedAnswer,
   onCorrectAnswer,
   passingThreshold = 80,
   className = ''
@@ -108,13 +111,13 @@ export function AnswerBlock({
   const { addXP } = useProgress()
   const { accessCheck, canAccess: canSeeFullRationale } = useRationaleAccess(question.id)
   
-  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([])
-  const [textAnswer, setTextAnswer] = useState('')
+  const [selectedAnswers, setSelectedAnswers] = useState<string[]>(submittedAnswer || [])
+  const [textAnswer, setTextAnswer] = useState(submittedAnswer?.[0] || '')
   const [orderItems, setOrderItems] = useState<string[]>(
-    question.options?.map(opt => opt.id) || []
+    submittedAnswer || question.options?.map(opt => opt.id) || []
   )
   const [showExplanation, setShowExplanation] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(Boolean(submittedAnswer))
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -507,12 +510,12 @@ export function AnswerBlock({
                       )}
                       
                       <div className="flex space-x-3">
-                        <Button variant="primary" size="sm">
+                        <Button disabled title="Not connected yet" variant="primary" size="sm">
                           <Crown className="w-4 h-4 mr-2" />
                           Upgrade to Premium
                         </Button>
                         {profile?.subscription_tier === 'free' && (
-                          <Button variant="outline" size="sm">
+                          <Button disabled title="Not connected yet" variant="outline" size="sm">
                             <Gift className="w-4 h-4 mr-2" />
                             Start Free Trial
                           </Button>

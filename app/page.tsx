@@ -81,6 +81,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <p role="status" className="mb-4 text-sm text-slate-600">Development preview: activity, suggestions, and rankings include sample data. Practice progress is stored on this device and is not yet isolated between accounts or synchronized across devices.</p>
       {/* Welcome Hero Section */}
       <div className="mb-8 p-8 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 rounded-2xl">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between">
@@ -202,7 +203,7 @@ export default function Home() {
                     <div className="bg-primary h-2 rounded-full" style={{ width: '37.5%' }}></div>
                   </div>
                 </div>
-                <Button className="w-full">
+                <Button className="w-full" onClick={() => window.location.href = "/test"}>
                   <PlayCircle className="w-4 h-4 mr-2" />
                   Resume Testing
                 </Button>
@@ -231,7 +232,7 @@ export default function Home() {
                     <div className="bg-accent h-2 rounded-full" style={{ width: '75%' }}></div>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={() => window.location.href = "/study"}>
                   <BookOpen className="w-4 h-4 mr-2" />
                   Continue Learning
                 </Button>
@@ -264,7 +265,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={() => window.location.href = "/leaderboard"}>
                   <Trophy className="w-4 h-4 mr-2" />
                   View Leaderboard
                 </Button>

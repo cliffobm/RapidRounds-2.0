@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { isQuestionAnswerCorrect } from '@/lib/question-answer'
 import { useRouter } from 'next/navigation'
 import { SwipeDeck, SwipeItem } from '@/components/scenario/SwipeDeck'
 import { ScenarioCard, ScenarioData } from '@/components/scenario/ScenarioCard'
@@ -142,22 +143,27 @@ export default function AdaptiveTestPage() {
   const adjustDifficulty = (isCorrect: boolean) => {
     setPerformanceHistory(prev => [...prev, isCorrect])
     
-    const recentPerformance = performanceHistory.slice(-3) // Last 3 answers
+    const recentPerformance = [...performanceHistory, isCorrect].slice(-3) // Last 3 answers
     const correctCount = recentPerformance.filter(Boolean).length
     
     if (correctCount >= 2 && currentDifficulty === 'easy') {
       setCurrentDifficulty('medium')
       const mediumQuestions = adaptiveQuestions.filter(q => q.difficulty === 'medium')
-      setSelectedQuestions(prev => [...prev, ...mediumQuestions.slice(0, 2) as Question[]])
+      const added = mediumQuestions.filter(q => !selectedQuestions.some(existing => existing.id === q.id)).slice(0, 2)
+      setSelectedQuestions(prev => [...prev, ...added as Question[]])
+      return added.length
     } else if (correctCount >= 2 && currentDifficulty === 'medium') {
       setCurrentDifficulty('hard')
       const hardQuestions = adaptiveQuestions.filter(q => q.difficulty === 'hard')
-      setSelectedQuestions(prev => [...prev, ...hardQuestions.slice(0, 2) as Question[]])
+      const added = hardQuestions.filter(q => !selectedQuestions.some(existing => existing.id === q.id)).slice(0, 2)
+      setSelectedQuestions(prev => [...prev, ...added as Question[]])
+      return added.length
     } else if (correctCount <= 1 && currentDifficulty === 'hard') {
       setCurrentDifficulty('medium')
     } else if (correctCount <= 1 && currentDifficulty === 'medium') {
       setCurrentDifficulty('easy')
     }
+    return 0
   }
 
   // Create swipe items
@@ -166,6 +172,7 @@ export default function AdaptiveTestPage() {
     title: `Question ${index + 1}`,
     content: (
       <AnswerBlock
+        submittedAnswer={answers[question.id]}
         question={question}
         onAnswer={(userAnswers) => {
           setAnswers(prev => ({
@@ -174,13 +181,11 @@ export default function AdaptiveTestPage() {
           }))
           
           // Check if answer is correct
-          const isCorrect = question.correctAnswers?.every(correct => userAnswers.includes(correct)) &&
-                           userAnswers.every(answer => question.correctAnswers?.includes(answer))
-          
-          adjustDifficulty(isCorrect || false)
+          const isCorrect = isQuestionAnswerCorrect(question, userAnswers)
+          const added = adjustDifficulty(isCorrect)
           
           // Auto-advance to next question or results
-          if (index === selectedQuestions.length - 1) {
+          if (index === selectedQuestions.length - 1 && added === 0) {
             setShowResults(true)
             setShowConfetti(true)
           }
@@ -334,8 +339,8 @@ export default function AdaptiveTestPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 min-w-0">
           <Button 
             variant="outline"
             onClick={() => router.push('/test')}

@@ -7,13 +7,12 @@ import { getScenarioById } from '@/lib/db/scenarios'
 import { createAttempt } from '@/lib/db/attempts'
 import { ScenarioViewer } from '@/components/scenarios/ScenarioViewer'
 import { useLearningNavigation } from '@/lib/learning/nav'
-// import { useAuth } from '@/lib/auth/entitlements'
+import { useAuth } from '@/store/useAuth'
 
 export default function ScenarioPage() {
   const params = useParams()
   const navigation = useLearningNavigation()
-  // const { user } = useAuth()
-  const user = { id: 'mock-user-id' } // Mock user for now
+  const { user } = useAuth()
   const [scenario, setScenario] = useState<Scenario | null>(null)
   const [loading, setLoading] = useState(true)
 

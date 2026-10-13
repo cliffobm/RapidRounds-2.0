@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Bookmark, BookmarkCheck } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { slideVariants, shouldReduceMotion } from '@/lib/animations'
+import { shouldReduceMotion } from '@/lib/animations'
 import { announceToScreenReader, keyboardHandlers, aria } from '@/lib/accessibility'
 import { Haptics } from '@/lib/utils/haptics'
 
@@ -44,6 +44,7 @@ export function SwipeDeck({
   const deckRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [pulse, setPulse] = useState(false)
+  const [navigating, setNavigating] = useState(false)
 
   const currentItem = items[currentIndex]
   const hasNext = currentIndex < items.length - 1
@@ -53,6 +54,7 @@ export function SwipeDeck({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!deckRef.current?.contains(document.activeElement)) return
+      if ((e.target as HTMLElement).closest('input, textarea, select, [contenteditable], button[aria-roledescription="sortable"]')) return
 
       switch (e.key) {
         case 'ArrowLeft':
@@ -82,7 +84,7 @@ export function SwipeDeck({
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [currentIndex, hasNext, hasPrev])
+  }, [currentIndex, hasNext, hasPrev, navigating])
 
   // Announce navigation changes
   useEffect(() => {
@@ -100,7 +102,8 @@ export function SwipeDeck({
   }, [])
 
   const handleSwipeLeft = useCallback(() => {
-    if (hasNext) {
+    if (hasNext && !navigating) {
+      setNavigating(!shouldReduceMotion())
       setDirection('left')
       const nextIndex = currentIndex + 1
       setCurrentIndex(nextIndex)
@@ -110,14 +113,8 @@ export function SwipeDeck({
       
       // Reset direction after animation
       setTimeout(() => setDirection(null), 300)
-      
-      // Focus the new content for screen readers
-      setTimeout(() => {
-        // Do not steal focus from a question control the learner already reached.
-        if (!contentRef.current?.contains(document.activeElement)) contentRef.current?.focus()
-      }, 350)
     }
-  }, [currentIndex, hasNext, items, onSwipeLeft, triggerPulse])
+  }, [currentIndex, hasNext, items, onSwipeLeft, triggerPulse, navigating])
 
   const handleSwipeRight = useCallback(() => {
     const item = items[currentIndex]
@@ -128,7 +125,8 @@ export function SwipeDeck({
   }, [currentIndex, items, onSwipeRight, onBookmark, triggerPulse])
 
   const handlePrevious = useCallback(() => {
-    if (hasPrev) {
+    if (hasPrev && !navigating) {
+      setNavigating(!shouldReduceMotion())
       setDirection('right')
       const prevIndex = currentIndex - 1
       setCurrentIndex(prevIndex)
@@ -136,7 +134,7 @@ export function SwipeDeck({
       // Reset direction after animation
       setTimeout(() => setDirection(null), 300)
     }
-  }, [currentIndex, hasPrev])
+  }, [currentIndex, hasPrev, navigating])
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: handleSwipeLeft,
@@ -148,9 +146,9 @@ export function SwipeDeck({
 
   const slideVariants = {
     enter: (direction: 'left' | 'right') => ({
-      x: direction === 'left' ? 300 : -300,
+      x: direction === 'left' ? 40 : -40,
       opacity: 0,
-      scale: 0.9,
+      scale: 1,
     }),
     center: {
       x: 0,
@@ -158,9 +156,9 @@ export function SwipeDeck({
       scale: 1,
     },
     exit: (direction: 'left' | 'right') => ({
-      x: direction === 'left' ? -300 : 300,
+      x: direction === 'left' ? -40 : 40,
       opacity: 0,
-      scale: 0.9,
+      scale: 1,
     }),
   }
 
@@ -182,10 +180,10 @@ export function SwipeDeck({
   }
 
   return (
-    <div className={`relative w-full ${className}`}>
+    <div ref={deckRef} className={`relative w-full ${className}`}>
       {/* Progress indicator */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
             {currentIndex + 1} of {items.length}
           </span>
@@ -235,7 +233,7 @@ export function SwipeDeck({
       {/* Swipe area */}
       <div 
         {...swipeHandlers}
-        className={`relative overflow-hidden rounded-2xl min-h-[400px] max-h-[600px] bg-white dark:bg-slate-800 shadow-soft focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${pulse ? 'ring-2 ring-primary/40 animate-pulse' : ''}`}
+        className={`relative overflow-hidden rounded-2xl h-[600px] max-h-[70dvh] min-h-[400px] bg-white dark:bg-slate-800 shadow-soft focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${pulse ? 'ring-2 ring-primary/40 animate-pulse' : ''}`}
         tabIndex={0}
         aria-describedby="swipe-instructions"
         role="region"
@@ -248,15 +246,21 @@ export function SwipeDeck({
             variants={shouldReduceMotion() ? {} : slideVariants}
             initial={shouldReduceMotion() ? false : "enter"}
             animate={shouldReduceMotion() ? false : "center"}
+            onAnimationComplete={(definition) => {
+              if (definition === "center") {
+                setNavigating(false)
+                if (!contentRef.current?.parentElement?.contains(document.activeElement)) contentRef.current?.focus({ preventScroll: true })
+              }
+            }}
             {...(shouldReduceMotion() ? {} : { exit: "exit" })}
             transition={{
               type: "spring",
               stiffness: 300,
               damping: 30,
             }}
-            className="absolute inset-0 p-6 overflow-y-auto"
+            className="absolute inset-0 p-4 sm:p-6 overflow-hidden"
           >
-            <div className="h-full flex flex-col">
+            <div className="h-full min-h-0 flex flex-col">
               <h2 
                 ref={contentRef}
                 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 focus:outline-none flex-shrink-0"
@@ -264,7 +268,7 @@ export function SwipeDeck({
               >
                 {currentItem.title}
               </h2>
-              <div className="flex-1 overflow-y-auto" role="main">
+              <div className="flex-1 min-h-0 overflow-y-auto" role="main">
                 {currentItem.content}
               </div>
             </div>
@@ -279,11 +283,12 @@ export function SwipeDeck({
       </div>
 
       {/* Navigation controls */}
+      <p className="mt-3 text-xs text-slate-500">Bookmarks apply to this round only and reset when the page is reloaded.</p>
       <div className="flex items-center justify-between mt-6">
         <Button
           variant="outline"
           onClick={handlePrevious}
-          disabled={!hasPrev}
+          disabled={!hasPrev || navigating}
           className="flex items-center space-x-2"
           aria-label={`Go to previous item${hasPrev ? `: ${items[currentIndex - 1]?.title}` : ' (not available)'}`}
         >
@@ -310,7 +315,7 @@ export function SwipeDeck({
         <Button
           variant="primary"
           onClick={handleSwipeLeft}
-          disabled={!hasNext}
+          disabled={!hasNext || navigating}
           className="flex items-center space-x-2"
           aria-label={`Go to next item${hasNext ? `: ${items[currentIndex + 1]?.title}` : ' (not available)'}`}
         >

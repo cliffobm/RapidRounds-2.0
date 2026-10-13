@@ -53,10 +53,12 @@ export async function getUserFromRequest(req: NextRequest): Promise<Authenticate
       return null
     }
 
+    const { data: profile, error: profileError } = await supabase.from('profiles').select('role').eq('id', user.id).single()
+    const role = !profileError && ['student', 'educator', 'admin'].includes(profile?.role) ? profile.role : 'student'
     return {
       id: user.id,
       email: user.email || '',
-      role: user.user_metadata?.role || 'student'
+      role
     }
   } catch (error) {
     console.error('Error getting user from request:', error)

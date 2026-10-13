@@ -14,7 +14,7 @@ export type RRQuestion = {
 export async function fetchScenarioQuestionsByCode(code: string): Promise<{ scenarioTitle: string; questions: RRQuestion[] }> {
   // Calls rr.get_scenario_questions(scenario_code text)
   const { data, error } = await supabase
-    .rpc('rr.get_scenario_questions', { scenario_code: code })
+    .schema('rr').rpc('get_scenario_questions', { scenario_code: code })
 
   if (error) {
     // Provide clearer error for common misconfigurations
@@ -51,5 +51,3 @@ export async function fetchScenarioQuestionsByCode(code: string): Promise<{ scen
 
   return { scenarioTitle, questions }
 }
-
-

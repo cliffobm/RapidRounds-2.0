@@ -325,7 +325,7 @@ export function StreakMeter({
             
             {onStartActivity && (
               <div className="flex space-x-2">
-                <Button variant="outline">
+                <Button disabled title="Not connected yet" variant="outline">
                   <TrendingUp className="w-4 h-4 mr-2" />
                   View History
                 </Button>

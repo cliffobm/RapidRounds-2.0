@@ -5,6 +5,16 @@ import { AnswerBlock, Question } from './AnswerBlock'
 
 const mockAddXP = vi.hoisted(() => vi.fn())
 
+it('restores a submitted answer without another submission or XP award', () => {
+  mockAddXP.mockClear()
+  const answer = vi.fn()
+  render(<AnswerBlock question={mockMCQQuestion} onAnswer={answer} submittedAnswer={['b']} />)
+  expect(screen.queryByRole('button', { name: 'Submit Answer' })).not.toBeInTheDocument()
+  expect(screen.getByRole('button', { name: '60-100 bpm' })).toBeDisabled()
+  expect(answer).not.toHaveBeenCalled()
+  expect(mockAddXP).not.toHaveBeenCalled()
+})
+
 // Mock dependencies
 vi.mock('@/store/useAuth', () => ({
   useAuth: () => ({
@@ -403,6 +413,3 @@ describe('AnswerBlock', () => {
     })
   })
 })
-
-
-

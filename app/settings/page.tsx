@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useTheme } from '@/app/providers'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
@@ -66,6 +67,11 @@ interface SettingsState {
 export default function SettingsPage() {
   const { user, signOut } = useAuth()
   const router = useRouter()
+  const { setTheme } = useTheme()
+  useEffect(() => {
+    const saved = localStorage.getItem('theme')
+    if (saved === 'light' || saved === 'dark' || saved === 'system') setSettings(prev => ({ ...prev, theme: saved }))
+  }, [])
   
   const [settings, setSettings] = useState<SettingsState>({
     theme: 'system',
@@ -131,6 +137,7 @@ export default function SettingsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <p id="settings-pending" role="status" className="mb-4 text-sm">Appearance and sign out are available. Other preferences, offline storage, export, account deletion, and policy/support actions are not connected yet; their controls are disabled.</p>
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center space-x-4 mb-4">
@@ -183,7 +190,7 @@ export default function SettingsPage() {
                     key={theme}
                     variant={settings.theme === theme ? 'primary' : 'ghost'}
                     size="sm"
-                    onClick={() => handleSettingChange('theme', 'theme', theme)}
+                    onClick={() => { setTheme(theme); setSettings(prev => ({ ...prev, theme })) }}
                     className="capitalize"
                   >
                     {theme === 'light' && <Sun className="w-4 h-4 mr-1" />}
@@ -234,7 +241,7 @@ export default function SettingsPage() {
                     </p>
                   </div>
                 </div>
-                <Toggle
+                <Toggle disabled aria-describedby="settings-pending"
                   pressed={value}
                   onPressedChange={(pressed) => handleSettingChange('notifications', key, pressed)}
                 />
@@ -276,7 +283,7 @@ export default function SettingsPage() {
                     </p>
                   </div>
                 </div>
-                <Toggle
+                <Toggle disabled aria-describedby="settings-pending"
                   pressed={value}
                   onPressedChange={(pressed) => handleSettingChange('privacy', key, pressed)}
                 />
@@ -311,7 +318,7 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              <Toggle
+              <Toggle disabled aria-describedby="settings-pending"
                 pressed={settings.offline.syncEnabled}
                 onPressedChange={(pressed) => handleSettingChange('offline', 'syncEnabled', pressed)}
               />
@@ -329,7 +336,7 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              <Toggle
+              <Toggle disabled aria-describedby="settings-pending"
                 pressed={settings.offline.autoDownload}
                 onPressedChange={(pressed) => handleSettingChange('offline', 'autoDownload', pressed)}
               />
@@ -341,7 +348,7 @@ export default function SettingsPage() {
                   Storage Usage
                 </h4>
                 <Badge variant="outline">
-                  {storageUsed} MB / {settings.offline.storageLimit} MB
+                  Not measured / {settings.offline.storageLimit} MB
                 </Badge>
               </div>
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
@@ -352,11 +359,11 @@ export default function SettingsPage() {
               </div>
               <div className="flex justify-between text-sm text-slate-600 dark:text-slate-400">
                 <span>Offline content and cache</span>
-                <Button
+                <Button disabled title="Not connected yet"
                   variant="outline"
                   size="sm"
                   onClick={clearOfflineData}
-                  disabled={storageUsed === 0}
+                  aria-disabled={true}
                 >
                   Clear Cache
                 </Button>
@@ -398,7 +405,7 @@ export default function SettingsPage() {
                     </p>
                   </div>
                 </div>
-                <Toggle
+                <Toggle disabled aria-describedby="settings-pending"
                   pressed={value}
                   onPressedChange={(pressed) => handleSettingChange('accessibility', key, pressed)}
                 />
@@ -433,7 +440,7 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              <Button variant="outline" onClick={handleExportData}>
+              <Button disabled title="Not connected yet" variant="outline" onClick={handleExportData}>
                 Export
               </Button>
             </div>
@@ -467,7 +474,7 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              <Button 
+              <Button disabled title="Not connected yet" 
                 variant="destructive"
                 onClick={() => setShowDeleteConfirm(true)}
               >
@@ -498,15 +505,15 @@ export default function SettingsPage() {
             </div>
             <div className="flex justify-between">
               <span>Terms of Service</span>
-              <Button variant="link" size="sm">View</Button>
+              <Button disabled title="Not connected yet" variant="link" size="sm">View</Button>
             </div>
             <div className="flex justify-between">
               <span>Privacy Policy</span>
-              <Button variant="link" size="sm">View</Button>
+              <Button disabled title="Not connected yet" variant="link" size="sm">View</Button>
             </div>
             <div className="flex justify-between">
               <span>Support</span>
-              <Button variant="link" size="sm">Contact</Button>
+              <Button disabled title="Not connected yet" variant="link" size="sm">Contact</Button>
             </div>
           </div>
         </CardContent>
@@ -537,14 +544,14 @@ export default function SettingsPage() {
             </div>
             
             <div className="flex space-x-3">
-              <Button
+              <Button disabled title="Not connected yet"
                 variant="outline"
                 className="flex-1"
                 onClick={() => setShowDeleteConfirm(false)}
               >
                 Cancel
               </Button>
-              <Button
+              <Button disabled title="Not connected yet"
                 variant="destructive"
                 className="flex-1"
                 onClick={handleDeleteAccount}

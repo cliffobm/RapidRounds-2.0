@@ -40,6 +40,7 @@ export default function RRScenarioClient({ title, questions }: Props) {
         <div key={q.id} className="border rounded-xl p-4">
           <h2 className="text-lg font-medium mb-2">Question {idx + 1}</h2>
           <AnswerBlock
+        submittedAnswer={answers[q.id]}
             question={q}
             onAnswer={(ans) => setAnswers(prev => ({ ...prev, [q.id]: ans }))}
             showRationale={false}
@@ -49,5 +50,3 @@ export default function RRScenarioClient({ title, questions }: Props) {
     </div>
   )
 }
-
-

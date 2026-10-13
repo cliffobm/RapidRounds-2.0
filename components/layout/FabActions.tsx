@@ -65,7 +65,11 @@ export function FabActions({ userRole = 'student' }: FabActionsProps) {
                   {action.label}
                 </span>
                 <a
-                  href={action.href}
+                  href={action.id === 'settings' ? action.href : undefined}
+                  aria-label={action.label}
+                  aria-disabled={action.id !== 'settings'}
+                  tabIndex={action.id === 'settings' ? 0 : -1}
+                  title={action.id === 'settings' ? action.label : `${action.label} is not available yet`}
                   className={`flex items-center justify-center w-12 h-12 rounded-2xl ${action.color} text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110`}
                 >
                   <action.icon className="w-6 h-6" />
@@ -77,6 +81,7 @@ export function FabActions({ userRole = 'student' }: FabActionsProps) {
       </AnimatePresence>
 
       <Button
+        aria-label={isOpen ? 'Close educator actions' : 'Open educator actions'}
         onClick={() => setIsOpen(!isOpen)}
         className={`w-14 h-14 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 ${
           isOpen ? 'bg-slate-600 hover:bg-slate-700 rotate-45' : 'bg-primary-700 hover:bg-primary-800'
@@ -92,6 +97,3 @@ export function FabActions({ userRole = 'student' }: FabActionsProps) {
     </div>
   )
 }
-
-
-

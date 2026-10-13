@@ -18,6 +18,8 @@ import {
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
+const positiveInputs = (...values: string[]) => values.every(value => Number.isFinite(Number(value)) && Number(value) > 0)
+
 const calculators = [
   {
     id: 'iv-drip-rate',
@@ -74,7 +76,7 @@ export default function CalculatorsPage() {
       const hrs = parseFloat(time)
       const factor = parseFloat(dropFactor)
 
-      if (vol && hrs && factor) {
+      if (positiveInputs(volume, time, dropFactor)) {
         const mlPerHour = vol / hrs
         const dropsPerMinute = (vol * factor) / (hrs * 60)
         
@@ -95,7 +97,7 @@ export default function CalculatorsPage() {
               id="volume"
               type="number"
               value={volume}
-              onChange={(e) => setVolume(e.target.value)}
+              onChange={(e) => { setVolume(e.target.value); setResult(null) }}
               placeholder="1000"
             />
           </div>
@@ -105,7 +107,7 @@ export default function CalculatorsPage() {
               id="time"
               type="number"
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              onChange={(e) => { setTime(e.target.value); setResult(null) }}
               placeholder="8"
             />
           </div>
@@ -114,7 +116,7 @@ export default function CalculatorsPage() {
             <select 
               id="dropFactor"
               value={dropFactor}
-              onChange={(e) => setDropFactor(e.target.value)}
+              onChange={(e) => { setDropFactor(e.target.value); setResult(null) }}
               className="w-full px-3 py-2 border border-slate-300 rounded-lg"
             >
               <option value="10">10 gtts/mL (Blood set)</option>
@@ -125,7 +127,7 @@ export default function CalculatorsPage() {
           </div>
         </div>
 
-        <Button onClick={calculate} className="w-full">
+        <Button disabled={!positiveInputs(volume, time, dropFactor)} onClick={calculate} className="w-full">
           <Calculator className="w-4 h-4 mr-2" />
           Calculate Drip Rate
         </Button>
@@ -165,7 +167,7 @@ export default function CalculatorsPage() {
       const dosePerKg = parseFloat(dose)
       const conc = parseFloat(concentration)
 
-      if (wt && dosePerKg && conc) {
+      if (positiveInputs(weight, dose, concentration)) {
         const totalDose = wt * dosePerKg
         const volumeNeeded = totalDose / conc
         
@@ -185,7 +187,7 @@ export default function CalculatorsPage() {
               id="weight"
               type="number"
               value={weight}
-              onChange={(e) => setWeight(e.target.value)}
+              onChange={(e) => { setWeight(e.target.value); setResult(null) }}
               placeholder="70"
             />
           </div>
@@ -195,7 +197,7 @@ export default function CalculatorsPage() {
               id="dose"
               type="number"
               value={dose}
-              onChange={(e) => setDose(e.target.value)}
+              onChange={(e) => { setDose(e.target.value); setResult(null) }}
               placeholder="5"
             />
           </div>
@@ -205,13 +207,13 @@ export default function CalculatorsPage() {
               id="concentration"
               type="number"
               value={concentration}
-              onChange={(e) => setConcentration(e.target.value)}
+              onChange={(e) => { setConcentration(e.target.value); setResult(null) }}
               placeholder="10"
             />
           </div>
         </div>
 
-        <Button onClick={calculate} className="w-full">
+        <Button disabled={!positiveInputs(weight, dose, concentration)} onClick={calculate} className="w-full">
           <Calculator className="w-4 h-4 mr-2" />
           Calculate Dosage
         </Button>
@@ -249,7 +251,7 @@ export default function CalculatorsPage() {
       const h = parseFloat(height) / 100 // convert cm to meters
       const w = parseFloat(weight)
 
-      if (h && w) {
+      if (positiveInputs(height, weight)) {
         const bmi = w / (h * h)
         let category = ''
         let color = ''
@@ -285,7 +287,7 @@ export default function CalculatorsPage() {
               id="height"
               type="number"
               value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              onChange={(e) => { setHeight(e.target.value); setResult(null) }}
               placeholder="170"
             />
           </div>
@@ -295,13 +297,13 @@ export default function CalculatorsPage() {
               id="weight"
               type="number"
               value={weight}
-              onChange={(e) => setWeight(e.target.value)}
+              onChange={(e) => { setWeight(e.target.value); setResult(null) }}
               placeholder="70"
             />
           </div>
         </div>
 
-        <Button onClick={calculate} className="w-full">
+        <Button disabled={!positiveInputs(height, weight)} onClick={calculate} className="w-full">
           <Calculator className="w-4 h-4 mr-2" />
           Calculate BMI
         </Button>
@@ -431,6 +433,8 @@ export default function CalculatorsPage() {
             <Card 
               key={calculator.id} 
               className="hover:shadow-lg transition-all duration-200 cursor-pointer group"
+              role="button" tabIndex={0} aria-label={`Open ${calculator.title}`}
+              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedCalculator(calculator) } }}
               onClick={() => setSelectedCalculator(calculator)}
             >
               <CardHeader>
@@ -470,5 +474,3 @@ export default function CalculatorsPage() {
     </div>
   )
 }
-
-

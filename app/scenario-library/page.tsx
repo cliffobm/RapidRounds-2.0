@@ -5,7 +5,7 @@ import { Scenario } from '@/types'
 import { getScenarios, getCategories } from '@/lib/db/scenarios'
 import { getRecentProgress } from '@/lib/db/progress'
 import { useLearningNavigation } from '@/lib/learning/nav'
-// import { useAuth } from '@/lib/auth/entitlements'
+import { useAuth } from '@/store/useAuth'
 import { 
   PlayIcon, 
   ClockIcon, 
@@ -29,8 +29,7 @@ interface Category {
 
 export default function ScenarioLibraryPage() {
   const navigation = useLearningNavigation()
-  // const { user } = useAuth()
-  const user = { id: 'mock-user-id' } // Mock user for now
+  const { user } = useAuth()
   const [scenarios, setScenarios] = useState<Scenario[]>([])
   const [completedScenarios, setCompletedScenarios] = useState<Set<string>>(new Set())
   const [categories, setCategories] = useState<Category[]>([])

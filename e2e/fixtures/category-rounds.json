@@ -1,0 +1,280 @@
+{
+  "cardiac": [
+    {
+      "id": "q1",
+      "type": "multiple_choice",
+      "question": "Based on the patient presentation and lab results, what is the most likely diagnosis?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Gastroesophageal reflux disease (GERD)"
+        },
+        {
+          "id": "b",
+          "text": "ST-elevation myocardial infarction (STEMI)"
+        },
+        {
+          "id": "c",
+          "text": "Panic attack"
+        },
+        {
+          "id": "d",
+          "text": "Pulmonary embolism"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "The combination of severe chest pain, elevated troponin levels, and clinical presentation strongly suggests STEMI.",
+      "rationale": {
+        "hint": "Consider the elevated cardiac biomarkers and the nature of the chest pain.",
+        "full": "The patient presents with classic symptoms of acute coronary syndrome. The elevated troponin I (2.5 ng/mL) is significantly above normal (<0.04 ng/mL) and indicates myocardial injury. Combined with the crushing chest pain at rest, diaphoresis, and associated symptoms, this strongly suggests ST-elevation myocardial infarction requiring immediate intervention."
+      },
+      "points": 10
+    },
+    {
+      "id": "q2",
+      "type": "multi_select",
+      "question": "Which immediate nursing interventions are appropriate for this patient?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Administer oxygen therapy"
+        },
+        {
+          "id": "b",
+          "text": "Obtain 12-lead ECG immediately"
+        },
+        {
+          "id": "c",
+          "text": "Administer sublingual nitroglycerin"
+        },
+        {
+          "id": "d",
+          "text": "Prepare for discharge planning"
+        },
+        {
+          "id": "e",
+          "text": "Start IV access for medication administration"
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "b",
+        "c",
+        "e"
+      ],
+      "explanation": "Multiple immediate interventions are needed for suspected STEMI.",
+      "rationale": {
+        "hint": "Think about the ABCs and immediate cardiac interventions.",
+        "full": "For suspected STEMI, immediate priorities include: oxygen therapy to improve oxygenation (especially with O2 sat of 94%), 12-lead ECG to confirm diagnosis and guide treatment, sublingual nitroglycerin for symptom relief and coronary vasodilation, and IV access for emergency medications. Discharge planning is inappropriate for an acute cardiac event."
+      },
+      "points": 15
+    },
+    {
+      "id": "q3",
+      "type": "drag_to_order",
+      "question": "Arrange these interventions in order of priority (first to last):",
+      "options": [
+        {
+          "id": "a",
+          "text": "Call cardiology for emergency consultation"
+        },
+        {
+          "id": "b",
+          "text": "Perform initial assessment and obtain vital signs"
+        },
+        {
+          "id": "c",
+          "text": "Administer aspirin and prepare for catheterization"
+        },
+        {
+          "id": "d",
+          "text": "Obtain 12-lead ECG and laboratory studies"
+        }
+      ],
+      "correctAnswers": [
+        "b",
+        "d",
+        "c",
+        "a"
+      ],
+      "explanation": "Proper prioritization follows assessment, diagnosis, treatment, then consultation.",
+      "rationale": {
+        "hint": "Follow the nursing process and emergency protocols.",
+        "full": "Priority order follows emergency protocols: 1) Initial assessment establishes baseline and identifies immediate threats, 2) ECG and labs provide diagnostic information, 3) Treatment with aspirin and cath lab preparation addresses the underlying problem, 4) Cardiology consultation coordinates ongoing care."
+      },
+      "points": 20
+    }
+  ],
+  "respiratory": [
+    {
+      "id": "resp-q1",
+      "type": "multiple_choice",
+      "question": "What is the priority intervention for this patient?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Administer high-flow oxygen at 15L/min"
+        },
+        {
+          "id": "b",
+          "text": "Give nebulized albuterol treatment"
+        },
+        {
+          "id": "c",
+          "text": "Position patient in high Fowler's position"
+        },
+        {
+          "id": "d",
+          "text": "Prepare for intubation"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Positioning helps maximize lung expansion and reduces work of breathing.",
+      "rationale": {
+        "hint": "Consider immediate interventions that don't require equipment.",
+        "full": "High Fowler's position (90-degree upright) is the immediate priority as it maximizes lung expansion, reduces work of breathing, and improves ventilation-perfusion matching. While oxygen and bronchodilators are important, positioning is the first intervention that can be implemented immediately."
+      },
+      "points": 15
+    }
+  ],
+  "neurological": [
+    {
+      "id": "neuro-q1",
+      "type": "multiple_choice",
+      "question": "What is the most appropriate immediate assessment tool for this patient?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Glasgow Coma Scale"
+        },
+        {
+          "id": "b",
+          "text": "NIH Stroke Scale (NIHSS)"
+        },
+        {
+          "id": "c",
+          "text": "Mini-Mental State Exam"
+        },
+        {
+          "id": "d",
+          "text": "Braden Scale"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "The NIH Stroke Scale is the standard assessment tool for stroke patients.",
+      "rationale": {
+        "hint": "Consider stroke-specific assessment tools.",
+        "full": "The NIH Stroke Scale (NIHSS) is the gold standard for assessing stroke severity and neurological deficits. It provides objective, quantifiable measurements of neurological function and helps guide treatment decisions, including thrombolytic therapy eligibility."
+      },
+      "points": 20
+    }
+  ],
+  "musculoskeletal": [
+    {
+      "id": "musculo-q1",
+      "type": "multiple_choice",
+      "question": "What is the priority concern for this post-operative patient?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Risk for infection"
+        },
+        {
+          "id": "b",
+          "text": "Risk for deep vein thrombosis"
+        },
+        {
+          "id": "c",
+          "text": "Risk for falls"
+        },
+        {
+          "id": "d",
+          "text": "Risk for constipation"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Hip fracture patients are at very high risk for DVT due to immobility and surgery.",
+      "rationale": {
+        "hint": "Consider complications specific to orthopedic surgery and immobility.",
+        "full": "Hip fracture patients have the highest risk for venous thromboembolism due to the combination of trauma, surgery, immobility, and advanced age. The patient is appropriately on enoxaparin prophylaxis, but DVT prevention remains the priority concern."
+      },
+      "points": 15
+    }
+  ],
+  "renal": [
+    {
+      "id": "renal-q1",
+      "type": "multiple_choice",
+      "question": "What is the most concerning laboratory value requiring immediate intervention?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Elevated creatinine"
+        },
+        {
+          "id": "b",
+          "text": "Elevated BUN"
+        },
+        {
+          "id": "c",
+          "text": "Hyperkalemia"
+        },
+        {
+          "id": "d",
+          "text": "All values are equally concerning"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Hyperkalemia poses immediate risk of cardiac arrhythmias.",
+      "rationale": {
+        "hint": "Consider which lab value poses the most immediate life-threatening risk.",
+        "full": "Hyperkalemia (K+ 5.8 mEq/L) is the most immediately life-threatening finding as it can cause fatal cardiac arrhythmias. While elevated creatinine and BUN indicate kidney dysfunction, hyperkalemia requires urgent treatment with calcium gluconate, insulin/glucose, or dialysis."
+      },
+      "points": 20
+    }
+  ],
+  "integumentary": [
+    {
+      "id": "integument-q1",
+      "type": "multiple_choice",
+      "question": "What is the most important factor contributing to poor wound healing in this patient?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Advanced age"
+        },
+        {
+          "id": "b",
+          "text": "Malnutrition"
+        },
+        {
+          "id": "c",
+          "text": "Immobility"
+        },
+        {
+          "id": "d",
+          "text": "Incontinence"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Malnutrition severely impairs wound healing by reducing protein synthesis.",
+      "rationale": {
+        "hint": "Look at the laboratory values and consider wound healing requirements.",
+        "full": "Low albumin (2.8 g/dL, normal 3.5-5.0) and prealbumin (12 mg/dL, normal 15-40) indicate protein-energy malnutrition. Adequate protein is essential for wound healing, collagen synthesis, and immune function. While age, immobility, and incontinence contribute to pressure injury development, malnutrition is the primary barrier to healing."
+      },
+      "points": 15
+    }
+  ]
+}

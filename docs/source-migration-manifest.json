@@ -2568,8 +2568,8 @@
       "reason": "Exclude generated reports, archives, and duplicate working copies; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "components/qbank/RRScenarioClient.tsx": {
-      "migrated_sha": "81476e9a4afa790574623073eafd0f3c3f9340a5",
-      "reason": "Omit absent optional correctAnswers property to satisfy exactOptionalPropertyTypes"
+      "migrated_sha": "6fcf72d3ed372d22fba930c38704b92476289f38",
+      "reason": "Omit absent optional correctAnswers property to satisfy exactOptionalPropertyTypes; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "docs/SUPABASE_SETUP.md": {
       "migrated_sha": "44500a3d4e89a829bee64923f1b9f8a5d9cb5ed7",
@@ -2580,8 +2580,8 @@
       "reason": "Remove embedded credentials and remote database defaults"
     },
     "lib/auth/server.ts": {
-      "migrated_sha": "e391b297701c0bb216a770965ca2290ae4cc0fe6",
-      "reason": "Remove embedded credentials and remote database defaults"
+      "migrated_sha": "fd1d86dcb9b4c7d4f2dacbdd6ae70a7b5d33d03a",
+      "reason": "Remove embedded credentials and remote database defaults; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "lib/env.ts": {
       "migrated_sha": "9b4910ef045d78a3b78232870c8c45f5afb1afd7",
@@ -2700,16 +2700,16 @@
       "reason": "Repair blocking lint without disabling validation rules"
     },
     "app/rr/[code]/page.tsx": {
-      "migrated_sha": "67883cdbc68a852447f8c0ea12390a35ae0f93f7",
-      "reason": "Await dynamic route params to satisfy Next.js 15 PageProps"
+      "migrated_sha": "15cb5a523b794923abd3d01c0cb1fa555149c9fc",
+      "reason": "Await dynamic route params to satisfy Next.js 15 PageProps; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/scenario/[id]/page.tsx": {
       "migrated_sha": "ff1c2192b88724983961160d92ec1eb928611470",
       "reason": "Repair blocking lint without disabling validation rules"
     },
     "app/scenarios/[id]/page.tsx": {
-      "migrated_sha": "e3c3a624a768dcc1d25a329fe4a583cf73f2a545",
-      "reason": "Repair blocking lint without disabling validation rules"
+      "migrated_sha": "8c50f89c848d8b961607ed318824bbb17a88b7c7",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/simple-test/page.tsx": {
       "migrated_sha": "ec53c2a79b6f5555dd7ccd73c677c28a48f99a9d",
@@ -2720,12 +2720,12 @@
       "reason": "Repair blocking lint without disabling validation rules"
     },
     "app/study/cardiac-fundamentals/page.tsx": {
-      "migrated_sha": "3d0a7a8227d351139205b5cb0c247c52811e1d55",
-      "reason": "Repair blocking lint without disabling validation rules"
+      "migrated_sha": "774725ed831f53f42065635b923866472ff414d2",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/study/wound-care/page.tsx": {
-      "migrated_sha": "cf0743c4ab323ed210585058b0273b3ffdee65a5",
-      "reason": "Repair blocking lint without disabling validation rules"
+      "migrated_sha": "c64e0b073d15292f3228bb8f686a127b4c0bf9ca",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/dashboard/EducatorDashboard.tsx": {
       "migrated_sha": "981520513a4fdbd18f0e3975865a02ae7b5643c8",
@@ -2740,12 +2740,12 @@
       "reason": "Repair inherited Vitest mocks and behavioral assertions"
     },
     "components/scenario/AnswerBlock.spec.tsx": {
-      "migrated_sha": "a441ab3ec4760c9b7bbb7de21ac1852dd568e9d9",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
+      "migrated_sha": "c85dccf272034a7b1221cec748cfe800353f8cdf",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/scenario/AnswerBlock.tsx": {
-      "migrated_sha": "e82a4cfff390e9e80ec360c2bc5344007802a166",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
+      "migrated_sha": "aa6d26ac90e4c8b44b032d1ca56a6b45b097529e",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/scenario/ScenarioCard.tsx": {
       "migrated_sha": "37e07ecb72efce36a3f98c646572ab181482eb5a",
@@ -2768,8 +2768,8 @@
       "reason": "Repair blocking lint without disabling validation rules"
     },
     "lib/qbank/rr.ts": {
-      "migrated_sha": "49695e10f359f34c626ffc1c96bed7fb38c9ce30",
-      "reason": "Repair blocking lint without disabling validation rules"
+      "migrated_sha": "2d5e40b0cfc05fca719cde363042ad57ef2db256",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "lib/rationales.spec.ts": {
       "migrated_sha": "b004e9dd0e15c826acf456e822354e74b04482bd",
@@ -2796,20 +2796,20 @@
       "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "components/layout/AppShell.tsx": {
-      "migrated_sha": "f10bd27013fb802fc131b05e79eb0cb2853c0a87",
-      "reason": "Keep signed-in header and bottom navigation within phone viewport so profile edit controls remain reachable."
+      "migrated_sha": "2ccda66ddb0a8f25085efe20badd6b043a7140c5",
+      "reason": "Keep signed-in header and bottom navigation within phone viewport so profile edit controls remain reachable.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/scenario/SwipeDeck.tsx": {
-      "migrated_sha": "a15c5c0b6d881689256acd45701a7367aa40b5a8",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
+      "migrated_sha": "057cdc1190a5b27482e7bfb34ded8b4debaadb26",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "e2e/leaderboard.spec.ts": {
       "migrated_sha": "f39ce8d22090ea9aa4d42e3ff203082942aa1d43",
       "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "e2e/scenario-flow.spec.ts": {
-      "migrated_sha": "d0e6106843359414a60e4472879a378416f84396",
-      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+      "migrated_sha": "88974addfb9e6b0beb9b398a14592ef70f7197e3",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "supabase/migrations/001_initial_schema.sql": {
       "migrated_sha": "ba27a697df5e8a6b932c827b053fef91c59880ef",
@@ -2852,8 +2852,96 @@
       "reason": "Connect own-account profile reads and allowlisted edits to Supabase; handle errors, account switches and pending saves; remove sample identity, billing and activity statistics."
     },
     "app/test/[slug]/page.tsx": {
-      "migrated_sha": "176e04a1d27531d38a3d9b1cbd932567b588bad0",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys."
+      "migrated_sha": "637e3596357e08e0a54bc8a0f999a1f1e2d6b0f9",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/achievements/page.tsx": {
+      "migrated_sha": "655210512e8bd834effa14567779f6c7c723ec68",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/api/admin-example/route.ts": {
+      "migrated_sha": "5ddc36e0bbb7ade7631e0511f46636ef3ded9dfa",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/leaderboard/page.tsx": {
+      "migrated_sha": "4ab3f854a67194104c6ac60243cbe55bbca9f563",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/microlearning-generator/page.tsx": {
+      "migrated_sha": "cae9de5f5299082863cd896456c475832f5a6676",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/page.tsx": {
+      "migrated_sha": "40d4da79b4870cfe62a9dea2561a1f443e27f11c",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/reference/calculators/page.tsx": {
+      "migrated_sha": "eccac56a3e6b81754aeb65ec3fe62c487ccf28ab",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/reference/drug-reference/page.tsx": {
+      "migrated_sha": "63d157b7ebbf399ff590fd7c8a86ace80c753817",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/reference/emergency-protocols/page.tsx": {
+      "migrated_sha": "6a052f932e470bd727647f03f0740edfd712686c",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/scenario-library/page.tsx": {
+      "migrated_sha": "82b232d5cb2b7a2b6f91ea0a0a6bc9ee4852b7a4",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/settings/page.tsx": {
+      "migrated_sha": "7d20fc2ff46899a67bae348968acdf7cb1d736dd",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/study/page.tsx": {
+      "migrated_sha": "705b5d9049330a3006e2833153d1c4f35cf058cb",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/test-oauth/page.tsx": {
+      "migrated_sha": "26649651e564c51b4cc60eda08f81f77e81aaf69",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/test/adaptive/page.tsx": {
+      "migrated_sha": "1bdccecdb1af8937948e62c6df4cc97cda3795d9",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/test/mixed-practice/page.tsx": {
+      "migrated_sha": "483f12dc95381567639c85f4d721314152aea799",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "components/gamification/StreakMeter.tsx": {
+      "migrated_sha": "6fea47cc302eb1d93baf06a0961c098d86619452",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "components/layout/FabActions.tsx": {
+      "migrated_sha": "cf67357497228385bc8cffd52ef3f8704779c293",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "e2e/bookmark.spec.ts": {
+      "migrated_sha": "bcc1febddf74380662eb01e1621d3c699e054a6b",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "e2e/trial-gate.spec.ts": {
+      "migrated_sha": "dad57ceb5e10ca1c2a73e44e36ad778d77227997",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "examples/QuizWithSelector.tsx": {
+      "migrated_sha": "eed307e330e4d2a1f5b7600b10ff9ace561c5ef6",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "lib/hooks/useAccess.ts": {
+      "migrated_sha": "45559d25dc2763f2fb40a697d7fc9d251705857b",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "packages/adaptive-drill/src/drillSlice.ts": {
+      "migrated_sha": "04cce32c227fcb475b31bd09aecb508deff013e2",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "packages/adaptive-drill/src/useScenarioDrill.ts": {
+      "migrated_sha": "f616235296a24653acdab3efd0892f76cc3ead18",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
     }
   }
 }

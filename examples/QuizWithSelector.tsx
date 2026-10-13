@@ -16,7 +16,7 @@ export default function QuizWithSelector() {
       <div style={{ marginBottom: 16 }}>
         <BankSelector value={bankKey} onChange={(k) => setBankKey(k as BankKey)} />
       </div>
-      {bank ? <Drill bank={bank} /> : <p>Select a bank to start drilling.</p>}
+      {bank ? <Drill key={bankKey} bank={bank} /> : <p>Select a bank to start drilling.</p>}
     </div>
   );
 }
@@ -59,7 +59,7 @@ function Drill({ bank }: { bank: any }) {
         })}
       </ul>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <button onClick={next}>Next</button>
+        <button onClick={next} disabled={progress.queue <= 1}>Next</button>
         <small style={{ opacity: 0.7 }}>
           <span role="img" aria-label="swipe">👆</span> Swipe left → Next • Swipe right → Bookmark
         </small>
@@ -76,5 +76,3 @@ function mulberry32(a: number) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
-
-

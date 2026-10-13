@@ -115,6 +115,7 @@ export default function StudyPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <p role="status" className="mb-4 text-sm text-slate-600">Some progress is sample data. Lesson completion applies only to this visit.</p>
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center space-x-3 mb-4">
@@ -170,7 +171,7 @@ export default function StudyPage() {
           Featured Study Materials
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {studyMaterials.filter(item => item.featured).map((item) => (
+          {studyMaterials.filter(item => item.featured && ['cardiac-fundamentals', 'wound-care'].includes(item.id)).map((item) => (
             <Card key={item.id} className="hover:shadow-lg transition-all duration-200">
               <CardHeader>
                 <div className="flex items-start justify-between mb-2">
@@ -250,9 +251,10 @@ export default function StudyPage() {
                       <Button 
                         size="sm" 
                         variant="outline"
+                        disabled={!['cardiac-fundamentals', 'wound-care'].includes(item.id)}
                         onClick={() => window.location.href = `/study/${item.id}`}
                       >
-                        {item.progress > 0 ? 'Continue' : 'Start'}
+                        {['cardiac-fundamentals', 'wound-care'].includes(item.id) ? (item.progress > 0 ? 'Continue' : 'Start') : 'Coming soon'}
                       </Button>
                     </div>
                   </div>
@@ -284,6 +286,8 @@ export default function StudyPage() {
               <Card 
                 key={tool.id} 
                 className="hover:shadow-md transition-all duration-200 cursor-pointer"
+                role="button" tabIndex={0} aria-label={`Open ${tool.title}`}
+                onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); window.location.href = getToolPath(tool.id) } }}
                 onClick={() => window.location.href = getToolPath(tool.id)}
               >
                 <CardContent className="p-4 text-center">
@@ -305,6 +309,3 @@ export default function StudyPage() {
     </div>
   )
 }
-
-
-

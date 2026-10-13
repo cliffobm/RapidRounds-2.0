@@ -141,6 +141,7 @@ export default function LeaderboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <p role="status" className="mb-4 text-sm text-slate-600">Development preview: leaderboard rankings and activity are sample data.</p>
       <Confetti active={showConfetti} onComplete={() => setShowConfetti(false)} />
       
       {/* Header */}
@@ -164,8 +165,8 @@ export default function LeaderboardPage() {
       {currentUser && (
         <Card className="mb-8 border-l-4 border-l-primary bg-gradient-to-r from-primary/5 to-accent/5">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                   <Trophy className="w-8 h-8 text-primary" />
                 </div>
@@ -284,7 +285,7 @@ export default function LeaderboardPage() {
       {/* Full Leaderboard */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <CardTitle className="flex items-center space-x-2">
               <Trophy className="w-5 h-5" />
               <span>
@@ -308,8 +309,8 @@ export default function LeaderboardPage() {
                   entry.isCurrentUser ? 'bg-primary/5 border-l-4 border-l-primary' : ''
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <div className={`text-xl font-bold ${getRankColor(entry.rank)} min-w-[3rem] text-center`}>
                       {getRankIcon(entry.rank)}
                     </div>
@@ -441,7 +442,7 @@ export default function LeaderboardPage() {
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
             Recent Achievements
           </h2>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={() => window.location.href = "/achievements"}>
             <Award className="w-4 h-4 mr-2" />
             View All Badges
           </Button>

@@ -5,7 +5,7 @@ import { MicrolearningGenerator, formatAsMarkdown, MicrolearningContent } from '
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card } from '@/components/ui/Card'
-import { AppShell } from '@/components/layout/AppShell'
+
 
 export default function MicrolearningGeneratorPage() {
   const [topic, setTopic] = useState('')
@@ -45,9 +45,10 @@ export default function MicrolearningGeneratorPage() {
     }
   }
 
-  const handleCopyMarkdown = () => {
-    navigator.clipboard.writeText(markdownOutput)
-    alert('Markdown copied to clipboard!')
+  const [copyStatus, setCopyStatus] = useState('')
+  const handleCopyMarkdown = async () => {
+    try { await navigator.clipboard.writeText(markdownOutput); setCopyStatus('Markdown copied.') }
+    catch { setCopyStatus('Could not copy. Use Download Markdown instead.') }
   }
 
   const handleDownloadMarkdown = () => {
@@ -63,7 +64,7 @@ export default function MicrolearningGeneratorPage() {
   }
 
   return (
-    <AppShell>
+    <>
       <div className="min-h-screen bg-gradient-to-br from-brand-cloud to-white dark:from-brand-ink dark:to-gray-900">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
@@ -80,10 +81,10 @@ export default function MicrolearningGeneratorPage() {
           <Card className="p-6 mb-8">
             <div className="grid gap-6 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="topic" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Topic
                 </label>
-                <Input
+                <Input id="topic"
                   type="text"
                   placeholder="e.g., Cardiac Assessment, Stroke Protocol, Medication Administration"
                   value={topic}
@@ -92,10 +93,10 @@ export default function MicrolearningGeneratorPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Category
                 </label>
-                <select
+                <select id="category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -261,6 +262,7 @@ export default function MicrolearningGeneratorPage() {
                   Export Content
                 </h2>
                 <div className="flex flex-wrap gap-4">
+                  <p role="status">{copyStatus}</p>
                   <Button onClick={handleCopyMarkdown} variant="outline">
                     Copy Markdown
                   </Button>
@@ -269,10 +271,10 @@ export default function MicrolearningGeneratorPage() {
                   </Button>
                 </div>
                 <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="markdown" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Markdown Output (Preview)
                   </label>
-                  <textarea
+                  <textarea id="markdown"
                     value={markdownOutput}
                     readOnly
                     className="w-full h-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700 dark:border-gray-600 dark:text-white font-mono text-sm"
@@ -283,6 +285,6 @@ export default function MicrolearningGeneratorPage() {
           )}
         </div>
       </div>
-    </AppShell>
+    </>
   )
 }

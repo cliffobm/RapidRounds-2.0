@@ -548,8 +548,7 @@ export default function DrugReferencePage() {
                     <Clock className="w-3 h-3" />
                     <span>Updated 2024</span>
                   </div>
-                  <Button variant="outline" size="sm">
-                    View Details
+                  <Button variant="outline" size="sm" onClick={(event) => { event.stopPropagation(); setSelectedDrug(drug) }}>View Details
                   </Button>
                 </div>
               </div>

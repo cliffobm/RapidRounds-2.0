@@ -476,8 +476,7 @@ export default function EmergencyProtocolsPage() {
                       <Clock className="w-3 h-3" />
                       <span>{protocol.estimatedTime}</span>
                     </div>
-                    <Button variant="outline" size="sm">
-                      View Protocol
+                    <Button variant="outline" size="sm" onClick={(event) => { event.stopPropagation(); setSelectedProtocol(protocol) }}>View Protocol
                     </Button>
                   </div>
                 </div>

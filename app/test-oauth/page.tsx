@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabaseClient } from '@/lib/supabase-client'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Alert, AlertDescription } from '@/components/ui/Alert'
 
 export default function TestOAuthPage() {
+  const [origin, setOrigin] = useState('Loading')
+  useEffect(() => { setOrigin(window.location.origin) }, [])
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<string>('')
   const [error, setError] = useState<string>('')
@@ -102,7 +104,7 @@ export default function TestOAuthPage() {
               Supabase URL: {process.env.NEXT_PUBLIC_SUPABASE_URL || 'Not set'}
             </p>
             <p className="text-sm text-gray-600">
-              Current URL: {typeof window !== 'undefined' ? window.location.origin : 'Server-side'}
+              Current URL: {origin}
             </p>
           </div>
         </CardContent>
@@ -110,4 +112,3 @@ export default function TestOAuthPage() {
     </div>
   )
 }
-

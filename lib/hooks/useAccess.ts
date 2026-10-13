@@ -7,15 +7,20 @@ export function useRationaleAccess(questionId?: string) {
   const [accessCheck, setAccessCheck] = useState<AccessCheck | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [revision, setRevision] = useState(0)
 
   useEffect(() => {
+    let active = true
     const checkAccess = async () => {
       if (!user || !profile) {
         setAccessCheck(null)
+        setLoading(false)
+        setError(null)
         return
       }
 
       try {
+        setAccessCheck(null)
         setLoading(true)
         setError(null)
         
@@ -26,17 +31,18 @@ export function useRationaleAccess(questionId?: string) {
           throw new Error(data.error || 'Failed to check access')
         }
         
-        setAccessCheck(data.access)
+        if (active) setAccessCheck(data.access)
       } catch (err) {
         console.error('Error checking rationale access:', err)
-        setError('Failed to check access')
+        if (active) setError('Failed to check access')
       } finally {
-        setLoading(false)
+        if (active) setLoading(false)
       }
     }
 
     checkAccess()
-  }, [user, profile, questionId])
+    return () => { active = false }
+  }, [user, profile, questionId, revision])
 
   return {
     accessCheck,
@@ -46,7 +52,7 @@ export function useRationaleAccess(questionId?: string) {
     refresh: () => {
       if (user && profile) {
         // Re-trigger the effect
-        setAccessCheck(null)
+        setRevision(value => value + 1)
       }
     }
   }
@@ -220,5 +226,3 @@ export function usePayments() {
     loading
   }
 }
-
-

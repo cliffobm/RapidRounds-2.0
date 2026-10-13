@@ -15,7 +15,9 @@ test.describe('Scenario Flow', () => {
     // Should see category cards
     await expect(page.locator('text=Cardiac Assessment')).toBeVisible()
     await expect(page.locator('text=Respiratory System')).toBeVisible()
-    await expect(page.locator('text=Neurological Assessment')).toBeVisible()
+    await page.mouse.wheel(0, page.viewportSize()!.height)
+    await page.getByRole('button', { name: /Start Neurological Assessment testing/ }).scrollIntoViewIfNeeded()
+    await expect(page.getByRole('button', { name: /Start Neurological Assessment testing/ })).toBeVisible()
   })
 
   test('should start a scenario from category', async ({ page }) => {

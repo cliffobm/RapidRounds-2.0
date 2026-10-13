@@ -76,10 +76,11 @@ const lessons = [
 
 export default function CardiacFundamentalsPage() {
   const router = useRouter()
+  const [courseLessons, setCourseLessons] = useState(lessons)
   const [currentLesson, setCurrentLesson] = useState(lessons[2]) // Start with first incomplete lesson
   const [showLesson, setShowLesson] = useState(false)
 
-  const completedLessons = lessons.filter(lesson => lesson.completed).length
+  const completedLessons = courseLessons.filter(lesson => lesson.completed).length
   const progress = (completedLessons / lessons.length) * 100
 
   const getTypeIcon = (type: string) => {
@@ -103,6 +104,7 @@ export default function CardiacFundamentalsPage() {
   if (showLesson) {
     return (
       <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <p role="status" className="mb-4 text-sm text-slate-600">Lesson completion applies only to this visit.</p>
         <div className="mb-6">
           <Button 
             variant="outline"
@@ -177,9 +179,10 @@ export default function CardiacFundamentalsPage() {
               <Button 
                 onClick={() => {
                   // Mark lesson as completed
-                  const updatedLessons = lessons.map(lesson => 
+                  const updatedLessons = courseLessons.map(lesson => 
                     lesson.id === currentLesson?.id ? { ...lesson, completed: true } : lesson
                   )
+                  setCourseLessons(updatedLessons)
                   // Find next incomplete lesson
                   const nextLesson = updatedLessons.find(lesson => !lesson.completed)
                   if (nextLesson) {
@@ -277,7 +280,7 @@ export default function CardiacFundamentalsPage() {
         <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
           Lessons
         </h2>
-        {lessons.map((lesson, index) => (
+        {courseLessons.map((lesson, index) => (
           <Card 
             key={lesson.id} 
             className={`hover:shadow-md transition-all duration-200 cursor-pointer ${
@@ -328,7 +331,7 @@ export default function CardiacFundamentalsPage() {
                 </div>
                 
                 <div className="flex-shrink-0">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={(event) => { event.stopPropagation(); setCurrentLesson(lesson); setShowLesson(true) }}>
                     {lesson.completed ? 'Review' : 'Start'}
                   </Button>
                 </div>

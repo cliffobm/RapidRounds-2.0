@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { AppShell } from '@/components/layout/AppShell'
+import { useAuth } from '@/store/useAuth'
 import { getAchievementsWithStatus, AchievementWithStatus } from '@/lib/db/achievements'
 import { 
   TrophyIcon, 
@@ -15,32 +15,24 @@ import {
 } from '@heroicons/react/24/outline'
 
 export default function AchievementsPage() {
+  const { user } = useAuth()
+  const [revision, setRevision] = useState(0)
   const [achievements, setAchievements] = useState<AchievementWithStatus[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [filter, setFilter] = useState<'all' | 'earned' | 'locked'>('all')
 
   useEffect(() => {
-    loadAchievements()
-  }, [])
-
-  const loadAchievements = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-      
-      // For now, we'll use a mock user ID. In a real app, this would come from auth context
-      const mockUserId = 'mock-user-id'
-      
-      const data = await getAchievementsWithStatus(mockUserId)
-      setAchievements(data)
-    } catch (err) {
-      console.error('Error loading achievements:', err)
-      setError('Failed to load achievements data')
-    } finally {
-      setLoading(false)
-    }
-  }
+    let active = true
+    setAchievements([])
+    setError(null)
+    if (!user) { setLoading(false); return }
+    setLoading(true)
+    getAchievementsWithStatus(user.id).then(data => { if (active) setAchievements(data) })
+      .catch(() => { if (active) setError('Failed to load achievements data') })
+      .finally(() => { if (active) setLoading(false) })
+    return () => { active = false }
+  }, [user?.id, revision])
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -142,7 +134,7 @@ export default function AchievementsPage() {
           <div className="p-8 text-center">
             <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
             <button 
-              onClick={loadAchievements}
+              onClick={() => setRevision(value => value + 1)}
               className="px-4 py-2 bg-brand-orange text-white rounded-lg hover:bg-orange-600 transition-colors"
             >
               Try Again

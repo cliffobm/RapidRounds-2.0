@@ -33,7 +33,7 @@ export function useScenarioDrill({ bank, sessionCap = 15, topicFilter, difficult
     setTimeout(() => dispatch({ type: "REQUEUE" }), 0);
   }, [current]);
 
-  const next = useCallback(() => { dispatch({ type: "REQUEUE" }); }, []);
+  const next = useCallback(() => { dispatch({ type: "SKIP" }); }, []);
 
   const progress = useMemo(() => ({ ...state.stats, queue: state.queue.length }), [state]);
 

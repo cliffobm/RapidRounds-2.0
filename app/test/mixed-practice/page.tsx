@@ -127,6 +127,7 @@ export default function MixedPracticePage() {
     // Scenario card
     {
       id: `scenario-${currentScenario?.id}`,
+      isBookmarked: bookmarkedItems.has(`scenario-${currentScenario?.id}`),
       title: currentScenario?.title || '',
       content: currentScenario ? <ScenarioCard scenario={currentScenario as any} /> : <div>No scenario available</div>,
       metadata: {
@@ -140,6 +141,7 @@ export default function MixedPracticePage() {
       title: `Question ${index + 1}`,
       content: (
         <AnswerBlock
+        submittedAnswer={answers[question.id]}
           question={question as any}
           onAnswer={(userAnswers) => {
             setAnswers(prev => ({
@@ -283,8 +285,8 @@ export default function MixedPracticePage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 min-w-0">
           <Button 
             variant="outline"
             onClick={() => router.push('/test')}

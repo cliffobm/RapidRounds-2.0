@@ -24,7 +24,7 @@ interface AppShellProps {
 }
 
 export function AppShell({ children }: AppShellProps) {
-  const { user, loading, signOut, signInWithGoogle } = useAuth()
+  const { user, profile, loading, signOut } = useAuth()
   const { isDark, toggleTheme } = useTheme()
   const router = useRouter()
 
@@ -34,13 +34,7 @@ export function AppShell({ children }: AppShellProps) {
     router.push('/')
   }
 
-  const handleSignIn = async () => {
-    try {
-      await signInWithGoogle()
-    } catch (error) {
-      console.error('Error signing in:', error)
-    }
-  }
+  const handleSignIn = () => router.push('/auth/sign-in')
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home, href: '/' },
@@ -119,7 +113,7 @@ export function AppShell({ children }: AppShellProps) {
                           d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                         />
                       </svg>
-                      <span>Sign in with Google</span>
+                      <span>Sign In</span>
                     </Button>
                   )}
                 </div>
@@ -176,8 +170,7 @@ export function AppShell({ children }: AppShellProps) {
       </nav>
 
       {/* Floating Action Button */}
-      <FabActions userRole={user ? 'educator' : 'student'} />
+      <FabActions userRole={profile?.role || 'student'} />
     </div>
   )
 }
-
