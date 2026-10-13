@@ -2700,7 +2700,7 @@
       "reason": "Repair blocking lint without disabling validation rules"
     },
     "app/rr/[code]/page.tsx": {
-      "migrated_sha": "15cb5a523b794923abd3d01c0cb1fa555149c9fc",
+      "migrated_sha": "cb06d737c73895b7a7cdd265b08c1a31d609ece7",
       "reason": "Await dynamic route params to satisfy Next.js 15 PageProps; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/scenario/[id]/page.tsx": {
