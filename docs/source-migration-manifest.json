@@ -2560,8 +2560,8 @@
       "reason": "Normalize UTF-16 to UTF-8 and document disabled CJIS preview"
     },
     ".github/workflows/test.yml": {
-      "migrated_sha": "f5e70659384c5c6d48e31cf3e9c96ec9c8c30352",
-      "reason": "Run development-branch CI with local placeholders and retain blocking legacy gates; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+      "migrated_sha": "dec8de2b2093db48d48f4dd713a27ad188c51bae",
+      "reason": "Run Sprint 4, legacy, database and browser gates including dedicated simulated profile save-refresh and account-switch checks, with preserved failure evidence."
     },
     ".gitignore": {
       "migrated_sha": "b54dd9082fbf1a4d6d3f9bc5a2d918af3a27239e",
@@ -2796,8 +2796,8 @@
       "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "components/layout/AppShell.tsx": {
-      "migrated_sha": "6fabf64fcc309797af689c8f5074736df8e77377",
-      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+      "migrated_sha": "f10bd27013fb802fc131b05e79eb0cb2853c0a87",
+      "reason": "Keep signed-in header and bottom navigation within phone viewport so profile edit controls remain reachable."
     },
     "components/scenario/SwipeDeck.tsx": {
       "migrated_sha": "5e08ce5e6bc43b9d79f49224053c99f994b3db2a",
@@ -2846,6 +2846,10 @@
     "lib/supabase-client.ts": {
       "migrated_sha": "c4c73e6ea67befd0bcdccce0dc11b6bf4f21a63c",
       "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses."
+    },
+    "app/profile/page.tsx": {
+      "migrated_sha": "94622525323ea7b3176760233b93148db3fbdd11",
+      "reason": "Connect own-account profile reads and allowlisted edits to Supabase; handle errors, account switches and pending saves; remove sample identity, billing and activity statistics."
     }
   }
 }

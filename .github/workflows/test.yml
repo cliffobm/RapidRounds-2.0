@@ -89,6 +89,9 @@ jobs:
       - run: npm run build
       - name: Full desktop and mobile Chromium regression
         run: npx playwright test --project=chromium --project="Mobile Chrome" --workers=2
+      - name: Profile save-refresh and account-switch regression (simulated APIs)
+        if: ${{ !cancelled() }}
+        run: npx playwright test --config=playwright.profile.config.ts
       - name: Save browser evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -58,7 +58,8 @@ export function AppShell({ children }: AppShellProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Logo size="lg" className="hover:scale-105 transition-transform duration-300" />
+            <div className="hidden sm:block"><Logo size="lg" className="hover:scale-105 transition-transform duration-300" /></div>
+            <div className="sm:hidden shrink-0"><Logo size="sm" variant="icon" /></div>
             
             {/* Right side actions */}
             <div className="flex items-center space-x-4">
@@ -68,7 +69,7 @@ export function AppShell({ children }: AppShellProps) {
                   {user ? (
                     <div className="flex items-center space-x-3">
                       {/* User avatar and email */}
-                      <div className="flex items-center space-x-2">
+                      <div className="hidden sm:flex items-center space-x-2">
                         {user.user_metadata?.avatar_url ? (
                           <img
                             src={user.user_metadata.avatar_url}
@@ -80,7 +81,7 @@ export function AppShell({ children }: AppShellProps) {
                             {user.email?.charAt(0).toUpperCase() || 'U'}
                           </div>
                         )}
-                        <span className="text-sm text-brand-blue dark:text-brand-cloud font-medium">
+                        <span className="max-w-[180px] truncate text-sm text-brand-blue dark:text-brand-cloud font-medium">
                           {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
                         </span>
                       </div>
@@ -149,7 +150,7 @@ export function AppShell({ children }: AppShellProps) {
       {/* Bottom navigation */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 safe-bottom shadow-strong">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-around py-2">
+          <div className="grid grid-cols-5 items-center py-2">
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = false // TODO: implement active state based on current route
@@ -157,14 +158,14 @@ export function AppShell({ children }: AppShellProps) {
                 <a
                   key={item.id}
                   href={item.href}
-                  className={`flex flex-col items-center py-3 px-3 rounded-2xl min-h-[44px] min-w-[44px] transition-all duration-200 group ${
+                  className={`flex min-w-0 flex-col items-center py-3 px-1 sm:px-3 rounded-2xl min-h-[44px] transition-all duration-200 group ${
                     isActive 
                       ? 'bg-primary text-white shadow-lg' 
                       : 'text-slate-600 hover:text-primary hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'
                   }`}
                 >
                   <Icon className="w-6 h-6 transition-colors duration-200" />
-                  <span className="text-xs font-medium mt-1 transition-colors duration-200">
+                  <span className="max-w-full text-center text-xs font-medium mt-1 transition-colors duration-200">
                     {item.label}
                   </span>
                 </a>
