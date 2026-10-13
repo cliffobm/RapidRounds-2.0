@@ -2744,7 +2744,7 @@
       "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/scenario/AnswerBlock.tsx": {
-      "migrated_sha": "aa6d26ac90e4c8b44b032d1ca56a6b45b097529e",
+      "migrated_sha": "f106e7ab7407311a34eb0f2e51aa5a02a878fe97",
       "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/scenario/ScenarioCard.tsx": {

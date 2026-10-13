@@ -1,5 +1,7 @@
 # Sprint 4: application migration and CJIS integration
 
+The current UI/practice audit, fresh validation results, and remaining integration limits are recorded in [UI_AUDIT.md](UI_AUDIT.md). Earlier counts below describe prior migration checkpoints.
+
 ## Review target
 
 Review branch: `sprint4/cjis-source-migration`.

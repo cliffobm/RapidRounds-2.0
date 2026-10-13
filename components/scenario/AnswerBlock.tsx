@@ -70,7 +70,7 @@ function SortableItem({ id, label, disabled, children }: { id: string; label: st
     transform,
     transition,
     isDragging,
-  } = useSortable({ id, disabled })
+  } = useSortable({ id, disabled, transition: null })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -82,7 +82,7 @@ function SortableItem({ id, label, disabled, children }: { id: string; label: st
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl cursor-move hover:shadow-md transition-all duration-200"
+      className="flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl cursor-move hover:shadow-md"
     >
       <button ref={setActivatorNodeRef} type="button" {...attributes} {...listeners} disabled={disabled} aria-label={`Reorder ${label}`} className="touch-none cursor-grab active:cursor-grabbing p-2">
         <GripVertical className="w-4 h-4 text-slate-400" />

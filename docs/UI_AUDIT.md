@@ -6,7 +6,13 @@ Repairs cover ordering submission and sequence scoring, preserved answers on rev
 
 Unconnected account/billing/educator actions and missing lessons are disabled. Sample activity/rank/study progress and device/visit-only data are labelled.
 
-The workspace resumed from an earlier checkpoint after the initial audit. This recovery checkpoint restores the source and tests; verification of this exact revision is in progress. Prior results are not used to certify the restored revision. Final results will be added after fresh validation.
+The recovered source passes 124 unit tests in 18 files, type checking, the Node 20 production build, Sprint 4/CJIS validation, and all 11 legacy bank files. The source manifest verifies 176 unchanged imports and 97 documented changes. Staging validation covers 17 datasets / 168 draft items.
+
+The fresh public browser run passed 165 cases, failed three keyboard ordering cases, and explicitly skipped four cloud bookmark/billing integration cases. Disabling sortable transitions and synchronizing the restored keyboard test fixed those failures; all six focused desktop/mobile ordering checks then passed, including unchanged-order submission, exact-sequence scoring, and a complete cardiac round. Together with four passing signed-in simulated-API checks, 172 distinct browser checks pass after the targeted correction/rerun. These are separate runs, not a claim of one uninterrupted failure-free suite.
+
+All 33 inventoried public routes return HTTP 200 on both projects without uncaught page errors. Shared logo assets load without brand-resource failures. Route-render coverage does not establish every backend or clinical content path. Google Fonts and unconfigured local API requests can still produce console/network errors; a clean console is not claimed.
+
+The workspace resumed from an earlier checkpoint during the first audit. The source and tests were recovered and saved to the development branch before this fresh verification. Earlier pre-recovery results are not used to certify the final implementation. Compact retained results are in [ui-audit-results.json](ui-audit-results.json).
 
 ## Verification limits and remaining work
 
@@ -15,6 +21,6 @@ The workspace resumed from an earlier checkpoint after the initial audit. This r
 - Authoritative rationale quotas, subscription entitlements, trial activation and checkout require an authenticated backend and billing sandbox tests. Four desktop/mobile integration cases are explicitly skipped.
 - Hosted scenario/attempt persistence, achievement retrieval, RR installation/seeding and OAuth provider configuration require live development-project verification.
 - Signed-in browser tests use disposable simulated Auth/Data APIs; they do not prove hosted RLS. The owner separately reported hosted learner isolation, login/refresh/sign-out and Profile edit checks passing.
-- The dependency audit previously reported 55 findings, including five critical. Forced upgrades were not applied. A fresh audit and dependency review remain release work.
+- The fresh dependency audit reports 55 findings: two low, ten moderate, 38 high, and five critical. Forced upgrades were not applied; dependency review remains a release blocker.
 - Imported question banks remain draft. Software validation does not approve clinical accuracy or calibrate assessment items.
 - This browser audit exercises desktop Chromium and Android-sized Chromium; Firefox and Safari remain unverified.
