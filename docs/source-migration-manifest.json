@@ -2596,7 +2596,7 @@
       "reason": "Remove embedded credentials and remote database defaults"
     },
     "middleware.ts": {
-      "migrated_sha": "22e36c961d65a15e575a6779c9b7235d91af0e83",
+      "migrated_sha": "e188214bd8467f129c53f09cceead4dfd6143ffd",
       "reason": "Remove embedded credentials and remote database defaults Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
     },
     "next.config.js": {
@@ -2644,7 +2644,7 @@
       "reason": "Remove embedded credentials and remote database defaults"
     },
     "scripts/setup-oauth.md": {
-      "migrated_sha": "79e1e4ade4157b2605d9eec6efc75986410f4c34",
+      "migrated_sha": "391f1dab09c42be853ba5377771303096384a60d",
       "reason": "Remove embedded credentials and remote database defaults Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
     },
     "scripts/test-oauth.js": {

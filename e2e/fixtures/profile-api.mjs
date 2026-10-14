@@ -37,6 +37,8 @@ http.createServer(async (request, response) => {
   response.setHeader('Access-Control-Allow-Origin', '*')
   response.setHeader('Access-Control-Allow-Headers', '*')
   response.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, OPTIONS')
+  response.setHeader('Access-Control-Expose-Headers', 'X-Supabase-Api-Version')
+  response.setHeader('X-Supabase-Api-Version', '2024-01-01')
   const reply = (status, data) => { response.writeHead(status, { 'Content-Type': 'application/json' }); response.end(data === undefined ? undefined : JSON.stringify(data)) }
   if (request.method === 'OPTIONS') return reply(204)
   const url = new URL(request.url, 'http://127.0.0.1:54321')

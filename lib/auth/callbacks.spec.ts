@@ -43,6 +43,10 @@ describe('authentication callbacks', () => {
     const response = await callback(request('/auth/callback?code=valid&next=%2F%2Fevil.example'))
     expect(response.headers.get('location')).toBe('http://localhost:3000/')
   })
+  it('uses the configured application origin rather than an internal or forged request host', async () => {
+    const response = await callback(new NextRequest('http://internal-proxy:3000/auth/callback?code=valid&next=%2Fprofile', { headers: { host: 'evil.example', 'x-forwarded-host': 'evil.example' } }))
+    expect(response.headers.get('location')).toBe('http://localhost:3000/profile')
+  })
   it('handles a network/configuration exception', async () => {
     mocks.client.mockRejectedValue(new Error('private server details'))
     const response = await callback(request('/auth/callback?code=valid'))

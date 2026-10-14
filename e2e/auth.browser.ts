@@ -1,6 +1,21 @@
 import { test, expect, type Page, type APIRequestContext } from '@playwright/test'
 
 test.setTimeout(90000)
+const pageErrors = new WeakMap<Page, string[]>()
+test.beforeEach(async ({ page }) => {
+  const errors: string[] = []
+  pageErrors.set(page, errors)
+  page.on('pageerror', error => errors.push(error.message))
+  // Prevent an accidentally hosted build from sending fixture Auth requests.
+  await page.route('**/auth/v1/**', async route => {
+    const url = new URL(route.request().url())
+    if (url.origin !== 'http://127.0.0.1:54321') {
+      errors.push('Auth browser tests require a build against the local API simulator.')
+      await route.abort()
+    } else await route.continue()
+  })
+})
+test.afterEach(async ({ page }) => { expect(pageErrors.get(page)).toEqual([]) })
 async function signOut(page: Page) {
   await page.context().clearCookies()
   await page.goto('/auth/sign-in')
@@ -37,7 +52,7 @@ test('signup confirms through PKCE, preserves cookies on refresh, and rejects a 
   expect((await page.context().cookies()).some(cookie => cookie.name.includes('auth-token'))).toBe(true)
   await page.goto(link)
   await expect(page).toHaveURL(/\/auth\/sign-in\?error=auth_callback_failed/)
-  await expect(page.getByRole('alert')).toContainText('invalid, expired, or was already used')
+  await expect(page.getByRole('main').getByRole('alert')).toContainText('invalid, expired, or was already used')
 })
 
 test('email links sign in an existing account and preserve the return path (simulated APIs)', async ({ page, request }) => {
@@ -77,7 +92,7 @@ test('recovery changes the password, rejects the old password, and accepts the n
   await expect(page.getByRole('status')).toContainText('Your password has been updated')
   await signOut(page)
   await login(page, email, 'old-password')
-  await expect(page.getByRole('alert')).toContainText('Invalid login credentials')
+  await expect(page.getByRole('main').getByRole('alert')).toContainText('Invalid login credentials')
   await login(page, email, 'new-password')
   await expect(page).toHaveURL('http://127.0.0.1:3000/')
 })

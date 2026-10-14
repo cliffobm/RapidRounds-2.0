@@ -21,6 +21,8 @@ NEXT_PUBLIC_AUTH_GOOGLE_ENABLED=true
 
 The flag controls button visibility only. Supabase must enable the provider too. Google client ID/secret go in the Supabase dashboard, never a `NEXT_PUBLIC_` variable, Git commit, or chat. The app does not need `GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` environment variables.
 
+`NEXT_PUBLIC_APP_URL` must equal the origin you actually open: `http://localhost:3000` for this laptop, or the actual HTTPS origin for a hosted preview. The server uses this configured origin for redirects so proxy/internal hostnames cannot change cookie scope. If testing with `127.0.0.1`, set it to `http://127.0.0.1:3000`, restart/rebuild, and use that hostname consistently.
+
 ## 2. Configure Google Cloud
 
 Open [Google Cloud Console](https://console.cloud.google.com/) and select or create the RapidRounds test project. In **Google Auth Platform**, configure Branding (app name, support email), Audience, and Data Access. Use an External audience if personal Google accounts will sign in; while the app is in Testing, add each tester's Google email as a test user. Request only the basic `openid`, email, and profile scopes.

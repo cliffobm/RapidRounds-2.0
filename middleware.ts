@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { APP_CONFIG } from '@/lib/env'
 
 // Use Node.js runtime for better performance and compatibility
 export const runtime = 'nodejs'
@@ -33,10 +34,8 @@ export async function middleware(request: NextRequest) {
   })
 
   const signInRedirect = () => {
-    const url = request.nextUrl.clone()
-    const target = `${pathname}${url.search}`
-    url.pathname = '/auth/sign-in'
-    url.search = ''
+    const target = `${pathname}${request.nextUrl.search}`
+    const url = new URL('/auth/sign-in', APP_CONFIG.url)
     url.searchParams.set('redirectTo', target)
     const response = NextResponse.redirect(url)
     supabaseResponse.cookies.getAll().forEach(cookie => response.cookies.set(cookie))
