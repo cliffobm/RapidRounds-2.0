@@ -14,13 +14,14 @@ export async function createClient() {
     SUPABASE_CONFIG.anonKey,
     { 
       cookies: { 
-        get: (name) => cookieStore.get(name)?.value,
-        set: (name, value, options) => {
-          cookieStore.set({ name, value, ...options })
+        getAll: () => cookieStore.getAll(),
+        setAll: (cookiesToSet) => {
+          // Route handlers can write the exchanged session; Server Components
+          // are read-only and rely on middleware for session refresh.
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
+          } catch { /* Read-only Server Component cookie store. */ }
         },
-        remove: (name, options) => {
-          cookieStore.set({ name, value: '', ...options })
-        }
       } 
     }
   )

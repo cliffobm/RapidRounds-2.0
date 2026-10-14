@@ -11,6 +11,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'local-deve
 export async function middleware(request: NextRequest) {
   // Skip middleware for static assets and API routes that don't need auth
   const { pathname } = request.nextUrl
+  const isProtectedRoute = ['/profile', '/settings', '/admin', '/auth/reset-password'].some(route => pathname === route || pathname.startsWith(`${route}/`))
   
   // Skip for static assets, API routes, and auth callbacks
   if (
@@ -30,6 +31,18 @@ export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   })
+
+  const signInRedirect = () => {
+    const url = request.nextUrl.clone()
+    const target = `${pathname}${url.search}`
+    url.pathname = '/auth/sign-in'
+    url.search = ''
+    url.searchParams.set('redirectTo', target)
+    const response = NextResponse.redirect(url)
+    supabaseResponse.cookies.getAll().forEach(cookie => response.cookies.set(cookie))
+    response.headers.set('Cache-Control', 'private, no-store')
+    return response
+  }
 
   try {
     const supabase = createServerClient(
@@ -54,11 +67,6 @@ export async function middleware(request: NextRequest) {
     )
 
     // Only check auth for protected routes to improve performance
-    const protectedRoutes = ['/profile', '/settings', '/admin']
-    const isProtectedRoute = protectedRoutes.some(route => 
-      pathname.startsWith(route)
-    )
-
     if (isProtectedRoute) {
       // Refresh session if expired - required for Server Components
       const {
@@ -68,10 +76,7 @@ export async function middleware(request: NextRequest) {
 
       // If user is not signed in and the route is protected, redirect to sign-in
       if (!user || error) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/auth/sign-in'
-        url.searchParams.set('redirectTo', pathname)
-        return NextResponse.redirect(url)
+        return signInRedirect()
       }
     }
 
@@ -81,8 +86,7 @@ export async function middleware(request: NextRequest) {
     if (process.env.NODE_ENV === 'development') {
       console.error('Middleware error:', error)
     }
-    // If there's an error, just continue without authentication checks
-    return NextResponse.next()
+    return isProtectedRoute ? signInRedirect() : supabaseResponse
   }
 }
 
@@ -95,5 +99,6 @@ export const config = {
     '/profile/:path*',
     '/settings/:path*',
     '/admin/:path*',
+    '/auth/reset-password',
   ],
 }

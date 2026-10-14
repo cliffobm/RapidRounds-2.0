@@ -83,6 +83,29 @@ describe('useAuth Store', () => {
   })
 
   describe('Authentication Methods', () => {
+    it('does not authenticate an unconfirmed signup or send privilege metadata', async () => {
+      const { supabaseClient: supabase } = await import('../lib/supabase-client')
+      vi.mocked(supabase.auth.signUp).mockResolvedValue({ data: { user: { id: 'unconfirmed' }, session: null }, error: null } as any)
+      const result = await useAuth.getState().signUp('new@example.com', 'test-password', { full_name: 'New Learner', role: 'admin' } as any, 'http://localhost:3000/auth/callback?next=%2Fprofile')
+      expect(result.session).toBeNull()
+      expect(useAuth.getState().user).toBeNull()
+      expect(useAuth.getState().session).toBeNull()
+      expect(supabase.auth.signUp).toHaveBeenCalledWith({ email: 'new@example.com', password: 'test-password', options: { data: { full_name: 'New Learner' }, emailRedirectTo: 'http://localhost:3000/auth/callback?next=%2Fprofile' } })
+    })
+
+    it('loads the database profile when signup immediately returns a session', async () => {
+      const { supabaseClient: supabase } = await import('../lib/supabase-client')
+      const user = { id: 'new-learner' }
+      const session = { user, access_token: 'fixture' }
+      const profile = { id: 'new-learner', role: 'student' }
+      vi.mocked(supabase.auth.signUp).mockResolvedValue({ data: { user, session }, error: null } as any)
+      vi.mocked(supabase.from).mockReturnValue({ select: () => ({ eq: () => ({ single: async () => ({ data: profile, error: null }) }) }) } as any)
+      await useAuth.getState().signUp('new@example.com', 'test-password')
+      expect(useAuth.getState().user).toEqual(user)
+      expect(useAuth.getState().session).toEqual(session)
+      expect(useAuth.getState().profile).toEqual(profile)
+    })
+
     it('should handle successful sign in', async () => {
       const mockUser = { id: 'user-123', email: 'test@example.com' }
       const mockSession = { access_token: 'token-123' }

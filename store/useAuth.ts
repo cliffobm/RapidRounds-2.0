@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User, Session } from '@supabase/supabase-js'
 import { supabaseClient as supabase } from '@/lib/supabase-client'
+import { authCallbackUrl } from '@/lib/auth/redirects'
 
 export interface UserProfile {
   id: string
@@ -30,7 +31,7 @@ interface AuthState {
   
   // Auth methods
   signIn: (email: string, password: string) => Promise<{ error?: any }>
-  signUp: (email: string, password: string, metadata?: any) => Promise<{ error?: any }>
+  signUp: (email: string, password: string, metadata?: { full_name?: string }, emailRedirectTo?: string) => Promise<{ error?: any; session?: Session | null }>
   signInWithGoogle: () => Promise<{ error?: any }>
   signOut: () => Promise<void>
   
@@ -78,21 +79,25 @@ export const useAuth = create<AuthState>()(
         }
       },
 
-      signUp: async (email: string, password: string, metadata = {}) => {
+      signUp: async (email: string, password: string, metadata = {}, emailRedirectTo = authCallbackUrl(window.location.origin)) => {
         try {
           const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
-              data: metadata
+              data: { full_name: metadata.full_name },
+              emailRedirectTo,
             }
           })
           
           if (error) return { error }
           
-          set({ user: data.user, session: data.session, profile: null })
-          
-          return {}
+          // A user returned without a session still needs to confirm their email.
+          if (data.session) {
+            set({ user: data.user, session: data.session, profile: null })
+            await get().fetchProfile()
+          }
+          return { session: data.session }
         } catch (error) {
           return { error }
         }
@@ -103,7 +108,7 @@ export const useAuth = create<AuthState>()(
           const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-              redirectTo: `${window.location.origin}/auth/callback`
+              redirectTo: authCallbackUrl(window.location.origin)
             }
           })
           

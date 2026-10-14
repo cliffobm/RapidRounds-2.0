@@ -1,5 +1,7 @@
 # Development UI audit
 
+This records the earlier UI audit. Later account authentication work and its test-project migration are recorded in [AUTH_SETUP.md](AUTH_SETUP.md).
+
 Development branch: `sprint4/cjis-source-migration`. Main and production remain unchanged; no merge, deployment, hosted migration, or seed is performed.
 
 Repairs cover ordering submission and sequence scoring, preserved answers on revisits, adaptive continuation, quiz-bank switching and Next, round bookmarks, mobile practice/leaderboard layout, homepage/study/reference navigation, calculator validation, theme persistence, generator feedback, diagnostics hydration, and missing logo assets. Role authorization reads protected profiles, account requests use authenticated IDs, the privileged example endpoint is unavailable, and RR schema failures show a setup message.
