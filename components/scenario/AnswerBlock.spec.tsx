@@ -97,6 +97,29 @@ describe('AnswerBlock', () => {
   })
 
   describe('Ordering submission', () => {
+    it('moves a keyboard-grabbed item by list position and submits the new sequence without layout coordinates', () => {
+      render(<AnswerBlock question={mockOrderQuestion} onAnswer={mockOnAnswer} />)
+      const handle = screen.getByRole('button', { name: `Reorder ${mockOrderQuestion.options![0]!.text}` })
+      fireEvent.keyDown(handle, { key: ' ' })
+      expect(handle).toHaveAttribute('aria-pressed', 'true')
+      fireEvent.keyDown(handle, { key: 'ArrowDown' })
+      fireEvent.keyDown(handle, { key: 'ArrowDown' })
+      expect(handle).toHaveFocus()
+      expect(screen.getAllByRole('button', { name: /^Reorder / }).map(button => button.getAttribute('aria-label'))).toEqual([1, 2, 0, 3].map(index => `Reorder ${mockOrderQuestion.options![index]!.text}`))
+      fireEvent.keyDown(handle, { key: ' ' })
+      fireEvent.click(screen.getByRole('button', { name: 'Submit Answer' }))
+      expect(mockOnAnswer).toHaveBeenCalledWith(['b', 'c', 'a', 'd'])
+    })
+    it('cancels keyboard ordering with Escape and restores the pickup sequence', () => {
+      render(<AnswerBlock question={mockOrderQuestion} onAnswer={mockOnAnswer} />)
+      const handle = screen.getByRole('button', { name: `Reorder ${mockOrderQuestion.options![0]!.text}` })
+      fireEvent.keyDown(handle, { key: ' ' })
+      fireEvent.keyDown(handle, { key: 'ArrowDown' })
+      fireEvent.keyDown(handle, { key: 'Escape' })
+      expect(handle).toHaveAttribute('aria-pressed', 'false')
+      fireEvent.click(screen.getByRole('button', { name: 'Submit Answer' }))
+      expect(mockOnAnswer).toHaveBeenCalledWith(['a', 'b', 'c', 'd'])
+    })
     it('submits the displayed order without requiring a multiple-choice selection', () => {
       render(<AnswerBlock question={mockOrderQuestion} onAnswer={mockOnAnswer} />)
       const submit = screen.getByRole('button', { name: 'Submit Answer' })

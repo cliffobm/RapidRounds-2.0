@@ -89,8 +89,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npx playwright install --with-deps chromium
       - run: npm run build
-      - name: Branding, theme contrast and RR case regression
-        run: npx playwright test e2e/brand-scenarios.spec.ts --project=chromium --project="Mobile Chrome" --workers=2 --reporter=line
+      - name: Branding, theme, RR cases and cardiac ordering
+        run: npx playwright test e2e/brand-scenarios.spec.ts e2e/cardiac-order.spec.ts --project=chromium --project="Mobile Chrome" --workers=2 --reporter=line
       - name: Google-email and Profile regression (simulated APIs)
         id: auth_regression
         if: ${{ !cancelled() }}

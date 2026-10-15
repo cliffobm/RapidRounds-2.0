@@ -31,7 +31,7 @@ for (const [slug, questions] of Object.entries(rounds)) {
           await expect(handle).toHaveAttribute('aria-pressed', 'true')
           for (let position = oldIndex; position > targetIndex; position--) {
             await page.keyboard.press('ArrowUp')
-            await expect(region.getByRole('status')).toContainText(`droppable area ${order[position - 1]}`)
+            await expect(region.getByRole('button', { name: /^Reorder / }).nth(position - 1)).toHaveAttribute('aria-label', `Reorder ${option.text}`)
           }
           await page.keyboard.press('Space')
           order.splice(oldIndex, 1)

@@ -2560,7 +2560,7 @@
       "reason": "Normalize UTF-16 to UTF-8 and document disabled CJIS preview Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
     },
     ".github/workflows/test.yml": {
-      "migrated_sha": "af155a9a858bf76b721cc00cd75c2c262e4b240a",
+      "migrated_sha": "80dedff2d50a093ccdc7cb7f8cf7326c60a2682e",
       "reason": "Run Sprint 4, legacy, database and browser gates including dedicated simulated profile save-refresh and account-switch checks, with preserved failure evidence.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
     },
     ".gitignore": {
@@ -2740,12 +2740,12 @@
       "reason": "Repair inherited Vitest mocks and behavioral assertions"
     },
     "components/scenario/AnswerBlock.spec.tsx": {
-      "migrated_sha": "c85dccf272034a7b1221cec748cfe800353f8cdf",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
+      "migrated_sha": "9d1d3ba3fcd7233028dd5e967feefbc0fea1fb22",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Make keyboard ordering independent of nested scroll coordinates, preserving pointer drag and exact sequence grading."
     },
     "components/scenario/AnswerBlock.tsx": {
-      "migrated_sha": "cfef3751d042a2891ca2b9990587179af125671b",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Pair answer-feedback colors in both themes and reset term disclosure for each decision."
+      "migrated_sha": "8ed8af6183bbb08e23d2a004838101d0f73d0f3d",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Pair answer-feedback colors in both themes and reset term disclosure for each decision.; Make keyboard ordering independent of nested scroll coordinates, preserving pointer drag and exact sequence grading."
     },
     "components/scenario/ScenarioCard.tsx": {
       "migrated_sha": "d85128ef1499db4bef5d4f44b7be1f3bd406eab8",

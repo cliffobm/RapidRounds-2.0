@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useLayoutEffect, useRef, type KeyboardEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Button } from '@/components/ui/Button'
@@ -62,7 +62,7 @@ interface AnswerBlockProps {
 }
 
 // Sortable item for drag-to-order questions
-function SortableItem({ id, label, disabled, children }: { id: string; label: string; disabled: boolean; children: React.ReactNode }) {
+function SortableItem({ id, label, disabled, keyboardActive, onKeyDown, children }: { id: string; label: string; disabled: boolean; keyboardActive: boolean; onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void; children: React.ReactNode }) {
   const {
     attributes,
     listeners,
@@ -83,9 +83,9 @@ function SortableItem({ id, label, disabled, children }: { id: string; label: st
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl cursor-move hover:shadow-md"
+      className={`flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl cursor-move hover:shadow-md ${keyboardActive ? 'ring-2 ring-signal' : ''}`}
     >
-      <button ref={setActivatorNodeRef} type="button" {...attributes} {...listeners} disabled={disabled} aria-label={`Reorder ${label}`} className="touch-none cursor-grab active:cursor-grabbing p-2">
+      <button ref={setActivatorNodeRef} type="button" {...attributes} {...listeners} onKeyDown={onKeyDown} aria-pressed={keyboardActive || isDragging} disabled={disabled} aria-label={`Reorder ${label}`} className="min-h-[44px] min-w-[44px] touch-none cursor-grab active:cursor-grabbing p-2">
         <GripVertical className="w-4 h-4 text-slate-400" />
       </button>
       <div className="flex-1">
@@ -118,15 +118,58 @@ export function AnswerBlock({
   const [orderItems, setOrderItems] = useState<string[]>(
     submittedAnswer || question.options?.map(opt => opt.id) || []
   )
+  const [keyboardItem, setKeyboardItem] = useState<string | null>(null)
+  const [keyboardStartOrder, setKeyboardStartOrder] = useState<string[]>([])
+  const [orderAnnouncement, setOrderAnnouncement] = useState('')
+  const keyboardHandle = useRef<HTMLButtonElement | null>(null)
   const [showExplanation, setShowExplanation] = useState(false)
   const [submitted, setSubmitted] = useState(Boolean(submittedAnswer))
 
+  useLayoutEffect(() => {
+    if (!disabled && !submitted) keyboardHandle.current?.focus()
+  }, [orderItems, keyboardItem, disabled, submitted])
+
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   )
+
+  // Keyboard ordering uses item positions, independent of nested scroll geometry.
+  const handleOrderKey = (id: string, event: KeyboardEvent<HTMLButtonElement>) => {
+    if (disabled || submitted) return
+    keyboardHandle.current = event.currentTarget
+    const label = question.options?.find(option => option.id === id)?.text || id
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault()
+      event.stopPropagation()
+      if (keyboardItem === id) {
+        setKeyboardItem(null)
+        setOrderAnnouncement(`Dropped ${label}.`)
+      } else {
+        setKeyboardStartOrder([...orderItems])
+        setKeyboardItem(id)
+        setOrderAnnouncement(`Picked up ${label}. Use arrow up or down to reorder, space to drop, or escape to cancel.`)
+      }
+      return
+    }
+    if (keyboardItem !== id) return
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      event.stopPropagation()
+      setOrderItems(keyboardStartOrder)
+      setKeyboardItem(null)
+      setOrderAnnouncement('Reordering cancelled. Original order restored.')
+      return
+    }
+    if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return
+    event.preventDefault()
+    event.stopPropagation()
+    const from = orderItems.indexOf(id)
+    if (from < 0) return
+    const to = Math.max(0, Math.min(orderItems.length - 1, from + (event.key === 'ArrowUp' ? -1 : 1)))
+    if (from === to) return
+    setOrderItems(arrayMove(orderItems, from, to))
+    setOrderAnnouncement(`Moved ${label} to position ${to + 1} of ${orderItems.length}.`)
+  }
 
 
   const handleMultipleChoice = useCallback((optionId: string) => {
@@ -179,6 +222,7 @@ export function AnswerBlock({
     }
 
     setSubmitted(true)
+    setKeyboardItem(null)
     onAnswer(answers)
     
     // Check if answer is correct and trigger confetti
@@ -311,11 +355,12 @@ export function AnswerBlock({
         return (
           <div className="space-y-4">
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Drag to arrange in the correct order (first to last):
+              Arrange from first to last. Drag a handle, or focus it and press Space, use the up/down arrows, then press Space to drop. Escape cancels.
             </p>
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
+              onDragStart={() => { keyboardHandle.current = null; setKeyboardItem(null) }}
               onDragEnd={handleDragEnd}
             >
               <SortableContext items={orderItems} strategy={verticalListSortingStrategy}>
@@ -325,7 +370,7 @@ export function AnswerBlock({
                     if (!option) return null
                     
                     return (
-                      <SortableItem key={itemId} id={itemId} label={option.text} disabled={disabled || submitted}>
+                      <SortableItem key={itemId} id={itemId} label={option.text} disabled={disabled || submitted} keyboardActive={keyboardItem === itemId} onKeyDown={event => handleOrderKey(itemId, event)}>
                         <div className="flex items-center justify-between w-full">
                           <div className="flex items-center space-x-3">
                             <Badge variant="outline" size="sm">
@@ -349,6 +394,7 @@ export function AnswerBlock({
                 </div>
               </SortableContext>
             </DndContext>
+            <p aria-live="assertive" aria-atomic="true" className="sr-only">{orderAnnouncement}</p>
           </div>
         )
 

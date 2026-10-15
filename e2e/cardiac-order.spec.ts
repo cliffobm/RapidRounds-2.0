@@ -25,9 +25,9 @@ test('keyboard reordering is submitted and graded by sequence', async ({ page })
   await handle.focus()
   await page.keyboard.press('Space')
   await expect(handle).toHaveAttribute('aria-pressed', 'true')
-  for (const target of ['b', 'c', 'd']) {
+  for (const position of [1, 2, 3]) {
     await page.keyboard.press('ArrowDown')
-    await expect(page.getByRole('status')).toContainText(`droppable area ${target}`)
+    await expect(page.getByRole('button', { name: /^Reorder / }).nth(position)).toHaveAttribute('aria-label', 'Reorder Call cardiology for emergency consultation')
   }
   await page.keyboard.press('Space')
   const ecgHandle = page.getByRole('button', { name: 'Reorder Obtain 12-lead ECG and laboratory studies', exact: true })
@@ -35,7 +35,7 @@ test('keyboard reordering is submitted and graded by sequence', async ({ page })
   await page.keyboard.press('Space')
   await expect(ecgHandle).toHaveAttribute('aria-pressed', 'true')
   await page.keyboard.press('ArrowUp')
-  await expect(page.getByRole('status')).toContainText('droppable area c')
+  await expect(page.getByRole('button', { name: /^Reorder / }).nth(1)).toHaveAttribute('aria-label', 'Reorder Obtain 12-lead ECG and laboratory studies')
   await page.keyboard.press('Space')
   await expect.poll(() => page.getByRole('button', { name: /^Reorder / }).evaluateAll(elements => elements.map(element => element.getAttribute('aria-label')))).toEqual([
     'Reorder Perform initial assessment and obtain vital signs',
