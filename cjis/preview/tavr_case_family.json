@@ -1,0 +1,267 @@
+{
+  "id": "TAVR-AVBLOCK-001",
+  "title": "Post-TAVR conduction deterioration",
+  "status": "illustrative_draft_not_clinically_approved",
+  "questions": [
+    {
+      "id": "RR-CARD-TAVR-001",
+      "case_family_id": "TAVR-AVBLOCK-001",
+      "stage": 1,
+      "clinical_domain": "cardiovascular",
+      "primary_operation": "recognize_cues",
+      "secondary_operations": [],
+      "subcompetency": "cardiac_conduction",
+      "complexity_level": 1,
+      "outcome": "Identify the AV node as part of the normal atrioventricular electrical conduction pathway.",
+      "stem": "Which structure normally delays and conducts electrical impulses between the atria and ventricles?",
+      "options": [
+        {
+          "id": "A",
+          "text": "AV node",
+          "misconception": "correct"
+        },
+        {
+          "id": "B",
+          "text": "Aortic valve",
+          "misconception": "Distractor; review misconception mapping before publication"
+        },
+        {
+          "id": "C",
+          "text": "Pulmonary artery",
+          "misconception": "Distractor; review misconception mapping before publication"
+        }
+      ],
+      "correct_option_id": "A",
+      "rationale": {
+        "normal": "The AV node and His-Purkinje system coordinate ventricular activation; cardiac output depends in part on heart rate and stroke volume.",
+        "change": "Following TAVR, nearby conduction tissue may be injured or compressed, producing new AV conduction abnormalities.",
+        "cue_mechanism": "The AV node provides a physiologic delay before ventricular activation.",
+        "correct_reason": "The AV node conducts impulses from atria toward the His-Purkinje system.",
+        "alternatives": "Other options do not adequately explain or safely address the specified findings. Each distractor requires a separate SME-reviewed explanation before release.",
+        "nursing_implications": "Assess rhythm, blood pressure, mentation, and perfusion; escalate promptly for instability and reassess treatment response according to local protocol."
+      },
+      "prerequisites": [
+        "cardiac_conduction",
+        "cardiac_output",
+        "perfusion"
+      ],
+      "glossary_terms": [
+        "TAVR",
+        "AV block",
+        "cardiac output",
+        "perfusion"
+      ],
+      "calibration_status": "uncalibrated",
+      "clinical_review_status": "draft",
+      "source_references": []
+    },
+    {
+      "id": "RR-CARD-TAVR-002",
+      "case_family_id": "TAVR-AVBLOCK-001",
+      "stage": 2,
+      "clinical_domain": "cardiovascular",
+      "primary_operation": "recognize_cues",
+      "secondary_operations": [],
+      "subcompetency": "hemodynamic_instability",
+      "complexity_level": 2,
+      "outcome": "Recognize symptomatic bradycardia with hypotension as urgent deterioration.",
+      "stem": "Following TAVR, a patient becomes lightheaded. Heart rate is 36/min and blood pressure is 82/48 mmHg. Which finding is most concerning?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bradycardia with hypotension and symptoms",
+          "misconception": "correct"
+        },
+        {
+          "id": "B",
+          "text": "Mild incisional discomfort",
+          "misconception": "Distractor; review misconception mapping before publication"
+        },
+        {
+          "id": "C",
+          "text": "Temperature of 37.0\u00b0C",
+          "misconception": "Distractor; review misconception mapping before publication"
+        }
+      ],
+      "correct_option_id": "A",
+      "rationale": {
+        "normal": "The AV node and His-Purkinje system coordinate ventricular activation; cardiac output depends in part on heart rate and stroke volume.",
+        "change": "Following TAVR, nearby conduction tissue may be injured or compressed, producing new AV conduction abnormalities.",
+        "cue_mechanism": "A slow ventricular rate can decrease cardiac output and cause hypotension.",
+        "correct_reason": "The combination suggests compromised perfusion.",
+        "alternatives": "Other options do not adequately explain or safely address the specified findings. Each distractor requires a separate SME-reviewed explanation before release.",
+        "nursing_implications": "Assess rhythm, blood pressure, mentation, and perfusion; escalate promptly for instability and reassess treatment response according to local protocol."
+      },
+      "prerequisites": [
+        "cardiac_conduction",
+        "cardiac_output",
+        "perfusion"
+      ],
+      "glossary_terms": [
+        "TAVR",
+        "AV block",
+        "cardiac output",
+        "perfusion"
+      ],
+      "calibration_status": "uncalibrated",
+      "clinical_review_status": "draft",
+      "source_references": []
+    },
+    {
+      "id": "RR-CARD-TAVR-003",
+      "case_family_id": "TAVR-AVBLOCK-001",
+      "stage": 3,
+      "clinical_domain": "cardiovascular",
+      "primary_operation": "analyze_cues",
+      "secondary_operations": [],
+      "subcompetency": "av_block_mechanism",
+      "complexity_level": 3,
+      "outcome": "Explain how post-TAVR high-grade AV block causes symptomatic bradycardia and hypotension.",
+      "stem": "Following TAVR, the ECG shows new conduction delay and intermittent nonconducted P waves. The patient is dizzy, HR 36/min and BP 82/48 mmHg. What best explains the instability?",
+      "options": [
+        {
+          "id": "A",
+          "text": "High-grade AV block reducing ventricular rate and cardiac output",
+          "misconception": "correct"
+        },
+        {
+          "id": "B",
+          "text": "Isolated sinus tachycardia causing reduced filling time",
+          "misconception": "Distractor; review misconception mapping before publication"
+        },
+        {
+          "id": "C",
+          "text": "An uncomplicated expected postoperative ECG change",
+          "misconception": "Distractor; review misconception mapping before publication"
+        }
+      ],
+      "correct_option_id": "A",
+      "rationale": {
+        "normal": "The AV node and His-Purkinje system coordinate ventricular activation; cardiac output depends in part on heart rate and stroke volume.",
+        "change": "Following TAVR, nearby conduction tissue may be injured or compressed, producing new AV conduction abnormalities.",
+        "cue_mechanism": "Nonconducted P waves with a slow ventricular response indicate impaired AV conduction, reducing heart rate and cardiac output.",
+        "correct_reason": "The conduction system lies close to the aortic valve apparatus and can be affected after TAVR.",
+        "alternatives": "Other options do not adequately explain or safely address the specified findings. Each distractor requires a separate SME-reviewed explanation before release.",
+        "nursing_implications": "Assess rhythm, blood pressure, mentation, and perfusion; escalate promptly for instability and reassess treatment response according to local protocol."
+      },
+      "prerequisites": [
+        "cardiac_conduction",
+        "cardiac_output",
+        "perfusion"
+      ],
+      "glossary_terms": [
+        "TAVR",
+        "AV block",
+        "cardiac output",
+        "perfusion"
+      ],
+      "calibration_status": "uncalibrated",
+      "clinical_review_status": "draft",
+      "source_references": []
+    },
+    {
+      "id": "RR-CARD-TAVR-004",
+      "case_family_id": "TAVR-AVBLOCK-001",
+      "stage": 4,
+      "clinical_domain": "cardiovascular",
+      "primary_operation": "take_action",
+      "secondary_operations": [],
+      "subcompetency": "unstable_bradycardia_response",
+      "complexity_level": 4,
+      "outcome": "Select an urgent response to symptomatic high-grade AV block while following emergency protocols.",
+      "stem": "A post-TAVR patient has high-grade AV block, dizziness, HR 36/min, and BP 82/48 mmHg. What is the best immediate nursing response?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Activate urgent help, assess perfusion, and prepare for pacing per protocol",
+          "misconception": "correct"
+        },
+        {
+          "id": "B",
+          "text": "Wait one hour to see if the rhythm normalizes",
+          "misconception": "Distractor; review misconception mapping before publication"
+        },
+        {
+          "id": "C",
+          "text": "Assist the patient to walk to raise the heart rate",
+          "misconception": "Distractor; review misconception mapping before publication"
+        }
+      ],
+      "correct_option_id": "A",
+      "rationale": {
+        "normal": "The AV node and His-Purkinje system coordinate ventricular activation; cardiac output depends in part on heart rate and stroke volume.",
+        "change": "Following TAVR, nearby conduction tissue may be injured or compressed, producing new AV conduction abnormalities.",
+        "cue_mechanism": "The slow ventricular rate compromises perfusion; delaying treatment can worsen instability.",
+        "correct_reason": "Symptomatic high-grade block requires immediate escalation and preparation for appropriate resuscitative measures.",
+        "alternatives": "Other options do not adequately explain or safely address the specified findings. Each distractor requires a separate SME-reviewed explanation before release.",
+        "nursing_implications": "Assess rhythm, blood pressure, mentation, and perfusion; escalate promptly for instability and reassess treatment response according to local protocol."
+      },
+      "prerequisites": [
+        "cardiac_conduction",
+        "cardiac_output",
+        "perfusion"
+      ],
+      "glossary_terms": [
+        "TAVR",
+        "AV block",
+        "cardiac output",
+        "perfusion"
+      ],
+      "calibration_status": "uncalibrated",
+      "clinical_review_status": "draft",
+      "source_references": []
+    },
+    {
+      "id": "RR-CARD-TAVR-005",
+      "case_family_id": "TAVR-AVBLOCK-001",
+      "stage": 5,
+      "clinical_domain": "cardiovascular",
+      "primary_operation": "evaluate_outcomes",
+      "secondary_operations": [],
+      "subcompetency": "pacing_effectiveness",
+      "complexity_level": 5,
+      "outcome": "Distinguish effective mechanical capture and perfusion from monitor evidence alone.",
+      "stem": "After temporary pacing is initiated, the monitor shows pacing spikes and a rate of 70/min. Which additional observation best supports effective treatment?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Palpable perfusing pulses with improved blood pressure and mental status",
+          "misconception": "correct"
+        },
+        {
+          "id": "B",
+          "text": "Pacing spikes visible on the monitor without checking pulses",
+          "misconception": "Distractor; review misconception mapping before publication"
+        },
+        {
+          "id": "C",
+          "text": "No change in blood pressure despite an electrical paced rhythm",
+          "misconception": "Distractor; review misconception mapping before publication"
+        }
+      ],
+      "correct_option_id": "A",
+      "rationale": {
+        "normal": "The AV node and His-Purkinje system coordinate ventricular activation; cardiac output depends in part on heart rate and stroke volume.",
+        "change": "Following TAVR, nearby conduction tissue may be injured or compressed, producing new AV conduction abnormalities.",
+        "cue_mechanism": "Effective pacing should produce ventricular contraction and improve clinically meaningful perfusion indicators.",
+        "correct_reason": "Electrical activity alone does not prove mechanical capture or adequate perfusion.",
+        "alternatives": "Other options do not adequately explain or safely address the specified findings. Each distractor requires a separate SME-reviewed explanation before release.",
+        "nursing_implications": "Assess rhythm, blood pressure, mentation, and perfusion; escalate promptly for instability and reassess treatment response according to local protocol."
+      },
+      "prerequisites": [
+        "cardiac_conduction",
+        "cardiac_output",
+        "perfusion"
+      ],
+      "glossary_terms": [
+        "TAVR",
+        "AV block",
+        "cardiac output",
+        "perfusion"
+      ],
+      "calibration_status": "uncalibrated",
+      "clinical_review_status": "draft",
+      "source_references": []
+    }
+  ]
+}

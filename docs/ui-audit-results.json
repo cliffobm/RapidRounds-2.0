@@ -1,0 +1,67 @@
+{
+  "scope": "Development branch only; no main/production changes",
+  "unit": {
+    "passed": 124,
+    "files": 18
+  },
+  "public_browser_run": {
+    "startTime": "2026-10-13T14:43:44.099Z",
+    "duration": 92685.157,
+    "expected": 165,
+    "skipped": 4,
+    "unexpected": 3,
+    "flaky": 0
+  },
+  "ordering_rerun": {
+    "startTime": "2026-10-13T14:50:39.257Z",
+    "duration": 28530.285,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "profile_simulated_api": {
+    "startTime": "2026-10-13T14:43:45.679Z",
+    "duration": 12896.306,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "distinct_browser_checks_after_rerun": {
+    "passed": 172,
+    "skipped": 4
+  },
+  "route_inventory": {
+    "routes": 33,
+    "projects": 2,
+    "http_status": 200,
+    "uncaught_page_errors": 0,
+    "brand_resource_failures": 0
+  },
+  "dependencies": {
+    "info": 0,
+    "low": 2,
+    "moderate": 10,
+    "high": 38,
+    "critical": 5,
+    "total": 55
+  },
+  "tested_git_blobs": {
+    "components/scenario/AnswerBlock.tsx": "f106e7ab7407311a34eb0f2e51aa5a02a878fe97",
+    "components/scenario/SwipeDeck.tsx": "057cdc1190a5b27482e7bfb34ded8b4debaadb26",
+    "app/test/[slug]/page.tsx": "637e3596357e08e0a54bc8a0f999a1f1e2d6b0f9",
+    "app/test/adaptive/page.tsx": "1bdccecdb1af8937948e62c6df4cc97cda3795d9",
+    "e2e/cardiac-order.spec.ts": "926e919e7cf18500c9c1a0b5b759f2b5ce068741",
+    "e2e/control-flows.spec.ts": "9d8a91387b79817d458ce86875c3b8a12b961ad8",
+    "e2e/ui-audit.spec.ts": "e3b1c00a6101424cf45ecfa4ef0dd63b17b1b26d",
+    "e2e/profile.browser.ts": "7053690a7e4eaad87001168c72c24a0c043816fe"
+  },
+  "limits": [
+    "Profiles use disposable simulated Auth/Data APIs, not hosted RLS",
+    "Cloud bookmarks and billing/trial integration are explicitly skipped",
+    "Google Fonts and unconfigured APIs can produce network/console errors",
+    "Route-render coverage is not proof of every backend/control or clinical content path",
+    "Firefox and Safari not exercised"
+  ]
+}

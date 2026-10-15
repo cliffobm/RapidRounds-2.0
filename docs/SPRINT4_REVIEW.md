@@ -1,0 +1,162 @@
+# Sprint 4: application migration and CJIS integration
+
+The current UI/practice audit, fresh validation results, and remaining integration limits are recorded in [UI_AUDIT.md](UI_AUDIT.md). Earlier counts below describe prior migration checkpoints.
+
+## Review target
+
+Review branch: `sprint4/cjis-source-migration`.
+Pull request base: `feature/cjis-foundation`.
+The PR is a draft. Main and the production database have not been modified. No deployment, database migration, seed, or remote setup script has been run.
+
+## What changed
+
+1. Imported the canonical root application from `cliffobm/RapidRounds`, pinned to commit `9094ae6ddc97ec2c99e4d26fe88d11f661ad20fe` (source commit dated 2025-10-02). This is the verified GitHub source, not an assertion that it contains later work from other environments.
+2. Imported 273 source/config/content/test files. Retained the two committed Playwright reference images. Excluded 296 files: OneDrive copies, machine-specific `-EliteBook` copies, generated reports, archives, duplicate enhancement bundles, and stray command output. All source blobs were hash-verified before editing. The updated manifest records 203 unchanged imports and 70 intentional changes, including subsequent blocker repairs.
+3. Removed embedded database JWTs, including privileged setup-script credentials, OpenAI API keys, and remote database fallbacks. Development defaults use localhost and a placeholder key. Environment examples use UTF-8. Credentials from the original private repository are not published in this migration; rotation of existing credentials remains an administrator task.
+4. Added a lossless draft adapter for wrapped letter-key banks and respiratory arrays with explicit zero-based numeric answers. Invalid or ambiguous keys fail validation. Original payloads, item identities, answer meaning, rationales, tags, assets, and bank metadata remain available.
+5. Added a bridge to the original 10-bank registry, validated versioned competency sidecars, and a development-only read endpoint. The endpoint and CLI do not write to any database. The quiz catalog, game scoring, scheduler, local storage keys, and progress models are preserved.
+6. Added Draft 2020-12 JSON Schema validation with pinned Ajv 8.17.1, registry consistency checks, answer membership, unique options, nonblank rationale fields, and complete distractor explanations. Competency evidence eligibility requires approved/referenced/calibrated authored records. Migration never grants those statuses.
+7. Separated native Node, Vitest, and Playwright discovery; made unit runs deterministic; fixed one inherited exact-optional-property TypeScript error. Restored blocking build type/lint gates. CI targets the development workflow, uses localhost placeholders, and retains failing legacy gates.
+
+## Verification on 2026-10-12
+
+Current local validation uses Node 20.20.2 (matching the Node 20.x CI major version). Initial migration verification used Node 24.19.0. CI status must be reviewed separately.
+
+| Check | Result |
+| --- | --- |
+| `npm ci --ignore-scripts` | Passed with the locked source dependencies |
+| `npm run migration:verify` | Passed: 203 unchanged imports, 70 documented changes, 296 excluded files absent |
+| `npm run typecheck` | Passed |
+| `npm run test:cjis` | Passed: 12 native Node tests and 16 Vitest integration/regression tests |
+| `npm run cjis:validate` | Passed: 17 datasets / 168 draft items |
+| `npm run qbank:validate` | Passed: 11 wrapped legacy banks |
+| Local Next development API smoke | Passed: catalog has 10 banks; acute MI response preserves item/bank identity |
+| Local `/quiz` HTTP smoke | Passed: HTTP 200 and route compilation; component regression also selects a bank and submits an answer |
+| `npm run test -- --maxWorkers=2 --minWorkers=1` | Passed: 10 test files / 95 tests, including server-owned profile timestamp payload |
+| `npm run lint` | Passed: no blocking errors; inherited warnings remain |
+| `npm run build` | Passed: complete production build on Node 20.20.2, with lint and type gates enabled |
+| Focused production browser checks | Passed: 4 checks across desktop Chromium and mobile Chrome; bank selection, shuffled correct-answer submission, and production preview gating |
+| Full browser suite | Initial desktop run: 36 passed / 8 failed; repaired run: 42 passed / 2 failed, with final scenario rerun 14/14 passed. Signed-in profile/bookmark coverage remains unresolved; mobile run and fresh CI add broader coverage. |
+| Isolated PostgreSQL schema/RLS audit | Passed at `76676cb3a6611b12a99d15c967d364334c8d0e97`: all five migration scripts; initial and complete schema learner/educator reads, own/cross-user edits, privilege escalation denial and role revocation; billing/trial field protections. Full Supabase Auth/PostgREST application integration remains unverified. |
+
+Focused regression checks cover every source question's answer meaning and original payload, shuffled-answer grading for the registered banks, quiz bank selection/submission, existing speed/incorrect/unanswered scoring, scheduler outcomes, persistent learner progress, registry sidecars, malformed data, and preview gating. They do not establish full production equivalence. The focused browser run still reports missing-asset/auth-placeholder network failures; it asserts no uncaught page errors, not a clean console across every route.
+
+The original baseline mixed Playwright/native tests into Vitest and reported 13 failing files. Correct discovery initially left 14 executed legacy failures plus 3 collection failures. Those blockers are now repaired through native Vitest mocks, actual query builders, correct client targeting, missing helper imports, and semantic interaction assertions. No failing test was skipped or gate disabled.
+
+## Merge blockers
+
+- Review fresh Node 20 CI results, then complete the full browser suite and isolated test-database checks before marking the PR ready. Lint, legacy unit, type, and build blockers are repaired locally.
+- Review the original source's database and OpenAI credential exposure and rotate affected credentials through the administrator workflow before deployment.
+- Author and clinically review competency mappings and complete rationale/reference data before enabling any scored CJIS assessment. The TAVR file remains an outline, and no imported item is approved or calibrated by this sprint.
+
+## Blocker repairs
+
+- Isolated loaded student/educator dashboard components from missing-user early returns; added missing/loaded/removed-user regression tests. Student progress loads ignore stale responses after unmount or user changes.
+- Corrected internal links and JSX escaping; removed an obsolete lint directive and unnecessary mutable declarations. No lint rules were disabled.
+- Updated database tests to thenable query mocks that support repeated filters, ordering, and actual ranking. Added assertions for user/type filters and free-rationale consumption; auth tests mock the client actually used by the store.
+- Corrected missing-profile rationale access, displayed existing scenario allergy data, and removed fabricated leaderboard ranks for missing users. These intentional behavior corrections do not change scoring of actual learner attempts.
+- Production browser verification exposed pointer capture swallowing answer-button clicks in the legacy swipe handler. Interactive targets now retain native pointer/touch interaction; swipe handling remains on the card surface.
+- Awaited the Next.js 15 dynamic route params in `/rr/[code]` to satisfy generated PageProps types.
+- Bank validation uses the tsx import loader rather than its CLI IPC socket. Playwright can bind explicitly to localhost and start a production server through `PLAYWRIGHT_SERVER_COMMAND`.
+
+## Reproduce locally
+
+```bash
+npm ci --ignore-scripts
+npm run validate:sprint4
+npm run qbank:validate
+npm run test -- --maxWorkers=2 --minWorkers=1
+npm run lint
+npm run build
+PLAYWRIGHT_SERVER_COMMAND="npm run start -- --hostname 127.0.0.1" npx playwright test e2e/sprint4-quiz.spec.ts --project=chromium --project="Mobile Chrome" --workers=1
+```
+
+Run migration verification before browser tests, or move generated Playwright reports out of the source tree before repeating it; the import verifier rejects excluded source artifacts present under their original paths.
+
+Use a separate local/staging database for application integration; supply its environment values explicitly. The production database is outside this sprint. In local development, `CJIS_PREVIEW_ENABLED=true npm run dev` enables the staging API. Production mode always blocks it.
+
+## Rollback
+
+Close the draft PR to leave `feature/cjis-foundation` at its current foundation commit. If this review branch is later merged into the development branch, revert the migration commit after review. There are no database changes to roll back.
+
+
+## Next verification phase — 2026-10-12
+
+- GitHub push and pull-request runs at commit `47de3f3f54343dd2a8b629a8096c986c15d630a3` both passed the existing Node 20 workflow (including production build).
+- Running every Chromium test revealed 8 failures / 36 passes. Several passing legacy tests conditionally check a feature only when it is present, so the pass count alone does not establish feature coverage.
+- Corrected ambiguous leaderboard selectors, removed a duplicate Testing Categories h1, added a working skip link, and labeled the scenario region and bookmark control. The progressbar now labels the actual bar instead of the whole interactive deck.
+- The inherited screenshot test claimed to measure layout shifts but used missing platform-dependent reference images. It now measures actual browser layout-shift entries against a 0.1 threshold, without creating an unreviewed visual baseline.
+- Added a blocking disposable PostgreSQL 16 CI audit. It replays the unchanged legacy SQL in a fresh database and independently tests the initial learner profile RLS with synthetic auth claims. No hosted connection, Supabase login/link, real user data, or production secret is involved. This is SQL/RLS verification, not full Supabase Auth/PostgREST application integration.
+- Static inspection identifies duplicate policy/trigger creation across `002_enhanced_schema.sql` and `003_complete_schema.sql`, plus a profile SELECT policy that queries the same RLS-protected profiles table. The new audit will determine the actual runtime errors. No legacy SQL was changed to conceal them.
+- The protected profile/bookmark test lacks an authenticated fixture and profile bookmark implementation; it remains a review gap. Auth/trial tests also use obsolete storage fixtures and weak conditional assertions. Full signed-in coverage requires a reconciled disposable Supabase schema and actual test users.
+
+The PR remains draft until the new gates and remaining application/database gaps are resolved.
+
+The repaired Chromium run improved to 42 passes / 2 failures; one remaining navigation failure was another ambiguous text selector and is now replaced with explicit button/state assertions. The protected profile/bookmark check still requires an actual signed-in fixture and implemented bookmark presentation. Both the complete browser suite and database audit now run as blocking CI jobs.
+
+
+## Historical database blockers — repaired in the development candidate
+
+The [disposable PostgreSQL audit](https://github.com/cliffobm/RapidRounds-2.0/actions/runs/38251697440) ran on PostgreSQL 16.15 and produced these failures:
+
+1. `001_initial_schema.sql`, `002_enhanced_schema.sql`, and `002_profile_options.sql` apply successfully. `003_complete_schema.sql` aborts with `trigger "update_categories_updated_at" for relation "categories" already exists`. Migration 003 duplicates schema objects from migration 002. Later migrations are intentionally not treated as verified after this failure.
+2. On a separate fresh initial-schema database, a learner with synthetic authenticated claims cannot read their own profile: `infinite recursion detected in policy for relation "profiles"`. The educator SELECT policy queries the same table it protects.
+
+The audit fails its CI gate and preserves a JSON artifact. No hosted database is involved and no RLS policy was bypassed to make the check pass. The synthetic auth fixture models claim lookup only; it does not verify Supabase Auth or the REST API.
+
+Required follow-up: reconcile the canonical legacy schema and migration order, repair profile authorization without relying on user-editable claims, test own-user and other-user reads/writes under RLS, then create actual disposable Supabase users for signed-in browser tests. Bookmark persistence and its profile presentation also need real assertions; existing conditional browser passes do not prove those features.
+
+Current verification at commit `b85b6c6b308dec9e5cde8248b75aa5184605702a`: GitHub `sprint4` and `legacy-regression` jobs pass; the new database gate fails for the two confirmed defects. All 14 desktop scenario-flow tests pass locally after the navigation repair. The PR remains draft.
+
+
+## Database repair candidate — development only
+
+- Migration 003 and the design-revamp script replace conflicting timestamp triggers before recreating them. The revamp extends existing tables explicitly, preserves their original required content fields, and uses deterministic UUIDs for previously invalid demo IDs. Question bank identifiers remain unchanged.
+- Initial profile authorization now reads a protected `private.profile_roles` registry instead of recursively querying profiles. Administrative profile inserts/role changes synchronize it using an invoker trigger. Authenticated users can read only their own registry row and cannot modify it. Existing educator/admin access follows the same database-owned role and revocation takes effect immediately.
+- Profile column grants permit ordinary profile edits and deny learner updates to identity, role, tenant and billing/trial fields. Learner/educator reads, own/cross-user edits, escalation attempts, untrusted metadata and role revocation are exercised against both the initial and full replay schemas.
+- Legacy leaderboard views use invoker security; revamp functions retain the caller's privileges rather than bypassing RLS.
+- These changes repair the unmerged development bootstrap. They are not a deployment migration for an already-populated hosted project, and none has been run against production. Full Supabase Auth/API/browser verification remains a separate requirement.
+
+The disposable PostgreSQL audit will validate this candidate; no passing database result is claimed until the CI queries complete.
+
+
+## Database repair verification — passed
+
+The [GitHub audit run](https://github.com/cliffobm/RapidRounds-2.0/actions/runs/38253356986) at `76676cb3a6611b12a99d15c967d364334c8d0e97` passes all five migration applications, both initial/full profile isolation suites, and billing/trial escalation-denial checks. These queries execute as ordinary `authenticated` and `anon` PostgreSQL roles; superuser privileges are used only to create fixtures and exercise administrative role revocation. RLS remains enabled.
+
+The fixes include the additionally discovered reserved `full` rationale-column identifier, duplicate revamp profile policies/triggers, missing columns on preexisting tables, invalid demo UUID literals, and omitted legacy-required JSON content in demo inserts. SQL sample IDs now use stable UUID v5 values; source question bank identities are preserved.
+
+Client profile updates no longer write the server-owned `updated_at` column. The added unit regression verifies the store sends only the actual edited field and retains the returned profile. All 95 unit tests and local type checking pass; GitHub Sprint 4 checks also pass on the repair commit.
+
+The blocking SQL/RLS audit is resolved. Remaining readiness work concerns actual Supabase Auth/API integration, meaningful signed-in bookmark/trial tests, and mobile browser failures. The PR stays draft; no deployment or hosted database operation has been performed.
+
+
+## Email/password sign-in for existing test accounts
+
+The sign-in page now accepts an existing user's email and password. Both browser-client import paths share the Supabase SSR browser singleton, which writes cookie sessions that middleware can read. Auth callbacks defer profile reads until Supabase releases its auth lock, clear a previous account's profile, and ignore profile responses that arrive after switching accounts.
+
+Validation: all 100 unit tests pass, including successful/failed/pending form submissions, real SSR client cookie creation/removal with a mocked Auth response, and a stale-profile response regression. The production build passes its lint/type gates (inherited warnings remain). All 28 CJIS checks and the 17-bank validation pass. Desktop and mobile Chromium tests pass for invalid-password presentation (mocked Auth endpoint), existing quiz submission, and the production staging-endpoint block. The browser test selector scopes the error to the form because Next.js also renders an alert for route announcements.
+
+The user has applied the five SQL files to a separate hosted test project, provisioned two learners, and reported passing own-profile isolation/edit/escalation SQL tests. Subsequently, the user reported successful hosted email/password sign-in for both learners, protected Profile access after refresh, and redirection to sign-in after signing out. These are user-reported manual results, not an automated hosted integration test. OAuth provisioning, full signed-in bookmark/trial flows, remaining mobile-suite failures, and dependency vulnerabilities remain follow-up work. No production database or main branch is changed; the PR remains draft.
+
+## Actual learner profiles — development candidate
+
+Profile reads the current learner's row and displays the signed-in email, full/display names, self-reported credentials, database role, institution ID, and subscription tier. Only full name, display name, and credentials are editable. Updates explicitly allowlist those fields, filter by the current account ID, and require a returned row before showing success. Existing RLS and column grants remain unchanged. Loading/missing-profile/error/retry/cancel states are explicit; account-keyed UI and stale-response cleanup prevent previous learner data from being carried into a new account.
+
+The sample identity, premium status, contact/academic information, rank, XP, achievements, and streak statistics are removed from this page, rather than presented as real data. Learning activity remains explicitly unconnected. Account settings remains linked. The historical mock layout is recoverable in the preceding Git commit; no question-bank content is changed.
+
+Local validation: 110 unit tests pass, including profile reads, allowed update payloads, denied-save handling, wrong/missing row rejection, cancel/retry, and account switches. Production build/type checking pass with inherited lint warnings. Desktop and mobile Chromium simulator flows pass edit/save/refresh/account-switch assertions, including a horizontal-overflow check. The dedicated browser simulator uses no secrets or hosted project and is not evidence of actual Supabase authorization. Hosted save/refresh/isolation checks remain the user's next step.
+
+The mobile browser check exposed signed-in AppShell overflow (638px layout width on a 393px phone). The header now uses the brand icon and hides its redundant identity label on narrow screens, keeping the full signed-in email on Profile. Desktop identity text is width-constrained, and bottom navigation uses five equal-width columns. Profile names/email wrap. These changes restore reachable profile editing without forcing browser clicks or bypassing a real layout failure.
+
+To run the dedicated browser fixture, build with `NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321` and a non-secret test key, then run `npx playwright test --config=playwright.profile.config.ts`. It exercises existing-account sign-in, profile edits, refresh, and account switching through the cookie-backed client and Next middleware against disposable simulated Auth/Data APIs.
+
+## Hosted manual profile results and cardiac ordering repair
+
+The user reported Learner B's saved display name persisting after refresh, Learner A showing a separate profile, and the personal test account loading its own student profile while remaining signed in after refresh. These are manual hosted-test results; no credentials were shared and no production database was changed.
+
+The user then reported the cardiac category round being stuck on its drag-to-order item. Confirmed cause: Submit required `selectedAnswers.length > 0` for every non-text question, although ordering uses `orderItems`. Submission now checks the correct state for each question type and accepts the displayed order without forcing a drag. Empty/disabled questions remain blocked. Reordering handles are native, labeled, touch-compatible buttons with activator refs, and disable after submission. A delayed SwipeDeck focus change no longer interrupts a learner who has already focused a question control.
+
+A related scoring defect sorted both submitted answers and source answer keys in place, incorrectly awarding ordering credit merely for containing the right items. AnswerBlock XP/correctness and category-round scores now share a sequence-sensitive comparator that does not mutate inputs. Existing clinical question wording and answer-key sequences remain unchanged; content still requires clinical review.
+
+Local validation: all 116 unit tests, the Node 20 production build/lint/type gates, and 28 CJIS checks pass. Four desktop/mobile Chromium regressions pass: the unchanged wrong sequence submits and reaches 0% results; keyboard reordering to the source key submits and earns only its 20/45 points (44%), with preceding questions deliberately unanswered. Browser checks wait for actual drag activation/movement instead of racing keyboard events or assuming a false-valued `aria-pressed` attribute that dnd-kit removes when idle. Broader unresolved browser-suite/clinical-readiness/dependency work remains; PR stays draft.

@@ -1,0 +1,193 @@
+[
+  {
+    "id": "resp_oxygen_devices_01",
+    "theme": "oxygen_devices",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which device provides the most reliable, fixed FiO2 in a tachypneic patient with irregular tidal volumes?",
+    "options": [
+      "Nasal cannula",
+      "Simple face mask",
+      "Venturi mask",
+      "Nonrebreather mask"
+    ],
+    "answer": 2,
+    "rationale": "Venturi systems entrain room air to deliver a predictable FiO2 independent of patient’s pattern (within device limits).",
+    "tags": [
+      "oxygen",
+      "venturi"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_oxygen_devices_02",
+    "theme": "oxygen_devices",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "In significant shunt physiology (e.g., ARDS), which intervention most effectively raises PaO2?",
+    "options": [
+      "Increase FiO2 from 0.6 to 1.0",
+      "Add PEEP",
+      "Increase respiratory rate",
+      "Add dead-space tubing"
+    ],
+    "answer": 1,
+    "rationale": "Alveolar recruitment with PEEP addresses shunt by opening collapsed units; FiO2 alone is insufficient in true shunt.",
+    "tags": [
+      "ARDS",
+      "PEEP"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_oxygen_devices_03",
+    "theme": "oxygen_devices",
+    "difficulty": "easy",
+    "proficiency_level": "core",
+    "stem": "Which is a key early clinical sign of oxygen toxicity during high FiO2 exposure?",
+    "options": [
+      "Hemoptysis",
+      "Sudden hypotension",
+      "Substernal chest pain worsened with deep breathing",
+      "Hyperbilirubinemia"
+    ],
+    "answer": 2,
+    "rationale": "Early oxygen toxicity often presents with pleuritic substernal chest discomfort, cough, and tracheal irritation.",
+    "tags": [
+      "oxygen_toxicity"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_oxygen_devices_04",
+    "theme": "oxygen_devices",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "In a hypercapnic COPD patient, the safest initial oxygenation target is:",
+    "options": [
+      "SpO2 100%",
+      "PaO2 ≥80 mm Hg",
+      "SpO2 ~88–92% (PaO2 ≈60)",
+      "SpO2 ≥98% if somnolent"
+    ],
+    "answer": 2,
+    "rationale": "To avoid depressing hypoxic drive and worsening V/Q, target PaO2 ≈60 mm Hg (SpO2 ~88–92%) unless otherwise indicated.",
+    "tags": [
+      "COPD",
+      "oxygen_targets"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_oxygen_devices_05",
+    "theme": "oxygen_devices",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A nonrebreather mask theoretically delivers up to which FiO2 range when fitted and functioning ideally?",
+    "options": [
+      "0.28–0.40",
+      "0.40–0.60",
+      "0.60–0.80",
+      "0.80–1.00"
+    ],
+    "answer": 3,
+    "rationale": "With reservoir and one‑way valves, NRB can approach very high FiO2 (often 0.8–1.0 in ideal conditions).",
+    "tags": [
+      "NRB",
+      "devices"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_oxygen_devices_06",
+    "theme": "oxygen_devices",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which situation increases risk for absorptive atelectasis with oxygen therapy?",
+    "options": [
+      "FiO2 0.28 via nasal cannula for 20 min",
+      "FiO2 0.5 via Venturi for 2 hours",
+      "FiO2 1.0 via NRB for many hours",
+      "PEEP of 10 cm H2O with FiO2 0.3"
+    ],
+    "answer": 2,
+    "rationale": "High FiO2 washes out nitrogen (the stent that holds alveoli open), predisposing to alveolar collapse—especially with prolonged 100% O2.",
+    "tags": [
+      "atelectasis",
+      "high_FiO2"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_oxygen_devices_07",
+    "theme": "oxygen_devices",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Capnography during procedural sedation shows a rising PetCO2 with hypoventilation. The immediate priority is to:",
+    "options": [
+      "Increase IV fluids",
+      "Apply PEEP of 10",
+      "Stimulate and support ventilation, ensure airway patency",
+      "Turn patient prone"
+    ],
+    "answer": 2,
+    "rationale": "Rising PetCO2 signals hypoventilation; airway/ventilation support and reducing sedative load are priorities.",
+    "tags": [
+      "capnography",
+      "sedation"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_oxygen_devices_08",
+    "theme": "oxygen_devices",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A sudden drop of PetCO2 to near-zero during CPR likely indicates:",
+    "options": [
+      "Return of spontaneous circulation",
+      "Dislodged endotracheal tube or loss of pulmonary blood flow",
+      "Metabolic alkalosis",
+      "Hyperventilation"
+    ],
+    "answer": 1,
+    "rationale": "Near‑zero PetCO2 suggests absent pulmonary blood flow (ineffective compressions or ETT dislodgement).",
+    "tags": [
+      "CPR",
+      "PetCO2"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  }
+]

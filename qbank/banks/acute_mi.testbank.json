@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "bank_id": "acute_mi_v1",
+  "title": "Acute MI & Chest Pain",
+  "source_note": "Original items.",
+  "items": [
+    {
+      "id": "95301f66-af4a-4012-becb-102a8fcef642",
+      "topic": "Cardio \u2022 ACS",
+      "difficulty": "easy",
+      "stem": "A patient has chest pain at rest with troponin elevation and ST depression.",
+      "question": "Diagnosis?",
+      "options": [
+        "Unstable angina",
+        "NSTEMI",
+        "STEMI",
+        "Variant angina"
+      ],
+      "correct_answer": "B",
+      "rationale": "NSTEMI = troponin positive without ST elevation.",
+      "tags": [
+        "NSTEMI"
+      ]
+    }
+  ]
+}

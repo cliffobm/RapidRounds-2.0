@@ -1,0 +1,178 @@
+[
+  {
+    "id": "adaptive-easy-1",
+    "type": "multiple_choice",
+    "question": "What is the normal range for adult heart rate?",
+    "options": [
+      {
+        "id": "a",
+        "text": "60-100 bpm"
+      },
+      {
+        "id": "b",
+        "text": "40-60 bpm"
+      },
+      {
+        "id": "c",
+        "text": "100-120 bpm"
+      },
+      {
+        "id": "d",
+        "text": "120-140 bpm"
+      }
+    ],
+    "correctAnswers": [
+      "a"
+    ],
+    "explanation": "The normal adult heart rate is 60-100 beats per minute.",
+    "difficulty": "easy",
+    "points": 10
+  },
+  {
+    "id": "adaptive-easy-2",
+    "type": "multiple_choice",
+    "question": "Which vital sign is most important to monitor in a patient with chest pain?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Temperature"
+      },
+      {
+        "id": "b",
+        "text": "Blood pressure"
+      },
+      {
+        "id": "c",
+        "text": "Heart rate"
+      },
+      {
+        "id": "d",
+        "text": "All of the above"
+      }
+    ],
+    "correctAnswers": [
+      "d"
+    ],
+    "explanation": "All vital signs are important, but blood pressure and heart rate are particularly critical in cardiac assessment.",
+    "difficulty": "easy",
+    "points": 10
+  },
+  {
+    "id": "adaptive-medium-1",
+    "type": "multiple_choice",
+    "question": "A patient presents with acute shortness of breath and chest pain. The ECG shows ST elevation in leads II, III, and aVF. What is the most likely diagnosis?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Anterior MI"
+      },
+      {
+        "id": "b",
+        "text": "Inferior MI"
+      },
+      {
+        "id": "c",
+        "text": "Lateral MI"
+      },
+      {
+        "id": "d",
+        "text": "Pericarditis"
+      }
+    ],
+    "correctAnswers": [
+      "b"
+    ],
+    "explanation": "ST elevation in leads II, III, and aVF indicates an inferior myocardial infarction.",
+    "difficulty": "medium",
+    "points": 20
+  },
+  {
+    "id": "adaptive-medium-2",
+    "type": "multi_select",
+    "question": "Which of the following are contraindications for thrombolytic therapy? (Select all that apply)",
+    "options": [
+      {
+        "id": "a",
+        "text": "Active bleeding"
+      },
+      {
+        "id": "b",
+        "text": "Recent surgery"
+      },
+      {
+        "id": "c",
+        "text": "Hypertension >180/110"
+      },
+      {
+        "id": "d",
+        "text": "Age >75 years"
+      }
+    ],
+    "correctAnswers": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Active bleeding, recent surgery, and severe hypertension are contraindications for thrombolytics.",
+    "difficulty": "medium",
+    "points": 25
+  },
+  {
+    "id": "adaptive-hard-1",
+    "type": "multiple_choice",
+    "question": "A 72-year-old patient with a history of atrial fibrillation presents with acute stroke symptoms. The last known normal was 2.5 hours ago. What is the most appropriate immediate intervention?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Administer tPA immediately"
+      },
+      {
+        "id": "b",
+        "text": "Obtain CT scan first"
+      },
+      {
+        "id": "c",
+        "text": "Check INR and platelet count"
+      },
+      {
+        "id": "d",
+        "text": "Start anticoagulation therapy"
+      }
+    ],
+    "correctAnswers": [
+      "b"
+    ],
+    "explanation": "CT scan must be obtained first to rule out hemorrhage before considering thrombolytic therapy.",
+    "difficulty": "hard",
+    "points": 30
+  },
+  {
+    "id": "adaptive-hard-2",
+    "type": "multiple_choice",
+    "question": "A patient with septic shock has a MAP of 55 mmHg despite fluid resuscitation. The patient is on norepinephrine 0.1 mcg/kg/min. What is the next appropriate step?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Increase norepinephrine dose"
+      },
+      {
+        "id": "b",
+        "text": "Add vasopressin"
+      },
+      {
+        "id": "c",
+        "text": "Add dobutamine"
+      },
+      {
+        "id": "d",
+        "text": "Start hydrocortisone"
+      }
+    ],
+    "correctAnswers": [
+      "b"
+    ],
+    "explanation": "Vasopressin should be added as a second-line vasopressor in septic shock when norepinephrine alone is insufficient.",
+    "difficulty": "hard",
+    "points": 35
+  }
+]

@@ -1,0 +1,10 @@
+system,category,stem,option1,option1_is_correct,option2,option2_is_correct,option3,option3_is_correct,option4,option4_is_correct,rationale,mode,difficulty_internal
+cardiovascular,chest_pain,Which biomarker rises earliest after MI?,Myoglobin,true,Troponin I,false,CK-MB,false,LDH,false,Early rise but low specificity; use with others.,adaptive,2
+cardiovascular,chest_pain,Which rhythm is immediately life-threatening?,Ventricular fibrillation,true,Atrial flutter,false,First-degree AV block,false,Sinus bradycardia,false,VF requires defibrillation.,adaptive,3
+respiratory,asthma,Best indicator of severe asthma attack?,Silent chest,true,Inspiratory wheeze,false,Productive cough,false,Sneezing,false,Silent chest indicates minimal airflow.,adaptive,4
+respiratory,copd,Which vaccine reduces COPD exacerbations?,Influenza vaccine,true,Varicella,false,Polio,false,Rotavirus,false,Annual flu vaccine reduces exacerbations.,adaptive,1
+endocrine,DKA,Best indicator to stop insulin in DKA?,Closed anion gap,true,Serum glucose < 200 only,false,Urine ketones negative,false,Normal pH alone,false,Gap closure marks resolution of ketoacidosis.,adaptive,3
+neuro,stroke,Which stroke symptom is a time-sensitive emergency?,New onset aphasia,true,Chronic numbness,false,Remote headache,false,Longstanding weakness,false,Language deficit may indicate large vessel occlusion.,adaptive,2
+integumentary,pressure_ulcer,Primary cause of pressure injury?,Unrelieved pressure,true,Allergy,false,Sunburn,false,Low vitamin C alone,false,Prolonged pressure impairs perfusion.,adaptive,1
+
+

@@ -1,0 +1,64 @@
+{
+  "banks": [
+    {
+      "key": "acute_mi",
+      "title": "Acute MI & Chest Pain",
+      "file": "qbank/banks/acute_mi.testbank.json",
+      "items": 1
+    },
+    {
+      "key": "anaphylaxis_mods_trauma_sedation",
+      "title": "Anaphylaxis, MODS, Trauma, Sedation",
+      "file": "qbank/banks/anaphylaxis_mods_trauma_sedation.testbank.json",
+      "items": 4
+    },
+    {
+      "key": "cv_hypertensive_crises",
+      "title": "Cardio • Hypertensive Crises",
+      "file": "qbank/banks/cv_hypertensive_crises.testbank.json",
+      "items": 25
+    },
+    {
+      "key": "heart_sounds",
+      "title": "Cardiac Auscultation",
+      "file": "qbank/banks/heart_sounds.testbank.json",
+      "items": 1
+    },
+    {
+      "key": "multisystem_core_shock",
+      "title": "Multisystem Core & Shock",
+      "file": "qbank/banks/multisystem_core_shock.testbank.json",
+      "items": 1
+    },
+    {
+      "key": "neuro_template",
+      "title": "Neuro • Template",
+      "file": "qbank/banks/neuro_template.testbank.json",
+      "items": 1
+    },
+    {
+      "key": "pulm_template",
+      "title": "Pulm • Template",
+      "file": "qbank/banks/pulm_template.testbank.json",
+      "items": 1
+    },
+    {
+      "key": "scenario_vignettes",
+      "title": "Rapid Response Scenario Vignettes",
+      "file": "qbank/banks/scenario_vignettes.testbank.json",
+      "items": 2
+    },
+    {
+      "key": "sepsis_septic_shock",
+      "title": "Sepsis & Septic Shock",
+      "file": "qbank/banks/sepsis_septic_shock.testbank.json",
+      "items": 2
+    },
+    {
+      "key": "vascular_disease_core",
+      "title": "Vascular Disease • PAD, Acute Occlusion, Aneurysm, Carotid Stenosis",
+      "file": "qbank/banks/vascular_disease_core.testbank.json",
+      "items": 30
+    }
+  ]
+}

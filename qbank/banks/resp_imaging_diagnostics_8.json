@@ -1,0 +1,195 @@
+[
+  {
+    "id": "resp_imaging_diagnostics_01",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Portable AP CXR shows hyperinflated lungs with flattened diaphragms. Which diagnosis fits best?",
+    "options": [
+      "Atelectasis",
+      "Emphysema",
+      "Large pleural effusion",
+      "ARDS stage III"
+    ],
+    "answer": 1,
+    "rationale": "Emphysema causes lung hyperinflation and diaphragmatic flattening on radiography.",
+    "tags": [
+      "CXR",
+      "emphysema"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_imaging_diagnostics_02",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "On CXR you see a sharp pleural line with no vascular markings peripheral to it. What is this?",
+    "options": [
+      "Pneumonia",
+      "Pneumothorax",
+      "Pulmonary edema",
+      "Atelectasis"
+    ],
+    "answer": 1,
+    "rationale": "A visible pleural line with absent peripheral markings is classic for pneumothorax.",
+    "tags": [
+      "pneumothorax",
+      "CXR_signs"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_imaging_diagnostics_03",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Endotracheal tube placement is ideal when the tip is:",
+    "options": [
+      "At the carina",
+      "3–5 cm above the carina",
+      "In the right mainstem bronchus",
+      "Just below the vocal cords"
+    ],
+    "answer": 1,
+    "rationale": "Standard radiographic positioning is roughly 3–5 cm above the carina at neutral head position.",
+    "tags": [
+      "airway",
+      "ETT"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_imaging_diagnostics_04",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which bedside maneuver best increases detection of small pleural effusions on CXR?",
+    "options": [
+      "Obtain inspiration/expiration views",
+      "Use lateral decubitus imaging with affected side down",
+      "Switch to PA view only",
+      "Patient supine AP film"
+    ],
+    "answer": 1,
+    "rationale": "Lateral decubitus (affected side down) layers fluid and is sensitive for small effusions.",
+    "tags": [
+      "pleural_effusion",
+      "imaging"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_imaging_diagnostics_05",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which finding is most consistent with lobar consolidation from pneumonia?",
+    "options": [
+      "Hyperresonance on percussion",
+      "Decreased fremitus",
+      "Bronchial breath sounds over periphery",
+      "Absent breath sounds with tracheal deviation away"
+    ],
+    "answer": 2,
+    "rationale": "Consolidation transmits high‑frequency sounds → bronchial quality; fremitus tends to increase; percussion dull.",
+    "tags": [
+      "pneumonia",
+      "consolidation",
+      "exam"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_imaging_diagnostics_06",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "A normal A–a gradient with hypoxemia most suggests:",
+    "options": [
+      "V/Q mismatch",
+      "Shunt",
+      "Diffusion defect",
+      "Hypoventilation"
+    ],
+    "answer": 3,
+    "rationale": "Pure hypoventilation elevates PaCO2 and lowers PaO2 proportionally without widening the A–a gradient.",
+    "tags": [
+      "ABG",
+      "A_a_gradient"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_imaging_diagnostics_07",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "Which diagnostic is most specific for acute pulmonary embolism when technically adequate and no contraindications?",
+    "options": [
+      "D-dimer",
+      "CT pulmonary angiography",
+      "Lower-extremity ultrasound alone",
+      "Ventilation-only scan"
+    ],
+    "answer": 1,
+    "rationale": "CTPA is the standard specific imaging test in most settings for PE diagnosis (when feasible).",
+    "tags": [
+      "PE",
+      "CTPA"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  },
+  {
+    "id": "resp_imaging_diagnostics_08",
+    "theme": "imaging_diagnostics",
+    "difficulty": "moderate",
+    "proficiency_level": "core",
+    "stem": "You suspect malposition of a nasogastric tube. The most definitive bedside action is to:",
+    "options": [
+      "Check air insufflation and epigastric auscultation only",
+      "Rely on pH of aspirate alone",
+      "Obtain radiographic confirmation of placement",
+      "Assume placement is correct if the patient is asymptomatic"
+    ],
+    "answer": 2,
+    "rationale": "Radiographic confirmation is the definitive check for tube placement when placement is uncertain or before feeding.",
+    "tags": [
+      "NG_tube",
+      "safety"
+    ],
+    "flags": {
+      "review": false,
+      "bookmarked": false
+    },
+    "source_refs": "Built from standard critical-care respiratory concepts (assessment, ABG/acid–base, oxygen therapy/devices, imaging & diagnostics, ventilation mechanics)."
+  }
+]

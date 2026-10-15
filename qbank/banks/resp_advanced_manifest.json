@@ -1,0 +1,27 @@
+{
+  "name": "resp_advanced_40",
+  "description": "Advanced-only respiratory MCQ variants across five themes (assessment, ABG/acid-base, oxygen devices, imaging/diagnostics, ventilation mechanics).",
+  "file": "resp_advanced_40.json",
+  "count": 40,
+  "themes": [
+    "abg_acidbase",
+    "assessment",
+    "imaging_diagnostics",
+    "oxygen_devices",
+    "ventilation_mechanics"
+  ],
+  "created_utc": "2025-10-01T00:25:17.423346Z",
+  "schema": [
+    "id",
+    "theme",
+    "difficulty",
+    "proficiency_level",
+    "stem",
+    "options",
+    "answer",
+    "rationale",
+    "tags",
+    "flags",
+    "source_refs"
+  ]
+}

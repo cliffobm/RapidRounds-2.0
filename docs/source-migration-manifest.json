@@ -1,0 +1,2999 @@
+{
+  "source_repository": "cliffobm/RapidRounds",
+  "source_commit": "9094ae6ddc97ec2c99e4d26fe88d11f661ad20fe",
+  "imported_files": [
+    {
+      "path": ".cursor/rules/clinical-content-rule.mdc",
+      "sha": "d732ee914f403daeb7b34a1950c597f197c6a6ba",
+      "mode": "100644"
+    },
+    {
+      "path": ".editorconfig",
+      "sha": "0dbeeb2e097d95131516be5e628392d7952c4507",
+      "mode": "100644"
+    },
+    {
+      "path": ".env.example",
+      "sha": "684a189386a2a43612fb524408a2ff163dd3b8b7",
+      "mode": "100644"
+    },
+    {
+      "path": ".eslintrc.deploy.json",
+      "sha": "2b868356997a6cc90a247178b81ac70d92768f20",
+      "mode": "100644"
+    },
+    {
+      "path": ".eslintrc.json",
+      "sha": "5c2b9877a306a1f680c3044b960f94a5b4a43e45",
+      "mode": "100644"
+    },
+    {
+      "path": ".github/workflows/test.yml",
+      "sha": "a2218f703ead95a5092d5d11e67f3cf4bde1758d",
+      "mode": "100644"
+    },
+    {
+      "path": ".gitignore",
+      "sha": "139d830e3f6e2a1b7fda86ddb0082dad415b125b",
+      "mode": "100644"
+    },
+    {
+      "path": ".nvmrc",
+      "sha": "35f49783c4401d44386f95291c9c35bce8d13c9a",
+      "mode": "100644"
+    },
+    {
+      "path": ".prettierrc",
+      "sha": "4190fee2c96ac4d0a1900f4a9592c62b2233926b",
+      "mode": "100644"
+    },
+    {
+      "path": "ChatGPT Image Sep 4, 2025, 06_08_27 PM.svg",
+      "sha": "98ae14f12ebe78473873031bba2126fe89f4ab2f",
+      "mode": "100644"
+    },
+    {
+      "path": "ENHANCEMENTS_README.md",
+      "sha": "1e6122af2bf930db94c09bfbcca617b9809d332c",
+      "mode": "100644"
+    },
+    {
+      "path": "README.md",
+      "sha": "7a517061796bb451953e19b4976318e3a790b048",
+      "mode": "100644"
+    },
+    {
+      "path": "__tests__/components/dashboard/StudentDashboard.test.tsx",
+      "sha": "8b8f1c43278ecb38a59c810cc7ae46264ba347a1",
+      "mode": "100644"
+    },
+    {
+      "path": "__tests__/lib/db/achievements.test.ts",
+      "sha": "371858e7a5f16c794205074b7268b49260a54232",
+      "mode": "100644"
+    },
+    {
+      "path": "__tests__/lib/db/leaderboard.test.ts",
+      "sha": "d0c16ace3236c34480b00bdc5b162f2f8e0c01c6",
+      "mode": "100644"
+    },
+    {
+      "path": "app/achievements/page.tsx",
+      "sha": "9b049aa33dc5e863fdce3e20a919b445d27c623f",
+      "mode": "100644"
+    },
+    {
+      "path": "app/api/access/rationale/route.ts",
+      "sha": "0de84db78c3f3dadcdf7ac289dbe03ae2a2346cb",
+      "mode": "100644"
+    },
+    {
+      "path": "app/api/admin-example/route.ts",
+      "sha": "ae9fa9a344acf81ae3ca682d8e2a1c7a4b095eba",
+      "mode": "100644"
+    },
+    {
+      "path": "app/api/create-checkout/route.ts",
+      "sha": "dac85b17ff64394f58b084ce4e38aa707763af1b",
+      "mode": "100644"
+    },
+    {
+      "path": "app/api/metrics/log/route.ts",
+      "sha": "69b30771d6d018c89978f77f4417dae7c43b2800",
+      "mode": "100644"
+    },
+    {
+      "path": "app/api/webhooks/stripe/route.ts",
+      "sha": "1234af1c109ae9413baf41d3b79f7b3cdf957527",
+      "mode": "100644"
+    },
+    {
+      "path": "app/auth/callback/route.ts",
+      "sha": "22bf2b52d2d4a7f5681d3a3cf8d8703ed501ff8a",
+      "mode": "100644"
+    },
+    {
+      "path": "app/auth/page.tsx",
+      "sha": "94c1dabad363efa5bd6740fd7ac6432bda720a59",
+      "mode": "100644"
+    },
+    {
+      "path": "app/auth/sign-in/page.tsx",
+      "sha": "778332fb59dc2a00358e9b0ce71565c718ef680a",
+      "mode": "100644"
+    },
+    {
+      "path": "app/debug/page.tsx",
+      "sha": "5113eda9d950936079f63c508a3787c733a786e8",
+      "mode": "100644"
+    },
+    {
+      "path": "app/error.tsx",
+      "sha": "9fb15cfe25035b44c7da7e014660e16d8964dcde",
+      "mode": "100644"
+    },
+    {
+      "path": "app/example-client-island.tsx",
+      "sha": "7f10ff493872c96816a79aec2a34e047b268f494",
+      "mode": "100644"
+    },
+    {
+      "path": "app/example-server-action.tsx",
+      "sha": "31fa8018aadc1532764fb8901bfddeff04fa98b1",
+      "mode": "100644"
+    },
+    {
+      "path": "app/flipped/page.tsx",
+      "sha": "f0097becedc312e4ef39eb6cdaad017d7c4d8566",
+      "mode": "100644"
+    },
+    {
+      "path": "app/globals.css",
+      "sha": "b871712848851aadd7a03278fb5bd6c6e8bc719e",
+      "mode": "100644"
+    },
+    {
+      "path": "app/layout.tsx",
+      "sha": "a48986b93a2bb0847ccb7f54c14e8dfb808080ce",
+      "mode": "100644"
+    },
+    {
+      "path": "app/leaderboard/page.tsx",
+      "sha": "45e6df06e3f2e1f135b9c1bc1dadd1746a94b2ad",
+      "mode": "100644"
+    },
+    {
+      "path": "app/loading.tsx",
+      "sha": "7b6fcdac5590096f7982b1148454d5fc1cff9f54",
+      "mode": "100644"
+    },
+    {
+      "path": "app/microlearning-generator/page.tsx",
+      "sha": "fe19c621ea8d9c99b80fac71c41e0fa1848cb2b4",
+      "mode": "100644"
+    },
+    {
+      "path": "app/minimal/page.tsx",
+      "sha": "fcc99fde4ec5a0678a6395f1e170da6b5c3b40e6",
+      "mode": "100644"
+    },
+    {
+      "path": "app/not-found.tsx",
+      "sha": "228a079cd68874b265d526d6987dc5dac9e8a99f",
+      "mode": "100644"
+    },
+    {
+      "path": "app/page.tsx",
+      "sha": "baeb73eeeaac0921d19ede4e0f7d42370cc5ecd8",
+      "mode": "100644"
+    },
+    {
+      "path": "app/profile/page.tsx",
+      "sha": "833920a1d219c5ba9b151eed39b1b8be9fc4b1e3",
+      "mode": "100644"
+    },
+    {
+      "path": "app/providers.tsx",
+      "sha": "673337921b4ca27fd6ee67c3e21ccd0f659a9f01",
+      "mode": "100644"
+    },
+    {
+      "path": "app/quiz/page.tsx",
+      "sha": "9d116a2cdd5166d54d787e8a3956787b2fcbfe52",
+      "mode": "100644"
+    },
+    {
+      "path": "app/reference/calculators/page.tsx",
+      "sha": "c52622a93aa96aa65aefec25e0ebfa18ea4c0150",
+      "mode": "100644"
+    },
+    {
+      "path": "app/reference/drug-reference/page.tsx",
+      "sha": "df183ea133ecf3a331e2e3f927e03f0ebc78c457",
+      "mode": "100644"
+    },
+    {
+      "path": "app/reference/emergency-protocols/page.tsx",
+      "sha": "3140e5f8f2b271d49c0f8a17ec8e10e5e854e516",
+      "mode": "100644"
+    },
+    {
+      "path": "app/reference/lab-values/page.tsx",
+      "sha": "e7cfbad5535effe72444ee1f96813d1c0b36043e",
+      "mode": "100644"
+    },
+    {
+      "path": "app/review/page.tsx",
+      "sha": "24461bbf29f017dc5959b0cb8bc8b28313b6e790",
+      "mode": "100644"
+    },
+    {
+      "path": "app/rr/[code]/page.tsx",
+      "sha": "445280d6658aa6107a51a527977a6780038f34b5",
+      "mode": "100644"
+    },
+    {
+      "path": "app/rr/page.tsx",
+      "sha": "d87f5f37e2905dc362630e732e2335e976470c82",
+      "mode": "100644"
+    },
+    {
+      "path": "app/scenario-library/page.tsx",
+      "sha": "b290153ddce6d7646bb0fcdcbb3d0529c84ba5da",
+      "mode": "100644"
+    },
+    {
+      "path": "app/scenario/[id]/page.tsx",
+      "sha": "48eb181fcbf3e62981074a053d3e107617b23d82",
+      "mode": "100644"
+    },
+    {
+      "path": "app/scenarios/[id]/page.tsx",
+      "sha": "2111d16f91ec5d768abdff61d02f218d71895e7d",
+      "mode": "100644"
+    },
+    {
+      "path": "app/settings/page.tsx",
+      "sha": "3c344b2f4a5ee2681c3dbd4cc15f09b5742662d7",
+      "mode": "100644"
+    },
+    {
+      "path": "app/simple-test/page.tsx",
+      "sha": "2b3853b51c6f14c3c27ef3b45af0a3b52d427fde",
+      "mode": "100644"
+    },
+    {
+      "path": "app/simple/page.tsx",
+      "sha": "d758579769ea181c3e4a0737c7c4f321499e0761",
+      "mode": "100644"
+    },
+    {
+      "path": "app/study/cardiac-fundamentals/page.tsx",
+      "sha": "1bff6bfc07d9b15464e725b126053bded3ba021d",
+      "mode": "100644"
+    },
+    {
+      "path": "app/study/page.tsx",
+      "sha": "b487bb60261753352ba8732be365449570218aac",
+      "mode": "100644"
+    },
+    {
+      "path": "app/study/wound-care/page.tsx",
+      "sha": "c5f6b2db2d5dd47e36e65ffc5082a3f5f50f8930",
+      "mode": "100644"
+    },
+    {
+      "path": "app/styles/a11y-contrast.css",
+      "sha": "1e5a9f401aacbfc3fcfd6c0cddb96fa8ce888f53",
+      "mode": "100644"
+    },
+    {
+      "path": "app/test-oauth/page.tsx",
+      "sha": "6090e403b110988219c47aa234c0e14f4d08c347",
+      "mode": "100644"
+    },
+    {
+      "path": "app/test/[slug]/page.tsx",
+      "sha": "679133960e7c6149e271f235891a41497984e00a",
+      "mode": "100644"
+    },
+    {
+      "path": "app/test/adaptive/page.tsx",
+      "sha": "21b6df802eafa5498fb3358320e453798eed2171",
+      "mode": "100644"
+    },
+    {
+      "path": "app/test/mixed-practice/page.tsx",
+      "sha": "8b3ca6110adb10a4227f442d4092c6349cd77fc4",
+      "mode": "100644"
+    },
+    {
+      "path": "app/test/page.tsx",
+      "sha": "fefb31602b5bf772b4b8e36f13f15feb579b611c",
+      "mode": "100644"
+    },
+    {
+      "path": "components/BankSelector.tsx",
+      "sha": "7feaf37ef75ecf355a598e3e2b5b7ce51186edc6",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ClientButton.tsx",
+      "sha": "f6ee1dc9d1ddcf8676a50a44f6d8f3de1e388dfd",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ErrorBoundary.tsx",
+      "sha": "4cc7e160378a32ff362229b6c8b9aad4b5e7efed",
+      "mode": "100644"
+    },
+    {
+      "path": "components/auth/AuthForm.tsx",
+      "sha": "e5eac6ac245d46a5576656aab50569c2fbc363bb",
+      "mode": "100644"
+    },
+    {
+      "path": "components/dashboard/EducatorDashboard.tsx",
+      "sha": "3a9ed8c5502cbf1f4dd8dcf9c04b44f8aaab7f85",
+      "mode": "100644"
+    },
+    {
+      "path": "components/dashboard/StudentDashboard.tsx",
+      "sha": "434d7b4d5b53db33cd8707ba9d176ecd63d1ec17",
+      "mode": "100644"
+    },
+    {
+      "path": "components/examples/EnvironmentExample.tsx",
+      "sha": "42fe3a7b11368c38e471745d2a37fde74cca97f6",
+      "mode": "100644"
+    },
+    {
+      "path": "components/flipped/Checkpoint.tsx",
+      "sha": "5e1d10fda00dce075a17e839cd6007ccb74fdfa4",
+      "mode": "100644"
+    },
+    {
+      "path": "components/flipped/LessonCard.tsx",
+      "sha": "2e3a51941a6b779bf0090a685471ce76e5dd4f37",
+      "mode": "100644"
+    },
+    {
+      "path": "components/fun/ConfettiBurst.tsx",
+      "sha": "d69af77d53ed8e027890817971524c33cf9d4478",
+      "mode": "100644"
+    },
+    {
+      "path": "components/gamification/BadgeGallery.tsx",
+      "sha": "3a4414df782387ca113465f9e82b4612203fa440",
+      "mode": "100644"
+    },
+    {
+      "path": "components/gamification/StreakMeter.tsx",
+      "sha": "ffc8bcefa6fd4e24867762f4daf806e35e935dd6",
+      "mode": "100644"
+    },
+    {
+      "path": "components/layout/AppShell.tsx",
+      "sha": "e281151a068ba7ddf04ac7bd7539511fb8b8c45d",
+      "mode": "100644"
+    },
+    {
+      "path": "components/layout/FabActions.tsx",
+      "sha": "2874ec3843eab5052308ba4beeb8f9efa8252b04",
+      "mode": "100644"
+    },
+    {
+      "path": "components/layout/PageWrapper.tsx",
+      "sha": "8e0c1627a871450eff618b65b70ddca389501163",
+      "mode": "100644"
+    },
+    {
+      "path": "components/learning/OrderQuestion.tsx",
+      "sha": "1920d69f32c30957e24ccad42ad8c93b0541ea37",
+      "mode": "100644"
+    },
+    {
+      "path": "components/learning/__tests__/OrderQuestion.test.tsx",
+      "sha": "013c152b2ff44ba5bc261d39a93e64d27ebc6259",
+      "mode": "100644"
+    },
+    {
+      "path": "components/profile/ProfileForm.tsx",
+      "sha": "ac3d86a33024e60cec8350dc51cf82f85196a7f8",
+      "mode": "100644"
+    },
+    {
+      "path": "components/qbank/BankSelector.tsx",
+      "sha": "cbc850cd2c1a026454f73e515e13710b0c4c7fd5",
+      "mode": "100644"
+    },
+    {
+      "path": "components/qbank/RRScenarioClient.tsx",
+      "sha": "303c1947a559669ea8d78793691b72c31b61f3da",
+      "mode": "100644"
+    },
+    {
+      "path": "components/scenario/AnswerBlock.spec.tsx",
+      "sha": "a191df8f2604533df9679973fa79dd1ca87982b3",
+      "mode": "100644"
+    },
+    {
+      "path": "components/scenario/AnswerBlock.tsx",
+      "sha": "65985eb971a83272cc46a6b63cba52b293e49dc8",
+      "mode": "100644"
+    },
+    {
+      "path": "components/scenario/ScenarioCard.spec.tsx",
+      "sha": "06c0c67365c5222b94a6b57c2b7d15a197bf7fc8",
+      "mode": "100644"
+    },
+    {
+      "path": "components/scenario/ScenarioCard.tsx",
+      "sha": "6f5053758afc519795ded40a93cdeb6b5b94c376",
+      "mode": "100644"
+    },
+    {
+      "path": "components/scenario/SwipeDeck.tsx",
+      "sha": "fdf068907839c36001c763f6ec7777c5049f7141",
+      "mode": "100644"
+    },
+    {
+      "path": "components/scenarios/ScenarioList.tsx",
+      "sha": "9aa29be3e4e1117736ce8fd4972d8cdac24ea5b8",
+      "mode": "100644"
+    },
+    {
+      "path": "components/scenarios/ScenarioViewer.tsx",
+      "sha": "42736727b2a1565e4b0867d48e5eda1967bfaf03",
+      "mode": "100644"
+    },
+    {
+      "path": "components/subscription/SubscriptionCard.tsx",
+      "sha": "a2513259aff2ba63b7640ab1d7c399a433647979",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Alert.tsx",
+      "sha": "6bfb9cc4c2cdd8bf8499ca486e4b2a3269ccbae8",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Badge.tsx",
+      "sha": "959d9257d4675a0473a7b68ae1b5207c286ddf85",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Button.tsx",
+      "sha": "fcd36c91f885a4165bdcf6d58df24ba78cef39c4",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Card.tsx",
+      "sha": "c12512a3ea83b6e4c7448b049a12b00517f64b49",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/ClientOnly.tsx",
+      "sha": "88724f847dfd957d0ac3f6202700f462431f056c",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Confetti.tsx",
+      "sha": "e1937335a2644af6c4165de2645dfb059af500ff",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Input.tsx",
+      "sha": "9f68e6512d2d2e3175e5aca3ba967cbd8a49b3e9",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Label.tsx",
+      "sha": "a856726ba2ed3e244ce5d791a80c46d65d354591",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/LazyLoad.tsx",
+      "sha": "d2093809d2dc96c48db29e0e4c9cb12233c9b92b",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Logo.tsx",
+      "sha": "2df5c54b9ef87b53eaa45d9b3c136962e6ceb748",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/ProgressRing.tsx",
+      "sha": "bc237a327f8ec045898e3f9817ace76cb504ac69",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Skeleton.tsx",
+      "sha": "e35d0823bd178b2c00c7b2530d958e7ac2e7b79d",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Toast.tsx",
+      "sha": "e58de2642c97f606ad8f526305d3b3a2bbb5c8de",
+      "mode": "100644"
+    },
+    {
+      "path": "components/ui/Toggle.tsx",
+      "sha": "06479e923ffb937d2aa9944c03509dd2d1791310",
+      "mode": "100644"
+    },
+    {
+      "path": "config/package.scripts.additions.json",
+      "sha": "c0aa8f22b436e8f714f0d6a4e3ba7e95f425f292",
+      "mode": "100644"
+    },
+    {
+      "path": "content/README.md",
+      "sha": "5eb1fb102e209fcf90fc3451ab82fb1978fcfa6d",
+      "mode": "100644"
+    },
+    {
+      "path": "content/categories/cardiovascular/cardiovascular-acute-myocardial-infarction.jsonl",
+      "sha": "3fd9bd600a1c9cb0b2141cbb7795e3e676566661",
+      "mode": "100644"
+    },
+    {
+      "path": "content/categories/gastrointestinal/gastrointestinal-gi-bleed-management.jsonl",
+      "sha": "18242c5a29f9b093c9c4de28e05541ff0583a67e",
+      "mode": "100644"
+    },
+    {
+      "path": "content/categories/respiratory/respiratory-copd-exacerbation.jsonl",
+      "sha": "2a1cd1261f056f763fad36d485b5e83d3c85edaa",
+      "mode": "100644"
+    },
+    {
+      "path": "content/examples/cardiovascular-example.jsonl",
+      "sha": "d2863ecc6b406200f4ebb920f5e8c84e8b4fd9dc",
+      "mode": "100644"
+    },
+    {
+      "path": "content/package.json",
+      "sha": "0a3952d10caea191970d365ef8af1e86a927b31e",
+      "mode": "100644"
+    },
+    {
+      "path": "content/schemas/content-item.json",
+      "sha": "b257efc4177522742fc3c1ad2cd8b1e5a7122c64",
+      "mode": "100644"
+    },
+    {
+      "path": "content/scripts/generate-content.ts",
+      "sha": "3bce496ebe39a6dfe095de89e9a013c4546a0c5e",
+      "mode": "100644"
+    },
+    {
+      "path": "content/scripts/generate-sample.js",
+      "sha": "98c7932886cbdf15f0fbd75e348e3ebfa4742fac",
+      "mode": "100644"
+    },
+    {
+      "path": "content/scripts/import-content.ts",
+      "sha": "a8a3e3e0bd9236a529d0949c3362a8b587e939a8",
+      "mode": "100644"
+    },
+    {
+      "path": "content/scripts/import-sample.js",
+      "sha": "d5e743530dda1436dcf378dfbcae16df768330f2",
+      "mode": "100644"
+    },
+    {
+      "path": "content/scripts/setup-content-system.ts",
+      "sha": "aea6e8e487dfa94e6c88e5732253144299a081c4",
+      "mode": "100644"
+    },
+    {
+      "path": "content/scripts/validate-content.ts",
+      "sha": "e8e2359fdb58911bc4636aa43068f9f98f779c26",
+      "mode": "100644"
+    },
+    {
+      "path": "content/scripts/validate-sample.js",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "content/setup.js",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "content/templates/prompts.ts",
+      "sha": "86dcfeb82089dc212bb23274fc78db1b1f370e91",
+      "mode": "100644"
+    },
+    {
+      "path": "data/sampleData.ts",
+      "sha": "9f99964a18f8e1181036baf40bef907634b87c43",
+      "mode": "100644"
+    },
+    {
+      "path": "data/scenarios/sepsis.json",
+      "sha": "f7f22ae4b77a6d021a6fd36a4b9a3c0dd0ec5075",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/ENVIRONMENT_VARIABLES.md",
+      "sha": "fee62af08047a610c9fb57dd83ac45f7814c1da7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/LOGO_USAGE_GUIDE.md",
+      "sha": "14dc449eb3a68680e917ff2f06cfca1fb84edb45",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/RATIONALE_GENERATION_API.md",
+      "sha": "b3690a9a0d3dce096ec050eac4432fc530c128ed",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/SCENARIO_SCHEMA.md",
+      "sha": "552fe2e3042a27e599873829428ddd7f10bbca9c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/STYLEGUIDE.md",
+      "sha": "153d32bb2084679957d6cc582ad850c29415d1b9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/SUPABASE_SETUP.md",
+      "sha": "68b15e5969f6a8d85308c280404b85ded6609ecf",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/VERCEL_DEPLOYMENT_GUIDE.md",
+      "sha": "8787f29660fd643dc195dc84f67533c887943a84",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/database-setup.md",
+      "sha": "2587ae8cb603e598a5ca90ce4b5baf5918f54dd3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/database-summary.md",
+      "sha": "2e1ed008acb67bd4ef58038abca35efc6edea6cb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/db-schema.md",
+      "sha": "39609fefee75685e4c452e14ee236090783e6ae5",
+      "mode": "100644"
+    },
+    {
+      "path": "e2e/bookmark.spec.ts",
+      "sha": "da5340a4a9b7948f173c27a9f3aa0c76cd2f1a67",
+      "mode": "100644"
+    },
+    {
+      "path": "e2e/leaderboard.spec.ts",
+      "sha": "473313b7b46428a1d654bdc7f2defdd94d1beffe",
+      "mode": "100644"
+    },
+    {
+      "path": "e2e/scenario-flow.spec.ts",
+      "sha": "92fee757a5f16d4d96ab88aa5554f52aef81acdc",
+      "mode": "100644"
+    },
+    {
+      "path": "e2e/scenario-flow.spec.ts-snapshots/homepage-loaded-Mobile-Safari-win32.png",
+      "sha": "4aeef2d1512cb1f7ea87ba50c856023461355ef7",
+      "mode": "100644"
+    },
+    {
+      "path": "e2e/scenario-flow.spec.ts-snapshots/homepage-loaded-webkit-win32.png",
+      "sha": "50c4ebf721225376c52914e8cf98f191a303c21a",
+      "mode": "100644"
+    },
+    {
+      "path": "e2e/trial-gate.spec.ts",
+      "sha": "ea6ba2764461b9e881523982749f595762200d90",
+      "mode": "100644"
+    },
+    {
+      "path": "examples/QuizWithSelector.tsx",
+      "sha": "6b6d57a1cb61dc47c9817f45f5811e03581a908c",
+      "mode": "100644"
+    },
+    {
+      "path": "examples/ReactQuiz.accessible.tsx",
+      "sha": "f4d24485fd02d4192bc06b2ddbadc03216adf096",
+      "mode": "100644"
+    },
+    {
+      "path": "examples/ReviewBookmarkedFlagged.tsx",
+      "sha": "910361a5b3801a160af6334277646c8a2f8fb923",
+      "mode": "100644"
+    },
+    {
+      "path": "jest.config.js",
+      "sha": "146ade22dcfc5243e4c76ae0b98cd486ac8825e6",
+      "mode": "100644"
+    },
+    {
+      "path": "jest.setup.js",
+      "sha": "3ffded8ef1bf25946564d8f8f133077c41d383d1",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/access.spec.ts",
+      "sha": "5be74023712a724e75bdda7ed02abfc8dbb02676",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/access.ts",
+      "sha": "8913345f29979113f52041417ad84fafefc386c8",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/accessibility.ts",
+      "sha": "b111ee3f052fff1928c69c1d78da76ec196711f5",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/ai.ts",
+      "sha": "ad8ed35ba1d25d1e7bbc4c8e9d398fec6f5258e6",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/animations.ts",
+      "sha": "1851abea140a015f4b2dd09db21e1a44c83ca494",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/auth/entitlements.ts",
+      "sha": "3cd887ebb9a12b845bb43fe724e1b115bcba182d",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/auth/server.ts",
+      "sha": "ac495770b92965c59d47b47da3b88476abdbc81a",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/db/achievements.ts",
+      "sha": "e3c82345ebdaafee8f36bb7d069e72105b3ac42a",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/db/attempts.ts",
+      "sha": "a9321ab32715925ff4d98ffc394b8b2fbf1a32c1",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/db/leaderboard.ts",
+      "sha": "4196a497318c3485ef162515a4bf0d5e6e48a060",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/db/profile.ts",
+      "sha": "b19eede340c3eefed145013eb7b0fcc6c0225482",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/db/progress.ts",
+      "sha": "86f15486027454412f8459c3b86e6784099482be",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/db/scenarios.ts",
+      "sha": "2e451c70df1cf4e4f6716d68a5df72a6e6804de3",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/env.ts",
+      "sha": "acb6d2efa1981004db6af8598471312b456fb8d8",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/hooks/useAccess.ts",
+      "sha": "7f6e48d0fda714035ee46b0a656aecda2cc27050",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/hooks/usePerformance.ts",
+      "sha": "988e1adf99d93ef016ceb54de17ec4530afaad76",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/learning/grade.ts",
+      "sha": "1ce65756a3dc6afce213c15d0e7312d8799892e2",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/learning/nav.ts",
+      "sha": "a172c1b55ea7b06afd4950f3ed43c41f952755d6",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/metrics.ts",
+      "sha": "8f318e2b29894bce4fb5a5c267fcc29fd24f9ae0",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/microlearning/content-generator.ts",
+      "sha": "86ae3ee3785f983d74cfa5cf8d619f3b018202d5",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/payments/stripe.ts",
+      "sha": "4128d900f0ac12c9e30bd4489707b6e16a945071",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/qbank/rr.ts",
+      "sha": "df6db73c29d474d4360dc795e2103cecf2e71f88",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/rationales.spec.ts",
+      "sha": "6fa2bc33d49a0d81f9ba0aca2ad01fa258810cf4",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/rationales.ts",
+      "sha": "4b3eabc2c5c090212afcdd890147617e5d7c5dc4",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/scenario/engine.ts",
+      "sha": "f005dfc72e32b0d48815be11e30ed5a7f9f77b46",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/scenario/gating.ts",
+      "sha": "709e83270fdbae5919597a7b329e4be5edd962d7",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/scenario/schema.ts",
+      "sha": "b58cb4ac0404d4b5a61820036a238e038b78d29b",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/supabase-admin.ts",
+      "sha": "6ad7fe7c6843d3d5a9bef44271310d2f68086be0",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/supabase-client.ts",
+      "sha": "00823cc3a7ca76bdff356a5fd3d9bd008e550f4f",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/supabase.ts",
+      "sha": "960b8cf1bc7bfe6fcff78c1b927587518c4f4483",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/supabase/admin.ts",
+      "sha": "e45eb66b85188d28f2845860cb413b6aa5a1971d",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/supabase/client.ts",
+      "sha": "bf947089efd952fa17271aa3e9a9ca41a61a1eb0",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/supabase/server.ts",
+      "sha": "4536a5f525ff7302e725a5d01cf27f8a18aa2b88",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/utils.ts",
+      "sha": "d32b0fe652e3a7129dd9a4a2fb82bfbb6faad449",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/utils/environment.ts",
+      "sha": "359fe7be56ab3031f1908cfce2446f69b68bc096",
+      "mode": "100644"
+    },
+    {
+      "path": "lib/utils/haptics.ts",
+      "sha": "d5c00c85540aba9ee6a9050aa4a8b300e888b68d",
+      "mode": "100644"
+    },
+    {
+      "path": "middleware.ts",
+      "sha": "e15115e752a493974cbd653aa446714db3177ed1",
+      "mode": "100644"
+    },
+    {
+      "path": "next-env.d.ts",
+      "sha": "830fb594ca2970a827555c28a253b097367e08d8",
+      "mode": "100644"
+    },
+    {
+      "path": "next.config.js",
+      "sha": "84a1e339a90da0f2ebf78995cc8767f8d340fd24",
+      "mode": "100644"
+    },
+    {
+      "path": "package-lock.json",
+      "sha": "a7e89085f1d6c166c6c21f72d65f8d21fe35936a",
+      "mode": "100644"
+    },
+    {
+      "path": "package.json",
+      "sha": "616f503c5d4e52d95fba6e7235667b92eb177369",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/drillSlice.ts",
+      "sha": "abfaf1c62504e07fa4b51c56692fef9f936f4d59",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/index.ts",
+      "sha": "10b41acf09fa37dc7009b72c8f65e6356c63336e",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/scheduler.ts",
+      "sha": "3005c0c311d83088d9bc6cc31291f0da094e2027",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/types.ts",
+      "sha": "94e0758eaade7ef4297647cecbe5099dd5e55623",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/useScenarioDrill.ts",
+      "sha": "bc143a9e4fc3a5d7391007ee855177f61d00310b",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/utils/analytics.ts",
+      "sha": "2846395d954e85115335a8dd83fa7d7f1121766c",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/utils/shuffleOptions.ts",
+      "sha": "143cf6471f92ea32f2f8240f3fc56e36d2b45567",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/utils/useBookmarks.ts",
+      "sha": "9a86b58ba06d99ad5e7b3662dd0c7cb1a817907f",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/adaptive-drill/src/utils/useSwipe.ts",
+      "sha": "14a42bf6b29eaf4ee61ecd35cc62114b98b9f53f",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/qbank-tools/src/mergeByTopic.ts",
+      "sha": "d48ac0f3ffee0cfe1f01d067d4accd99b1e8d132",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/qbank-tools/src/types.ts",
+      "sha": "a11d6bef13961193c820e69c3b97edd04d471853",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/qbank-tools/src/validate.ts",
+      "sha": "1a7722a1ed936aa45754f67b3a606be5ae75e107",
+      "mode": "100644"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha": "7c1b045e066926478012dbcf966454d88efc66fa",
+      "mode": "100644"
+    },
+    {
+      "path": "postcss.config.js",
+      "sha": "33ad091d26d8a9dc95ebdf616e217d985ec215b8",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/bank.manifest.json",
+      "sha": "2fd7abce8f7e0378482fa6c7877dc3c797affd14",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/acute_mi.testbank.json",
+      "sha": "fe02e8df5dccd97b39902f9b4609ffaab3f5738b",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/anaphylaxis_mods_trauma_sedation.testbank.json",
+      "sha": "fadb0b24504584a30bc80accdfa499bdb5c54be4",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/cv_hypertensive_crises.testbank.json",
+      "sha": "fd925d8829bc1c5c0b62a07293fd640b256b8904",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/heart_sounds.testbank.json",
+      "sha": "aa410c8fb98520f6a099500ce2472a4f29f09b61",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/index.ts",
+      "sha": "f7e0ade2576af4ddf065cae547f91001047b55c0",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/multisystem_core_shock.testbank.json",
+      "sha": "c670dc68635168b1b740f808f9701f4fe4a2dddb",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/neuro_template.testbank.json",
+      "sha": "6a6211eb689be70302e3a1c6b6554f4121b234f7",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/pulm_template.testbank.json",
+      "sha": "4c949c4dd16a20ba2618b6caedf7f1780b685bf7",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/pulmonary_system_core_advanced.testbank.json",
+      "sha": "9fd9a205add934987cb3da94099f34b32f613edc",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_abg_acidbase_8.json",
+      "sha": "02b972826b23527553d7fb5aea59526f0e1373b7",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_advanced_40.json",
+      "sha": "78ad9cdeeef029bfedb1b6034050d1473a3d2b8d",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_advanced_manifest.json",
+      "sha": "2a4cb846b3d210a60f454e6f9299b6666ad52011",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_assessment_8.json",
+      "sha": "2d2dc91e95b82ef365a51d9af52b71f789943dff",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_bundle_manifest.json",
+      "sha": "ae26e3d5971216cdf40fa414241d038b553815d7",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_imaging_diagnostics_8.json",
+      "sha": "83b939bff8d8bed024f8ca8a3ccc053c5e68ff93",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_oxygen_devices_8.json",
+      "sha": "e0f92825d574f6d9876697f85fc1900b38d042b5",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/resp_ventilation_mechanics_8.json",
+      "sha": "b098dfa14c2dc1ce7ef8ec939bb1a531704e366a",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/scenario_vignettes.testbank.json",
+      "sha": "d53d002afe8c063e4db758ed6fb2bfec60ceb82d",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/sepsis_septic_shock.testbank.json",
+      "sha": "e77b394e2c8e24050a0b530a5901a6b5b08cd804",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/banks/vascular_disease_core.testbank.json",
+      "sha": "ca1173b73027531e0361668ee176c47f2f33077c",
+      "mode": "100644"
+    },
+    {
+      "path": "qbank/index.ts",
+      "sha": "d26fa791d1e591201f997e6de9d727e7b035e4b6",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/add-openai-key.ts",
+      "sha": "c7c4116fd34803d1ceff7e1d66426a4ec019d2ec",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/check-database.ts",
+      "sha": "df0b35fb54e7e8ba5214de412aecd3c052922e25",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/check-env.ts",
+      "sha": "1ef04d4660ed968f2a408f5257634b1d70bec0c9",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/clean-anthropic-env.ts",
+      "sha": "ea1577ade161fde58fe621440c6c257d65872089",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/configure-supabase.ts",
+      "sha": "ad794736910302c23f44fef9e30c64fefa099f37",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/create-env.js",
+      "sha": "2d5040f6d062b11b522efb228ffbbdae05c9a266",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/create-missing-tables.sql",
+      "sha": "b2d819cb2df4097e5e9675a137657a9f9d510751",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/csv_to_testbank.ts",
+      "sha": "13b314fd358403befaf23e9d4b01b400ac15441b",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/fix-env.ts",
+      "sha": "9a2c383705b3e897a265f365010541594e11be70",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/manual-setup-guide.md",
+      "sha": "6dbffa50e11fd9263befce466ba7c1e55209580a",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/mark-use-client.ts",
+      "sha": "25c01d7acb6080ed83add07e6133ca1dbd89ba65",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/migrate-mock-to-db.ts",
+      "sha": "4fd710be407ec6b981fea12c7cccadf1338627cb",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/qbank/apply_selector_and_review.ts",
+      "sha": "3a72c495f65a67264cbd3f3fb303b205228e57b9",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/qbank/qbank_generate_index.ts",
+      "sha": "50eb94e86eec755cf31efb8601d1a4d60ab28f77",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/qbank_generate_index.ts",
+      "sha": "48ccd8d6e0da6151b24db0f7bdf507e95d8b70db",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/quick-setup.ts",
+      "sha": "7e2de1213f754c0bc875e4f36fdf3fc05ee66f4b",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/run-missing-tables.ts",
+      "sha": "ea6c0e267e74f5c9b85bf7700974176886c2d906",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/setup-database.ts",
+      "sha": "691f9be9e7f4d44337c4d575c0a2fb585cb89770",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/setup-env-complete.ts",
+      "sha": "d0609107b89555aaaa3d410e0765643a4fa1d8ed",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/setup-env.ts",
+      "sha": "bd8f0538f3e250dce1ba8689b9803c490afc9412",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/setup-environment.ts",
+      "sha": "5b6a8546b34bbfef567aae2ac667958ec5d88810",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/setup-oauth.md",
+      "sha": "3f29b8102b5e40be3f54639af608768444a18329",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/setup-supabase.ts",
+      "sha": "42a4f7e9c5ae2512d201aede9e4440c7b31bf2fa",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/test-db-setup.sql",
+      "sha": "64a0ca6c7aa987e7f6b21ac3e6b48b1504a71d28",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/test-oauth.js",
+      "sha": "a65e127668c0aa4eab15d59ec782adcc334d35bc",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/test-openai-simple.ts",
+      "sha": "e26e79eba3b9ec39b8167f2325bc6cc94f13a4ea",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/test-rationale-direct.ts",
+      "sha": "5b44ba8ed91caa75ff2a0dbde8b090c61c0733e3",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/test-rationale-generation.ts",
+      "sha": "c9befec12d3832cd0ff147f43c38ba2a5d272a22",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/test-supabase.ts",
+      "sha": "8d6cda40d44912c454ee4a07c4e69f4e9294cc7b",
+      "mode": "100644"
+    },
+    {
+      "path": "src/test/setup.ts",
+      "sha": "698a98aac2288396e9883c3139101f2cf32e37cc",
+      "mode": "100644"
+    },
+    {
+      "path": "store/useAuth.spec.ts",
+      "sha": "f74daf1b17f74bb0efd979cfeea1c9ffee4acd00",
+      "mode": "100644"
+    },
+    {
+      "path": "store/useAuth.ts",
+      "sha": "de0fd39194e58361027ee8b641ae05cbcd3f55ba",
+      "mode": "100644"
+    },
+    {
+      "path": "store/useGamification.ts",
+      "sha": "ea6e35c547cb4ad71a755a82b1e413c2518886c8",
+      "mode": "100644"
+    },
+    {
+      "path": "store/useProgress.spec.ts",
+      "sha": "ccf1d3ad71453d551235de3e76abb0ba1aa626c3",
+      "mode": "100644"
+    },
+    {
+      "path": "store/useProgress.ts",
+      "sha": "f8267fad4d6d5b1b41cf51f999f9a4e253603820",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/migrations/001_initial_schema.sql",
+      "sha": "b4417a6df55f1a5f6bc9b48ffae8268cadd8472b",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/migrations/002_enhanced_schema.sql",
+      "sha": "437947305e8ab2b113570e134c98f77be18b7ac2",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/migrations/002_profile_options.sql",
+      "sha": "99b8f4802762471889bfa7e8c9dd65a68770a2ad",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/migrations/003_complete_schema.sql",
+      "sha": "65a999a1424a29c1b9f82e433771fe9b4645860e",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/migrations/20241214_design_revamp.sql",
+      "sha": "ce12b71e0ba651b70cf58c1d82058a1591a94b11",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/qbank/README.md",
+      "sha": "9aa11d42fb5e7830e6b683c1b8a65d37011a7f79",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/qbank/seed_adaptive_questions.csv",
+      "sha": "86d6656ed4ea69fd2dda713fddf7fb1faafc083c",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/qbank/seed_scenario_questions.csv",
+      "sha": "08b7544466bb37604dede3295bc1c38238f91b0e",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/qbank/supabase_migration_rapidrounds_qbank.sql",
+      "sha": "49753441512b3426d65e6ff6b70a4266074191c5",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/seed.sql",
+      "sha": "5c86a2a1e5417eab909997a7f4fef0e1f80ecb25",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/seed_complete.sql",
+      "sha": "acc0dcd8b598b0e0fbbd0fd48b9e7c91b1f74eb6",
+      "mode": "100644"
+    },
+    {
+      "path": "supabase/sql/event_logs.sql",
+      "sha": "ad6cb2cb903a4922af0282869ad8d18b049ce75b",
+      "mode": "100644"
+    },
+    {
+      "path": "tailwind.config.js",
+      "sha": "c2104432db464698682af2a85d4806596a3fc69f",
+      "mode": "100644"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha": "d82f88d88863761a240af3fddf87fa2c3fed4550",
+      "mode": "100644"
+    },
+    {
+      "path": "types/index.ts",
+      "sha": "161cbd780a06fbc0c59221bc5955af6fef7d26ec",
+      "mode": "100644"
+    },
+    {
+      "path": "vercel.json",
+      "sha": "3d49edfbbd6bd8edec546ae16c49923ba73bf600",
+      "mode": "100644"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha": "2924b82bd7c43c1480234e083d63775bcf06d368",
+      "mode": "100644"
+    }
+  ],
+  "excluded_files": [
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/.eslintrc.json",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/.gitignore",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/.prettierrc",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/README.md",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/app/globals.css",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/app/layout.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/app/leaderboard/page.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/app/learn/page.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/app/page.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/app/profile/page.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/components/EducatorDashboard.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/components/dashboard/EducatorDashboard.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/components/dashboard/StudentDashboard.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/components/fun/ConfettiBurst.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/components/fun/ProgressRing.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/components/scenarios/ScenarioList.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/components/ui/Logo.tsx",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/cursor-prompt-qa-fixes.md",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/data/sampleData.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/data/scenarios/sepsis.json",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/lib/auth/entitlements.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/lib/scenario/engine.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/lib/scenario/gating.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/lib/scenario/schema.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/lib/supabase.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/master-prompt-nursing.md",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/next-env.d.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/next.config.js",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/package-lock.json",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/package.json",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/postcss.config.js",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/prd-nursing-master.md",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/process-task-list-nursing.md",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/store/useGamification.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/tailwind.config.js",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/task-list-nursing-master.md",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/tsconfig.json",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/types/index.ts",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "OneDrive/Desktop/ChatGPT/RapidRounds/vercel.json",
+      "reason": "duplicate working copy"
+    },
+    {
+      "path": "app/api/create-checkout/route-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "e2e/bookmark.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "e2e/leaderboard.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "e2e/scenario-flow.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "e2e/trial-gate.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "er.name",
+      "reason": "stray command output"
+    },
+    {
+      "path": "lib/access-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/access.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/accessibility-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/animations-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/hooks/useAccess-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/hooks/usePerformance-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/payments/stripe-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/rationales-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "lib/rationales.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "playwright-report/data/01fb3133c88025b89a7bd62d435e7efe40d28ad8.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/02570d34bd7e8fa4818050a5e4dcb240159dbb48.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/0355f99872d0973caa5c180f4364b85c7738d39a.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/05bdb4535eb553dd37df46214a3109f6476b0afb.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/099d0b7f0758827ba776370556f371bb5d616293.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/09c1fc315b48645b2670e875e5f99dca52bd5d9b.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/11daf00ef77d2f9c67c62a89407aaa8b7867afb8.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/17e8aa4599c07540e629bc8a3cf38e2f5612aa02.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/1af0b14cc0fb676578bb575378daecf978d0edca.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/1be9a2f6a07aefd95798e0b168222e7282feba97.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/1c30a42b15f4bb325a0f8144c72ff62eec535f49.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/1da9b912e776e529b10bdc8e0a01fe75ae9d7f4c.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/230f3e7111c97715e3d61522cd7d23086c4a46fe.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/234366ba50468b8e067111b1c8bf382913c22421.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/2623c65d6b9f764fff9aa582257c7e873f29e7a9.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/281983b95c01fe7c2c5eeb227cf7cd6c60d5eeb9.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/29298c8ce8b2036d7925be45f16d03a476cf112b.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/2b4a68afdc73e45b1a64951213af8d3ce80c99ca.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/2dae46b13f652eaedb9fa47c4f5f6e589cf82c07.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/31fc8b70d9f78e7f5a908c5f6fca8e2a3307d59a.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/322881460ef566d0ddb4d4cd5115decf3544089b.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/34410f67fd88dfc4eecf5bbddc8901e75d1f8747.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/38035db0ce14a2e632669d1798d86c94e1cafce8.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/3f5199068cf4ac3aa54015eb0bb69e0e4fbe3af8.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/425072c107fcff3816f9994835572952aef453ae.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/42ae04857de0523b2a3217c69c7245da5c50be84.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/45d022bcc7ff605d39a48a04fcf09f5b1a266425.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/4956dc095a8bbef136f4b497ffbc23d1ee9624fe.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/4bda6413ab4cc20d7f4f3cd109372471a3527c96.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/4d89ad1415f9a6955696d4fd8f230a80b3d96f58.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/4e310858c38085492c015f17388542b1871c2eea.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/4e6afe0167fae8556ae01989408d410aa6d4ddb2.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/4fe99f689549becca93a4b37783a6dfe1928db11.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/50d7386dacf5e64003e50ab25f50ace3c9036564.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/51a38baff55cd6cac6e0c94d10baf5e73042e4bc.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/530858a67b1355b84a7faed6967d1425f45a3b68.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/533cc6cf60e7b8717964a534434fd7c1138d204b.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/55f738dbee1e6ab83d5526f7f97bf5a0e268e7df.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/57830f2e59351bb21c535b97d7fce35609365316.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/593e8669ccd97b03ffba1e3b0aafb2a1f873dc1b.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/5e2bd82a4cc9b037fdc165263ff39b1da708ab71.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/6a534728bb94bb35775827218d3626657200cd6b.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/71fd4aed604eb6d44836181fcd5cfb41cd8ae447.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/731e20b83a5e2d2c4e23a5ea64d3343aa997c12d.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/748c424e9f1182b1600d720b4570be9e058399a6.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/7584f023122d9d5720c87d53617a4817f6ff4b8e.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/77c2e4ba74415b567b0ce54f3a96f5c6bbb1660a.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/7869fe4ceb2e35b6bb3ff7ca8d7ad9a8845bef90.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/80b9cb4cf58349b14f3f2d5fefc3e384f8fa2e8a.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/8439b5bbcc923564c3a9172a52d70f55757fa333.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/8455234fb47e02be813e41801278022b5e01587b.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/892d4afaaec74f0be1724fe84b1164796838989e.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/8a15f51eed80a7705326556074e11e91cc212e31.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/8bb5f4fc1ca3f0d504571024ad37790bb48254c5.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/8bc6a2a672137c0668f790e47f940084cda16471.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/9805d27e869725e835735b536a4a72e0240d8ad2.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/9d2a52c6473fdf8143710720245b8052ce9a576f.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/9f50aa648ab59245a21cee5874dc0a137a51cfd3.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/a1d7df0847c905a6c8a9d468ba7602484fecf6c6.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/a3f8373507578bb4f56ad32b0fe171a61a9cace6.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/a780b3b78249ac7fedc2bc337d3e8354aca9cb76.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/a8bea9bdd8483ede3eee4d226144f2b6811a6fd2.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/ae49dd487e6577bedd06ce26c9c3719f979e4bd2.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/af7da691a7304f2a094fa95f94b8f9b2acdd31d6.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/b08d93cfa4182cbcf0c9041641419a55b5f40396.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/b09d5ff31064aa9bec31a441e9bb831171e55444.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/b31e90971798ee78c99e51819fc340b3eaed27f5.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/b5c8cb23fcb5bd252c1ecbe041606be8afd42e73.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/b8516b3f2e51a8ab1d9bc48e5ffd435f6a59f978.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/bf6639b594a098ffdea4f12a3d3fc4ad525c88ad.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/c05c84af5f3046ea3500af1984e3b948de45cffc.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/c15a2ddce96705002f3fdff7ddd3b1b81b9d1d4a.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/c2060344af3fac768ee2fae1f478b9a98498b3c1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/c3647f52f62dab070cabd96dc024b232ff2879c6.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/c8c009565ee39ad00d63335d132b6f52a553dd3f.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/c8e9129a8feb1ff3695117b247cc0293818fbdf3.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/cecb3ce6d2807aae534135b5d9de2eca586599b9.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/d6e583a2d3f6868eaf0c3808be2850f2c3d51127.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/dd0c156b667af7903501cb7956983816335bccc2.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/e39f652810e2ad9660c7f2f1f14b0404a4fc4b7e.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/e403d0bcbdc912608101e05928cba441b2b090c0.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/e47bd19f80a92866c91d65ff1260409fc1abe6b6.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/e85b0940db54dcaad9155c09c311af75a3cfa9e9.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/e8b3a37547b9f375258c8980a7e90ecdb6a2714b.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/ecf2b5a982d665d41365261ab085df8f176b4f40.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/f31e194e8a69ef4826d1a48c7ffd2055b28e4dbe.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/f78957efda27042466e9dfc5e534ee3036525137.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/f878146ed4896bd8758547fed3a79c53db9008a5.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/fa8c610d06e1dfeb3db3a023cb4450146435464a.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/fbe3a108ef0fb1004cf67932adf0e58dce008ca7.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/data/fcc78de351e49b9442289ea3812fafd1ef19912a.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "playwright-report/index.html",
+      "reason": "generated test report"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements.zip",
+      "reason": "archive"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/ENHANCEMENTS_README.md",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/config/package.scripts.additions.json",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/examples/ReactQuiz.accessible.tsx",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/packages/adaptive-drill/src/utils/analytics.ts",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/packages/adaptive-drill/src/utils/shuffleOptions.ts",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/packages/qbank-tools/src/mergeByTopic.ts",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/packages/qbank-tools/src/types.ts",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "rapid-response-qbank-enhancements/packages/qbank-tools/src/validate.ts",
+      "reason": "duplicate enhancement bundle"
+    },
+    {
+      "path": "src/test/setup-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "store/useAuth-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "store/useAuth.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "store/useProgress-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "store/useProgress.spec-EliteBook.ts",
+      "reason": "duplicate machine-specific copy"
+    },
+    {
+      "path": "tatus",
+      "reason": "stray command output"
+    },
+    {
+      "path": "test-results/.last-run.json",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Accessib-6a276-eyboard-bookmark-operations-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Function-6da89-mark-items-via-button-click-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Function-ca46a-ark-items-via-swipe-gesture-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Function-e6223-bookmarked-items-in-profile-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Function-e6223-bookmarked-items-in-profile-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Function-e6223-bookmarked-items-in-profile-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Function-e6223-bookmarked-items-in-profile-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Functionality-should-remove-bookmarks-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Functionality-should-remove-bookmarks-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/bookmark-Bookmark-Functionality-should-remove-bookmarks-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-Vi-35937-global-and-institution-tabs-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-Vi-35937-global-and-institution-tabs-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-Vi-aaef0-show-current-user-highlight-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-Vi-aaef0-show-current-user-highlight-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-leaderboard-page-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-user-rankings-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-display-user-rankings-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-expand-user-details-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-expand-user-details-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-expand-user-details-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-expand-user-details-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-filter-by-time-period-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Leaderboard-View-should-filter-by-time-period-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/leaderboard-Mobile-Leaderb-a7d99--display-properly-on-mobile-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-be-keyboard-navigable-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-be-keyboard-navigable-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-be-keyboard-navigable-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-be-keyboard-navigable-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-have-proper-ARIA-labels-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-have-proper-ARIA-labels-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Accessibility-should-support-screen-readers-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-load-quickly-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Microsoft-Edge/homepage-loaded-actual.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Microsoft-Edge/homepage-loaded-diff.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Microsoft-Edge/homepage-loaded-previous.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Chrome/homepage-loaded-actual.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Chrome/homepage-loaded-diff.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Chrome/homepage-loaded-previous.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Safari/homepage-loaded-actual.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-chromium/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-chromium/homepage-loaded-actual.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-chromium/homepage-loaded-diff.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-chromium/homepage-loaded-previous.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-chromium/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-firefox/homepage-loaded-actual.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-firefox/homepage-loaded-diff.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-firefox/homepage-loaded-previous.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-webkit/homepage-loaded-actual.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Performance-should-not-have-layout-shifts-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-58ddb-e-scenario-and-show-results-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-58ddb-e-scenario-and-show-results-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-6aad4-navigate-to-test-categories-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-7ae0a-ndle-bookmark-functionality-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-7ae0a-ndle-bookmark-functionality-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-dfa4b-rt-a-scenario-from-category-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-dfa4b-rt-a-scenario-from-category-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-dfa4b-rt-a-scenario-from-category-firefox/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-dfa4b-rt-a-scenario-from-category-firefox/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-dfa4b-rt-a-scenario-from-category-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-dfa4b-rt-a-scenario-from-category-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-Microsoft-Edge/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-Microsoft-Edge/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-Mobile-Chrome/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-Mobile-Chrome/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-Mobile-Safari/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-Mobile-Safari/test-failed-1.png",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-webkit/error-context.md",
+      "reason": "generated test report"
+    },
+    {
+      "path": "test-results/scenario-flow-Scenario-Flo-e490a-andle-swipe-deck-navigation-webkit/test-failed-1.png",
+      "reason": "generated test report"
+    }
+  ],
+  "intentional_changes": {
+    ".env.example": {
+      "migrated_sha": "8fca0cd48e3262e5230a9ddbc3fd5c72e85b5a20",
+      "reason": "Normalize UTF-16 to UTF-8 and document disabled CJIS preview Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    ".github/workflows/test.yml": {
+      "migrated_sha": "80dedff2d50a093ccdc7cb7f8cf7326c60a2682e",
+      "reason": "Run Sprint 4, legacy, database and browser gates including dedicated simulated profile save-refresh and account-switch checks, with preserved failure evidence.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    ".gitignore": {
+      "migrated_sha": "b54dd9082fbf1a4d6d3f9bc5a2d918af3a27239e",
+      "reason": "Exclude generated reports, archives, and duplicate working copies; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "components/qbank/RRScenarioClient.tsx": {
+      "migrated_sha": "1adb552db47c40bea47413eae05a2bbe015ca770",
+      "reason": "Omit absent optional correctAnswers property to satisfy exactOptionalPropertyTypes; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Pair answer-feedback colors in both themes and reset term disclosure for each decision.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    "docs/SUPABASE_SETUP.md": {
+      "migrated_sha": "44500a3d4e89a829bee64923f1b9f8a5d9cb5ed7",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "docs/VERCEL_DEPLOYMENT_GUIDE.md": {
+      "migrated_sha": "f1b9a9690a2fa3fd728ee1656e5a0fe298646190",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "lib/auth/server.ts": {
+      "migrated_sha": "fd1d86dcb9b4c7d4f2dacbdd6ae70a7b5d33d03a",
+      "reason": "Remove embedded credentials and remote database defaults; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "lib/env.ts": {
+      "migrated_sha": "9b4910ef045d78a3b78232870c8c45f5afb1afd7",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "lib/supabase-admin.ts": {
+      "migrated_sha": "ba0bdbf3063e353212d193370ddadb889cb6ffa4",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "lib/supabase.ts": {
+      "migrated_sha": "6111650f4beee92d747675ea6eb748317dc1a42a",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "middleware.ts": {
+      "migrated_sha": "e188214bd8467f129c53f09cceead4dfd6143ffd",
+      "reason": "Remove embedded credentials and remote database defaults Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "next.config.js": {
+      "migrated_sha": "8d8ef7f41f59393d993e62895f8b6727bea916e6",
+      "reason": "Restore blocking lint and TypeScript build gates"
+    },
+    "package-lock.json": {
+      "migrated_sha": "227f62d4ebfa314966bcfcf30390d43eb6f61ae9",
+      "reason": "Pin Ajv and add deterministic validation commands"
+    },
+    "package.json": {
+      "migrated_sha": "4200abae685a535b1a765edeaff33cdb8ad8fe3b",
+      "reason": "Pin Ajv and add deterministic validation commands; run bank validation through the tsx import loader without a CLI IPC socket"
+    },
+    "scripts/configure-supabase.ts": {
+      "migrated_sha": "9dd9b7aab86f816d7f74c027936f0d8e2d9f0882",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/create-env.js": {
+      "migrated_sha": "aa77f6ec544d94928d4746abc090fb7b3ea4c981",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/fix-env.ts": {
+      "migrated_sha": "b87f775c3bf3a20a1b79354f11fe3fcf007cccc1",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/manual-setup-guide.md": {
+      "migrated_sha": "7013b3bd80db6b981495c8ae4649f6bdb4bb204f",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/run-missing-tables.ts": {
+      "migrated_sha": "72da92a16937cdf11c95ac4914c6dd7e83ab8a9e",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/setup-env-complete.ts": {
+      "migrated_sha": "64a86d5495a7937c13f3460ae84ec7ee1c2bb332",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/setup-env.ts": {
+      "migrated_sha": "620cbdfc842d9aea69862d226ba41568d3f2b225",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/setup-environment.ts": {
+      "migrated_sha": "a7df56edc1c6bd8067ec97ab36fab2d21c3d79f4",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "scripts/setup-oauth.md": {
+      "migrated_sha": "391f1dab09c42be853ba5377771303096384a60d",
+      "reason": "Remove embedded credentials and remote database defaults Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "scripts/test-oauth.js": {
+      "migrated_sha": "cfccd84576d6a3ae98faf429526ffdd261b7214a",
+      "reason": "Remove embedded credentials and remote database defaults Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "scripts/test-supabase.ts": {
+      "migrated_sha": "4ce3db0d00a210f30e7921178bca2625b32d4ce3",
+      "reason": "Remove embedded credentials and remote database defaults"
+    },
+    "vitest.config.ts": {
+      "migrated_sha": "bbde97493fe311464aa7027972955f3176219adb",
+      "reason": "Separate Vitest tests from Playwright and native Node suites"
+    },
+    "docs/ENVIRONMENT_VARIABLES.md": {
+      "reason": "Remove embedded API credentials",
+      "migrated_sha": "7c37cb8965107510e89f1e9e780e9525965ec9ba"
+    },
+    "scripts/add-openai-key.ts": {
+      "reason": "Remove embedded API credentials",
+      "migrated_sha": "0b0174f1ddb5c8c7bdb568e313ffcee6ed299e36"
+    },
+    "scripts/test-openai-simple.ts": {
+      "reason": "Remove embedded API credentials",
+      "migrated_sha": "d30cf8f2cd14dacdfbc9b0d0e6501f414b0a7758"
+    },
+    "__tests__/components/dashboard/StudentDashboard.test.tsx": {
+      "migrated_sha": "5f6a25a7bfdf60bbc8f5bf474c573d1e1724cec4",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "__tests__/lib/db/achievements.test.ts": {
+      "migrated_sha": "ede9c927735cce2cd337032775ae559cdea9b5fe",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "__tests__/lib/db/leaderboard.test.ts": {
+      "migrated_sha": "0b33b4800a663a8e4a7f708b608ff1bf87e76583",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "app/debug/page.tsx": {
+      "migrated_sha": "01f6712fa201e3d849f332bffccfa2bd9cb7be50",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/error.tsx": {
+      "migrated_sha": "c74a6382860b5140a307749156941747aec459ce",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/minimal/page.tsx": {
+      "migrated_sha": "050121acdf23c8ab225ca98ff32becc3802bfcde",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/not-found.tsx": {
+      "migrated_sha": "7c13f19b0e497869c1dda2b58d863151fc971cff",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/rr/[code]/page.tsx": {
+      "migrated_sha": "87a667dcf581e734fa75084359cff77537a8a96e",
+      "reason": "Await dynamic route params to satisfy Next.js 15 PageProps; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/scenario/[id]/page.tsx": {
+      "migrated_sha": "ff1c2192b88724983961160d92ec1eb928611470",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/scenarios/[id]/page.tsx": {
+      "migrated_sha": "8c50f89c848d8b961607ed318824bbb17a88b7c7",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/simple-test/page.tsx": {
+      "migrated_sha": "ec53c2a79b6f5555dd7ccd73c677c28a48f99a9d",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "app/simple/page.tsx": {
+      "migrated_sha": "0fb8d6424b069c7c90e78d52ab11d24e78554d33",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "app/study/cardiac-fundamentals/page.tsx": {
+      "migrated_sha": "835d95165f1ec6d5eebdfe48149587b91100cda6",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/study/wound-care/page.tsx": {
+      "migrated_sha": "c64e0b073d15292f3228bb8f686a127b4c0bf9ca",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "components/dashboard/EducatorDashboard.tsx": {
+      "migrated_sha": "981520513a4fdbd18f0e3975865a02ae7b5643c8",
+      "reason": "Isolate loaded dashboard hooks from missing-user early return"
+    },
+    "components/dashboard/StudentDashboard.tsx": {
+      "migrated_sha": "21533d3c63299837df4d8fd4f3a01369a88f4b30",
+      "reason": "Isolate loaded dashboard hooks and cancel stale progress requests on user changes"
+    },
+    "components/learning/__tests__/OrderQuestion.test.tsx": {
+      "migrated_sha": "918bec851026d9ae6b640cd673ee9c84a900e4b7",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "components/scenario/AnswerBlock.spec.tsx": {
+      "migrated_sha": "9d1d3ba3fcd7233028dd5e967feefbc0fea1fb22",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Make keyboard ordering independent of nested scroll coordinates, preserving pointer drag and exact sequence grading."
+    },
+    "components/scenario/AnswerBlock.tsx": {
+      "migrated_sha": "8ed8af6183bbb08e23d2a004838101d0f73d0f3d",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Pair answer-feedback colors in both themes and reset term disclosure for each decision.; Make keyboard ordering independent of nested scroll coordinates, preserving pointer drag and exact sequence grading."
+    },
+    "components/scenario/ScenarioCard.tsx": {
+      "migrated_sha": "d85128ef1499db4bef5d4f44b7be1f3bd406eab8",
+      "reason": "Display the existing patient allergy data required by scenario tests; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    "components/scenarios/ScenarioViewer.tsx": {
+      "migrated_sha": "814aef14a9e5afe3849d35013efeaa4c90bd55cd",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "lib/ai.ts": {
+      "migrated_sha": "1ef1452b0cbfc995453c8647060963da55c20e56",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "lib/db/leaderboard.ts": {
+      "migrated_sha": "4ba2138439fca92fd3f4877387ccee9c7c62a9f4",
+      "reason": "Repair missing-user rank behavior: return no fabricated progress; retain ranking/scoring of actual rows"
+    },
+    "lib/db/scenarios.ts": {
+      "migrated_sha": "875c40b5693f66a7f071f198c86f4b044e3e7ef9",
+      "reason": "Repair blocking lint without disabling validation rules"
+    },
+    "lib/qbank/rr.ts": {
+      "migrated_sha": "2d5e40b0cfc05fca719cde363042ad57ef2db256",
+      "reason": "Repair blocking lint without disabling validation rules; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "lib/rationales.spec.ts": {
+      "migrated_sha": "b004e9dd0e15c826acf456e822354e74b04482bd",
+      "reason": "Repair inherited Vitest mocks and behavioral assertions"
+    },
+    "lib/rationales.ts": {
+      "migrated_sha": "54860386e28fe49f3af0675efa9581b4d74a4332",
+      "reason": "Deny rationale access for absent profiles; retain free/premium/trial limits"
+    },
+    "store/useAuth.spec.ts": {
+      "migrated_sha": "ccb5b7f453514591aebd1686e2840790eb89af76",
+      "reason": "Verify profile updates omit server timestamps and ignore stale profile responses after switching accounts. Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "playwright.config.ts": {
+      "migrated_sha": "09ff7de473e62c336b4852e21d54701a50c5a194",
+      "reason": "Use explicit localhost binding and an optional production server command for browser regression tests"
+    },
+    "packages/adaptive-drill/src/utils/useSwipe.ts": {
+      "migrated_sha": "b733b7b3a7c29134f79692efb21e86180d91a4bb",
+      "reason": "Preserve native answer-button pointer/touch clicks instead of capturing them on the swipe deck"
+    },
+    "app/test/page.tsx": {
+      "migrated_sha": "5dce395a86dfad83d7889c0f21f4af994b28de1c",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "components/layout/AppShell.tsx": {
+      "migrated_sha": "9bc7f80ae9ec3197fdee6dffbbd3f387c8aedd39",
+      "reason": "Keep signed-in header and bottom navigation within phone viewport so profile edit controls remain reachable.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    "components/scenario/SwipeDeck.tsx": {
+      "migrated_sha": "1a83b02270aa4d3dec7ed85a9a8eb8062c83c89c",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    "e2e/leaderboard.spec.ts": {
+      "migrated_sha": "d1bc3732dfb63e8ed8767ee8216a7e9604015292",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
+    },
+    "e2e/scenario-flow.spec.ts": {
+      "migrated_sha": "88974addfb9e6b0beb9b398a14592ef70f7197e3",
+      "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "supabase/migrations/001_initial_schema.sql": {
+      "migrated_sha": "ba27a697df5e8a6b932c827b053fef91c59880ef",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+    },
+    "supabase/migrations/002_enhanced_schema.sql": {
+      "migrated_sha": "6516e0436e921c9d294507e372c89ed0fe27035e",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+    },
+    "supabase/migrations/003_complete_schema.sql": {
+      "migrated_sha": "163f86838ae60c99efe7dea65e88b314189aa18d",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+    },
+    "supabase/migrations/20241214_design_revamp.sql": {
+      "migrated_sha": "a675ef1ad61489126b07a0cd703ac212bb1e4ff3",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+    },
+    "lib/db/profile.ts": {
+      "migrated_sha": "465dfdd4aee20145f7b3e28fdb7c3d7b43d65872",
+      "reason": "Repair development database replay and protected profile authorization; align client edits with server-owned timestamps; no hosted migration executed"
+    },
+    "store/useAuth.ts": {
+      "migrated_sha": "aa8566bb337bdc9dcbca30a0cc0dd2fddf9b39b1",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses. Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "app/auth/sign-in/page.tsx": {
+      "migrated_sha": "21b1594e647862a0c841334eab319b6e97c77639",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses. Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "lib/supabase/client.ts": {
+      "migrated_sha": "c78e33ce64a317d2b9b02951f42d0d0000322e2a",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses."
+    },
+    "lib/supabase-client.ts": {
+      "migrated_sha": "c4c73e6ea67befd0bcdccce0dc11b6bf4f21a63c",
+      "reason": "Add existing-account email/password sign-in and share cookie sessions with server middleware; defer profile reads outside auth callbacks and reject stale account responses."
+    },
+    "app/profile/page.tsx": {
+      "migrated_sha": "8665dbeb8fd2a803d083630a8556a3a60a6c6d59",
+      "reason": "Connect own-account profile reads and allowlisted edits to Supabase; handle errors, account switches and pending saves; remove sample identity, billing and activity statistics.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    "app/test/[slug]/page.tsx": {
+      "migrated_sha": "637e3596357e08e0a54bc8a0f999a1f1e2d6b0f9",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/achievements/page.tsx": {
+      "migrated_sha": "655210512e8bd834effa14567779f6c7c723ec68",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/api/admin-example/route.ts": {
+      "migrated_sha": "5ddc36e0bbb7ade7631e0511f46636ef3ded9dfa",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/leaderboard/page.tsx": {
+      "migrated_sha": "4ab3f854a67194104c6ac60243cbe55bbca9f563",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/microlearning-generator/page.tsx": {
+      "migrated_sha": "cae9de5f5299082863cd896456c475832f5a6676",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/page.tsx": {
+      "migrated_sha": "0f12450594b3a4eb774b37ced6c275279ddf0ee3",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    "app/reference/calculators/page.tsx": {
+      "migrated_sha": "eccac56a3e6b81754aeb65ec3fe62c487ccf28ab",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/reference/drug-reference/page.tsx": {
+      "migrated_sha": "63d157b7ebbf399ff590fd7c8a86ace80c753817",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/reference/emergency-protocols/page.tsx": {
+      "migrated_sha": "6a052f932e470bd727647f03f0740edfd712686c",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/scenario-library/page.tsx": {
+      "migrated_sha": "82b232d5cb2b7a2b6f91ea0a0a6bc9ee4852b7a4",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/settings/page.tsx": {
+      "migrated_sha": "257eb388b9f191f4aaa84c4b22573e690af00ff8",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/study/page.tsx": {
+      "migrated_sha": "eb40dcde8aacee058f95c65b39ac035b4a3bb510",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/test-oauth/page.tsx": {
+      "migrated_sha": "bfc92f72ff514fee8593ba3623fd8059a6c5b98d",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs. Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "app/test/adaptive/page.tsx": {
+      "migrated_sha": "1bdccecdb1af8937948e62c6df4cc97cda3795d9",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/test/mixed-practice/page.tsx": {
+      "migrated_sha": "483f12dc95381567639c85f4d721314152aea799",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "components/gamification/StreakMeter.tsx": {
+      "migrated_sha": "6fea47cc302eb1d93baf06a0961c098d86619452",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "components/layout/FabActions.tsx": {
+      "migrated_sha": "cf67357497228385bc8cffd52ef3f8704779c293",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "e2e/bookmark.spec.ts": {
+      "migrated_sha": "bcc1febddf74380662eb01e1621d3c699e054a6b",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "e2e/trial-gate.spec.ts": {
+      "migrated_sha": "dad57ceb5e10ca1c2a73e44e36ad778d77227997",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "examples/QuizWithSelector.tsx": {
+      "migrated_sha": "eed307e330e4d2a1f5b7600b10ff9ace561c5ef6",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "lib/hooks/useAccess.ts": {
+      "migrated_sha": "45559d25dc2763f2fb40a697d7fc9d251705857b",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "packages/adaptive-drill/src/drillSlice.ts": {
+      "migrated_sha": "04cce32c227fcb475b31bd09aecb508deff013e2",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "packages/adaptive-drill/src/useScenarioDrill.ts": {
+      "migrated_sha": "f616235296a24653acdab3efd0892f76cc3ead18",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+    },
+    "app/auth/callback/route.ts": {
+      "migrated_sha": "1630b36c7ce80316d4545a18b1d1e78ca6bb8938",
+      "reason": "Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "app/auth/page.tsx": {
+      "migrated_sha": "be3969f458ded3b3e9554618efbea1b74e2a4109",
+      "reason": "Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "components/auth/AuthForm.tsx": {
+      "migrated_sha": "ffda03c48a91cab611a76e3cb9a4a59e2ea54afe",
+      "reason": "Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "lib/supabase/server.ts": {
+      "migrated_sha": "9236759827066dc6a7f7541782f068e4ed70f8a1",
+      "reason": "Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "app/globals.css": {
+      "migrated_sha": "8b881ebeae595386c3fc3e36ee9e56b6f408ad3d",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/layout.tsx": {
+      "migrated_sha": "6af70281ef514510a9eda9772a3af3123afd23fa",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/providers.tsx": {
+      "migrated_sha": "cd11a3523ff82c5ec4a381e7de564f015a7531a2",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/rr/page.tsx": {
+      "migrated_sha": "aeca664c9dcb931808d38ce2ce429e7e38a3156a",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Make session-dependent initial rendering deterministic, retain native draft-case navigation, and expose settled-card interaction state for keyboard ordering."
+    },
+    "components/ui/Badge.tsx": {
+      "migrated_sha": "67b8751ebea0c542d4ab76fd534d06881f9f5a12",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "components/ui/Button.tsx": {
+      "migrated_sha": "af666b004b3706d954bd99a1b8d11f4bd66d388f",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "components/ui/Card.tsx": {
+      "migrated_sha": "2e168e4cfa34f1505865ae4da4d3f8d28e8568f4",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "components/ui/Logo.tsx": {
+      "migrated_sha": "6827035b06a9604c65649a5d4e65eb01b3e56b3d",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "tailwind.config.js": {
+      "migrated_sha": "a80804d558bd337e561c67df6a630f225de93c29",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    }
+  }
+}

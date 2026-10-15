@@ -1,0 +1,601 @@
+{
+  "version": "1.0.0",
+  "bank_id": "vascular_disease_core",
+  "title": "Vascular Disease \u2022 PAD, Acute Occlusion, Aneurysm, Carotid Stenosis",
+  "source_note": "Generalized from teaching notes; no copyrighted verbatim.",
+  "items": [
+    {
+      "id": "pad-1",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Classic symptom pattern of intermittent claudication from aortoiliac disease includes pain where?",
+      "options": [
+        "Calf with walking, relieved by rest",
+        "Buttock/hip with exertion, relieved by rest, \u00b1 impotence",
+        "Shoulder pain radiating to arm with exertion",
+        "Diffuse leg cramping at night only"
+      ],
+      "correct_answer": "B",
+      "rationale": "Aortoiliac occlusive disease classically causes buttock/hip claudication and may cause impotence (Leriche-like pattern).",
+      "clinical_pearl": null,
+      "tags": [
+        "presentation",
+        "aortoiliac"
+      ]
+    },
+    {
+      "id": "pad-2",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which physical finding is most consistent with chronic PAD of the lower limb?",
+      "options": [
+        "Warm, hyperemic skin and bounding pulses",
+        "Cool skin, hair loss, diminished or absent distal pulses",
+        "Generalized edema with intact pulses",
+        "Brown hemosiderin staining around ankles with strong pulses"
+      ],
+      "correct_answer": "B",
+      "rationale": "PAD reduces distal perfusion leading to cool skin, trophic changes (hair loss), and decreased pulses.",
+      "clinical_pearl": null,
+      "tags": [
+        "exam"
+      ]
+    },
+    {
+      "id": "pad-3",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Nonhealing toe ulcers and pain at rest most suggest disease of which arterial segment?",
+      "options": [
+        "Aortoiliac",
+        "Carotid bulb",
+        "Femoral-popliteal",
+        "Portal vein"
+      ],
+      "correct_answer": "C",
+      "rationale": "Fem-pop disease commonly progresses to rest pain and distal ischemic ulcers, especially on toes/trauma points.",
+      "clinical_pearl": null,
+      "tags": [
+        "presentation",
+        "fem-pop"
+      ]
+    },
+    {
+      "id": "pad-4",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Bedside test that estimates PAD severity and follows perfusion after interventions is:",
+      "options": [
+        "Ankle\u2013brachial index (ABI)",
+        "Jugular venous pressure",
+        "Peak expiratory flow",
+        "Tilt-table testing"
+      ],
+      "correct_answer": "A",
+      "rationale": "ABI tracks limb perfusion; significant drops (e.g., \u22650.15) warrant concern post-revascularization.",
+      "clinical_pearl": null,
+      "tags": [
+        "diagnostics",
+        "ABI"
+      ]
+    },
+    {
+      "id": "pad-5",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which imaging modality can screen for and localize arterial occlusive lesions noninvasively?",
+      "options": [
+        "Duplex ultrasound/Doppler",
+        "Non-contrast head CT",
+        "Spirometry",
+        "Transvaginal ultrasound"
+      ],
+      "correct_answer": "A",
+      "rationale": "Duplex and Doppler assess flow and stenosis; arteriography is more definitive when intervention is planned.",
+      "clinical_pearl": null,
+      "tags": [
+        "diagnostics"
+      ]
+    },
+    {
+      "id": "pad-6",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Initial activity advice during an acute limb ischemia flare is to:",
+      "options": [
+        "Encourage walking through the pain to improve collaterals",
+        "Immediately cease activity and rest; protect from trauma and maintain normothermia",
+        "Ice the extremity to reduce swelling",
+        "Begin high-intensity interval training"
+      ],
+      "correct_answer": "B",
+      "rationale": "During acute ischemic exacerbations, reduce oxygen demand and avoid injury while definitive therapy proceeds.",
+      "clinical_pearl": null,
+      "tags": [
+        "management",
+        "oxygen-demand"
+      ]
+    },
+    {
+      "id": "pad-7",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which drug class is routinely used long-term in PAD to reduce atherothrombotic events?",
+      "options": [
+        "Antiplatelet therapy (e.g., aspirin, clopidogrel)",
+        "High-dose corticosteroids",
+        "Cholinesterase inhibitors",
+        "Proton pump inhibitors"
+      ],
+      "correct_answer": "A",
+      "rationale": "Antiplatelet therapy lowers risk of CV events in atherosclerotic disease, including PAD.",
+      "clinical_pearl": null,
+      "tags": [
+        "meds",
+        "secondary-prevention"
+      ]
+    },
+    {
+      "id": "pad-8",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Cilostazol may be considered in PAD primarily to:",
+      "options": [
+        "Lower LDL cholesterol drastically",
+        "Treat rest pain immediately",
+        "Improve claudication walking distance via vasodilation and antiplatelet effects",
+        "Reverse arterial plaque burden"
+      ],
+      "correct_answer": "C",
+      "rationale": "As a PDE III inhibitor, cilostazol improves walking distance; not a substitute for revascularization when indicated.",
+      "clinical_pearl": null,
+      "tags": [
+        "meds",
+        "claudication"
+      ]
+    },
+    {
+      "id": "pad-9",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Key post\u2013endovascular fem-pop stent nursing priority is:",
+      "options": [
+        "Aggressive hip flexion to reduce back pain",
+        "Tight limb wrapping to increase venous return",
+        "Frequent neurovascular checks and access-site monitoring for bleeding/hematoma",
+        "Immediate removal of all antiplatelets"
+      ],
+      "correct_answer": "C",
+      "rationale": "After percutaneous interventions, monitor for access complications and distal perfusion (the 6 Ps).",
+      "clinical_pearl": null,
+      "tags": [
+        "postop",
+        "safety"
+      ]
+    },
+    {
+      "id": "pad-10",
+      "topic": "Peripheral Arterial Disease (PAD)",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Recommended leg positioning in early post\u2013lower-extremity bypass to protect graft flow typically avoids:",
+      "options": [
+        "Prolonged sitting and leg crossing",
+        "Ankle pumps and gentle foot exercises",
+        "Supine with slight leg elevation",
+        "Head of bed \u226430\u00b0 initially"
+      ],
+      "correct_answer": "A",
+      "rationale": "Flexion and crossing can kink/pressure the graft; gentle movement without compression is preferred.",
+      "clinical_pearl": null,
+      "tags": [
+        "postop",
+        "positioning"
+      ]
+    },
+    {
+      "id": "aao-1",
+      "topic": "Acute Arterial Occlusion",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "The '6 Ps' of acute limb ischemia include: pain, pallor, pulselessness, paresthesia, paralysis, and:",
+      "options": [
+        "Pliability",
+        "Polar (cold)",
+        "Plantar fasciitis",
+        "Proptosis"
+      ],
+      "correct_answer": "B",
+      "rationale": "Coldness (poikilothermia/polar) reflects absent perfusion in acute occlusion.",
+      "clinical_pearl": null,
+      "tags": [
+        "presentation",
+        "6Ps"
+      ]
+    },
+    {
+      "id": "aao-2",
+      "topic": "Acute Arterial Occlusion",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Best immediate limb positioning for acute arterial occlusion is to keep the limb:",
+      "options": [
+        "Elevated above heart with ice packs",
+        "Dependent, warm, and straight",
+        "Compressed with a tight elastic wrap",
+        "Cooled to reduce metabolic demand"
+      ],
+      "correct_answer": "B",
+      "rationale": "Dependency and warmth optimize any residual flow; avoid compression/ice that reduce perfusion further.",
+      "clinical_pearl": null,
+      "tags": [
+        "initial-care"
+      ]
+    },
+    {
+      "id": "aao-3",
+      "topic": "Acute Arterial Occlusion",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Which scenario most strongly suggests an embolic source of acute limb ischemia?",
+      "options": [
+        "Gradually worsening calf pain over months",
+        "Sudden severe leg pain and pallor in patient with atrial fibrillation",
+        "Leg heaviness after prolonged standing",
+        "Night cramps relieved by stretching"
+      ],
+      "correct_answer": "B",
+      "rationale": "Afib predisposes to arterial emboli lodging in distal vessels, causing abrupt ischemia.",
+      "clinical_pearl": null,
+      "tags": [
+        "etiology",
+        "embolus"
+      ]
+    },
+    {
+      "id": "aao-4",
+      "topic": "Acute Arterial Occlusion",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "First-line reperfusion options for eligible acute arterial occlusion include:",
+      "options": [
+        "Topical nitroglycerin only",
+        "Intra-arterial thrombolysis and/or surgical embolectomy",
+        "Oral aspirin monotherapy",
+        "Observation for 48 hours"
+      ],
+      "correct_answer": "B",
+      "rationale": "Time-critical limb salvage uses catheter-directed lysis or surgical embolectomy depending on anatomy and viability.",
+      "clinical_pearl": null,
+      "tags": [
+        "management",
+        "reperfusion"
+      ]
+    },
+    {
+      "id": "aao-5",
+      "topic": "Acute Arterial Occlusion",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "While preparing for angiography, essential nursing actions include all EXCEPT:",
+      "options": [
+        "Start IV in unaffected limb",
+        "Administer oxygen to maintain SpO2 \u226595% unless contraindicated",
+        "Keep limb cool and elevated high",
+        "Provide analgesia and notify provider immediately of perfusion deficit"
+      ],
+      "correct_answer": "C",
+      "rationale": "Avoid cooling/elevation that decrease arterial inflow; keep limb dependent and warm.",
+      "clinical_pearl": null,
+      "tags": [
+        "initial-care",
+        "safety"
+      ]
+    },
+    {
+      "id": "aaa-1",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Definition of an aortic aneurysm is a localized aortic dilation of at least:",
+      "options": [
+        "1.2\u00d7 normal diameter",
+        "1.5\u00d7 normal diameter",
+        "2.0\u00d7 normal diameter",
+        "3.0\u00d7 normal diameter"
+      ],
+      "correct_answer": "B",
+      "rationale": "Aneurysm is typically defined as \u22651.5\u00d7 the expected normal diameter for that segment.",
+      "clinical_pearl": null,
+      "tags": [
+        "definition"
+      ]
+    },
+    {
+      "id": "aaa-2",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Sudden tearing chest or back pain with pulse/BP differentials between limbs most suggests:",
+      "options": [
+        "Myocarditis",
+        "Pulmonary embolism",
+        "Aortic dissection",
+        "Pericarditis"
+      ],
+      "correct_answer": "C",
+      "rationale": "Dissection classically causes abrupt severe pain and asymmetric pulses/BP by branch involvement.",
+      "clinical_pearl": null,
+      "tags": [
+        "presentation",
+        "dissection"
+      ]
+    },
+    {
+      "id": "aaa-3",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Chest radiograph clue that raises suspicion for thoracic aortic pathology is:",
+      "options": [
+        "Widened mediastinum",
+        "Flattened diaphragms",
+        "Kerley B lines",
+        "Cavitary lung lesions"
+      ],
+      "correct_answer": "A",
+      "rationale": "A widened mediastinum can indicate dissection/aneurysm but requires definitive imaging.",
+      "clinical_pearl": null,
+      "tags": [
+        "diagnostics",
+        "imaging"
+      ]
+    },
+    {
+      "id": "aaa-4",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Initial BP/HR management in suspected aortic dissection prioritizes:",
+      "options": [
+        "Vasodilator first to drop BP then consider beta-blockade",
+        "Beta-blocker first to reduce shear (HR/dP-dt), then add vasodilator",
+        "High-dose diuretics only",
+        "Immediate thrombolysis"
+      ],
+      "correct_answer": "B",
+      "rationale": "Shear reduction with beta-blockade precedes arterial vasodilation to avoid reflex tachycardia.",
+      "clinical_pearl": null,
+      "tags": [
+        "management",
+        "dissection"
+      ]
+    },
+    {
+      "id": "aaa-5",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Indications that often prompt repair of an abdominal aortic aneurysm include diameter roughly:",
+      "options": [
+        "\u22653.0 cm",
+        "\u22654.0 cm regardless of risk",
+        "\u22485.0\u20136.0 cm or rapid expansion/symptoms",
+        "Only if symptomatic"
+      ],
+      "correct_answer": "C",
+      "rationale": "Risk\u2013benefit commonly favors repair around 5\u20136 cm or if rapid growth/symptoms; patient-specific factors apply.",
+      "clinical_pearl": null,
+      "tags": [
+        "management",
+        "thresholds"
+      ]
+    },
+    {
+      "id": "aaa-6",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Endovascular aneurysm repair (EVAR/TEVAR) advantages vs open repair include:",
+      "options": [
+        "Lower early morbidity and shorter stay in appropriate anatomy",
+        "No need for any follow-up imaging",
+        "Always superior long-term survival",
+        "Suitable regardless of vessel size/neck anatomy"
+      ],
+      "correct_answer": "A",
+      "rationale": "EVAR has lower early morbidity but requires lifelong surveillance; anatomy must be suitable.",
+      "clinical_pearl": null,
+      "tags": [
+        "procedure",
+        "evAr"
+      ]
+    },
+    {
+      "id": "aaa-7",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Post-repair complication unique to endovascular grafts is:",
+      "options": [
+        "Mediastinitis",
+        "Endoleak with persistent pressurization of aneurysm sac",
+        "Hemothorax",
+        "Chylothorax"
+      ],
+      "correct_answer": "B",
+      "rationale": "Endoleak represents blood flow outside the graft lumen but within aneurysm sac; may need re-intervention.",
+      "clinical_pearl": null,
+      "tags": [
+        "complication",
+        "evAr"
+      ]
+    },
+    {
+      "id": "aaa-8",
+      "topic": "Aortic Aneurysm & Dissection",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Target hemodynamics in dissection often aim for MAP around:",
+      "options": [
+        "90\u2013110 mm Hg",
+        "60\u201375 mm Hg if tolerated to reduce shear (with close perfusion monitoring)",
+        ">120 mm Hg to maintain organ flow",
+        "MAP is not relevant"
+      ],
+      "correct_answer": "B",
+      "rationale": "Controlled hypotension reduces aortic wall stress; balance with end-organ perfusion and clinical status.",
+      "clinical_pearl": null,
+      "tags": [
+        "targets"
+      ]
+    },
+    {
+      "id": "cas-1",
+      "topic": "Carotid Arterial Stenosis",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Transient monocular blindness (amaurosis fugax) is most consistent with emboli from:",
+      "options": [
+        "Vertebral artery",
+        "Internal carotid artery ipsilateral to the affected eye",
+        "Basilar artery",
+        "External carotid artery only"
+      ],
+      "correct_answer": "B",
+      "rationale": "Amaurosis fugax reflects retinal ischemia typically from ipsilateral internal carotid disease.",
+      "clinical_pearl": null,
+      "tags": [
+        "presentation",
+        "TIA"
+      ]
+    },
+    {
+      "id": "cas-2",
+      "topic": "Carotid Arterial Stenosis",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "First-line noninvasive test for suspected carotid stenosis is:",
+      "options": [
+        "Transesophageal echocardiography",
+        "Duplex ultrasound of carotids",
+        "Head CT without contrast",
+        "Invasive cerebral angiography immediately"
+      ],
+      "correct_answer": "B",
+      "rationale": "Carotid duplex is initial; advanced imaging is reserved when results are nondiagnostic or for planning.",
+      "clinical_pearl": null,
+      "tags": [
+        "diagnostics"
+      ]
+    },
+    {
+      "id": "cas-3",
+      "topic": "Carotid Arterial Stenosis",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Medical therapy cornerstone to reduce stroke risk in carotid atherosclerosis includes:",
+      "options": [
+        "Routine steroids",
+        "Antiplatelet therapy and risk-factor control",
+        "Empiric anticoagulation for all",
+        "No therapy unless symptomatic"
+      ],
+      "correct_answer": "B",
+      "rationale": "Antiplatelets plus risk-factor modification (BP, lipids, DM, tobacco) reduce vascular events.",
+      "clinical_pearl": null,
+      "tags": [
+        "meds",
+        "prevention"
+      ]
+    },
+    {
+      "id": "cas-4",
+      "topic": "Carotid Arterial Stenosis",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "A typical interventional threshold for symptomatic high-grade internal carotid stenosis is roughly:",
+      "options": [
+        ">30%",
+        "\u224870% or greater (patient/context dependent)",
+        "<10% only",
+        "Any bruits"
+      ],
+      "correct_answer": "B",
+      "rationale": "Symptomatic high-grade stenosis (~\u226570%) may benefit from CEA or stenting if surgical risk acceptable.",
+      "clinical_pearl": null,
+      "tags": [
+        "intervention",
+        "thresholds"
+      ]
+    },
+    {
+      "id": "cas-5",
+      "topic": "Carotid Arterial Stenosis",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Immediate post\u2013carotid endarterectomy priorities include:",
+      "options": [
+        "Keep patient flat with neck flexed",
+        "Watch for neck hematoma and airway compromise; frequent neuro checks and BP control",
+        "Avoid any BP monitoring for 24 h",
+        "Withhold all antiplatelets"
+      ],
+      "correct_answer": "B",
+      "rationale": "Neck hematoma threatens the airway; neuro checks and tight BP control mitigate hypoperfusion/hemorrhage risks.",
+      "clinical_pearl": null,
+      "tags": [
+        "postop",
+        "airway"
+      ]
+    },
+    {
+      "id": "cas-6",
+      "topic": "Carotid Arterial Stenosis",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Cranial nerve deficits can occur after open carotid surgery. Which bedside screen is relevant?",
+      "options": [
+        "Taste on posterior tongue only",
+        "Ask patient to smile, shrug, swallow, and protrude tongue",
+        "Visual field perimetry only",
+        "Weber/Rinne testing only"
+      ],
+      "correct_answer": "B",
+      "rationale": "Quick checks include CN VII (smile), IX/X (swallow/speech/gag), XI (shrug), XII (tongue midline).",
+      "clinical_pearl": null,
+      "tags": [
+        "neuro",
+        "postop"
+      ]
+    },
+    {
+      "id": "cas-7",
+      "topic": "Carotid Arterial Stenosis",
+      "difficulty": "moderate",
+      "stem": null,
+      "question": "Compared with carotid stenting, open endarterectomy more commonly risks:",
+      "options": [
+        "Periprocedural bradycardia",
+        "Cranial nerve injury",
+        "Contrast nephropathy",
+        "No differences exist"
+      ],
+      "correct_answer": "B",
+      "rationale": "CEA carries cranial nerve injury risk; stenting avoids that specific risk but has others (e.g., embolic events).",
+      "clinical_pearl": null,
+      "tags": [
+        "complication"
+      ]
+    }
+  ]
+}

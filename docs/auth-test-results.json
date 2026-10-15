@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-14",
+  "branch": "sprint4/cjis-source-migration",
+  "runtime": {
+    "node": "20.20.2",
+    "next": "15.5.3"
+  },
+  "unit": {
+    "files": 21,
+    "passed": 178,
+    "failed": 0
+  },
+  "build": {
+    "status": "passed",
+    "lint_and_types": "passed with existing nonblocking warnings",
+    "google_button_enabled": true,
+    "app_origin": "http://127.0.0.1:3000",
+    "api": "local disposable simulator"
+  },
+  "browser": {
+    "stats": {
+      "startTime": "2026-10-14T14:07:12.120Z",
+      "duration": 79274.341,
+      "expected": 14,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "errors": [],
+    "cases": [
+      {
+        "title": "signup confirms through PKCE, preserves cookies on refresh, and rejects a reused link (simulated APIs)",
+        "project": "chromium",
+        "status": "passed",
+        "duration_ms": 9364
+      },
+      {
+        "title": "email links sign in an existing account and preserve the return path (simulated APIs)",
+        "project": "chromium",
+        "status": "passed",
+        "duration_ms": 2886
+      },
+      {
+        "title": "recovery changes the password, rejects the old password, and accepts the new password (simulated APIs)",
+        "project": "chromium",
+        "status": "passed",
+        "duration_ms": 5329
+      },
+      {
+        "title": "Google redirect, PKCE exchange, and repeat login preserve edited profiles (simulated provider)",
+        "project": "chromium",
+        "status": "passed",
+        "duration_ms": 9742
+      },
+      {
+        "title": "anonymous recovery and forged return paths are contained within RapidRounds",
+        "project": "chromium",
+        "status": "passed",
+        "duration_ms": 3468
+      },
+      {
+        "title": "signup confirms through PKCE, preserves cookies on refresh, and rejects a reused link (simulated APIs)",
+        "project": "Mobile Chrome",
+        "status": "passed",
+        "duration_ms": 3089
+      },
+      {
+        "title": "email links sign in an existing account and preserve the return path (simulated APIs)",
+        "project": "Mobile Chrome",
+        "status": "passed",
+        "duration_ms": 2474
+      },
+      {
+        "title": "recovery changes the password, rejects the old password, and accepts the new password (simulated APIs)",
+        "project": "Mobile Chrome",
+        "status": "passed",
+        "duration_ms": 4468
+      },
+      {
+        "title": "Google redirect, PKCE exchange, and repeat login preserve edited profiles (simulated provider)",
+        "project": "Mobile Chrome",
+        "status": "passed",
+        "duration_ms": 2685
+      },
+      {
+        "title": "anonymous recovery and forged return paths are contained within RapidRounds",
+        "project": "Mobile Chrome",
+        "status": "passed",
+        "duration_ms": 1499
+      },
+      {
+        "title": "profile edits survive refresh and do not cross accounts (simulated APIs)",
+        "project": "chromium",
+        "status": "passed",
+        "duration_ms": 6186
+      },
+      {
+        "title": "signed-in homepage and settings controls work; unfinished actions are disabled",
+        "project": "chromium",
+        "status": "passed",
+        "duration_ms": 5425
+      },
+      {
+        "title": "profile edits survive refresh and do not cross accounts (simulated APIs)",
+        "project": "Mobile Chrome",
+        "status": "passed",
+        "duration_ms": 2563
+      },
+      {
+        "title": "signed-in homepage and settings controls work; unfinished actions are disabled",
+        "project": "Mobile Chrome",
+        "status": "passed",
+        "duration_ms": 5728
+      }
+    ],
+    "scope": "simulated Auth/Data APIs and Google provider; PKCE/session cookies verified, no real mail or Google consent"
+  },
+  "database": {
+    "project": "ztjudfbsvwqnmqqgkknn",
+    "migration": "20261014134356_provision_auth_profiles",
+    "local_auth_role_test": "passed in disposable PostgreSQL",
+    "hosted_trigger_and_authenticated_rls_test": "passed; test mutations rolled back",
+    "hosted_grant_checks": "passed",
+    "security_advisors": "no new findings; pre-existing findings documented in AUTH_SETUP.md"
+  },
+  "pending_live_checks": [
+    "Google Cloud client/consent and Supabase provider configuration",
+    "SMTP delivery and real signup/email-link/recovery flows",
+    "verified identity linking",
+    "actual colleague preview URL and deployment"
+  ],
+  "validated_file_git_blob_hashes": {
+    "app/auth/sign-in/page.tsx": "21b1594e647862a0c841334eab319b6e97c77639",
+    "app/auth/callback/route.ts": "1630b36c7ce80316d4545a18b1d1e78ca6bb8938",
+    "app/auth/confirm/route.ts": "c0169927cfb7ab03334c2f3dab791ce021d4fb2b",
+    "app/auth/reset-password/page.tsx": "33f725bbba0a591d509224b54319dfe0563a356f",
+    "components/auth/AuthForm.tsx": "ffda03c48a91cab611a76e3cb9a4a59e2ea54afe",
+    "components/auth/PasswordResetForm.tsx": "2dafe6b4688bd5a10759da5eed4f2db7dfd00cf8",
+    "store/useAuth.ts": "aa8566bb337bdc9dcbca30a0cc0dd2fddf9b39b1",
+    "lib/supabase/server.ts": "9236759827066dc6a7f7541782f068e4ed70f8a1",
+    "middleware.ts": "e188214bd8467f129c53f09cceead4dfd6143ffd",
+    "lib/auth/redirects.ts": "6b7ca661b767471612fd14451e4f9966592fb90b",
+    "lib/auth/responses.ts": "d6695cf0f3fe96cb5266e160dc2df8cc0201e5e9",
+    "lib/auth/errors.ts": "b6689702ef76b2c2e9ceb8865231ce90e84896eb",
+    "e2e/auth.browser.ts": "39b12471ae1021d3bd899bd9d070639fa7d95f44",
+    "e2e/fixtures/profile-api.mjs": "3c62535586b7049b4424668bd7b89a20aee4da3a",
+    "playwright.auth.config.ts": "41ce8f5b3d88fa19aad53568dc9e6005003a0228",
+    "supabase/migrations/20261014134356_provision_auth_profiles.sql": "0ae5062c4cf67d8609d86ae2efcc2235601c52f4",
+    "tests/database/auth-signup-bootstrap.sql": "e958deef86f3c3b68a0554a9a2a7769f8ce37c5b",
+    "tests/database/auth-signup.sql": "a1762eb9561e080c59d0da17d6a5f2a9a99779ce"
+  }
+}
