@@ -12,13 +12,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary-700 text-white hover:bg-primary-800 shadow-lg hover:shadow-xl',
+        default: 'bg-signal text-signal-contrast hover:opacity-90',
         destructive: 'bg-danger text-white hover:bg-danger/90 shadow-lg hover:shadow-xl',
         outline: 'border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 dark:hover:text-white',
         secondary: 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600',
         ghost: 'hover:bg-slate-100 text-slate-700 hover:text-slate-900 dark:hover:bg-slate-700 dark:text-slate-200 dark:hover:text-white',
         link: 'text-primary-700 underline-offset-4 hover:underline shadow-none',
-        primary: 'bg-primary-700 text-white hover:bg-primary-800 shadow-lg hover:shadow-xl',
+        primary: 'bg-signal text-signal-contrast hover:opacity-90',
         accent: 'bg-accent text-slate-900 hover:bg-accent/90 shadow-lg hover:shadow-xl',
         success: 'bg-success text-white hover:bg-success/90 shadow-lg hover:shadow-xl',
         warning: 'bg-warning text-white hover:bg-warning/90 shadow-lg hover:shadow-xl',

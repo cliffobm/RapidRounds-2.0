@@ -2560,16 +2560,16 @@
       "reason": "Normalize UTF-16 to UTF-8 and document disabled CJIS preview Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
     },
     ".github/workflows/test.yml": {
-      "migrated_sha": "dec8de2b2093db48d48f4dd713a27ad188c51bae",
-      "reason": "Run Sprint 4, legacy, database and browser gates including dedicated simulated profile save-refresh and account-switch checks, with preserved failure evidence."
+      "migrated_sha": "dba7d3b7f3ffcf7730801372ee4b057c66a8254c",
+      "reason": "Run Sprint 4, legacy, database and browser gates including dedicated simulated profile save-refresh and account-switch checks, with preserved failure evidence.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     },
     ".gitignore": {
       "migrated_sha": "b54dd9082fbf1a4d6d3f9bc5a2d918af3a27239e",
       "reason": "Exclude generated reports, archives, and duplicate working copies; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "components/qbank/RRScenarioClient.tsx": {
-      "migrated_sha": "6fcf72d3ed372d22fba930c38704b92476289f38",
-      "reason": "Omit absent optional correctAnswers property to satisfy exactOptionalPropertyTypes; Development UI audit: restore control, navigation, scoring and verification repairs."
+      "migrated_sha": "0e08a91cbcd4e5b69da8edd23c13df5b88336de0",
+      "reason": "Omit absent optional correctAnswers property to satisfy exactOptionalPropertyTypes; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     },
     "docs/SUPABASE_SETUP.md": {
       "migrated_sha": "44500a3d4e89a829bee64923f1b9f8a5d9cb5ed7",
@@ -2700,8 +2700,8 @@
       "reason": "Repair blocking lint without disabling validation rules"
     },
     "app/rr/[code]/page.tsx": {
-      "migrated_sha": "cb06d737c73895b7a7cdd265b08c1a31d609ece7",
-      "reason": "Await dynamic route params to satisfy Next.js 15 PageProps; Development UI audit: restore control, navigation, scoring and verification repairs."
+      "migrated_sha": "87a667dcf581e734fa75084359cff77537a8a96e",
+      "reason": "Await dynamic route params to satisfy Next.js 15 PageProps; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     },
     "app/scenario/[id]/page.tsx": {
       "migrated_sha": "ff1c2192b88724983961160d92ec1eb928611470",
@@ -2744,8 +2744,8 @@
       "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/scenario/AnswerBlock.tsx": {
-      "migrated_sha": "f106e7ab7407311a34eb0f2e51aa5a02a878fe97",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
+      "migrated_sha": "d71ff9edcdbd5dbf2f878d48d50ed5c7e63ba802",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     },
     "components/scenario/ScenarioCard.tsx": {
       "migrated_sha": "37e07ecb72efce36a3f98c646572ab181482eb5a",
@@ -2796,8 +2796,8 @@
       "reason": "; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "components/layout/AppShell.tsx": {
-      "migrated_sha": "2ccda66ddb0a8f25085efe20badd6b043a7140c5",
-      "reason": "Keep signed-in header and bottom navigation within phone viewport so profile edit controls remain reachable.; Development UI audit: restore control, navigation, scoring and verification repairs."
+      "migrated_sha": "5c2378f03f7ce18060d20d879a9b8a1eb5d17bf5",
+      "reason": "Keep signed-in header and bottom navigation within phone viewport so profile edit controls remain reachable.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     },
     "components/scenario/SwipeDeck.tsx": {
       "migrated_sha": "057cdc1190a5b27482e7bfb34ded8b4debaadb26",
@@ -2872,8 +2872,8 @@
       "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/page.tsx": {
-      "migrated_sha": "40d4da79b4870cfe62a9dea2561a1f443e27f11c",
-      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+      "migrated_sha": "c4f8b903dffe5d87f64aa002a2f9993429102074",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     },
     "app/reference/calculators/page.tsx": {
       "migrated_sha": "eccac56a3e6b81754aeb65ec3fe62c487ccf28ab",
@@ -2896,8 +2896,8 @@
       "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "app/study/page.tsx": {
-      "migrated_sha": "705b5d9049330a3006e2833153d1c4f35cf058cb",
-      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs."
+      "migrated_sha": "eb40dcde8aacee058f95c65b39ac035b4a3bb510",
+      "reason": "Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     },
     "app/test-oauth/page.tsx": {
       "migrated_sha": "bfc92f72ff514fee8593ba3623fd8059a6c5b98d",
@@ -2958,6 +2958,42 @@
     "lib/supabase/server.ts": {
       "migrated_sha": "9236759827066dc6a7f7541782f068e4ed70f8a1",
       "reason": "Add Google and email account flows, secure local return paths, profile-safe callbacks, and setup guidance."
+    },
+    "app/globals.css": {
+      "migrated_sha": "8b881ebeae595386c3fc3e36ee9e56b6f408ad3d",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/layout.tsx": {
+      "migrated_sha": "6af70281ef514510a9eda9772a3af3123afd23fa",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/providers.tsx": {
+      "migrated_sha": "cd11a3523ff82c5ec4a381e7de564f015a7531a2",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "app/rr/page.tsx": {
+      "migrated_sha": "16cca6fdf43d657b97f82ab03697a2560e65d7b6",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "components/ui/Badge.tsx": {
+      "migrated_sha": "67b8751ebea0c542d4ab76fd534d06881f9f5a12",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "components/ui/Button.tsx": {
+      "migrated_sha": "af666b004b3706d954bd99a1b8d11f4bd66d388f",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "components/ui/Card.tsx": {
+      "migrated_sha": "2e168e4cfa34f1505865ae4da4d3f8d28e8568f4",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "components/ui/Logo.tsx": {
+      "migrated_sha": "6827035b06a9604c65649a5d4e65eb01b3e56b3d",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+    },
+    "tailwind.config.js": {
+      "migrated_sha": "a80804d558bd337e561c67df6a630f225de93c29",
+      "reason": "Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
     }
   }
 }

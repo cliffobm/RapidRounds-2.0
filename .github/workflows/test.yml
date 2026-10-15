@@ -77,6 +77,8 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
       NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
       NEXT_PUBLIC_SUPABASE_ANON_KEY: local-development-key
+      NEXT_PUBLIC_AUTH_GOOGLE_ENABLED: 'true'
+      NEXT_PUBLIC_APP_URL: http://127.0.0.1:3000
       PLAYWRIGHT_SERVER_COMMAND: npm run start -- --hostname 127.0.0.1
     steps:
       - uses: actions/checkout@v4
@@ -87,11 +89,14 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npx playwright install --with-deps chromium
       - run: npm run build
-      - name: Full desktop and mobile Chromium regression
-        run: npx playwright test --project=chromium --project="Mobile Chrome" --workers=2
-      - name: Profile save-refresh and account-switch regression (simulated APIs)
+      - name: Branding, theme contrast and RR case regression
+        run: npx playwright test e2e/brand-scenarios.spec.ts --project=chromium --project="Mobile Chrome" --workers=2 --reporter=line
+      - name: Google-email and Profile regression (simulated APIs)
         if: ${{ !cancelled() }}
-        run: npx playwright test --config=playwright.profile.config.ts
+        run: npx playwright test --config=playwright.auth.config.ts
+      - name: Full desktop and mobile Chromium regression
+        if: ${{ !cancelled() }}
+        run: npx playwright test --project=chromium --project="Mobile Chrome" --workers=2
       - name: Save browser evidence
         if: always()
         uses: actions/upload-artifact@v4

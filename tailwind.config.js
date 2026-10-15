@@ -10,11 +10,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        canvas: 'rgb(var(--rr-canvas) / <alpha-value>)',
+        surface: 'rgb(var(--rr-surface) / <alpha-value>)',
+        'surface-raised': 'rgb(var(--rr-raised) / <alpha-value>)',
+        ink: 'rgb(var(--rr-ink) / <alpha-value>)',
+        muted: 'rgb(var(--rr-muted) / <alpha-value>)',
+        edge: 'rgb(var(--rr-edge) / <alpha-value>)',
+        signal: 'rgb(var(--rr-signal) / <alpha-value>)',
+        'signal-contrast': 'rgb(var(--rr-signal-contrast) / <alpha-value>)',
+        'signal-soft': 'rgb(var(--rr-signal-soft) / <alpha-value>)',
+        positive: 'rgb(var(--rr-positive) / <alpha-value>)',
         // New RapidRounds brand tokens (AA-tilted primary scale)
         primary: {
-          50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
-          400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
-          800: '#1e40af', 900: '#1e3a8a'
+          DEFAULT: 'rgb(var(--rr-signal) / <alpha-value>)',
+          50: '#ecfeff', 100: '#cffafe', 200: '#a5f3fc', 300: '#67e8f9',
+          400: '#39D5F8', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490',
+          800: '#155e75', 900: '#164e63'
         },
         accent: '#FC4C02', // Energizing orange
         success: '#15803d',
@@ -30,18 +41,18 @@ module.exports = {
           500: '#64748b',
           600: '#475569',
           700: '#334155',
-          800: '#1f2937',
-          900: '#0f172a',
-          950: '#020617',
+          800: '#122235',
+          900: '#08121F',
+          950: '#050b13',
         },
         // Legacy brand colors for backward compatibility
         brand: {
           orange: '#FC4C02',
           'orange-light': '#FF6B35',
-          blue: '#0A66C2', // Updated to match primary
+          blue: '#0e7490',
           'blue-dark': '#031C32',
           'blue-darker': '#0D1016',
-          teal: '#1C6E8C',
+          teal: '#0f766e',
           'teal-light': '#A4C9D7',
           ink: '#0B1220',
           cloud: '#F2F6F7',

@@ -115,7 +115,7 @@ export default function StudyPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <p role="status" className="mb-4 text-sm text-slate-600">Some progress is sample data. Lesson completion applies only to this visit.</p>
+      <p role="status" className="mb-6 rounded-xl border border-edge bg-surface p-4 text-sm text-muted">Preview library: the progress and statistics below are sample data. Lesson completion applies only to this visit.</p>
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center space-x-3 mb-4">
@@ -123,10 +123,10 @@ export default function StudyPage() {
             <BookOpen className="w-8 h-8 text-accent" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-ink">
               Study Materials
             </h1>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-muted">
               Interactive lessons and resources to enhance your clinical knowledge
             </p>
           </div>
@@ -134,40 +134,40 @@ export default function StudyPage() {
         
         {/* Study Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm">
+          <div className="bg-surface border border-edge p-4 rounded-2xl shadow-sm">
             <div className="flex items-center space-x-2">
               <CheckCircle className="w-5 h-5 text-success" />
-              <span className="text-sm text-slate-600 dark:text-slate-400">Completed</span>
+              <span className="text-sm text-muted">Completed</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900 dark:text-white">12</p>
+            <p className="text-2xl font-bold text-ink">12</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm">
+          <div className="bg-surface border border-edge p-4 rounded-2xl shadow-sm">
             <div className="flex items-center space-x-2">
               <Play className="w-5 h-5 text-primary" />
-              <span className="text-sm text-slate-600 dark:text-slate-400">In Progress</span>
+              <span className="text-sm text-muted">In Progress</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900 dark:text-white">3</p>
+            <p className="text-2xl font-bold text-ink">3</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm">
+          <div className="bg-surface border border-edge p-4 rounded-2xl shadow-sm">
             <div className="flex items-center space-x-2">
               <Clock className="w-5 h-5 text-warning" />
-              <span className="text-sm text-slate-600 dark:text-slate-400">Study Time</span>
+              <span className="text-sm text-muted">Study Time</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900 dark:text-white">24h</p>
+            <p className="text-2xl font-bold text-ink">24h</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm">
+          <div className="bg-surface border border-edge p-4 rounded-2xl shadow-sm">
             <div className="flex items-center space-x-2">
               <Users className="w-5 h-5 text-accent" />
-              <span className="text-sm text-slate-600 dark:text-slate-400">Rank</span>
+              <span className="text-sm text-muted">Rank</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900 dark:text-white">#15</p>
+            <p className="text-2xl font-bold text-ink">#15</p>
           </div>
         </div>
       </div>
 
       {/* Featured Content */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-4">
           Featured Study Materials
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -188,7 +188,7 @@ export default function StudyPage() {
               
               <CardContent>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-4 text-sm text-slate-600 dark:text-slate-400">
+                  <div className="flex items-center space-x-4 text-sm text-muted">
                     <span className="flex items-center space-x-1">
                       <Clock className="w-4 h-4" />
                       <span>{item.duration}</span>
@@ -216,15 +216,15 @@ export default function StudyPage() {
       </div>
 
       {/* All Study Materials */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
+      <section aria-labelledby="all-study-materials" className="mb-8">
+        <h2 id="all-study-materials" className="text-xl font-semibold text-ink mb-4">
           All Study Materials
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {studyMaterials.map((item) => (
             <Card key={item.id} className="hover:shadow-md transition-all duration-200">
               <CardContent className="p-4">
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start gap-3 sm:gap-4">
                   <ProgressRing 
                     progress={item.progress} 
                     size={50} 
@@ -232,19 +232,19 @@ export default function StudyPage() {
                     showLabel={false}
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <h3 className="font-medium text-slate-900 dark:text-white truncate">
+                    <div className="mb-2 flex flex-wrap items-start gap-2">
+                      <h3 className="w-full font-semibold leading-snug text-ink">
                         {item.title}
                       </h3>
                       <Badge size="sm" className={getTypeColor(item.type)}>
                         {item.type}
                       </Badge>
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                    <p className="text-sm text-muted mb-2">
                       {item.description}
                     </p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3 text-xs text-slate-500">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center space-x-3 text-xs text-muted">
                         <span>{item.duration}</span>
                         <span>{item.lessons} lessons</span>
                       </div>
@@ -263,11 +263,11 @@ export default function StudyPage() {
             </Card>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Quick Access Tools */}
       <div>
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-4">
           Quick Reference Tools
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -294,10 +294,10 @@ export default function StudyPage() {
                   <div className={`w-12 h-12 ${tool.color} rounded-2xl flex items-center justify-center mx-auto mb-3`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-slate-900 dark:text-white mb-1">
+                  <h3 className="font-medium text-ink mb-1">
                     {tool.title}
                   </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <p className="text-sm text-muted">
                     {tool.description}
                   </p>
                 </CardContent>

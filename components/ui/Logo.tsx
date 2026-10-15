@@ -1,7 +1,69 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Link from 'next/link'
+import { useId } from 'react'
+
+export function BrandMark({ className = '' }: { className?: string }) {
+  const id = useId().replace(/:/g, '')
+  return (
+    <svg
+      viewBox="0 0 128 128"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <defs>
+        <linearGradient
+          id={`${id}-silver`}
+          x1="28"
+          y1="22"
+          x2="72"
+          y2="100"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fff" />
+          <stop offset="1" stopColor="#b8cdd9" />
+        </linearGradient>
+        <linearGradient
+          id={`${id}-signal`}
+          x1="70"
+          y1="25"
+          x2="113"
+          y2="105"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#39d5f8" />
+          <stop offset="1" stopColor="#39d6a3" />
+        </linearGradient>
+      </defs>
+      <rect
+        x="4"
+        y="4"
+        width="120"
+        height="120"
+        rx="31"
+        fill="#08121f"
+        stroke="#237082"
+      />
+      <path
+        d="M30 90V30H52C70 30 76 38 76 49C76 59 70 65 62 67L80 90H65L48 68H42V90H30ZM42 41V57H52C60 57 64 54 64 49C64 44 60 41 52 41H42Z"
+        fill={`url(#${id}-silver)`}
+      />
+      <path
+        d="M72 30H86C102 30 109 38 109 50C109 60 104 66 96 69L112 90H98L80 65V58H86C94 58 98 55 98 50C98 44 94 41 86 41H80L72 30Z"
+        fill={`url(#${id}-signal)`}
+      />
+      <path
+        className="rr-pulse"
+        d="M14 102H30L35 96L41 108L48 102H62L69 78L78 117L87 94L92 102H114"
+        stroke="#39d5f8"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 interface LogoProps {
   className?: string
@@ -10,111 +72,30 @@ interface LogoProps {
   variant?: 'default' | 'horizontal' | 'icon' | 'monochrome'
 }
 
-export function Logo({ className = '', showText = true, size = 'md', variant = 'default' }: LogoProps) {
-  const sizeClasses = {
-    sm: 'h-8',
-    md: 'h-12', 
-    lg: 'h-16'
-  }
-
-  const logoSrc = {
-    default: '/brand/rapidrounds-logo.svg',
-    horizontal: '/brand/rapidrounds-logo-horizontal.svg',
-    icon: '/brand/rapidrounds-logo-icon.svg',
-    monochrome: '/brand/rapidrounds-logo-monochrome.svg'
-  }
-
-  // For icon variant, don't show text
-  const shouldShowText = showText && variant !== 'icon'
-
+export function Logo({
+  className = '',
+  showText = true,
+  size = 'md',
+  variant = 'default',
+}: LogoProps) {
+  const sizeClasses = { sm: 'h-10 w-10', md: 'h-12 w-12', lg: 'h-14 w-14' }
   return (
-    <motion.div 
-      className={`flex items-center gap-3 ${className}`}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2 }}
+    <Link
+      href="/"
+      aria-label="Rapid Rounds home"
+      className={`inline-flex items-center gap-3 rounded-lg ${className}`}
     >
-      <div className="relative">
-        <Image
-          src={logoSrc[variant]}
-          alt="RapidRounds Logo"
-          width={variant === 'icon' ? 40 : 220}
-          height={variant === 'icon' ? 40 : 60}
-          className={`${sizeClasses[size]} w-auto drop-shadow-sm`}
-          priority
-        />
-      </div>
-    </motion.div>
+      <BrandMark className={`shrink-0 ${sizeClasses[size]}`} />
+      {showText && variant !== 'icon' && (
+        <span className="flex flex-col">
+          <span className="text-lg font-extrabold tracking-tight text-ink">
+            RAPID <span className="text-signal">ROUNDS</span>
+          </span>
+          <span className="text-[10px] font-semibold tracking-[0.18em] text-muted">
+            CLINICAL JUDGMENT TRAINING
+          </span>
+        </span>
+      )}
+    </Link>
   )
 }
-
-// Export the enhanced SVG to public/brand/rapidrounds-logo.svg
-export const logoSVG = `
-<svg width="220" height="60" viewBox="0 0 220 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="phoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0A66C2" />
-      <stop offset="50%" stop-color="#0E3A5D" />
-      <stop offset="100%" stop-color="#0B1220" />
-    </linearGradient>
-    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FC4C02" />
-      <stop offset="100%" stop-color="#FF6B35" />
-    </linearGradient>
-    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0B1220" />
-      <stop offset="100%" stop-color="#334155" />
-    </linearGradient>
-  </defs>
-  
-  <!-- Modern smartphone with medical theme -->
-  <g transform="translate(10, 8)">
-    <!-- Phone body -->
-    <rect x="0" y="0" width="18" height="32" fill="url(#phoneGradient)" rx="4" />
-    
-    <!-- Phone screen -->
-    <rect x="2" y="4" width="14" height="20" fill="#F8FAFC" rx="2" />
-    
-    <!-- Screen content - medical cross -->
-    <rect x="7" y="10" width="4" height="8" fill="#0A66C2" rx="1" />
-    <rect x="6" y="12" width="6" height="4" fill="#0A66C2" rx="1" />
-    
-    <!-- Pulsating rhythm line on screen -->
-    <path
-      d="M4 16 L6 16 L7 14 L8 18 L9 12 L10 16 L12 16 L14 14 L16 16"
-      stroke="#FC4C02"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      fill="none"
-    />
-    
-    <!-- Phone home indicator -->
-    <rect x="7" y="26" width="4" height="1" fill="#94A3B8" rx="0.5" />
-    
-    <!-- Signal bars -->
-    <g transform="translate(20, 2)">
-      <rect x="0" y="8" width="1.5" height="4" fill="url(#accentGradient)" rx="0.5" />
-      <rect x="2" y="6" width="1.5" height="6" fill="url(#accentGradient)" rx="0.5" />
-      <rect x="4" y="4" width="1.5" height="8" fill="url(#accentGradient)" rx="0.5" />
-      <rect x="6" y="2" width="1.5" height="10" fill="url(#accentGradient)" rx="0.5" />
-    </g>
-    
-    <!-- Floating pulse dots -->
-    <circle cx="22" cy="8" r="1.5" fill="#FC4C02" opacity="0.8" />
-    <circle cx="26" cy="12" r="1" fill="#FC4C02" opacity="0.6" />
-    <circle cx="24" cy="16" r="0.8" fill="#FC4C02" opacity="0.4" />
-  </g>
-  
-  <!-- Modern typography -->
-  <text x="50" y="25" fill="url(#textGradient)" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">
-    Rapid
-  </text>
-  <text x="50" y="45" fill="url(#textGradient)" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">
-    Rounds
-  </text>
-  
-  <!-- Accent underline -->
-  <rect x="50" y="48" width="80" height="2" fill="url(#accentGradient)" rx="1" opacity="0.3" />
-</svg>
-`
-

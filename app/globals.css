@@ -6,12 +6,6 @@
 
 /* Inline a11y contrast utilities to avoid import issues */
 @layer utilities {
-  /* Headings: strong contrast in both color schemes */
-  :where(h1,h2,h3){ @apply text-slate-900 dark:text-slate-100; }
-
-  /* Body text defaults: keep it readable */
-  :where(p,li,span){ @apply text-slate-700 dark:text-slate-200; }
-
   /* Buttons/links on primary backgrounds: ensure white text */
   .on-primary { @apply text-white; }
   .btn-primary { @apply bg-primary-700 hover:bg-primary-800 text-white; }
@@ -22,9 +16,8 @@
 }
 
 /* Safe area utilities and base styles */
-:root { 
-  color-scheme: light dark; 
-}
+:root { color-scheme: light; }
+html.dark { color-scheme: dark; }
 
 html, body { 
   height: 100%; 
@@ -41,6 +34,16 @@ html, body {
 
 @layer base {
   :root {
+    --rr-canvas: 243 248 250;
+    --rr-surface: 255 255 255;
+    --rr-raised: 234 243 246;
+    --rr-ink: 8 18 31;
+    --rr-muted: 71 85 105;
+    --rr-edge: 203 219 226;
+    --rr-signal: 14 116 144;
+    --rr-signal-contrast: 255 255 255;
+    --rr-signal-soft: 226 247 250;
+    --rr-positive: 4 120 87;
     --background: 0 0% 100%;
     --foreground: 210 40% 8%;
     --card: 0 0% 100%;
@@ -64,6 +67,16 @@ html, body {
   }
 
   .dark {
+    --rr-canvas: 8 18 31;
+    --rr-surface: 18 34 53;
+    --rr-raised: 25 45 65;
+    --rr-ink: 239 248 251;
+    --rr-muted: 178 198 213;
+    --rr-edge: 48 72 91;
+    --rr-signal: 57 213 248;
+    --rr-signal-contrast: 8 18 31;
+    --rr-signal-soft: 12 53 65;
+    --rr-positive: 57 214 163;
     --background: 210 40% 8%;
     --foreground: 210 40% 98%;
     --card: 210 40% 8%;
@@ -91,8 +104,11 @@ html, body {
     @apply border-gray-200;
   }
   body {
-    @apply bg-white text-gray-900;
+    @apply bg-canvas text-ink antialiased;
   }
+  h1, h2, h3, h4 { color: inherit; }
+  button, a, input, summary { -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 2px solid rgb(var(--rr-signal)); outline-offset: 4px; }
 }
 
 @layer components {
@@ -194,4 +210,12 @@ html, body {
   .animate-scale-in {
     animation: none;
   }
+}
+
+/* Concept 2: a single quiet signal trace, followed by the wordmark. */
+@keyframes rr-signal-trace { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+@keyframes rr-name-reveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .rr-brand-entrance .rr-pulse { stroke-dasharray: 260; animation: rr-signal-trace 1.2s ease-out both; }
+  .rr-brand-entrance .rr-name-reveal { animation: rr-name-reveal .5s .35s ease-out both; }
 }

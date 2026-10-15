@@ -1,374 +1,192 @@
 'use client'
 
-import { useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
-import { ProgressRing } from '@/components/ui/ProgressRing'
-import { 
-  TestTube, 
-  BookOpen, 
-  Trophy, 
-  Clock, 
+import Link from 'next/link'
+import {
+  ArrowRight,
+  Activity,
+  BookOpen,
+  TestTube,
+  Flame,
   Target,
-  TrendingUp,
-  Zap,
-  Star,
-  PlayCircle,
-  Award,
-  Users,
-  Calendar
+  Sparkles,
 } from 'lucide-react'
-import { logEvent } from '@/lib/metrics'
+import { BrandIntro } from '@/components/brand/BrandIntro'
+import { Card } from '@/components/ui/Card'
 import { useAuth } from '@/store/useAuth'
 import { useProgress } from '@/store/useProgress'
 
+const paths = [
+  {
+    title: 'Follow a patient',
+    text: 'Notice the cues. Make a decision. Explore the reasoning.',
+    href: '/rr',
+    icon: Activity,
+    label: 'Explore RR Scenarios',
+  },
+  {
+    title: 'Build your foundation',
+    text: 'Revisit a concept and connect it to your next clinical decision.',
+    href: '/study',
+    icon: BookOpen,
+    label: 'Browse study materials',
+  },
+  {
+    title: 'Practice your recall',
+    text: 'Choose a topic and work through a focused question round.',
+    href: '/test',
+    icon: TestTube,
+    label: 'Choose a test',
+  },
+]
+
 export default function Home() {
   const { user } = useAuth()
-  const { 
-    xp, 
-    level, 
-    streakData, 
-    getTotalScenariosCompleted, 
-    getAverageScore,
-    getProgressToNextLevel 
-  } = useProgress()
-
-  useEffect(() => {
-    console.log('Home page mounted', { user, xp })
-    try {
-      logEvent('app_open', { ts: Date.now(), page: 'home' })
-    } catch (error) {
-      console.error('Error logging event:', error)
-    }
-  }, [user, xp])
-
-  const userStats = {
-    overallProgress: getProgressToNextLevel(),
-    currentStreak: streakData?.current_streak || 0,
-    totalXP: xp,
-    rank: 15, // TODO: Get from leaderboard
-    completedScenarios: getTotalScenariosCompleted(),
-    averageScore: getAverageScore()
-  }
-
-  const recentActivity = [
-    {
-      id: 1,
-      type: 'scenario_completed',
-      title: 'Cardiac Emergency Protocol',
-      score: 92,
-      timestamp: '2 hours ago',
-      difficulty: 'Advanced'
-    },
-    {
-      id: 2,
-      type: 'lesson_completed',
-      title: 'Respiratory Assessment Basics',
-      progress: 100,
-      timestamp: '1 day ago',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 3,
-      type: 'achievement_unlocked',
-      title: 'Week Warrior',
-      description: '7-day study streak',
-      timestamp: '2 days ago',
-      rarity: 'rare'
-    }
-  ]
-
+  const { xp, level, streakData, getTotalScenariosCompleted } = useProgress()
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <p role="status" className="mb-4 text-sm text-slate-600">Development preview: activity, suggestions, and rankings include sample data. Practice progress is stored on this device and is not yet isolated between accounts or synchronized across devices.</p>
-      {/* Welcome Hero Section */}
-      <div className="mb-8 p-8 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 rounded-2xl">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between">
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-              {user ? `Welcome back, ${user.user_metadata?.name || 'Nurse'}!` : 'Welcome to RapidRounds'}
-            </h1>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">
-              {user 
-                ? "Ready to continue your clinical learning journey? Let's build on your progress!"
-                : "Your comprehensive platform for nursing education through scenario-based practice."
-              }
-            </p>
-            {!user && (
-              <div className="flex space-x-3">
-                <Button 
-                  size="lg"
-                  onClick={() => {
-                    if (typeof window !== 'undefined') {
-                      window.location.href = '/auth/sign-in'
-                    }
-                  }}
-                >
-                  Get Started
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  onClick={() => {
-                    if (typeof window !== 'undefined') {
-                      window.location.href = '/study'
-                    }
-                  }}
-                >
-                  Learn More
-                </Button>
-              </div>
-            )}
-          </div>
+    <div className="mx-auto max-w-6xl space-y-10 px-4 py-8 sm:px-6 sm:py-12">
+      <section className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+        <div>
+          <BrandIntro />
           {user && (
-            <div className="mt-6 lg:mt-0 lg:ml-8">
-              <ProgressRing 
-                progress={userStats.overallProgress} 
-                size={120} 
-                strokeWidth={8}
-                label="Overall Progress"
-              />
-            </div>
+            <p className="mt-7 text-sm font-medium text-muted">
+              Welcome back
+              {user.user_metadata?.full_name
+                ? `, ${user.user_metadata.full_name}`
+                : ''}
+              .
+            </p>
           )}
+          <h1 className="mt-6 text-4xl font-semibold leading-[1.12] tracking-tight text-ink sm:text-5xl">
+            Build your judgment.
+            <br />
+            <span className="text-signal">One decision at a time.</span>
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
+            Realistic practice for the moments that matter. Connect what you
+            notice to why it matters, then decide what comes next.
+          </p>
+          <Link
+            href="/rr"
+            className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-xl bg-signal px-6 py-3 font-semibold text-signal-contrast hover:opacity-90"
+          >
+            Start a round <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
-      </div>
-
-      {user ? (
-        <>
-          {/* User Stats Dashboard */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <Card>
-              <CardContent className="p-4 text-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-accent/10 rounded-2xl mx-auto mb-2">
-                  <Zap className="w-5 h-5 text-accent" />
-                </div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">{userStats.currentStreak}</p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Day Streak</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardContent className="p-4 text-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-2xl mx-auto mb-2">
-                  <Star className="w-5 h-5 text-primary" />
-                </div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">{userStats.totalXP.toLocaleString()}</p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Total XP</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardContent className="p-4 text-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-success/10 rounded-2xl mx-auto mb-2">
-                  <Target className="w-5 h-5 text-success" />
-                </div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">{userStats.completedScenarios}</p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Scenarios</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardContent className="p-4 text-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-warning/10 rounded-2xl mx-auto mb-2">
-                  <Trophy className="w-5 h-5 text-warning" />
-                </div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">#{userStats.rank}</p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Rank</p>
-              </CardContent>
-            </Card>
+        <Card className="relative overflow-hidden p-6 sm:p-8">
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-400 to-emerald-400" />
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-signal">
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
+            Guided case spotlight
+          </p>
+          <h2 className="mt-5 text-2xl font-semibold leading-tight text-ink">
+            Something is changing.
+          </h2>
+          <p className="mt-3 leading-relaxed text-muted">
+            Follow the post-TAVR case from normal conduction to recognizing a
+            change and evaluating a response.
+          </p>
+          <div className="my-6 flex flex-wrap gap-2 text-xs font-medium text-muted">
+            <span className="rounded-full border border-edge px-3 py-1.5">
+              5 stages
+            </span>
+            <span className="rounded-full border border-edge px-3 py-1.5">
+              Untimed
+            </span>
+            <span className="rounded-full border border-edge px-3 py-1.5">
+              Draft learning preview
+            </span>
           </div>
-
-          {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer">
-              <CardHeader className="pb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 bg-primary/10 rounded-2xl">
-                    <TestTube className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Continue Testing</CardTitle>
-                    <CardDescription>Resume your scenario practice</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-slate-600">Cardiac Scenarios</span>
-                    <span className="text-sm font-medium">3/8 complete</span>
-                  </div>
-                  <div className="w-full bg-slate-200 rounded-full h-2">
-                    <div className="bg-primary h-2 rounded-full" style={{ width: '37.5%' }}></div>
-                  </div>
-                </div>
-                <Button className="w-full" onClick={() => window.location.href = "/test"}>
-                  <PlayCircle className="w-4 h-4 mr-2" />
-                  Resume Testing
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer">
-              <CardHeader className="pb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 bg-accent/10 rounded-2xl">
-                    <BookOpen className="w-6 h-6 text-accent" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Study Materials</CardTitle>
-                    <CardDescription>Interactive lessons and guides</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-slate-600">Respiratory Care</span>
-                    <span className="text-sm font-medium">75% complete</span>
-                  </div>
-                  <div className="w-full bg-slate-200 rounded-full h-2">
-                    <div className="bg-accent h-2 rounded-full" style={{ width: '75%' }}></div>
-                  </div>
-                </div>
-                <Button variant="outline" className="w-full" onClick={() => window.location.href = "/study"}>
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  Continue Learning
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer">
-              <CardHeader className="pb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 bg-warning/10 rounded-2xl">
-                    <Trophy className="w-6 h-6 text-warning" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Leaderboard</CardTitle>
-                    <CardDescription>See how you rank</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <p className="text-sm text-slate-600">Your Rank</p>
-                    <p className="text-2xl font-bold text-slate-900">#{userStats.rank}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-slate-600">This Week</p>
-                    <div className="flex items-center space-x-1">
-                      <TrendingUp className="w-4 h-4 text-success" />
-                      <span className="text-sm font-medium text-success">+3</span>
-                    </div>
-                  </div>
-                </div>
-                <Button variant="outline" className="w-full" onClick={() => window.location.href = "/leaderboard"}>
-                  <Trophy className="w-4 h-4 mr-2" />
-                  View Leaderboard
-                </Button>
-              </CardContent>
-            </Card>
+          <Link
+            href="/rr/tavr-conduction"
+            className="inline-flex min-h-11 items-center gap-2 font-semibold text-signal hover:underline"
+          >
+            Open guided case{' '}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </Card>
+      </section>
+      <section aria-labelledby="practice-paths">
+        <div className="mb-5 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+              Your next step
+            </p>
+            <h2
+              id="practice-paths"
+              className="mt-2 text-2xl font-semibold text-ink"
+            >
+              Choose how you practice.
+            </h2>
           </div>
-
-          {/* Recent Activity */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Clock className="w-5 h-5" />
-                <span>Recent Activity</span>
-              </CardTitle>
-              <CardDescription>Your latest achievements and progress</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {recentActivity.map((activity) => (
-                  <div key={activity.id} className="flex items-center space-x-4 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
-                    <div className="flex-shrink-0">
-                      {activity.type === 'scenario_completed' && (
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                          <TestTube className="w-4 h-4 text-primary" />
-                        </div>
-                      )}
-                      {activity.type === 'lesson_completed' && (
-                        <div className="p-2 bg-accent/10 rounded-lg">
-                          <BookOpen className="w-4 h-4 text-accent" />
-                        </div>
-                      )}
-                      {activity.type === 'achievement_unlocked' && (
-                        <div className="p-2 bg-warning/10 rounded-lg">
-                          <Award className="w-4 h-4 text-warning" />
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-slate-900 dark:text-white">
-                        {activity.title}
-                      </p>
-                      <div className="flex items-center space-x-3 mt-1">
-                        {activity.score && (
-                          <Badge variant="success" size="sm">
-                            {activity.score}% Score
-                          </Badge>
-                        )}
-                        {activity.difficulty && (
-                          <Badge variant="outline" size="sm">
-                            {activity.difficulty}
-                          </Badge>
-                        )}
-                        <span className="text-sm text-slate-500">
-                          {activity.timestamp}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </>
-      ) : (
-        /* Guest/Onboarding Content */
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="hover:shadow-lg transition-all duration-200">
-            <CardHeader className="text-center">
-              <div className="p-4 bg-primary/10 rounded-2xl w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <TestTube className="w-8 h-8 text-primary" />
-              </div>
-              <CardTitle>Scenario-Based Testing</CardTitle>
-              <CardDescription>
-                Practice with realistic clinical scenarios that mirror real-world situations
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-all duration-200">
-            <CardHeader className="text-center">
-              <div className="p-4 bg-accent/10 rounded-2xl w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <BookOpen className="w-8 h-8 text-accent" />
-              </div>
-              <CardTitle>Interactive Learning</CardTitle>
-              <CardDescription>
-                Comprehensive study materials with interactive lessons and assessments
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-all duration-200">
-            <CardHeader className="text-center">
-              <div className="p-4 bg-warning/10 rounded-2xl w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <Trophy className="w-8 h-8 text-warning" />
-              </div>
-              <CardTitle>Gamified Progress</CardTitle>
-              <CardDescription>
-                Track your progress, earn achievements, and compete with peers
-              </CardDescription>
-            </CardHeader>
-          </Card>
         </div>
-      )}
+        <div className="grid gap-4 md:grid-cols-3">
+          {paths.map(({ title, text, href, icon: Icon, label }) => (
+            <Card key={href} className="flex flex-col p-6">
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-signal-soft text-signal">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </div>
+              <h3 className="text-lg font-semibold text-ink">{title}</h3>
+              <p className="mb-5 mt-2 flex-1 text-sm leading-relaxed text-muted">
+                {text}
+              </p>
+              <Link
+                href={href}
+                className="inline-flex min-h-11 items-center justify-between gap-2 text-sm font-semibold text-signal"
+              >
+                {label}
+                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+              </Link>
+            </Card>
+          ))}
+        </div>
+      </section>
+      <section
+        aria-labelledby="practice-progress"
+        className="rounded-2xl border border-edge bg-surface px-5 py-6 sm:px-7"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 id="practice-progress" className="text-lg font-semibold text-ink">
+            Your practice on this device
+          </h2>
+          <Link
+            href="/leaderboard"
+            className="inline-flex min-h-11 items-center text-sm font-semibold text-signal hover:underline"
+          >
+            View leaderboard
+          </Link>
+        </div>
+        <dl className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-4">
+          {[
+            { label: 'Practice XP', value: xp, icon: Sparkles },
+            { label: 'Level', value: level, icon: Target },
+            {
+              label: 'Day streak',
+              value: streakData?.current_streak || 0,
+              icon: Flame,
+            },
+            {
+              label: 'Rounds completed',
+              value: getTotalScenariosCompleted(),
+              icon: Activity,
+            },
+          ].map(({ label, value, icon: Icon }) => (
+            <div key={label}>
+              <dt className="flex items-center gap-2 text-xs text-muted">
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                {label}
+              </dt>
+              <dd className="mt-2 text-2xl font-semibold tabular-nums text-ink">
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-5 border-t border-edge pt-4 text-xs leading-relaxed text-muted">
+          Development preview. Practice progress on this device is shared
+          between accounts; cloud progress sync is still being completed. Guided
+          draft cases do not award XP or competency scores.
+        </p>
+      </section>
     </div>
   )
 }

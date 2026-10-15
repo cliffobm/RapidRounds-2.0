@@ -1,6 +1,13 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from 'react'
+import { resolveTheme, type ThemePreference } from '@/lib/theme'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ToastProvider } from '@/components/ui/Toast'
 import { Toaster } from 'react-hot-toast'
@@ -34,60 +41,58 @@ export function useTheme() {
   return context
 }
 
-function ThemeProvider({ children }: { children: ReactNode }) {
+export function ThemeProvider({ children }: { children: ReactNode }) {
   const [isDark, setIsDark] = useState(false)
 
+  const applyTheme = (theme: ThemePreference) => {
+    const dark = resolveTheme(
+      theme,
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    )
+    document.documentElement.classList.toggle('dark', dark)
+    setIsDark(dark)
+  }
+
   useEffect(() => {
-    // Check system preference and stored preference
-    const stored = localStorage.getItem('theme')
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    
-    const shouldBeDark = stored === 'dark' || (stored === 'system' && systemPrefersDark) || (!stored && systemPrefersDark)
-    
-    setIsDark(shouldBeDark)
-    if (shouldBeDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const sync = () => {
+      let stored: string | null = null
+      try {
+        stored = localStorage.getItem('theme')
+      } catch {
+        /* Use system preference. */
+      }
+      applyTheme(stored === 'light' || stored === 'dark' ? stored : 'system')
+    }
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === 'theme' || event.key === null) sync()
+    }
+    sync()
+    media.addEventListener('change', sync)
+    window.addEventListener('storage', onStorage)
+    return () => {
+      media.removeEventListener('change', sync)
+      window.removeEventListener('storage', onStorage)
     }
   }, [])
 
-  const toggleTheme = () => {
-    const newIsDark = !isDark
-    setIsDark(newIsDark)
-    localStorage.setItem('theme', newIsDark ? 'dark' : 'light')
-    
-    if (newIsDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
+  const setTheme = (theme: ThemePreference) => {
+    try {
+      localStorage.setItem('theme', theme)
+    } catch {
+      /* Keep in-memory theme usable. */
     }
-  }
-
-  const setTheme = (theme: 'light' | 'dark' | 'system') => {
-    localStorage.setItem('theme', theme)
-    
-    if (theme === 'system') {
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      setIsDark(systemPrefersDark)
-      if (systemPrefersDark) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    } else {
-      const shouldBeDark = theme === 'dark'
-      setIsDark(shouldBeDark)
-      if (shouldBeDark) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    }
+    applyTheme(theme)
   }
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme, setTheme }}>
+    <ThemeContext.Provider
+      value={{
+        isDark,
+        toggleTheme: () => setTheme(isDark ? 'light' : 'dark'),
+        setTheme,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   )
@@ -101,17 +106,20 @@ function Providers({ children }: { children: ReactNode }) {
       // Initialize auth state
       const authStore = useAuth.getState()
       authStore.setLoading(false)
-      
+
       // Initialize progress sync
       const progressStore = useProgress.getState()
-      
+
       // Auto-sync every 5 minutes if user is logged in
-      const syncInterval = setInterval(() => {
-        const { user } = useAuth.getState()
-        if (user) {
-          progressStore.syncToServer()
-        }
-      }, 5 * 60 * 1000)
+      const syncInterval = setInterval(
+        () => {
+          const { user } = useAuth.getState()
+          if (user) {
+            progressStore.syncToServer()
+          }
+        },
+        5 * 60 * 1000
+      )
 
       console.log('Providers initialized successfully')
       return () => clearInterval(syncInterval)
@@ -157,4 +165,3 @@ function Providers({ children }: { children: ReactNode }) {
 }
 
 export default Providers
-

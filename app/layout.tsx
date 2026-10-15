@@ -3,6 +3,7 @@ import './globals.css'
 import { AppShell } from '@/components/layout/AppShell'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import Providers from './providers'
+import { themeInitScript } from '@/lib/theme'
 
 export const dynamic = 'force-dynamic'
 
@@ -65,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>{metadata.title as string}</title>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="font-sans" suppressHydrationWarning>
         <ErrorBoundary>

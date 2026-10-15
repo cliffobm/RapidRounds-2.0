@@ -58,6 +58,7 @@ interface AnswerBlockProps {
   onCorrectAnswer?: () => void
   passingThreshold?: number
   className?: string
+  practiceMode?: boolean
 }
 
 // Sortable item for drag-to-order questions
@@ -105,7 +106,8 @@ export function AnswerBlock({
   submittedAnswer,
   onCorrectAnswer,
   passingThreshold = 80,
-  className = ''
+  className = '',
+  practiceMode = false,
 }: AnswerBlockProps) {
   const { user, profile } = useAuth()
   const { addXP } = useProgress()
@@ -183,7 +185,7 @@ export function AnswerBlock({
     const isCorrect = isQuestionAnswerCorrect(question, answers)
     
     // Award XP for correct answers
-    if (isCorrect) {
+    if (isCorrect && !practiceMode) {
       addXP(question.points)
       
       if (onCorrectAnswer) {
@@ -392,9 +394,9 @@ export function AnswerBlock({
           <Badge variant="outline" size="sm">
             {question.type.replace('_', ' ')}
           </Badge>
-          <Badge variant="secondary" size="sm">
+          {!practiceMode && <Badge variant="secondary" size="sm">
             {question.points} {question.points === 1 ? 'point' : 'points'}
-          </Badge>
+          </Badge>}
         </div>
       </div>
 

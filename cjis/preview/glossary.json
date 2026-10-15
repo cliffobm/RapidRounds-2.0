@@ -1,0 +1,37 @@
+{
+  "cardiac_conduction": {
+    "label": "Cardiac conduction",
+    "plain": "The electrical pathway that coordinates the heartbeat.",
+    "assessment_risk": "medium"
+  },
+  "av_block": {
+    "label": "Atrioventricular (AV) block",
+    "plain": "Electrical impulses from the atria are delayed or fail to reach the ventricles.",
+    "assessment_risk": "high"
+  },
+  "tavr": {
+    "label": "TAVR",
+    "plain": "Transcatheter aortic valve replacement: placing a new aortic valve through a catheter.",
+    "assessment_risk": "medium"
+  },
+  "bradycardia": {
+    "label": "Bradycardia",
+    "plain": "A slower-than-usual heart rate; clinical significance depends on symptoms and perfusion.",
+    "assessment_risk": "low"
+  },
+  "perfusion": {
+    "label": "Perfusion",
+    "plain": "Blood flow through tissues that delivers oxygen and nutrients.",
+    "assessment_risk": "medium"
+  },
+  "cardiac_output": {
+    "label": "Cardiac output",
+    "plain": "The amount of blood the heart pumps per minute; heart rate multiplied by stroke volume.",
+    "assessment_risk": "high"
+  },
+  "mechanical_capture": {
+    "label": "Mechanical capture",
+    "plain": "A pacing impulse results in an effective heartbeat that produces circulation.",
+    "assessment_risk": "high"
+  }
+}

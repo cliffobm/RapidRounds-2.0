@@ -39,9 +39,9 @@ test('signed-in homepage and settings controls work; unfinished actions are disa
   await page.getByLabel('Password', { exact: true }).fill('test-password')
   await page.getByRole('button', { name: 'Sign in with email' }).click()
   await expect(page).toHaveURL('http://127.0.0.1:3000/')
-  for (const [label, path] of [['Resume Testing', '/test'], ['Continue Learning', '/study'], ['View Leaderboard', '/leaderboard']]) {
+  for (const [label, path] of [['Choose a test', '/test'], ['Browse study materials', '/study'], ['View leaderboard', '/leaderboard']]) {
     await page.goto('/')
-    await page.getByRole('button', { name: label!, exact: true }).click()
+    await page.getByRole('link', { name: label!, exact: true }).click()
     await expect(page).toHaveURL(`http://127.0.0.1:3000${path}`)
   }
   await page.goto('/settings')

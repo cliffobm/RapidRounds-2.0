@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test('email sign-in displays invalid credentials without leaving the form', async ({ page }) => {
-  await page.route('**/auth/v1/token?grant_type=password', route => route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ code: 'invalid_credentials', msg: 'Invalid login credentials' }) }))
+  await page.route('**/auth/v1/token?grant_type=password', route => route.fulfill({ status: 400, contentType: 'application/json', headers: { 'X-Supabase-Api-Version': '2024-01-01', 'Access-Control-Expose-Headers': 'X-Supabase-Api-Version' }, body: JSON.stringify({ code: 'invalid_credentials', msg: 'Invalid login credentials' }) }))
   await page.goto('/auth/sign-in')
   await page.getByLabel('Email', { exact: true }).fill('learner.a@example.com')
   await page.getByLabel('Password', { exact: true }).fill('wrong-password')
