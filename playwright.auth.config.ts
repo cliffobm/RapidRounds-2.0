@@ -13,6 +13,6 @@ export default defineConfig({
   ],
   webServer: [
     { command: 'node e2e/fixtures/profile-api.mjs', url: 'http://127.0.0.1:54321/health', reuseExistingServer: false },
-    { command: 'npm run start -- --hostname 127.0.0.1', url: 'http://127.0.0.1:3000', reuseExistingServer: false, env: { NEXT_PUBLIC_APP_URL: 'http://127.0.0.1:3000' } },
+    { command: process.env.PLAYWRIGHT_AUTH_SERVER_COMMAND || 'npm run start -- --hostname 127.0.0.1', url: 'http://127.0.0.1:3000', reuseExistingServer: false, env: { NEXT_PUBLIC_APP_URL: 'http://127.0.0.1:3000' } },
   ],
 })

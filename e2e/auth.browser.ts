@@ -6,6 +6,9 @@ test.beforeEach(async ({ page }) => {
   const errors: string[] = []
   pageErrors.set(page, errors)
   page.on('pageerror', error => errors.push(error.message))
+  if (process.env.AUTH_HYDRATION_DIAGNOSTICS === 'true') {
+    page.on('console', message => { if (message.type() === 'error') console.log('Auth hydration diagnostic:', message.text()) })
+  }
   // Prevent an accidentally hosted build from sending fixture Auth requests.
   await page.route('**/auth/v1/**', async route => {
     const url = new URL(route.request().url())
