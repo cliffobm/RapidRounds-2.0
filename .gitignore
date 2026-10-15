@@ -145,7 +145,6 @@ dist
 
 # Gatsby files
 .cache/
-public
 
 # Storybook build outputs
 .out
@@ -176,5 +175,8 @@ Thumbs.db
 
 # Supabase
 .supabase
+
+playwright-report/
+test-results/
 
 .vercel

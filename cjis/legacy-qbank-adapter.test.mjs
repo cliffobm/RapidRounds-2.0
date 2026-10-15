@@ -14,3 +14,32 @@ test("preserves original answer, item identity and clinical text",()=>{
 });
 test("rejects invalid answer keys",()=>assert.throws(()=>adaptLegacyBank({...sample,items:[{...sample.items[0],correct_answer:"Z"}]})));
 test("rejects duplicate IDs",()=>assert.throws(()=>adaptLegacyBank({...sample,items:[sample.items[0],sample.items[0]]})));
+test('rejects ambiguous or non-letter answers', () => {
+  for (const answer of ['', 'AB', 'A,C', '1', 1, null]) {
+    assert.throws(() => adaptLegacyBank({ ...sample, items: [{ ...sample.items[0], correct_answer: answer }] }));
+  }
+});
+test('rejects malformed items and banks', () => {
+  for (const item of [null, {}, { ...sample.items[0], id: '' }, { ...sample.items[0], options: ['a'] },
+    { ...sample.items[0], options: ['a', {}] }, { ...sample.items[0], options: ['a', ''] },
+    { ...sample.items[0], question: '' }, { ...sample.items[0], options: Array(27).fill('option') }]) {
+    assert.throws(() => adaptLegacyBank({ ...sample, items: [item] }));
+  }
+  assert.throws(() => adaptLegacyBank({ items: [] }));
+});
+test('preserves unknown source metadata without aliasing the input', () => {
+  const original = { ...sample.items[0], extra: { source: ['original'] } };
+  const [draft] = adaptLegacyBank({ ...sample, items: [original] });
+  assert.deepEqual(draft.legacy.source, original);
+  original.extra.source.push('mutation');
+  assert.deepEqual(draft.legacy.source.extra.source, ['original']);
+});
+test('normalizes a lower-case answer with surrounding whitespace', () => {
+  const [draft] = adaptLegacyBank({ ...sample, items: [{ ...sample.items[0], correct_answer: ' b ' }] });
+  assert.equal(draft.correct_option_id, 'B');
+});
+test('supports the nullable stems present in the real vascular and hypertension banks', () => {
+  const [draft] = adaptLegacyBank({ ...sample, items: [{ ...sample.items[0], stem: null }] });
+  assert.equal(draft.stem, sample.items[0].question);
+  assert.equal(draft.legacy.source.stem, null);
+});

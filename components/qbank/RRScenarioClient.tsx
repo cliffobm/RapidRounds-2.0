@@ -21,7 +21,6 @@ export default function RRScenarioClient({ title, questions }: Props) {
     type: 'multiple_choice',
     question: q.question,
     options: q.options.map(o => ({ id: o.id, text: o.text })),
-    correctAnswers: undefined,
     points: q.points,
   }))
 

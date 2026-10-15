@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Logo } from '../ui/Logo'
 import { Button } from '../ui/Button'
@@ -24,6 +24,9 @@ interface AppShellProps {
 }
 
 export function AppShell({ children }: AppShellProps) {
+  // Persisted auth can initialize before hydration. Match the server's first render.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
   const { user, loading, signOut, signInWithGoogle } = useAuth()
   const { isDark, toggleTheme } = useTheme()
   const router = useRouter()
@@ -63,7 +66,7 @@ export function AppShell({ children }: AppShellProps) {
             {/* Right side actions */}
             <div className="flex items-center space-x-4">
               {/* Auth buttons */}
-              {!loading && (
+              {mounted && !loading && (
                 <div className="flex items-center space-x-2">
                   {user ? (
                     <div className="flex items-center space-x-3">
