@@ -11,6 +11,8 @@ See [VERSION_LINEAGE.md](VERSION_LINEAGE.md) for the archive checkpoint, recover
 
 Local checks: 186 unit tests in 24 files pass; Sprint 4 validation, type checking, migration provenance, all 11 legacy bank files and 17 staging datasets / 168 draft items pass. Node 20 production build passes. Existing lint warnings remain nonblocking.
 
+CI first exposed an outdated database fixture: the complete migration replay still used the minimal pre-signup Auth table/roles. The audit now reuses the retained Auth-role bootstrap and executes the existing signup/role-isolation SQL checks. No hosted schema or migration was changed.
+
 The owner pasted layout source, with no error line or stack message. The source compiles; the duplicate manual document title was removed. No diagnosis of an unreported local exception is claimed.
 
 Desktop/mobile Chromium checks are added in `e2e/brand-scenarios.spec.ts`: repeated dark/light switching with measured heading contrast, all six RR routes, complete v3 practice/retry, and nonblocking reduced-motion branding. The CI workflow also runs the full Google/email/Profile simulator suite and the existing UI regression suite. Current CI results must be read before treating browser verification as complete.

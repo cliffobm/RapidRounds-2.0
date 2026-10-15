@@ -218,9 +218,9 @@ export function AnswerBlock({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'correct': return 'bg-success/10 border-success text-success'
-      case 'incorrect': return 'bg-danger/10 border-danger text-danger'
-      case 'missed': return 'bg-warning/10 border-warning text-warning'
+      case 'correct': return 'bg-emerald-50 border-emerald-600 text-emerald-800 dark:bg-emerald-950/40 dark:border-emerald-500 dark:text-emerald-200'
+      case 'incorrect': return 'bg-red-50 border-red-600 text-red-800 dark:bg-red-950/40 dark:border-red-500 dark:text-red-200'
+      case 'missed': return 'bg-amber-50 border-amber-600 text-amber-900 dark:bg-amber-950/40 dark:border-amber-500 dark:text-amber-200'
       default: return 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
     }
   }

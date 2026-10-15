@@ -2568,8 +2568,8 @@
       "reason": "Exclude generated reports, archives, and duplicate working copies; next-step verification: disposable database audit, precise browser selectors, and accessibility repairs"
     },
     "components/qbank/RRScenarioClient.tsx": {
-      "migrated_sha": "0e08a91cbcd4e5b69da8edd23c13df5b88336de0",
-      "reason": "Omit absent optional correctAnswers property to satisfy exactOptionalPropertyTypes; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+      "migrated_sha": "3e2d87146ac634394309dbbed63b4a94a5e1f932",
+      "reason": "Omit absent optional correctAnswers property to satisfy exactOptionalPropertyTypes; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Pair answer-feedback colors in both themes and reset term disclosure for each decision."
     },
     "docs/SUPABASE_SETUP.md": {
       "migrated_sha": "44500a3d4e89a829bee64923f1b9f8a5d9cb5ed7",
@@ -2744,8 +2744,8 @@
       "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs."
     },
     "components/scenario/AnswerBlock.tsx": {
-      "migrated_sha": "d71ff9edcdbd5dbf2f878d48d50ed5c7e63ba802",
-      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior."
+      "migrated_sha": "cfef3751d042a2891ca2b9990587179af125671b",
+      "reason": "Repair ordering submission, sequence-sensitive scoring, keyboard drag focus and regression checks without changing original question content or answer keys.; Development UI audit: restore control, navigation, scoring and verification repairs.; Restore approved RR branding, theme contrast, usable scenario practice and regression coverage; preserve auth/security behavior.; Pair answer-feedback colors in both themes and reset term disclosure for each decision."
     },
     "components/scenario/ScenarioCard.tsx": {
       "migrated_sha": "37e07ecb72efce36a3f98c646572ab181482eb5a",

@@ -47,11 +47,15 @@ async function assertStudyHeadingContrast(
 
 test('study headings remain readable through dark/light switches and refresh', async ({
   page,
-}) => {
+}, testInfo) => {
   await page.addInitScript(() => localStorage.setItem('theme', 'dark'))
   await page.goto('/study')
   await expect(page.locator('html')).toHaveClass(/dark/)
   await assertStudyHeadingContrast(page)
+  await testInfo.attach('study-dark', {
+    body: await page.screenshot({ fullPage: true }),
+    contentType: 'image/png',
+  })
   for (const dark of [false, true, false]) {
     await page.getByRole('button', { name: 'Toggle dark mode' }).click()
     await expect(
@@ -77,6 +81,10 @@ test('study headings remain readable through dark/light switches and refresh', a
       .toBe(dark ? 'rgb(239, 248, 251)' : 'rgb(8, 18, 31)')
     await assertStudyHeadingContrast(page)
   }
+  await testInfo.attach('study-light', {
+    body: await page.screenshot({ fullPage: true }),
+    contentType: 'image/png',
+  })
   // Clear the init script in a new page so it cannot overwrite the saved choice.
   const next = await page.context().newPage()
   await next.goto('/study')
@@ -91,7 +99,7 @@ test('study headings remain readable through dark/light switches and refresh', a
 
 test('every RR card opens a usable case without the question-bank service', async ({
   page,
-}) => {
+}, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await page.route('**/rest/v1/rpc/get_scenario_questions**', (route) =>
@@ -100,6 +108,10 @@ test('every RR card opens a usable case without the question-bank service', asyn
   await page.goto('/rr')
   const links = page.getByRole('main').getByRole('link', { name: /^Start / })
   await expect(links).toHaveCount(6)
+  await testInfo.attach('rr-catalog', {
+    body: await page.screenshot({ fullPage: true }),
+    contentType: 'image/png',
+  })
   const hrefs = await links.evaluateAll((items) =>
     items.map((item) => item.getAttribute('href')!)
   )
@@ -163,12 +175,16 @@ test('guided v3 case supports definitions, completes all decisions, and resets',
 
 test('home restores branding and supports reduced motion without blocking navigation', async ({
   page,
-}) => {
+}, testInfo) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await page.goto('/')
   await expect(page.getByTestId('brand-intro')).toBeVisible()
+  await testInfo.attach('home-branding', {
+    body: await page.screenshot({ fullPage: true }),
+    contentType: 'image/png',
+  })
   await expect(
     page.getByRole('button', { name: 'Replay logo intro' })
   ).toBeHidden()

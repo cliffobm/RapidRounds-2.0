@@ -167,7 +167,10 @@ export default function RRScenarioClient({
               />
             </div>
             {question.terms.length > 0 && (
-              <div className="mb-6 space-y-2 rounded-xl bg-surface-raised p-4">
+              <div
+                key={question.id}
+                className="mb-6 space-y-2 rounded-xl bg-surface-raised p-4"
+              >
                 <p className="mb-2 flex items-center gap-2 text-xs font-semibold text-muted">
                   <BookOpen className="h-4 w-4" aria-hidden="true" />
                   Explore a term

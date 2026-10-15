@@ -1,5 +1,5 @@
 -- Run as ordinary authenticated/anon roles, never as the table owner.
-INSERT INTO auth.users VALUES
+INSERT INTO auth.users(id) VALUES
 ('00000000-0000-0000-0000-000000000001'),
 ('00000000-0000-0000-0000-000000000002'),
 ('00000000-0000-0000-0000-000000000003');

@@ -26,7 +26,8 @@ def require(result, label):
 require(sql('postgres', 'CREATE DATABASE rapidrounds_schema_audit; CREATE DATABASE rapidrounds_rls_audit;'), 'create disposable databases')
 bootstrap = (root / 'tests/database/auth-bootstrap.sql').read_text()
 # Roles are cluster-scoped: create once, then reuse in the second database.
-require(sql('rapidrounds_schema_audit', bootstrap), 'schema audit auth fixture')
+schema_bootstrap = (root / 'tests/database/auth-signup-bootstrap.sql').read_text()
+require(sql('rapidrounds_schema_audit', schema_bootstrap), 'schema audit auth fixture')
 for path in sorted((root / 'supabase/migrations').glob('*.sql')):
     if not require(sql('rapidrounds_schema_audit', 'BEGIN;\n' + path.read_text() + '\nCOMMIT;'), 'apply ' + path.name):
         break
@@ -37,6 +38,7 @@ if require(sql('rapidrounds_rls_audit', rls_bootstrap + '\n' + (root / 'supabase
 
 # Check the final schema independently, only after every migration succeeded.
 if all(item['passed'] for item in report):
+    require(sql('rapidrounds_schema_audit', (root / 'tests/database/auth-signup.sql').read_text()), 'Auth-role provisioning, metadata ignored and repeat-login preservation')
     require(sql('rapidrounds_schema_audit', (root / 'tests/database/profile-isolation.sql').read_text()), 'complete schema learner/educator isolation, edits and escalation denial')
     billing_check = """SET ROLE authenticated;
 SET request.jwt.claim.sub = '00000000-0000-0000-0000-000000000001';
