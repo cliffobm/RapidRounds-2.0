@@ -50,6 +50,13 @@ export function SwipeDeck({
   const hasNext = currentIndex < items.length - 1
   const hasPrev = currentIndex > 0
 
+  // Focus only after the moving card becomes interactive again.
+  useEffect(() => {
+    if (!navigating && currentIndex > 0 && !contentRef.current?.parentElement?.contains(document.activeElement)) {
+      contentRef.current?.focus({ preventScroll: true })
+    }
+  }, [currentIndex, navigating])
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -238,6 +245,7 @@ export function SwipeDeck({
         aria-describedby="swipe-instructions"
         role="region"
         aria-label="Scenario content"
+        aria-busy={navigating}
       >
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
@@ -249,7 +257,6 @@ export function SwipeDeck({
             onAnimationComplete={(definition) => {
               if (definition === "center") {
                 setNavigating(false)
-                if (!contentRef.current?.parentElement?.contains(document.activeElement)) contentRef.current?.focus({ preventScroll: true })
               }
             }}
             {...(shouldReduceMotion() ? {} : { exit: "exit" })}
@@ -260,7 +267,7 @@ export function SwipeDeck({
             }}
             className="absolute inset-0 p-4 sm:p-6 overflow-hidden"
           >
-            <div className="h-full min-h-0 flex flex-col">
+            <div inert={navigating} className="h-full min-h-0 flex flex-col">
               <h2 
                 ref={contentRef}
                 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 focus:outline-none flex-shrink-0"

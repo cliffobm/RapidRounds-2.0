@@ -20,6 +20,7 @@ test('keyboard reordering is submitted and graded by sequence', async ({ page })
     await page.getByRole('button', { name: /Go to next item/ }).click()
     await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(index + 2))
   }
+  await expect(page.getByRole('region', { name: 'Scenario content' })).toHaveAttribute('aria-busy', 'false')
   const handle = page.getByRole('button', { name: 'Reorder Call cardiology for emergency consultation', exact: true })
   await handle.focus()
   await page.keyboard.press('Space')

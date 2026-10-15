@@ -9,6 +9,7 @@ test.setTimeout(90000)
 async function next(page: Page, title: string) {
   await page.getByRole('button', { name: /Go to next item/ }).click()
   await expect(page.getByRole('region', { name: 'Scenario content' }).getByRole('heading', { level: 2, name: title, exact: true })).toBeVisible()
+  await expect(page.getByRole('region', { name: 'Scenario content' })).toHaveAttribute('aria-busy', 'false')
 }
 
 for (const [slug, questions] of Object.entries(rounds)) {

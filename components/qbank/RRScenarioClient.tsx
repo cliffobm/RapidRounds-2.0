@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import {
   ArrowLeft,
@@ -40,13 +39,15 @@ export default function RRScenarioClient({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
-      <Link
+      {/* A document navigation deliberately clears this visit's draft answers. */}
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+      <a
         href="/rr"
         className="mb-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-muted hover:text-signal"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         Back to RR Scenarios
-      </Link>
+      </a>
       <header className="mb-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal">
           {scenario.system} ·{' '}
@@ -108,13 +109,14 @@ export default function RRScenarioClient({
               <RotateCcw className="mr-2 h-4 w-4" aria-hidden="true" />
               Practice again
             </Button>
-            <Link
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a
               href="/rr"
               className="inline-flex min-h-11 items-center gap-2 font-semibold text-signal"
             >
               Explore another case
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            </a>
           </div>
         </section>
       ) : question ? (

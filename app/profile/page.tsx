@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { ClientOnly } from '@/components/ui/ClientOnly'
 import { useAuth } from '@/store/useAuth'
 import { loadAccountProfile, saveAccountProfile, type AccountProfile } from '@/lib/db/account-profile'
 
@@ -143,7 +144,9 @@ export default function ProfilePage() {
   return <div className="container mx-auto px-4 py-8 max-w-3xl">
     <h1 className="text-3xl font-bold mb-2">Profile</h1>
     <p className="text-slate-500 mb-8">Your account and learner profile</p>
+    <ClientOnly fallback={<p role="status">Checking your sign-in session…</p>}>
     {user ? <LearnerProfile key={user.id} userId={user.id} email={user.email ?? ''} />
       : <p role="status">Checking your sign-in session… <Link href="/auth/sign-in" className="underline">Sign in</Link></p>}
+    </ClientOnly>
   </div>
 }

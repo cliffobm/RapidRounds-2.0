@@ -119,7 +119,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
             <h3 className="font-semibold text-slate-900 dark:text-white">
               {scenario.patientInfo.name}
             </h3>
-            <p className="text-sm text-slate-800 dark:text-slate-800">
+            <p className="text-sm text-muted">
               {scenario.patientInfo.age} year old {scenario.patientInfo.gender}
             </p>
           </div>
@@ -137,7 +137,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
         <CardHeader className="pb-3">
           <div className="flex items-center space-x-2">
             <MapPin className="w-4 h-4 text-slate-600 dark:text-slate-600" />
-            <span className="text-sm font-medium text-slate-900 dark:text-slate-900">
+            <span className="text-sm font-medium text-ink">
               {scenario.setting}
             </span>
           </div>
@@ -145,17 +145,17 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
         <CardContent className="pt-0">
           <div className="space-y-3">
             <div>
-              <h4 className="text-sm font-medium text-slate-900 dark:text-slate-900 mb-1">
+              <h4 className="text-sm font-medium text-ink mb-1">
                 Chief Complaint
               </h4>
-              <p className="text-sm text-slate-900 dark:text-slate-900">
+              <p className="text-sm text-ink">
                 {scenario.chiefComplaint}
               </p>
             </div>
             
             {scenario.presentingSymptoms.length > 0 && (
               <div>
-                <h4 className="text-sm font-medium text-slate-900 dark:text-slate-900 mb-2">
+                <h4 className="text-sm font-medium text-ink mb-2">
                   Presenting Symptoms
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -188,7 +188,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
               <p className={`text-lg font-semibold ${getVitalColor(getVitalStatus('heartRate', scenario.vitalSigns.heartRate))}`}>
                 {scenario.vitalSigns.heartRate}
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-800">HR (bpm)</p>
+              <p className="text-xs text-muted">HR (bpm)</p>
             </div>
             
             <div className="text-center">
@@ -198,7 +198,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
               <p className={`text-lg font-semibold ${getVitalColor(getVitalStatus('systolic', scenario.vitalSigns.bloodPressure.systolic))}`}>
                 {scenario.vitalSigns.bloodPressure.systolic}/{scenario.vitalSigns.bloodPressure.diastolic}
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-800">BP (mmHg)</p>
+              <p className="text-xs text-muted">BP (mmHg)</p>
             </div>
             
             <div className="text-center">
@@ -208,7 +208,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
               <p className={`text-lg font-semibold ${getVitalColor(getVitalStatus('temperature', scenario.vitalSigns.temperature))}`}>
                 {scenario.vitalSigns.temperature}°F
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-800">Temp</p>
+              <p className="text-xs text-muted">Temp</p>
             </div>
             
             <div className="text-center">
@@ -218,7 +218,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
               <p className={`text-lg font-semibold ${getVitalColor(getVitalStatus('respiratoryRate', scenario.vitalSigns.respiratoryRate))}`}>
                 {scenario.vitalSigns.respiratoryRate}
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-800">RR (/min)</p>
+              <p className="text-xs text-muted">RR (/min)</p>
             </div>
             
             <div className="text-center">
@@ -228,7 +228,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
               <p className={`text-lg font-semibold ${getVitalColor(getVitalStatus('oxygenSaturation', scenario.vitalSigns.oxygenSaturation))}`}>
                 {scenario.vitalSigns.oxygenSaturation}%
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-800">O2 Sat</p>
+              <p className="text-xs text-muted">O2 Sat</p>
             </div>
             
             <div className="text-center">
@@ -238,7 +238,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
               <p className={`text-lg font-semibold ${scenario.vitalSigns.painLevel > 7 ? 'text-red-600' : scenario.vitalSigns.painLevel > 4 ? 'text-orange-600' : 'text-green-600'}`}>
                 {scenario.vitalSigns.painLevel}/10
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-800">Pain</p>
+              <p className="text-xs text-muted">Pain</p>
             </div>
           </div>
         </CardContent>
@@ -254,13 +254,13 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
             {scenario.patientInfo.medicalHistory.length > 0 ? (
               <ul className="space-y-1">
                 {scenario.patientInfo.medicalHistory.map((condition, index) => (
-                  <li key={index} className="text-sm text-slate-900 dark:text-slate-900">
+                  <li key={index} className="text-sm text-ink">
                     • {condition}
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-sm text-slate-700 dark:text-slate-800">No significant medical history</p>
+              <p className="text-sm text-muted">No significant medical history</p>
             )}
           </CardContent>
         </Card>
@@ -273,13 +273,13 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
             {scenario.patientInfo.medications.length > 0 ? (
               <ul className="space-y-1">
                 {scenario.patientInfo.medications.map((medication, index) => (
-                  <li key={index} className="text-sm text-slate-900 dark:text-slate-900">
+                  <li key={index} className="text-sm text-ink">
                     • {medication}
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-sm text-slate-700 dark:text-slate-800">No current medications</p>
+              <p className="text-sm text-muted">No current medications</p>
             )}
           </CardContent>
         </Card>
@@ -304,14 +304,14 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
             <div className="space-y-2">
               {Object.entries(scenario.labResults).map(([test, result]) => (
                 <div key={test} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
-                  <span className="text-sm font-medium text-slate-900 dark:text-slate-900">
+                  <span className="text-sm font-medium text-ink">
                     {test}
                   </span>
                   <div className="flex items-center space-x-2">
                     <span className={`text-sm font-medium ${
                       result.critical ? 'text-red-600' : 
                       !result.normal ? 'text-orange-600' : 
-                      'text-slate-900 dark:text-slate-900'
+                      'text-ink'
                     }`}>
                       {result.value} {result.unit}
                     </span>
@@ -342,7 +342,7 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
             <div className="space-y-2">
               {scenario.clinicalNotes.map((note, index) => (
                 <div key={index} className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                  <p className="text-sm text-slate-900 dark:text-slate-900">
+                  <p className="text-sm text-ink">
                     {note}
                   </p>
                 </div>

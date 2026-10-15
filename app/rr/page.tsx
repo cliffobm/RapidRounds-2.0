@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Activity, ArrowRight, BookOpen, Clock3, Layers3 } from 'lucide-react'
 import { practiceCases } from '@/lib/rr-catalog'
 
@@ -61,14 +60,14 @@ export default function Page() {
               <p className="mb-4 text-xs text-muted">
                 {scenario.questions.length} decisions · Draft learning content
               </p>
-              <Link
+              <a
                 href={`/rr/${scenario.code}`}
                 className="inline-flex min-h-12 items-center justify-between gap-3 rounded-xl bg-signal px-4 py-3 text-sm font-semibold text-signal-contrast hover:opacity-90"
                 aria-label={`Start ${scenario.title}`}
               >
                 Start case
                 <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-              </Link>
+              </a>
             </div>
           </article>
         ))}

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Logo } from '../ui/Logo'
 import { Button } from '../ui/Button'
+import { ClientOnly } from '../ui/ClientOnly'
 import { useAuth } from '@/store/useAuth'
 import { useTheme } from '@/app/providers'
 import {
@@ -48,31 +49,36 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Logo size="sm" variant="icon" />
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
-            {!loading &&
-              (user ? (
-                <>
-                  <span className="hidden max-w-[180px] truncate text-sm text-muted md:block">
-                    {user.user_metadata?.full_name ||
-                      user.user_metadata?.name ||
-                      user.email}
-                  </span>
+            <ClientOnly>
+              {!loading &&
+                (user ? (
+                  <>
+                    <span className="hidden max-w-[180px] truncate text-sm text-muted md:block">
+                      {user.user_metadata?.full_name ||
+                        user.user_metadata?.name ||
+                        user.email}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={async () => {
+                        await signOut()
+                        router.push('/')
+                      }}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" aria-hidden="true" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
                   <Button
-                    variant="outline"
                     size="sm"
-                    onClick={async () => {
-                      await signOut()
-                      router.push('/')
-                    }}
+                    onClick={() => router.push('/auth/sign-in')}
                   >
-                    <LogOut className="mr-2 h-4 w-4" aria-hidden="true" />
-                    Sign Out
+                    Sign In
                   </Button>
-                </>
-              ) : (
-                <Button size="sm" onClick={() => router.push('/auth/sign-in')}>
-                  Sign In
-                </Button>
-              ))}
+                ))}
+            </ClientOnly>
             <button
               type="button"
               onClick={toggleTheme}
@@ -117,7 +123,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </div>
       </nav>
-      <FabActions userRole={profile?.role || 'student'} />
+      <ClientOnly>
+        <FabActions userRole={profile?.role || 'student'} />
+      </ClientOnly>
     </div>
   )
 }

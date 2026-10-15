@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { BrandIntro } from '@/components/brand/BrandIntro'
 import { Card } from '@/components/ui/Card'
+import { ClientOnly } from '@/components/ui/ClientOnly'
 import { useAuth } from '@/store/useAuth'
 import { useProgress } from '@/store/useProgress'
 
@@ -47,15 +48,17 @@ export default function Home() {
       <section className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
         <div>
           <BrandIntro />
-          {user && (
-            <p className="mt-7 text-sm font-medium text-muted">
-              Welcome back
-              {user.user_metadata?.full_name
-                ? `, ${user.user_metadata.full_name}`
-                : ''}
-              .
-            </p>
-          )}
+          <ClientOnly>
+            {user && (
+              <p className="mt-7 text-sm font-medium text-muted">
+                Welcome back
+                {user.user_metadata?.full_name
+                  ? `, ${user.user_metadata.full_name}`
+                  : ''}
+                .
+              </p>
+            )}
+          </ClientOnly>
           <h1 className="mt-6 text-4xl font-semibold leading-[1.12] tracking-tight text-ink sm:text-5xl">
             Build your judgment.
             <br />
@@ -176,7 +179,7 @@ export default function Home() {
                 {label}
               </dt>
               <dd className="mt-2 text-2xl font-semibold tabular-nums text-ink">
-                {value}
+                <ClientOnly fallback="—">{value}</ClientOnly>
               </dd>
             </div>
           ))}

@@ -92,17 +92,18 @@ jobs:
       - name: Branding, theme contrast and RR case regression
         run: npx playwright test e2e/brand-scenarios.spec.ts --project=chromium --project="Mobile Chrome" --workers=2 --reporter=line
       - name: Google-email and Profile regression (simulated APIs)
+        id: auth_regression
         if: ${{ !cancelled() }}
         run: npx playwright test --config=playwright.auth.config.ts
+      - name: Full desktop and mobile Chromium regression
+        if: ${{ !cancelled() }}
+        run: npx playwright test --project=chromium --project="Mobile Chrome" --workers=2
       - name: Explain Auth hydration failures in development mode
-        if: failure()
+        if: failure() && steps.auth_regression.outcome == 'failure'
         env:
           PLAYWRIGHT_AUTH_SERVER_COMMAND: npm run dev -- --hostname 127.0.0.1
           AUTH_HYDRATION_DIAGNOSTICS: 'true'
         run: npx playwright test --config=playwright.auth.config.ts --project=chromium --grep="signup confirms|recovery changes|Google redirect" --reporter=line
-      - name: Full desktop and mobile Chromium regression
-        if: ${{ !cancelled() }}
-        run: npx playwright test --project=chromium --project="Mobile Chrome" --workers=2
       - name: Save browser evidence
         if: always()
         uses: actions/upload-artifact@v4
