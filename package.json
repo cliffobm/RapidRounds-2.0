@@ -45,12 +45,12 @@
     "immer": "^10.1.1",
     "localforage": "^1.10.0",
     "lucide-react": "^0.468.0",
-    "next": "^15.5.2",
+    "next": "15.5.28",
     "openai": "^5.22.0",
     "postcss": "^8.4.49",
-    "react": "^19.1.1",
+    "react": "19.1.10",
     "react-confetti": "^6.4.0",
-    "react-dom": "^19.1.1",
+    "react-dom": "19.1.10",
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.4.1",
     "react-swipeable": "^7.0.1",
@@ -79,7 +79,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "@vitest/coverage-v8": "^2.1.8",
     "eslint": "^9.17.0",
-    "eslint-config-next": "^15.5.2",
+    "eslint-config-next": "15.5.28",
     "jsdom": "^25.0.1",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
@@ -89,6 +89,6 @@
     "wait-on": "^8.0.1"
   },
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   }
 }
