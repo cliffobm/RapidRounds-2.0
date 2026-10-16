@@ -3,34 +3,35 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import LegacyPractice from './LegacyPractice'
 import { BANKS } from '@/qbank/banks'
 
-describe('quiz CJIS integration', () => {
-  it('lists the competencies and renders an actual adapted bank with practice-only feedback', () => {
+describe('mobile practice flow', () => {
+  it('replaces the dropdown with topics and requires confirmation before grading', () => {
     render(<LegacyPractice />)
-    expect(screen.getByText('recognize cues')).toBeInTheDocument()
-    fireEvent.change(screen.getByLabelText('Select bank'), { target: { value: 'acute_mi' } })
-    expect(screen.getByText(/Competency mapping pending/)).toBeInTheDocument()
+    expect(screen.queryByRole('combobox')).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: /Acute coronary syndromes/ }))
+    expect(screen.getByText('Question 1 of 1')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Check answer' })).toBeDisabled()
     const item = BANKS.acute_mi.items[0]!
-    const answerIndex = item.correct_answer.charCodeAt(0) - 65
-    const button = screen.getByRole('button', { name: `${item.correct_answer}. ${item.options[answerIndex]}` })
-    fireEvent.click(button)
-    expect(screen.getByRole('status')).toHaveTextContent('Correct. Practice feedback only.')
-    expect(button).toBeDisabled()
-    expect(screen.getByText(/1 practice responses this session/)).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Next question' }))
+    fireEvent.click(screen.getAllByRole('radio')[item.correct_answer.charCodeAt(0) - 65]!)
     expect(screen.queryByRole('status')).toBeNull()
-    fireEvent.click(button)
-    expect(screen.getByText(/2 practice responses this session/)).toBeInTheDocument()
-    expect(screen.getByText(/No competency score calculated/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Check answer' }))
+    expect(screen.getByRole('status')).toHaveTextContent('You connected the dots.')
+    screen.getAllByRole('radio').forEach(option => expect(option).toBeDisabled())
+    fireEvent.click(screen.getByRole('button', { name: 'Finish round' }))
+    expect(screen.getByText('1 correct · 1 answered · 0 skipped')).toBeInTheDocument()
+    expect(screen.getByText(/not a competency estimate/)).toBeInTheDocument()
   })
-  it('resets answers and counts on bank changes and does not count skips as answers', () => {
+  it('filters topics, caps rounds at five and records skipped questions accurately', () => {
     render(<LegacyPractice />)
-    fireEvent.change(screen.getByLabelText('Select bank'), { target: { value: 'acute_mi' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Skip question' }))
-    expect(screen.getByText(/0 practice responses this session/)).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: /^A\./ }))
-    fireEvent.change(screen.getByLabelText('Select bank'), { target: { value: 'vascular_disease_core' } })
+    fireEvent.change(screen.getByRole('textbox', { name: 'Search topics' }), { target: { value: 'vascular disease' } })
+    fireEvent.click(screen.getByRole('button', { name: /Vascular disease/ }))
+    expect(screen.getByText('Question 1 of 5')).toBeInTheDocument()
+    for (let i = 0; i < 5; i++) fireEvent.click(screen.getByRole('button', { name: 'Skip this question' }))
+    expect(screen.getByText('0 correct · 0 answered · 5 skipped')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /Continue this topic/ }))
+    expect(screen.getByText(BANKS.vascular_disease_core.items[5]!.question)).toBeInTheDocument()
+    expect(screen.getByText('Question 1 of 5')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'All topics' }))
     expect(screen.queryByRole('status')).toBeNull()
-    expect(screen.getByText(/0 practice responses this session/)).toBeInTheDocument()
-    expect(screen.getByText(/Question 1 of 30/)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Pick your next round.' })).toBeInTheDocument()
   })
 })

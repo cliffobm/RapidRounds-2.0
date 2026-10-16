@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import './experience.css'
 import { AppShell } from '@/components/layout/AppShell'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import Providers from './providers'
