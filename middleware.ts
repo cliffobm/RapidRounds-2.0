@@ -36,4 +36,5 @@ export async function middleware(request: NextRequest) {
   }
 }
 
-export const config = { matcher: ['/profile/:path*', '/settings/:path*', '/admin/:path*'] }
+// Device preferences contain no account operations and are available without sign-in.
+export const config = { matcher: ['/profile/:path*', '/admin/:path*'] }

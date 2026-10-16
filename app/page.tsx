@@ -1,1 +1,1 @@
-export { default } from '@/components/learning/HomeExperience'
+export { default } from '@/components/learning/LandingExperience'

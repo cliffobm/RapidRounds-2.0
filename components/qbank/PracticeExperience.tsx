@@ -284,6 +284,10 @@ function PracticeRound({
           </div>
           <div
             className="round-progress"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={items.length}
+            aria-valuenow={index + 1}
             aria-label={`Question ${index + 1} of ${items.length}`}
           >
             {items.map((_, position) => (

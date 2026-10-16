@@ -16,7 +16,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run test:cjis
-      - run: npx vitest run lib/cjis components/qbank/LegacyPractice.spec.tsx components/learning/Experience.spec.tsx
+      - run: npx vitest run lib/cjis components/qbank/LegacyPractice.spec.tsx components/learning/Experience.spec.tsx components/settings/Settings.spec.tsx
       - run: npm run typecheck
       - run: npm run build
   legacy-regressions:

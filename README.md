@@ -11,6 +11,8 @@ npm run dev
 
 Open `/quiz`, or choose **Practice** in navigation. No database credentials are required for the bundled question banks. Missing database configuration blocks requests instead of contacting the original production project.
 
+`/` welcomes learners with the original metallic logo and optional introduction video. `/home` opens the learning dashboard. The header's **Settings** button opens `/settings` for device-saved appearance, accessibility, optional profile, learning goals and calendar reminder exports. Calendar reminders require importing the downloaded file; this website does not send background push notifications. See [settings, brand provenance and verification](cjis/SETTINGS_AND_LANDING.md).
+
 The quiz adapts the ten active legacy banks (68 questions) into mobile topic cards and rounds of up to five questions. Continue this topic opens the next set. Original source metadata and answer keys are preserved. Items remain unmapped drafts, and feedback is practice only. Responses, skipped questions, elapsed time, item version, case identity and first/repeated attempts stay in round memory; leaving a round clears them. No competency estimate or database persistence is implemented by this practice flow.
 
 `/rr` offers two complete fictional six-stage guided case drafts with rationales and debriefs. `/study` provides six reasoning units with distinct before/after knowledge checks; the first completed pair per unit is saved on the device. These checks do not establish clinical competence or lasting improvement. The six pillars of the judgment model are explored on Home and Practice. See [experience design and executed checks](cjis/EXPERIENCE_REDESIGN.md).
@@ -21,7 +23,7 @@ The quiz adapts the ten active legacy banks (68 questions) into mobile topic car
 
 ```sh
 npm run test:cjis
-npx vitest run lib/cjis components/qbank/LegacyPractice.spec.tsx components/learning/Experience.spec.tsx
+npx vitest run lib/cjis components/qbank/LegacyPractice.spec.tsx components/learning/Experience.spec.tsx components/settings/Settings.spec.tsx
 npm run typecheck
 npm run build
 npx playwright test --config playwright.cjis.config.ts

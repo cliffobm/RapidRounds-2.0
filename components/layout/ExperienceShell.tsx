@@ -11,13 +11,14 @@ import {
   Moon,
   Sun,
   UserRound,
+  Settings,
 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { useTheme } from '@/app/providers'
 import { useAuth } from '@/store/useAuth'
 import { DATABASE_CONFIGURED } from '@/lib/env'
 const navigation = [
-  { href: '/', title: 'Home', icon: Home },
+  { href: '/home', title: 'Home', icon: Home },
   { href: '/rr', title: 'Rounds', icon: Layers3 },
   { href: '/quiz', title: 'Practice', icon: Zap },
   { href: '/study', title: 'Study', icon: BookOpen },
@@ -31,8 +32,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => setMounted(true), [])
   const links = navigation.map(({ href, title, icon: Icon }) => {
     // The first render must not depend on a cached server pathname.
-    const active =
-      mounted && (href === '/' ? pathname === '/' : pathname?.startsWith(href))
+    const active = mounted && pathname?.startsWith(href)
     return (
       <Link
         key={href}
@@ -42,7 +42,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <Icon size={20} />
         <span>{title}</span>
-        {active && <i aria-hidden="true" />}
       </Link>
     )
   })
@@ -60,6 +59,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {links}
           </nav>
           <div className="rr-header-actions">
+            <Link
+              href="/settings"
+              className="rr-icon-button rr-settings-link"
+              aria-label="Settings"
+              aria-current={
+                mounted && pathname === '/settings' ? 'page' : undefined
+              }
+            >
+              <Settings size={20} />
+            </Link>
             <span className="rr-review-badge">
               <i /> Review edition
             </span>
