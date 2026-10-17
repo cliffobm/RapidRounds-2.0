@@ -1,122 +1,92 @@
-import { getLeaderboard, getUserRank, getLeaderboardWithUserRank } from '@/lib/db/leaderboard'
-
-// Mock the Supabase client
-jest.mock('@/lib/supabase/client', () => ({
-  createClient: () => ({
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        eq: jest.fn(() => ({
-          not: jest.fn(() => ({
-            gte: jest.fn(() => ({
-              order: jest.fn(() => ({
-                limit: jest.fn(() => ({
-                  data: [
-                    {
-                      student_id: 'user1',
-                      profiles: { full_name: 'John Doe', institution_id: 'inst1' },
-                      score: 85,
-                      completed_at: '2024-01-15T10:00:00Z',
-                      scenarios: { title: 'Test Scenario', category: 'Cardiac' }
-                    },
-                    {
-                      student_id: 'user2',
-                      profiles: { full_name: 'Jane Smith', institution_id: 'inst1' },
-                      score: 90,
-                      completed_at: '2024-01-14T10:00:00Z',
-                      scenarios: { title: 'Test Scenario 2', category: 'Respiratory' }
-                    }
-                  ],
-                  error: null
-                }))
-              }))
-            }))
-          }))
-        }))
-      }))
-    }))
-  })
-}))
-
-describe('Leaderboard Functions', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
-  describe('getLeaderboard', () => {
-    it('should return leaderboard entries with correct structure', async () => {
-      const result = await getLeaderboard()
-
-      expect(result).toHaveLength(2)
-      expect(result[0]).toMatchObject({
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  getLeaderboard,
+  getUserRank,
+  getLeaderboardWithUserRank,
+} from '@/lib/db/leaderboard'
+const { from } = vi.hoisted(() => ({ from: vi.fn() }))
+vi.mock('@/lib/supabase/client', () => ({ createClient: () => ({ from }) }))
+let rows: unknown[], error: unknown, query: any
+beforeEach(() => {
+  rows = [
+    {
+      student_id: 'user1',
+      profiles: { full_name: 'Nurse One', institution_id: 'inst1' },
+      score: 85,
+    },
+    {
+      student_id: 'user2',
+      profiles: { full_name: 'Nurse Two', institution_id: 'inst1' },
+      score: 90,
+    },
+    {
+      student_id: 'user1',
+      profiles: { full_name: 'Nurse One', institution_id: 'inst1' },
+      score: 80,
+    },
+  ]
+  error = null
+  query = {
+    then: (resolve: any) =>
+      Promise.resolve({ data: rows, error }).then(resolve),
+  }
+  for (const method of ['select', 'eq', 'not', 'gte'])
+    query[method] = vi.fn(() => query)
+  from.mockReturnValue(query)
+})
+describe('leaderboard data integrity', () => {
+  it('aggregates source results and ranks the combined points', async () => {
+    expect(await getLeaderboard()).toEqual([
+      {
         student_id: 'user1',
-        student_name: 'John Doe',
-        total_points: expect.any(Number),
-        scenarios_completed: expect.any(Number),
-        average_score: expect.any(Number),
+        student_name: 'Nurse One',
+        total_points: 1650,
+        scenarios_completed: 2,
+        average_score: 83,
         rank: 1,
-        institution_id: 'inst1'
-      })
-    })
-
-    it('should rank entries by total points', async () => {
-      const result = await getLeaderboard()
-
-      expect(result[0]?.rank).toBe(1)
-      expect(result[1]?.rank).toBe(2)
-      expect(result[0]?.total_points).toBeGreaterThanOrEqual(result[1]?.total_points || 0)
-    })
-
-    it('should apply time filter correctly', async () => {
-      const result = await getLeaderboard({ timeFilter: 'week' })
-
-      expect(result).toBeDefined()
-      // In a real test, we would verify the query was called with correct date filter
-    })
-
-    it('should handle empty results', async () => {
-      // Mock empty response
-      const mockClient = require('@/lib/supabase/client').createClient()
-      mockClient.from().select().eq().not().gte().order().limit.mockReturnValue({
-        data: [],
-        error: null
-      })
-
-      const result = await getLeaderboard()
-      expect(result).toEqual([])
-    })
+        institution_id: 'inst1',
+      },
+      {
+        student_id: 'user2',
+        student_name: 'Nurse Two',
+        total_points: 900,
+        scenarios_completed: 1,
+        average_score: 90,
+        rank: 2,
+        institution_id: 'inst1',
+      },
+    ])
   })
-
-  describe('getUserRank', () => {
-    it('should return user rank when user exists in leaderboard', async () => {
-      const result = await getUserRank('user1')
-      expect(result).toBe(1)
-    })
-
-    it('should return null when user not found', async () => {
-      const result = await getUserRank('nonexistent-user')
-      expect(result).toBeNull()
-    })
+  it('applies a time and institution filter to the query', async () => {
+    await getLeaderboard({ timeFilter: 'week', institutionId: 'inst1' })
+    expect(query.gte).toHaveBeenCalledWith('completed_at', expect.any(String))
+    expect(query.eq).toHaveBeenCalledWith('profiles.institution_id', 'inst1')
   })
-
-  describe('getLeaderboardWithUserRank', () => {
-    it('should return leaderboard with user rank and entry', async () => {
-      const result = await getLeaderboardWithUserRank('user1')
-
-      expect(result).toMatchObject({
-        leaderboard: expect.any(Array),
-        userRank: 1,
-        userEntry: expect.objectContaining({
-          student_id: 'user1',
-          student_name: 'John Doe'
-        })
-      })
-    })
-
-    it('should return null userRank when user not found', async () => {
-      const result = await getLeaderboardWithUserRank('nonexistent-user')
-
-      expect(result.userRank).toBeNull()
-      expect(result.userEntry).toBeUndefined()
-    })
+  it('honors the requested result limit', async () => {
+    expect(await getLeaderboard({ limit: 1 })).toHaveLength(1)
+  })
+  it('does not invent results for an empty collection', async () => {
+    rows = []
+    expect(await getLeaderboard()).toEqual([])
+  })
+  it('does not substitute fabricated people when the data source fails', async () => {
+    error = { message: 'Unavailable' }
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    expect(await getLeaderboard()).toEqual([])
+    warning.mockRestore()
+  })
+  it('returns the actual user rank', async () => {
+    expect(await getUserRank('user1')).toBe(1)
+  })
+  it('returns no rank for an absent user', async () => {
+    expect(await getUserRank('absent')).toBeNull()
+  })
+  it('does not fabricate progress for a user missing from a real leaderboard', async () => {
+    const result = await getLeaderboardWithUserRank('absent')
+    expect(result.userRank).toBeNull()
+    expect(result.userEntry).toBeUndefined()
+    expect(
+      (await getLeaderboardWithUserRank('user1')).userEntry?.student_id
+    ).toBe('user1')
   })
 })

@@ -244,6 +244,10 @@ export function ScenarioCard({ scenario, className = '' }: ScenarioCardProps) {
         </CardContent>
       </Card>
 
+      <Card>
+        <CardHeader><CardTitle className="text-base">Allergies</CardTitle></CardHeader>
+        <CardContent><p>{scenario.patientInfo.allergies.length ? scenario.patientInfo.allergies.join(', ') : 'No allergies recorded in this case; verify allergy status.'}</p></CardContent>
+      </Card>
       {/* Patient History & Medications */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>

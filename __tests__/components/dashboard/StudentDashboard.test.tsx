@@ -1,18 +1,20 @@
+import { vi } from 'vitest'
+import { getLastInProgressScenario } from '@/lib/db/progress'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { StudentDashboard } from '@/components/dashboard/StudentDashboard'
 import { User } from '@/types'
 
 // Mock the router
-const mockPush = jest.fn()
-jest.mock('next/navigation', () => ({
+const { mockPush } = vi.hoisted(() => ({ mockPush: vi.fn() }))
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: mockPush
-  })
+    push: mockPush,
+  }),
 }))
 
 // Mock the progress function
-jest.mock('@/lib/db/progress', () => ({
-  getLastInProgressScenario: jest.fn()
+vi.mock('@/lib/db/progress', () => ({
+  getLastInProgressScenario: vi.fn(),
 }))
 
 const mockUser: User = {
@@ -23,12 +25,13 @@ const mockUser: User = {
   role: 'student',
   institution_id: 'inst1',
   created_at: '2024-01-01T00:00:00Z',
-  updated_at: '2024-01-01T00:00:00Z'
+  updated_at: '2024-01-01T00:00:00Z',
 }
 
 describe('StudentDashboard', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
+    vi.mocked(getLastInProgressScenario).mockResolvedValue(null)
   })
 
   it('renders dashboard with user information', () => {
@@ -65,8 +68,7 @@ describe('StudentDashboard', () => {
   })
 
   it('shows continue learning message when no in-progress scenario', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue(null)
+    vi.mocked(getLastInProgressScenario).mockResolvedValue(null)
 
     render(<StudentDashboard user={mockUser} />)
 
@@ -76,11 +78,10 @@ describe('StudentDashboard', () => {
   })
 
   it('shows resume message when in-progress scenario exists', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue({
+    vi.mocked(getLastInProgressScenario).mockResolvedValue({
       progress: { id: 'progress1' },
-      scenario: { id: 'scenario1', title: 'Test Scenario' }
-    })
+      scenario: { id: 'scenario1', title: 'Test Scenario' },
+    } as any)
 
     render(<StudentDashboard user={mockUser} />)
 
@@ -90,11 +91,10 @@ describe('StudentDashboard', () => {
   })
 
   it('navigates to scenario when Continue Learning is clicked with in-progress scenario', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue({
+    vi.mocked(getLastInProgressScenario).mockResolvedValue({
       progress: { id: 'progress1' },
-      scenario: { id: 'scenario1', title: 'Test Scenario' }
-    })
+      scenario: { id: 'scenario1', title: 'Test Scenario' },
+    } as any)
 
     render(<StudentDashboard user={mockUser} />)
 
@@ -106,8 +106,7 @@ describe('StudentDashboard', () => {
   })
 
   it('navigates to scenarios list when Continue Learning is clicked without in-progress scenario', async () => {
-    const { getLastInProgressScenario } = require('@/lib/db/progress')
-    getLastInProgressScenario.mockResolvedValue(null)
+    vi.mocked(getLastInProgressScenario).mockResolvedValue(null)
 
     render(<StudentDashboard user={mockUser} />)
 

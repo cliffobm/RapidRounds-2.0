@@ -159,6 +159,7 @@ export function OrderQuestion({ question, onAnswer, currentAnswer, disabled }: O
   return (
     <div className="space-y-4">
       <div className="mb-4">
+        <h3 className="font-semibold mb-3">{question.question}</h3>
         <p className="text-sm text-gray-600 mb-4">
           Drag and drop to prioritize (or click to move to end):
         </p>

@@ -289,14 +289,14 @@ describe('AnswerBlock', () => {
       
       // Tab to first option
       await user.tab()
-      const firstOption = screen.getByText('40-60 bpm')
+      const firstOption = screen.getByRole('button', { name: /40-60 bpm/ })
       expect(firstOption).toHaveFocus()
       
       // Press Enter to select
       await user.keyboard('{Enter}')
       
-      // Tab to submit button
-      await user.tab()
+      // Tab through the remaining answer buttons to submit
+      for (let index = 0; index < mockMCQQuestion.options!.length; index++) await user.tab()
       const submitButton = screen.getByText('Submit Answer')
       expect(submitButton).toHaveFocus()
       

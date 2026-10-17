@@ -1,16 +1,19 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useAuth } from './useAuth'
+import { canSeeFullRationale, getRationaleForDisplay } from '@/lib/rationales'
+
+vi.mock('@/lib/supabase', () => ({ supabase: { from: vi.fn() } }))
 
 // Mock Supabase
-vi.mock('../lib/supabase', () => ({
-  supabase: {
+vi.mock('../lib/supabase-client', () => ({
+  supabaseClient: {
     auth: {
       signInWithPassword: vi.fn(),
       signUp: vi.fn(),
       signInWithOAuth: vi.fn(),
       signOut: vi.fn(),
       onAuthStateChange: vi.fn(() => ({
-        data: { subscription: { unsubscribe: vi.fn() } }
+        data: { subscription: { unsubscribe: vi.fn() } },
       })),
     },
     from: vi.fn(() => ({
@@ -45,7 +48,7 @@ describe('useAuth Store', () => {
   describe('Basic State Management', () => {
     it('should initialize with default state', () => {
       const state = useAuth.getState()
-      
+
       expect(state.user).toBeNull()
       expect(state.session).toBeNull()
       expect(state.profile).toBeNull()
@@ -54,9 +57,9 @@ describe('useAuth Store', () => {
 
     it('should update user state', () => {
       const mockUser = { id: 'user-123', email: 'test@example.com' } as any
-      
+
       useAuth.getState().setUser(mockUser)
-      
+
       expect(useAuth.getState().user).toBe(mockUser)
     })
 
@@ -70,11 +73,11 @@ describe('useAuth Store', () => {
         institution_id: null,
         credentials: [],
         created_at: '2024-01-01',
-        updated_at: '2024-01-01'
+        updated_at: '2024-01-01',
       }
-      
+
       useAuth.getState().setProfile(mockProfile)
-      
+
       expect(useAuth.getState().profile).toBe(mockProfile)
     })
   })
@@ -84,14 +87,18 @@ describe('useAuth Store', () => {
       const mockUser = { id: 'user-123', email: 'test@example.com' }
       const mockSession = { access_token: 'token-123' }
 
-      const { supabase } = await import('../lib/supabase')
+      const { supabaseClient: supabase } = await import(
+        '../lib/supabase-client'
+      )
       vi.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
         data: { user: mockUser, session: mockSession },
         error: null,
       } as any)
 
-      const result = await useAuth.getState().signIn('test@example.com', 'password')
-      
+      const result = await useAuth
+        .getState()
+        .signIn('test@example.com', 'password')
+
       expect(result.error).toBeUndefined()
       expect(useAuth.getState().user).toBe(mockUser)
       expect(useAuth.getState().session).toBe(mockSession)
@@ -100,14 +107,18 @@ describe('useAuth Store', () => {
     it('should handle sign in errors', async () => {
       const mockError = { message: 'Invalid credentials' }
 
-      const { supabase } = await import('../lib/supabase')
+      const { supabaseClient: supabase } = await import(
+        '../lib/supabase-client'
+      )
       vi.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
         data: { user: null, session: null },
         error: mockError,
       } as any)
 
-      const result = await useAuth.getState().signIn('test@example.com', 'wrong-password')
-      
+      const result = await useAuth
+        .getState()
+        .signIn('test@example.com', 'wrong-password')
+
       expect(result.error).toBe(mockError)
       expect(useAuth.getState().user).toBeNull()
     })
@@ -120,11 +131,13 @@ describe('useAuth Store', () => {
         profile: { id: 'user-123' } as any,
       })
 
-      const { supabase } = await import('../lib/supabase')
+      const { supabaseClient: supabase } = await import(
+        '../lib/supabase-client'
+      )
       vi.mocked(supabase.auth.signOut).mockResolvedValue({ error: null })
 
       await useAuth.getState().signOut()
-      
+
       expect(useAuth.getState().user).toBeNull()
       expect(useAuth.getState().session).toBeNull()
       expect(useAuth.getState().profile).toBeNull()
@@ -142,11 +155,11 @@ describe('useAuth Store', () => {
         institution_id: null,
         credentials: [],
         created_at: '2024-01-01',
-        updated_at: '2024-01-01'
+        updated_at: '2024-01-01',
       }
 
       useAuth.setState({ profile: mockProfile })
-      
+
       const result = useAuth.getState().isTrialActive()
       expect(result).toBe(true)
     })
@@ -161,11 +174,11 @@ describe('useAuth Store', () => {
         institution_id: null,
         credentials: [],
         created_at: '2024-01-01',
-        updated_at: '2024-01-01'
+        updated_at: '2024-01-01',
       }
 
       useAuth.setState({ profile: mockProfile })
-      
+
       const result = useAuth.getState().isTrialActive()
       expect(result).toBe(false)
     })
@@ -180,11 +193,11 @@ describe('useAuth Store', () => {
         institution_id: null,
         credentials: [],
         created_at: '2024-01-01',
-        updated_at: '2024-01-01'
+        updated_at: '2024-01-01',
       }
 
       useAuth.setState({ profile: mockProfile })
-      
+
       const result = useAuth.getState().isPremiumUser()
       expect(result).toBe(true)
     })
@@ -199,16 +212,18 @@ describe('useAuth Store', () => {
         institution_id: null,
         credentials: [],
         created_at: '2024-01-01',
-        updated_at: '2024-01-01'
+        updated_at: '2024-01-01',
       }
 
       useAuth.setState({ profile: mockProfile })
-      
+
       // Free user should have access to basic features
       expect(useAuth.getState().canAccessFeature('basic_scenarios')).toBe(true)
-      
+
       // Free user should not have access to premium features
-      expect(useAuth.getState().canAccessFeature('advanced_analytics')).toBe(false)
+      expect(useAuth.getState().canAccessFeature('advanced_analytics')).toBe(
+        false
+      )
     })
   })
 })
@@ -216,7 +231,9 @@ describe('useAuth Store', () => {
 describe('Helper Functions', () => {
   describe('canSeeFullRationale', () => {
     it('should work with different profile structures', () => {
-      expect(canSeeFullRationale({ subscription_tier: 'premium' }, 10)).toBe(true)
+      expect(canSeeFullRationale({ subscription_tier: 'premium' }, 10)).toBe(
+        true
+      )
       expect(canSeeFullRationale({ subscription_tier: 'free' }, 3)).toBe(true)
       expect(canSeeFullRationale({ subscription_tier: 'free' }, 5)).toBe(false)
       expect(canSeeFullRationale(null, 0)).toBe(false)
@@ -226,7 +243,7 @@ describe('Helper Functions', () => {
   describe('getRationaleForDisplay', () => {
     const mockRationale = {
       hint: 'Consider the symptoms',
-      full: 'Complete explanation with evidence'
+      full: 'Complete explanation with evidence',
     }
 
     it('should return full content when access is granted', () => {
@@ -240,5 +257,3 @@ describe('Helper Functions', () => {
     })
   })
 })
-
-

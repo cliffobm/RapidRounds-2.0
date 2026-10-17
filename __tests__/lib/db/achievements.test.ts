@@ -1,171 +1,85 @@
-import { getAllAchievements, getUserAchievements, getAchievementsWithStatus } from '@/lib/db/achievements'
-
-// Mock the Supabase client
-jest.mock('@/lib/supabase/client', () => ({
-  createClient: () => ({
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        eq: jest.fn(() => ({
-          order: jest.fn(() => ({
-            data: [
-              {
-                id: 'badge1',
-                name: 'First Steps',
-                description: 'Complete your first scenario',
-                icon: '🎯',
-                criteria: { type: 'scenarios_completed', value: 1 },
-                points: 10,
-                category: 'scenario'
-              },
-              {
-                id: 'badge2',
-                name: 'Week Warrior',
-                description: 'Complete scenarios for 7 days in a row',
-                icon: '🔥',
-                criteria: { type: 'streak_days', value: 7 },
-                points: 75,
-                category: 'streak'
-              }
-            ],
-            error: null
-          }))
-        }))
-      }))
-    }))
-  })
-}))
-
-describe('Achievements Functions', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
-  describe('getAllAchievements', () => {
-    it('should return all achievements', async () => {
-      const result = await getAllAchievements()
-
-      expect(result).toHaveLength(2)
-      expect(result[0]).toMatchObject({
-        id: 'badge1',
-        name: 'First Steps',
-        description: 'Complete your first scenario',
-        icon: '🎯',
-        criteria: { type: 'scenarios_completed', value: 1 },
-        points: 10,
-        category: 'scenario'
-      })
-    })
-
-    it('should handle empty results', async () => {
-      // Mock empty response
-      const mockClient = require('@/lib/supabase/client').createClient()
-      mockClient.from().select().order().mockReturnValue({
-        data: [],
-        error: null
-      })
-
-      const result = await getAllAchievements()
-      expect(result).toEqual([])
-    })
-  })
-
-  describe('getUserAchievements', () => {
-    it('should return user achievements', async () => {
-      // Mock user achievements response
-      const mockClient = require('@/lib/supabase/client').createClient()
-      mockClient.from().select().eq().order().mockReturnValue({
-        data: [
-          {
-            id: 'user-badge1',
-            student_id: 'user1',
-            badge_id: 'badge1',
-            earned_at: '2024-01-15T10:00:00Z',
-            badges: {
-              id: 'badge1',
-              name: 'First Steps',
-              description: 'Complete your first scenario',
-              icon: '🎯',
-              criteria: { type: 'scenarios_completed', value: 1 },
-              points: 10,
-              category: 'scenario'
-            }
-          }
-        ],
-        error: null
-      })
-
-      const result = await getUserAchievements('user1')
-
-      expect(result).toHaveLength(1)
-      expect(result[0]).toMatchObject({
-        id: 'user-badge1',
-        student_id: 'user1',
-        badge_id: 'badge1',
-        earned_at: '2024-01-15T10:00:00Z'
-      })
-    })
-  })
-
-  describe('getAchievementsWithStatus', () => {
-    it('should return achievements with status information', async () => {
-      // Mock the responses for all three functions
-      const mockClient = require('@/lib/supabase/client').createClient()
-      
-      // Mock getAllAchievements
-      mockClient.from().select().order().mockReturnValueOnce({
-        data: [
-          {
-            id: 'badge1',
-            name: 'First Steps',
-            description: 'Complete your first scenario',
-            icon: '🎯',
-            criteria: { type: 'scenarios_completed', value: 1 },
-            points: 10,
-            category: 'scenario'
-          }
-        ],
-        error: null
-      })
-
-      // Mock getUserAchievements
-      mockClient.from().select().eq().order().mockReturnValueOnce({
-        data: [
-          {
-            id: 'user-badge1',
-            student_id: 'user1',
-            badge_id: 'badge1',
-            earned_at: '2024-01-15T10:00:00Z'
-          }
-        ],
-        error: null
-      })
-
-      // Mock getUserProgressForAchievements
-      mockClient.from().select().eq().not().mockReturnValue({
-        data: [
-          {
-            score: 85,
-            completed_at: '2024-01-15T10:00:00Z',
-            scenarios: { category: 'Cardiac' }
-          }
-        ],
-        error: null
-      })
-
-      const result = await getAchievementsWithStatus('user1')
-
-      expect(result).toHaveLength(1)
-      expect(result[0]).toMatchObject({
-        id: 'badge1',
-        name: 'First Steps',
-        is_earned: true,
-        earned_at: '2024-01-15T10:00:00Z'
-      })
-    })
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  getAllAchievements,
+  getUserAchievements,
+  getAchievementsWithStatus,
+} from '@/lib/db/achievements'
+const { from } = vi.hoisted(() => ({ from: vi.fn() }))
+vi.mock('@/lib/supabase/client', () => ({ createClient: () => ({ from }) }))
+const badge = {
+  id: 'badge1',
+  name: 'First Steps',
+  description: 'Complete a scenario',
+  icon: 'badge',
+  criteria: { type: 'scenarios_completed', value: 1 },
+  points: 10,
+  category: 'scenario',
+}
+let results: Record<string, { data: unknown; error: unknown }>
+let queries: Record<string, any>
+beforeEach(() => {
+  results = {
+    badges: { data: [badge], error: null },
+    student_badges: { data: [], error: null },
+    student_progress: { data: [], error: null },
+  }
+  queries = {}
+  from.mockImplementation((table: string) => {
+    const query: any = {
+      then: (resolve: any) => Promise.resolve(results[table]).then(resolve),
+    }
+    for (const method of ['select', 'eq', 'order', 'not'])
+      query[method] = vi.fn(() => query)
+    queries[table] = query
+    return query
   })
 })
-
-
-
-
-
+describe('achievement data queries', () => {
+  it('returns source badges and applies both ordering clauses', async () => {
+    expect(await getAllAchievements()).toEqual([badge])
+    expect(queries.badges.order.mock.calls).toEqual([
+      ['category', { ascending: true }],
+      ['points', { ascending: true }],
+    ])
+  })
+  it('returns empty results when there are no source badges', async () => {
+    results.badges!.data = []
+    expect(await getAllAchievements()).toEqual([])
+  })
+  it('scopes earned badges to the requested student', async () => {
+    const earned = {
+      id: 'earned1',
+      student_id: 'user1',
+      badge_id: badge.id,
+      earned_at: '2026-10-17T08:00:00Z',
+    }
+    results.student_badges!.data = [earned]
+    expect(await getUserAchievements('user1')).toEqual([earned])
+    expect(queries.student_badges.eq).toHaveBeenCalledWith(
+      'student_id',
+      'user1'
+    )
+  })
+  it('distinguishes earned badges from progress toward unearned badges', async () => {
+    results.student_badges!.data = [
+      { badge_id: badge.id, earned_at: '2026-10-17T08:00:00Z' },
+    ]
+    expect(await getAchievementsWithStatus('user1')).toEqual([
+      expect.objectContaining({
+        id: badge.id,
+        is_earned: true,
+        earned_at: '2026-10-17T08:00:00Z',
+      }),
+    ])
+    results.student_badges!.data = []
+    const result = await getAchievementsWithStatus('user1')
+    expect(result[0]).toMatchObject({
+      is_earned: false,
+      progress: { current: 0, target: 1, percentage: 0 },
+    })
+    expect(queries.student_progress.eq).toHaveBeenCalledWith(
+      'student_id',
+      'user1'
+    )
+  })
+})

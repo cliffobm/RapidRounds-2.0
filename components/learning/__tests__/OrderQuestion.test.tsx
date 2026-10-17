@@ -1,3 +1,4 @@
+import { vi } from 'vitest'
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { DndContext } from '@dnd-kit/core'
@@ -12,47 +13,47 @@ const mockQuestion = {
     'Administer oxygen',
     'Obtain IV access',
     'Monitor vital signs',
-    'Prepare for cardiac catheterization'
+    'Prepare for cardiac catheterization',
   ],
   correct_answer: [
     'Administer oxygen',
-    'Obtain IV access', 
+    'Obtain IV access',
     'Monitor vital signs',
-    'Prepare for cardiac catheterization'
+    'Prepare for cardiac catheterization',
   ],
   points: 15,
-  explanation: 'Oxygen first to improve oxygenation, then IV access for medications, continuous monitoring, and preparation for definitive treatment.',
-  category: 'planning' as const
+  explanation:
+    'Oxygen first to improve oxygenation, then IV access for medications, continuous monitoring, and preparation for definitive treatment.',
+  category: 'planning' as const,
 }
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
-  <DndContext>
-    {children}
-  </DndContext>
+  <DndContext>{children}</DndContext>
 )
 
 describe('OrderQuestion', () => {
   it('renders question options correctly', () => {
     render(
       <TestWrapper>
-        <OrderQuestion
-          question={mockQuestion}
-          onAnswer={() => {}}
-        />
+        <OrderQuestion question={mockQuestion} onAnswer={() => {}} />
       </TestWrapper>
     )
 
-    expect(screen.getByText('Prioritize these nursing interventions:')).toBeInTheDocument()
+    expect(
+      screen.getByText('Prioritize these nursing interventions:')
+    ).toBeInTheDocument()
     expect(screen.getByText('Administer oxygen')).toBeInTheDocument()
     expect(screen.getByText('Obtain IV access')).toBeInTheDocument()
     expect(screen.getByText('Monitor vital signs')).toBeInTheDocument()
-    expect(screen.getByText('Prepare for cardiac catheterization')).toBeInTheDocument()
+    expect(
+      screen.getByText('Prepare for cardiac catheterization')
+    ).toBeInTheDocument()
   })
 
   it('shows correct order when answer is provided', () => {
     const correctAnswer = {
       answer: mockQuestion.correct_answer,
-      is_correct: true
+      is_correct: true,
     }
 
     render(
@@ -65,13 +66,18 @@ describe('OrderQuestion', () => {
       </TestWrapper>
     )
 
-    expect(screen.getByText('Correct order!')).toBeInTheDocument()
+    expect(screen.getAllByText('Correct order!')).toHaveLength(2)
   })
 
   it('shows try again when answer is incorrect', () => {
     const incorrectAnswer = {
-      answer: ['Obtain IV access', 'Administer oxygen', 'Monitor vital signs', 'Prepare for cardiac catheterization'],
-      is_correct: false
+      answer: [
+        'Obtain IV access',
+        'Administer oxygen',
+        'Monitor vital signs',
+        'Prepare for cardiac catheterization',
+      ],
+      is_correct: false,
     }
 
     render(
@@ -84,18 +90,15 @@ describe('OrderQuestion', () => {
       </TestWrapper>
     )
 
-    expect(screen.getByText('Try again!')).toBeInTheDocument()
+    expect(screen.getAllByText('Try again!')).toHaveLength(2)
   })
 
   it('calls onAnswer when item is clicked', () => {
-    const onAnswerMock = jest.fn()
-    
+    const onAnswerMock = vi.fn()
+
     render(
       <TestWrapper>
-        <OrderQuestion
-          question={mockQuestion}
-          onAnswer={onAnswerMock}
-        />
+        <OrderQuestion question={mockQuestion} onAnswer={onAnswerMock} />
       </TestWrapper>
     )
 
@@ -106,9 +109,9 @@ describe('OrderQuestion', () => {
     // Should call onAnswer with the reordered array
     expect(onAnswerMock).toHaveBeenCalledWith([
       'Obtain IV access',
-      'Monitor vital signs', 
+      'Monitor vital signs',
       'Prepare for cardiac catheterization',
-      'Administer oxygen'
+      'Administer oxygen',
     ])
   })
 })
