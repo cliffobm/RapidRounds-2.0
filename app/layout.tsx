@@ -4,13 +4,22 @@ import './experience.css'
 import { AppShell } from '@/components/layout/AppShell'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import Providers from './providers'
+import BrowserPage from '@/components/layout/BrowserPage'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'RapidRounds - Nursing Education Platform',
-  description: 'Gamified comprehensive assessment and clinical judgment through scenario-based practice for nursing education.',
-  keywords: ['nursing', 'education', 'clinical', 'assessment', 'scenarios', 'healthcare'],
+  description:
+    'Gamified comprehensive assessment and clinical judgment through scenario-based practice for nursing education.',
+  keywords: [
+    'nursing',
+    'education',
+    'clinical',
+    'assessment',
+    'scenarios',
+    'healthcare',
+  ],
   authors: [{ name: 'RapidRounds Team' }],
   creator: 'RapidRounds',
   publisher: 'RapidRounds',
@@ -19,10 +28,13 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+  ),
   openGraph: {
     title: 'RapidRounds - Nursing Education Platform',
-    description: 'Gamified comprehensive assessment and clinical judgment through scenario-based practice for nursing education.',
+    description:
+      'Gamified comprehensive assessment and clinical judgment through scenario-based practice for nursing education.',
     url: '/',
     siteName: 'RapidRounds',
     images: [
@@ -39,7 +51,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'RapidRounds - Nursing Education Platform',
-    description: 'Gamified comprehensive assessment and clinical judgment through scenario-based practice for nursing education.',
+    description:
+      'Gamified comprehensive assessment and clinical judgment through scenario-based practice for nursing education.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -72,7 +85,9 @@ export default function RootLayout({
         <ErrorBoundary>
           <Providers>
             <AppShell>
-              {children}
+              <main id="main-content">
+                <BrowserPage>{children}</BrowserPage>
+              </main>
             </AppShell>
           </Providers>
         </ErrorBoundary>

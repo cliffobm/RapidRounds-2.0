@@ -10,7 +10,7 @@ Implemented on `feature/cjis-foundation`, October 16, 2026. Main and the product
 - Light, dark or live system appearance; standard, large and extra-large text; stronger contrast; reduced decorative motion. OS reduced motion always takes precedence. The original introduction plays only after a deliberate tap and has a stop control and still-image fallback.
 - Optional preferred name, pronouns, age range, discipline, unit and experience; a private learning intention and weekly session/duration targets. Name and goal appear on `/home`. Targets are not claimed as completed sessions, clinical competence or learning gains.
 - Versioned, validated local storage; visible storage failure state; cross-tab preferences; deliberate reset with confirmation. Reset leaves study results and imported calendar events intact. Nothing syncs across devices, preview domains or accounts.
-- Calendar export creates a repeating daily, weekday or weekly `.ics` event at a floating local wall-clock time, with the chosen session duration and a requested alert 5 minutes before. Users must import/confirm the event in their calendar. Calendar notification settings control delivery. No website push scheduler, email, notification permission or background service is involved. Editing preferences does not update an imported event; the UI explains how to replace it. No profile, private goal, deployment URL or share token is exported.
+- Calendar export creates a repeating daily, weekday or weekly `.ics` event at a floating local wall-clock time, with the chosen session duration and a requested alert 5 minutes before. Users must import/confirm the event in their calendar. Google Calendar requires importing on a computer, after which the event can sync to the phone. Calendar notification settings control delivery. No website push scheduler, email, notification permission or background service is involved. Editing preferences does not update an imported event; the UI explains how to replace it. No profile, private goal, deployment URL or share token is exported.
 - Home-screen shortcut instructions explicitly retain the internet requirement. This does not claim offline/PWA functionality.
 
 ## Original brand provenance
@@ -22,6 +22,12 @@ Recovered from the user-supplied colleague pilot at `https://rapidrounds-cardiac
 
 The similarly named `logo-orbit` asset is a different purple/teal flat logo; it is not used. The reconstructed chrome SVG has been replaced with the original metallic poster in shared branding.
 
+## Rendering and device state
+
+The header, metadata and main landmark remain server rendered. `BrowserPage` mounts page content after the browser is ready and wraps pending content in an explicit Suspense boundary. This avoids an intermittent React 418 recovery observed with the inherited streamed shell while applying browser preferences. Navigation and theme subscriptions are isolated from the page container; preference consumers use a stable `useSyncExternalStore` server snapshot. No recovery errors are filtered or suppressed by tests.
+
+Tradeoff: page content requires JavaScript and initially shows a preparation message. Non-JavaScript clients receive the header and preparation view. This is a browser learning app review build, not a statically rendered marketing site. The inherited full-screen root loading component was removed. All temporary React diagnostic instrumentation was restored before verification and is absent from the source and final build.
+
 ## Verification
 
 - `npm run test:cjis`: 8 passed.
@@ -31,8 +37,8 @@ The similarly named `logo-orbit` asset is a different purple/teal flat logo; it 
 - `npm test`: 85 passed, 14 failed; 8 failed files (including 3 suite-load failures). The inherited failures remain in auth, rationales, AnswerBlock, OrderQuestion, ScenarioCard, dashboard and database suites, matching the prior failure categories. The six new settings checks pass. CI retains the full failing legacy job.
 
 - `npx playwright test --config playwright.cjis.config.ts`: 7 passed against the production build, with page-error detection. Covers the existing clinical learning flows at 390/1440px, 320px layout, the landing video, profile/theme/goal persistence at 320/390/1440px, actual calendar downloads, live system theme changes, OS reduced motion, account/admin access boundaries, and WCAG 2 A/AA axe checks on landing, settings, home and an open practice question in dark/high-contrast/large-text mode. This is not a complete accessibility certification.
-- Browser checks exposed and repaired a missing progressbar role and an unused conditional active-navigation child. Visible-only assertions avoid matching Next.js's hidden streamed rendering copies. One intermittent case-page hydration error was observed during development checks before the navigation change; the combined production run above completed without page errors after it.
+- Browser checks also exposed and repaired a missing progressbar role. Visible-only assertions avoid matching hidden rendered copies; accessibility scans wait for visible page content and disable decorative motion before checking settled contrast. Diagnostic and repeat runs were interrupted by computer suspension (including `ERR_NETWORK_IO_SUSPENDED`); interrupted runs are not claimed as passing.
 
 Physical-device calendar import and OS alert delivery require device testing; automated browser tests verify the actual downloaded calendar content, not notification delivery.
 
-References: [iCalendar RFC 5545](https://www.rfc-editor.org/rfc/rfc5545), [Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API).
+References: [iCalendar RFC 5545](https://www.rfc-editor.org/rfc/rfc5545), [Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API), [React server snapshots](https://react.dev/reference/react/useSyncExternalStore), [Google Calendar import](https://support.google.com/calendar/answer/37118).

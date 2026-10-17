@@ -366,12 +366,16 @@ export default function SettingsExperience() {
             <Download size={18} /> Export calendar reminder
           </button>
           <p className="settings-hint">
-            Open the downloaded .ics file in Apple Calendar, Google Calendar, or
-            Outlook and confirm the import. It requests an alert 5 minutes
-            before your session; your calendar controls alert delivery. This
-            website does not send push notifications. Changing these settings
-            does not update an imported event—edit or delete it in your calendar
-            before importing a replacement.
+            Import the downloaded .ics file into a compatible calendar and
+            confirm the event and its alert. Google Calendar requires import on
+            a computer; the event can then sync to your phone.
+          </p>
+          <p className="settings-hint">
+            The event requests an alert 5 minutes before your session. Your
+            calendar controls delivery. This website does not send push
+            notifications. Changing these settings does not update an imported
+            event—edit or delete it in your calendar before importing a
+            replacement.
           </p>
           <p role="status" className="settings-hint">
             {calendarStatus}

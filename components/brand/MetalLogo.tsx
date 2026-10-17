@@ -21,7 +21,7 @@ export function Logo({
         width={280}
         height={280}
         sizes={size === 'lg' ? '280px' : '70px'}
-        priority={size === 'sm'}
+        loading="eager"
       />
       {showText && variant !== 'icon' && (
         <span className="rr-wordmark">

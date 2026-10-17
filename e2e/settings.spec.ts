@@ -112,6 +112,7 @@ test('system appearance, OS reduced motion, accessibility and privacy boundaries
   await page.getByLabel('Text size').selectOption('larger')
   for (const route of ['/settings', '/', '/home', '/quiz?bank=acute_mi']) {
     await page.goto(route)
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth

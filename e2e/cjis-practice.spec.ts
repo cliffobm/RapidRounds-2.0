@@ -71,6 +71,7 @@ for (const width of [390, 1440]) {
 }
 
 test('narrow-screen layouts and dark theme remain accessible', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.setViewportSize({ width: 320, height: 900 })
   for (const route of ['/', '/quiz', '/rr', '/study', '/test', '/rr/sepsis']) {
     await page.goto(route)
@@ -83,6 +84,7 @@ test('narrow-screen layouts and dark theme remain accessible', async ({ page }) 
   await expect(page.getByRole('button', { name: 'Use light theme' })).toBeVisible()
   for (const route of ['/', '/quiz', '/rr/sepsis', '/study']) {
     await page.goto(route)
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Use light theme' })).toBeVisible()
     await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') })
     const violations = await page.evaluate(async () => {
