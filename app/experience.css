@@ -1293,6 +1293,9 @@
   gap: 14px;
   align-items: center;
 }
+.patient-panel .patient-avatar {
+  color: #152132;
+}
 .patient-panel h2 {
   font-size: 14px;
   font-weight: 700;
@@ -2934,6 +2937,84 @@ html[data-rr-motion='true'] *::after {
   color: var(--rr-ink);
   margin: 12px 0;
   font-size: 1.2rem;
+}
+.inline-reference-trigger {
+  display: inline;
+  padding: 0;
+  min-height: 24px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.inline-reference-trigger:hover,
+.inline-reference-trigger[data-state='open'] {
+  text-decoration-style: solid;
+}
+.inline-reference-hint {
+  font-size: 0.82rem;
+  margin: 12px 0;
+}
+.inline-reference-card {
+  z-index: 100;
+  width: 350px;
+  max-width: calc(100vw - 32px);
+  max-height: min(450px, var(--radix-popover-content-available-height, 70vh));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 18px;
+  border: 1px solid var(--rr-line, #e0e5e5);
+  border-radius: 18px;
+  background: var(--rr-surface, white);
+  color: var(--rr-ink, #152132);
+  box-shadow: 0 16px 48px #0003;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.inline-reference-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.inline-reference-card h3 {
+  font-size: 1.2em;
+  margin: 8px 0 12px;
+}
+.inline-reference-card p {
+  margin: 10px 0;
+}
+.inline-reference-card .inline-reference-limit {
+  font-size: 0.8em;
+  color: var(--rr-muted, #5d6a79);
+}
+.inline-reference-example {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+.inline-reference-card a {
+  display: block;
+  margin-top: 12px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.86em;
+}
+.inline-reference-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--rr-line, #e0e5e5);
+  border-radius: 50%;
+  color: inherit;
+  background: transparent;
 }
 .rr-app .learning-hero-compact {
   min-height: 0;

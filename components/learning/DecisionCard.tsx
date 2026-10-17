@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react'
 import { ArrowRight, Check, CheckCircle2, Lightbulb } from 'lucide-react'
+import InlineReferenceText from './InlineReferenceText'
+import { referenceParts } from '@/lib/learning/inline-references'
 export type DecisionOption = { id: string; text: string }
 export type DecisionFeedback = {
   correct: boolean
@@ -19,6 +21,8 @@ export default function DecisionCard({
   label = 'Select one answer',
   committedId,
   commitLabel = 'Check answer',
+  enableReferences = false,
+  onReferenceLookup,
 }: {
   title: string
   context?: string
@@ -30,18 +34,46 @@ export default function DecisionCard({
   label?: string
   committedId?: string | undefined
   commitLabel?: string
+  enableReferences?: boolean
+  onReferenceLookup?: (() => void) | undefined
 }) {
   const [selected, setSelected] = useState('')
+  const hasReferences =
+    enableReferences &&
+    [context ?? '', title].some((text) =>
+      referenceParts(text).some((part) => part.reference)
+    )
+  const lookup = feedback ? undefined : onReferenceLookup
   return (
     <div className="decision-card">
       {context && (
         <div className="patient-context">
           <span className="eyebrow">THE SITUATION</span>
-          <p>{context}</p>
+          <p>
+            {enableReferences ? (
+              <InlineReferenceText text={context} onLookup={lookup} />
+            ) : (
+              context
+            )}
+          </p>
         </div>
       )}
-      <fieldset disabled={feedback !== null}>
-        <legend>{title}</legend>
+      {hasReferences && (
+        <p className="inline-reference-hint">
+          Underlined terms open a reference card.
+          {onReferenceLookup
+            ? ' Lookups before answering are recorded as assistance.'
+            : ''}
+        </p>
+      )}
+      <fieldset aria-label={title}>
+        <legend>
+          {enableReferences ? (
+            <InlineReferenceText text={title} onLookup={lookup} />
+          ) : (
+            title
+          )}
+        </legend>
         <p className="question-instruction">{label}</p>
         <div className="answer-list">
           {options.map((option, index) => (
@@ -51,6 +83,7 @@ export default function DecisionCard({
             >
               <input
                 type="radio"
+                disabled={feedback !== null}
                 name="decision"
                 value={option.id}
                 checked={(committedId ?? selected) === option.id}

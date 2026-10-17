@@ -2,21 +2,23 @@
 
 This report supersedes the initial migration results retained in Git history. Current implementation: `feature/cjis-foundation`, Node 22, Next.js 15.5.28, React 19.1.10. The original 68 imported questions and answer keys remain intact; the application also includes 32 authored draft questions.
 
-## Executed local checks for content expansion
+## Executed local checks for content expansion and contextual reference cards
 
 | Check | Result |
 | --- | --- |
-| Full regression suite, `npm test -- --reporter=json --outputFile=../content-expansion-tests.json` | 129 passed, 0 failed |
+| Full regression suite, `npm test -- --reporter=json --outputFile=../inline-reference-tests.json` | 134 passed, 0 failed |
 | Legacy adapter, `npm run test:cjis` | 8 passed |
 | TypeScript, `npm run typecheck` | Passed |
-| Production compilation, `npm run build` | Passed, including the reference-panel reconciliation fix |
-| Production browser, `npx playwright test --config playwright.cjis.config.ts` | 15 passed against the final production build |
+| Production compilation, `npm run build` | Passed, including final reference-card/theme fixes |
+| Production browser, `npx playwright test --config playwright.cjis.config.ts` | 17 passed against the final production build |
 
 No tests are excluded or skipped to make the regression suite pass. The inherited test-runner/mock failures reported during initial migration were repaired in the previous readiness work. Builds enforce TypeScript validation but skip lint under the inherited configuration; these results do not constitute a lint pass.
 
 Browser checks exercise full case progression, practice feedback, saved answers and feedback after reload, study-to-application continuity, glossary search, assistance tracking, original-logo video and still fallback, settings/calendar export, and narrow-screen/dark-theme automated accessibility. Local browser runs use official Microsoft Edge. GitHub Actions uses official Chrome for H.264 support and independently runs the tests/build on each development push. Local results must not be represented as hosted CI results before the workflow completes.
 
 The first expansion browser run found duplicate React sibling keys shared by the question and reference shelf. Distinct keys fix stale question retention; the unit regression asserts a single question after advancing and reset assistance, while the browser flow selects an authored question, opens the glossary, confirms the answer and verifies the persisted assistance classification.
+
+Contextual reference-card checks additionally cover activation versus focus, keyboard dismissal/focus return, selected-answer preservation, before/after-answer assistance, phone bounds, draft value limits, dark-theme contrast and absence of inline cards from independent application. The first card browser run exposed a portal theme boundary and an existing low-contrast patient-avatar color; both were repaired before the final 17-test passing run. See [inline reference cards](INLINE_REFERENCE_CARDS.md) for matching rules and interaction limits.
 
 ## Content and evidence boundaries
 

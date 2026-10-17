@@ -29,7 +29,7 @@ Source metadata is centralized in `lib/learning/sources.ts`. Primary context inc
 
 ## Reference assistance and persistence
 
-The glossary is available from the application header, study page, guided cases and an expandable shelf inside practice. Opening that shelf before confirming an answer records assistance in the device-local practice response. A selected answer survives the lookup and reload. Opening references after feedback does not retroactively change the response. Assistance counts shelf openings, not a verified count of definitions read. References opened in another browser tab or outside the application cannot be detected; these records are formative, not proctored.
+The glossary is available from the application header, study page, guided cases and an expandable shelf inside practice. Opening the shelf or an inline reference card before confirming an answer records assistance in the device-local practice response. A selected answer survives the lookup; confirmed answers and assistance survive reload. Opening references after feedback does not retroactively change the response. Assistance counts reference openings, not a verified count of definitions read. References opened in another browser tab or outside the application cannot be detected; these records are formative, not proctored. See `INLINE_REFERENCE_CARDS.md` for contextual card behavior and editorial boundaries.
 
 New case sessions use the expansion revision; existing case revisions are preserved. Practice snapshots validate canonical item identity, responses and assistance fields. Activity validation accepts the four new case routes. No database migration or production data access is required.
 

@@ -417,6 +417,13 @@ function PracticeRound({
           </p>
           <DecisionCard
             key={item.id}
+            enableReferences
+            onReferenceLookup={() =>
+              setSession((previous) => ({
+                ...previous,
+                definitionUses: previous.definitionUses + 1,
+              }))
+            }
             title={item.prompt}
             committedId={answer?.selected_option_id ?? undefined}
             {...(item.stem ? { context: item.stem } : {})}

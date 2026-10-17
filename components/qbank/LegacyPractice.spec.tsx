@@ -50,7 +50,9 @@ describe('mobile practice flow', () => {
     ).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: /Continue this topic/ }))
     expect(
-      screen.getByText(BANKS.vascular_disease_core.items[5]!.question)
+      screen.getByRole('group', {
+        name: BANKS.vascular_disease_core.items[5]!.question,
+      })
     ).toBeInTheDocument()
     expect(screen.getByText('Question 1 of 5')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'All topics' }))

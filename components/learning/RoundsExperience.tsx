@@ -13,6 +13,7 @@ import {
 import { guidedCases, type GuidedCase } from '@/lib/learning/cases'
 import { pillars } from '@/lib/learning/pillars'
 import DecisionCard from './DecisionCard'
+import { ReferenceCard } from './InlineReferenceText'
 import { useLearningSession } from './useLearningSession'
 import { caseRevision } from '@/lib/learning/case-coaching'
 import { recordActivity } from '@/lib/learning/sessions'
@@ -280,7 +281,22 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
               {['HR / min', 'BP / mmHg', 'RR / min'].map((name, position) => (
                 <div key={name}>
                   <small>{name}</small>
-                  <strong>{step.vitals[position]}</strong>
+                  <strong>
+                    {position === 0 || position === 2 ? (
+                      <ReferenceCard
+                        key={`vital:${index}:${position}`}
+                        label={`${position === 0 ? 'Heart rate' : 'Respiratory rate'} ${step.vitals[position]} per minute`}
+                        reference={{
+                          kind: 'value',
+                          id: position === 0 ? 'pulse' : 'breathing',
+                        }}
+                      >
+                        {step.vitals[position]!}
+                      </ReferenceCard>
+                    ) : (
+                      step.vitals[position]
+                    )}
+                  </strong>
                 </div>
               ))}
             </div>
@@ -293,6 +309,7 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
           </div>
           <DecisionCard
             key={index}
+            enableReferences
             title={step.prompt}
             committedId={answer === null ? undefined : String(answer)}
             context={step.update}
