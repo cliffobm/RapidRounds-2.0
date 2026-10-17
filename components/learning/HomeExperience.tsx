@@ -11,10 +11,12 @@ import {
 import { Logo } from '@/components/ui/Logo'
 import JudgmentPillars from './JudgmentPillars'
 import LearningIntention from './LearningIntention'
+import ContinueLearning from './ContinueLearning'
 export default function HomeExperience() {
   return (
     <div className="rr-experience page-enter">
       <LearningIntention />
+      <ContinueLearning />
       <div className="welcome-line">
         <span>
           <i className="live-dot" /> A LITTLE PRACTICE. A LOT OF POSSIBILITY.

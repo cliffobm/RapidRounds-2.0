@@ -1,5 +1,8 @@
 'use client'
 import { useRef, useState } from 'react'
+import { z } from 'zod'
+import { useLearningSession } from '@/components/learning/useLearningSession'
+import { contentRevision, recordActivity } from '@/lib/learning/sessions'
 import {
   ArrowLeft,
   ArrowRight,
@@ -46,7 +49,7 @@ export default function LegacyPractice({
   )
   return (
     <div className="rr-experience page-enter">
-      <section className="rr-hero practice-hero">
+      <section className="rr-hero practice-hero learning-hero-compact">
         <div className="hero-copy">
           <span className="hero-kicker">
             <Zap size={15} /> THE PRACTICE LAB
@@ -134,6 +137,11 @@ export default function LegacyPractice({
               </span>
               <span className="topic-meta">{topic.category}</span>
               <h3>{topic.title}</h3>
+              <span className="quiet-label">
+                {topic.items < 5
+                  ? 'Preview collection · limited coverage'
+                  : 'Legacy collection · review pending'}
+              </span>
               <span className="topic-bottom">
                 <span>
                   {topic.items} question{topic.items === 1 ? '' : 's'} in bank
@@ -172,13 +180,73 @@ function PracticeRound({
       return null
     }
   })
-  const [index, setIndex] = useState(0)
-  const [responses, setResponses] = useState<PracticeResponse[]>([])
-  const [answer, setAnswer] = useState<PracticeResponse | null>(null)
-  const [finished, setFinished] = useState(false)
-  const [roundNumber, setRoundNumber] = useState(0)
+  const revision = contentRevision(bank)
+  const responseSchema = z.object({
+    item_id: z.string(),
+    item_version: z.string(),
+    case_family_id: z.string(),
+    selected_option_id: z.string().nullable(),
+    outcome: z.enum(['correct', 'incorrect', 'nonresponse']),
+    first_attempt: z.boolean(),
+    hints_used: z.literal(0),
+    definitions_used: z.literal(0),
+    elapsed_ms: z.number().int().nonnegative(),
+    evidence_class: z.literal('legacy_practice'),
+    competency_eligible: z.literal(false),
+  })
+  const schema = z
+    .object({
+      index: z.number().int().min(0).max(4),
+      responses: z.array(responseSchema).max(5),
+      finished: z.boolean(),
+      roundNumber: z.number().int().nonnegative(),
+    })
+    .refine((value) => {
+      const current =
+        bank?.items.slice(value.roundNumber * 5, value.roundNumber * 5 + 5) ??
+        []
+      return (
+        value.index < current.length &&
+        value.responses.length >= value.index &&
+        value.responses.length <= value.index + 1 &&
+        (!value.finished ||
+          (value.index === current.length - 1 &&
+            value.responses.length === current.length)) &&
+        value.responses.every((response, position) => {
+          try {
+            return (
+              JSON.stringify(response) ===
+              JSON.stringify(
+                recordPracticeResponse(
+                  current[position]!,
+                  bank!.version,
+                  response.selected_option_id,
+                  response.elapsed_ms,
+                  []
+                )
+              )
+            )
+          } catch {
+            return false
+          }
+        })
+      )
+    })
+  const [session, setSession, notice] = useLearningSession(
+    `practice:${bankKey}`,
+    revision,
+    {
+      index: 0,
+      responses: [] as PracticeResponse[],
+      finished: false,
+      roundNumber: 0,
+    },
+    schema
+  )
+  const { index, responses, finished, roundNumber } = session
+  const answer = responses[index] ?? null
   const started = useRef(Date.now())
-  const submitted = useRef(false)
+  const submitted = useRef(answer !== null)
   const topic = practiceTopics.find((entry) => entry.key === bankKey)!
   const items = bank?.items.slice(roundNumber * 5, roundNumber * 5 + 5) ?? []
   const item = items[index]
@@ -201,17 +269,24 @@ function PracticeRound({
       Math.max(0, Date.now() - started.current),
       responses
     )
-    setResponses((previous) => [...previous, response])
-    setAnswer(response)
+    setSession((previous) => ({
+      ...previous,
+      responses: [...previous.responses, response],
+    }))
   }
   const next = () => {
     if (!submitted.current) respond(null)
     if (index === items.length - 1) {
-      setFinished(true)
+      setSession((previous) => ({ ...previous, finished: true }))
+      recordActivity({
+        id: `practice:${bankKey}:${revision}:${roundNumber}`,
+        title: topic.title,
+        href: `/quiz?bank=${bankKey}`,
+        completedAt: new Date().toISOString(),
+      })
       return
     }
-    setIndex((value) => value + 1)
-    setAnswer(null)
+    setSession((previous) => ({ ...previous, index: previous.index + 1 }))
     submitted.current = false
     started.current = Date.now()
   }
@@ -230,6 +305,7 @@ function PracticeRound({
       <button className="back-link" onClick={onExit}>
         <ArrowLeft size={17} /> All topics
       </button>
+      {notice && <p role="status">{notice}</p>}
       {finished ? (
         <section className="completion-card">
           <span className="completion-icon">
@@ -250,11 +326,12 @@ function PracticeRound({
               <button
                 className="rr-button"
                 onClick={() => {
-                  setRoundNumber((value) => value + 1)
-                  setIndex(0)
-                  setResponses([])
-                  setAnswer(null)
-                  setFinished(false)
+                  setSession((previous) => ({
+                    roundNumber: previous.roundNumber + 1,
+                    index: 0,
+                    responses: [],
+                    finished: false,
+                  }))
                   submitted.current = false
                   started.current = Date.now()
                 }}
@@ -268,6 +345,21 @@ function PracticeRound({
             <Link href="/study" className="rr-button-secondary">
               Build the reasoning behind it
             </Link>
+            <button
+              className="rr-button-secondary"
+              onClick={() => {
+                setSession({
+                  roundNumber: 0,
+                  index: 0,
+                  responses: [],
+                  finished: false,
+                })
+                submitted.current = false
+                started.current = Date.now()
+              }}
+            >
+              Replay this topic from the beginning
+            </button>
           </div>
         </section>
       ) : (
@@ -312,6 +404,7 @@ function PracticeRound({
           <DecisionCard
             key={item.id}
             title={original.question ?? item.stem}
+            committedId={answer?.selected_option_id ?? undefined}
             {...(original.stem ? { context: original.stem } : {})}
             options={item.options}
             feedback={
@@ -338,8 +431,9 @@ function PracticeRound({
             </button>
           )}
           <p className="review-note">
-            Practice feedback only · Competency mapping pending. Session records
-            reset when you leave this round.
+            Practice feedback only · Competency mapping pending. Confirmed
+            answers and your place save on this device. Time away is not a
+            measure of competence.
           </p>
         </>
       )}

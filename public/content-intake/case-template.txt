@@ -1,0 +1,41 @@
+RAPID ROUNDS CASE INTAKE
+Use a fictional composite case. Do not include identifiable patient information.
+
+Working title / version:
+Author / content owner:
+Intended learner, experience and care setting:
+Learning objectives and prerequisites:
+Local policies or scope-of-practice boundaries:
+Source documents, publication dates and exact supporting sections:
+Rights or permission for every supplied image, tracing or audio file:
+
+PATIENT CONTEXT
+Fictional patient, relevant history, baseline observations, medicines and setting:
+What the learner knows initially:
+What information is unavailable:
+
+REPEAT FOR EACH DECISION
+Time point / change since previous stage:
+Observed and reported findings (include units, baseline and trends):
+Relevant history / medicines / investigations / simulated chart:
+Judgment skill and observable learning objective:
+Question and plausible answer options:
+Teaching answer and rationale for EVERY option:
+Common novice misconception:
+Expert reasoning: what matters, alternatives, missing information, uncertainty:
+Expected communication / escalation / reassessment within the learner's role:
+Scripted next update and why (do not imply a physiologic simulation):
+Source section supporting the teaching point:
+
+DEBRIEF AND FOLLOW-UP
+What changed the priority? What would change the interpretation?
+New patient example to test application later:
+What evidence would show the objective was met?
+
+REVIEW RECORD
+Status: draft / clinical review / editorial review / pilot review / approved / retired
+Clinical reviewer and independent safety reviewer:
+Disagreements and resolutions:
+Approval applies to exact revision:
+Review date / next review date / update triggers:
+Open limitations and corrections:

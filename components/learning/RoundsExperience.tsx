@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { z } from 'zod'
 import {
   ArrowRight,
   ArrowLeft,
@@ -13,10 +13,13 @@ import {
 import { guidedCases, type GuidedCase } from '@/lib/learning/cases'
 import { pillars } from '@/lib/learning/pillars'
 import DecisionCard from './DecisionCard'
+import { useLearningSession } from './useLearningSession'
+import { caseRevision } from '@/lib/learning/case-coaching'
+import { recordActivity } from '@/lib/learning/sessions'
 export function RoundsLobby() {
   return (
     <div className="rr-experience page-enter">
-      <section className="rr-hero rounds-hero">
+      <section className="rr-hero rounds-hero learning-hero-compact">
         <div className="hero-copy">
           <span className="hero-kicker">
             <Activity size={16} /> RAPID ROUNDS / CASE ROOM
@@ -122,10 +125,36 @@ export function RoundsLobby() {
   )
 }
 export function GuidedRound({ story }: { story: GuidedCase }) {
-  const [index, setIndex] = useState(0)
-  const [answer, setAnswer] = useState<number | null>(null)
-  const [responses, setResponses] = useState<boolean[]>([])
-  const [complete, setComplete] = useState(false)
+  const schema = z
+    .object({
+      index: z
+        .number()
+        .int()
+        .min(0)
+        .max(story.stages.length - 1),
+      answer: z.number().int().min(0).max(2).nullable(),
+      responses: z.array(z.boolean()).max(story.stages.length),
+      complete: z.boolean(),
+    })
+    .refine(
+      (value) =>
+        value.responses.length ===
+          value.index + Number(value.answer !== null) &&
+        (!value.complete ||
+          (value.index === story.stages.length - 1 && value.answer !== null))
+    )
+  const [session, setSession, notice] = useLearningSession(
+    `case:${story.id}`,
+    caseRevision,
+    {
+      index: 0,
+      answer: null as number | null,
+      responses: [] as boolean[],
+      complete: false,
+    },
+    schema
+  )
+  const { index, answer, responses, complete } = session
   const step = story.stages[index]!
   const pillar = pillars.find((entry) => entry.id === step.competency)!
   return (
@@ -133,6 +162,11 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
       <Link href="/rr" className="back-link">
         <ArrowLeft size={17} /> Case room
       </Link>
+      <p className="review-note">
+        Educational draft · Clinical reviewer not yet assigned · Revision{' '}
+        {caseRevision}. Answers save on this device after confirmation.
+      </p>
+      {notice && <p role="status">{notice}</p>}
       {complete ? (
         <section className="completion-card">
           <span className="completion-icon">
@@ -157,7 +191,9 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
                 >
                   {responses[position] ? '✓' : '↗'}
                 </span>
-                <strong>{entry.title}</strong>
+                <Link href={`/study?pillar=${entry.id}`}>
+                  <strong>{entry.title}</strong>
+                </Link>
                 <span>
                   {responses[position]
                     ? 'Teaching answer selected'
@@ -174,6 +210,9 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
             </p>
           </div>
           <div className="completion-actions">
+            <Link href="/pathway" className="rr-button-secondary">
+              Return to the deterioration pathway
+            </Link>
             <Link href="/study" className="rr-button">
               Strengthen the reasoning <ArrowRight size={18} />
             </Link>
@@ -181,6 +220,19 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
               Choose another case
             </Link>
           </div>
+          <button
+            className="skip-link"
+            onClick={() =>
+              setSession({
+                index: 0,
+                answer: null,
+                responses: [],
+                complete: false,
+              })
+            }
+          >
+            Replay case from the beginning
+          </button>
         </section>
       ) : (
         <>
@@ -237,6 +289,7 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
           <DecisionCard
             key={index}
             title={step.prompt}
+            committedId={answer === null ? undefined : String(answer)}
             context={step.update}
             options={step.options.map((text, position) => ({
               id: String(position),
@@ -249,23 +302,51 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
                     correct: answer === step.correct,
                     correctId: String(step.correct),
                     rationale: step.rationale,
+                    explanations: step.explanations,
                   }
             }
             onCommit={(value) => {
               if (answer !== null) return
               const chosen = Number(value)
-              setAnswer(chosen)
-              setResponses((previous) => [...previous, chosen === step.correct])
+              setSession((previous) => ({
+                ...previous,
+                answer: chosen,
+                responses: [...previous.responses, chosen === step.correct],
+              }))
             }}
             onNext={() => {
-              if (index === story.stages.length - 1) setComplete(true)
-              else {
-                setIndex((value) => value + 1)
-                setAnswer(null)
+              if (index === story.stages.length - 1) {
+                setSession((previous) => ({ ...previous, complete: true }))
+                recordActivity({
+                  id: `case:${story.id}:${caseRevision}`,
+                  title: story.subtitle,
+                  href: `/rr/${story.id}`,
+                  completedAt: new Date().toISOString(),
+                })
+              } else {
+                setSession((previous) => ({
+                  ...previous,
+                  index: previous.index + 1,
+                  answer: null,
+                }))
               }
             }}
             nextLabel={index === 5 ? 'See your debrief' : 'Continue the story'}
           />
+          {answer !== null && (
+            <section className="reflection-box" aria-label="Reasoning debrief">
+              <h2>Reasoning walkthrough</h2>
+              <p>{step.thinkAloud}</p>
+              <h3>What is still missing?</h3>
+              <p>{step.missing}</p>
+              <Link
+                className="text-link"
+                href={`/study?pillar=${step.competency}`}
+              >
+                Review {pillar.title.toLowerCase()} →
+              </Link>
+            </section>
+          )}
         </>
       )}
       <details className="source-note">

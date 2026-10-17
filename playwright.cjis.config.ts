@@ -2,14 +2,17 @@ import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './e2e',
-  testMatch: ['cjis-practice.spec.ts', 'settings.spec.ts'],
+  testMatch: ['cjis-practice.spec.ts', 'settings.spec.ts', 'readiness.spec.ts'],
   workers: 1,
   reporter: 'list',
   use: { baseURL: 'http://localhost:3100', trace: 'retain-on-failure' },
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], channel: 'msedge' },
+      use: {
+        ...devices['Desktop Chrome'],
+        ...(process.env.CI ? {} : { channel: 'msedge' }),
+      },
     },
   ],
   webServer: {

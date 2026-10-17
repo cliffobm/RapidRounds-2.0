@@ -19,6 +19,8 @@ import {
   type StudyUnit,
 } from '@/lib/learning/study'
 import DecisionCard from './DecisionCard'
+import { workedExamples } from '@/lib/learning/worked-examples'
+import { recordActivity } from '@/lib/learning/sessions'
 const storageKey = 'rapidrounds-study-v1'
 export default function StudyExperience({
   initialUnit = '',
@@ -38,6 +40,12 @@ export default function StudyExperience({
     }
   }, [])
   const save = (record: StudyRecord) => {
+    recordActivity({
+      id: `study:${record.unitId}:1`,
+      title: studyUnits.find((unit) => unit.id === record.unitId)!.title,
+      href: `/study?pillar=${record.unitId}`,
+      completedAt: record.completedAt,
+    })
     // Keep the first paired result for each unit so later reviews do not rewrite the baseline.
     const updated = records.some((entry) => entry.unitId === record.unitId)
       ? records
@@ -142,7 +150,7 @@ export default function StudyExperience({
                 <span>
                   {result
                     ? `First checks: ${Number(result.preCorrect)}/1 before · ${Number(result.postCorrect)}/1 after`
-                    : '3 reading sections + 2 knowledge checks'}
+                    : '3 reading sections + worked example + 2 checks'}
                 </span>
                 <ArrowUpRight size={20} />
               </div>
@@ -165,6 +173,7 @@ export default function StudyExperience({
         </div>
       </div>
       <div className="reference-links">
+        <Link href="/pathway">Follow the deterioration pathway →</Link>
         <strong>Keep a reference close.</strong>
         <Link href="/reference/lab-values">Lab values ↗</Link>
         <Link href="/reference/drug-reference">Drug reference ↗</Link>
@@ -298,6 +307,23 @@ function StudySession({
               </div>
             </article>
           ))}
+          <article className="worked-example">
+            <BookOpen size={24} />
+            <div>
+              <h2>Worked example: make the reasoning visible</h2>
+              <h3>What you notice</h3>
+              <p>{workedExamples[unit.id].observation}</p>
+              <h3>Reasoning walkthrough</h3>
+              <p>{workedExamples[unit.id].reasoning}</p>
+              <h3>A common trap</h3>
+              <p>{workedExamples[unit.id].pitfall}</p>
+              <h3>Try it in a different situation</h3>
+              <p>{workedExamples[unit.id].transfer}</p>
+              <p className="review-note">
+                Original fictional teaching example · Clinical review pending.
+              </p>
+            </div>
+          </article>
           <div className="reflection-box">
             <p className="eyebrow">TRY SAYING IT OUT LOUD</p>
             <p>{unit.reflection}</p>

@@ -6,6 +6,7 @@ export type DecisionFeedback = {
   correct: boolean
   correctId: string
   rationale: string
+  explanations?: string[] | undefined
 }
 export default function DecisionCard({
   title,
@@ -16,6 +17,8 @@ export default function DecisionCard({
   onNext,
   nextLabel = 'Continue',
   label = 'Select one answer',
+  committedId,
+  commitLabel = 'Check answer',
 }: {
   title: string
   context?: string
@@ -25,6 +28,8 @@ export default function DecisionCard({
   onNext?: () => void
   nextLabel?: string
   label?: string
+  committedId?: string | undefined
+  commitLabel?: string
 }) {
   const [selected, setSelected] = useState('')
   return (
@@ -42,13 +47,13 @@ export default function DecisionCard({
           {options.map((option, index) => (
             <label
               key={option.id}
-              className={`answer-option ${selected === option.id ? 'is-chosen' : ''} ${feedback?.correctId === option.id ? 'is-correct' : ''} ${feedback && selected === option.id && !feedback.correct ? 'is-incorrect' : ''}`}
+              className={`answer-option ${(committedId ?? selected) === option.id ? 'is-chosen' : ''} ${feedback?.correctId === option.id ? 'is-correct' : ''} ${feedback && (committedId ?? selected) === option.id && !feedback.correct ? 'is-incorrect' : ''}`}
             >
               <input
                 type="radio"
                 name="decision"
                 value={option.id}
-                checked={selected === option.id}
+                checked={(committedId ?? selected) === option.id}
                 onChange={() => setSelected(option.id)}
               />
               <span className="answer-letter" aria-hidden="true">
@@ -81,6 +86,19 @@ export default function DecisionCard({
                 : 'A useful learning moment.'}
             </h3>
             <p>{feedback.rationale}</p>
+            {feedback.explanations && (
+              <details className="option-explanations">
+                <summary>Why each option matters</summary>
+                <ul>
+                  {options.map((option, index) => (
+                    <li key={option.id}>
+                      <strong>{option.text}</strong>
+                      <p>{feedback.explanations![index]}</p>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
           </div>
         </div>
       ) : null}
@@ -91,7 +109,7 @@ export default function DecisionCard({
             disabled={!selected}
             onClick={() => onCommit(selected)}
           >
-            Check answer <Check size={17} />
+            {commitLabel} <Check size={17} />
           </button>
         ) : (
           onNext && (

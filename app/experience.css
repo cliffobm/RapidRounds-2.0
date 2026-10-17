@@ -1,4 +1,3 @@
-/* Rapid Rounds review experience: warm editorial canvas + a clinical instrument-panel accent. */
 .rr-app {
   --rr-bg: #f5f6f3;
   --rr-surface: #fff;
@@ -2877,4 +2876,164 @@ html[data-rr-motion='true'] *::after {
 .landing-footer p,
 .landing-footer span {
   color: #b4c9cd;
+}
+
+/* Rapid Rounds review experience: warm editorial canvas + a clinical instrument-panel accent. */
+.rr-app .learning-hero-compact {
+  min-height: 0;
+  padding: 28px 32px;
+  grid-template-columns: minmax(0, 1fr);
+}
+.rr-app .learning-hero-compact .hero-visual,
+.rr-app .learning-hero-compact .case-preview {
+  display: none;
+}
+.rr-app .learning-hero-compact h1 {
+  font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+  margin: 12px 0;
+}
+.rr-app .learning-hero-compact h1 br {
+  display: none;
+}
+.rr-app .learning-hero-compact h1 em::before {
+  content: ' ';
+}
+.rr-app .learning-hero-compact .hero-copy {
+  padding: 0;
+  max-width: none;
+}
+.rr-app .learning-hero-compact .hero-copy > p {
+  margin: 10px 0 18px;
+}
+.rr-app .learning-hero-compact .hero-footnote {
+  margin-top: 12px;
+}
+.continue-learning {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+  margin: 0 0 24px;
+  background: var(--rr-surface);
+  border: 1px solid var(--rr-line);
+  border-radius: 20px;
+}
+.continue-learning h2 {
+  font-size: 1.6rem;
+  margin: 8px 0;
+}
+.continue-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.continue-links a {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.pathway-layout {
+  max-width: 960px;
+}
+.pathway-layout > h1 {
+  margin: 16px 0;
+}
+.pathway-section {
+  border-top: 1px solid var(--rr-line);
+  padding: 28px 0;
+  margin-top: 20px;
+}
+.pathway-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+}
+.pathway-section h3 {
+  margin: 18px 0 10px;
+}
+.pathway-section p {
+  margin: 12px 0;
+  line-height: 1.7;
+}
+.pathway-section ul,
+.pathway-section ol,
+.resource-list {
+  padding-left: 24px;
+  line-height: 1.8;
+}
+.rr-app .pathway-section a:not(.rr-button):not(.rr-button-secondary),
+.rr-app .resource-list a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pathway-list {
+  list-style: none;
+  padding: 0 !important;
+}
+.pathway-list li + li {
+  border-top: 1px solid var(--rr-line);
+}
+.pathway-list a {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 5px;
+}
+.pathway-list small {
+  color: var(--rr-muted);
+}
+.coverage-list li {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rr-line);
+}
+.coverage-list span {
+  color: var(--rr-muted);
+}
+.option-explanations {
+  margin-top: 18px;
+}
+.option-explanations summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 700;
+}
+.option-explanations li {
+  margin: 14px 0;
+}
+.option-explanations ul {
+  padding-left: 20px;
+}
+.reflection-box h2,
+.worked-example h2 {
+  font-size: 1.35rem;
+}
+.reflection-box h3,
+.worked-example h3 {
+  margin-top: 18px;
+  font-size: 1.1rem;
+}
+.transfer-debrief {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rr-line);
+}
+@media (max-width: 760px) {
+  .rr-app .learning-hero-compact {
+    padding: 22px 20px;
+    gap: 0;
+  }
+  .rr-app .learning-hero-compact .hero-copy > p {
+    font-size: 0.95rem;
+  }
+  .continue-learning {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px;
+  }
+  .coverage-list li {
+    flex-direction: column;
+    gap: 4px;
+  }
 }

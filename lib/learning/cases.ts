@@ -1,4 +1,5 @@
 import type { PillarId } from './pillars'
+import { caseCoaching } from './case-coaching'
 export type CaseStep = {
   competency: PillarId
   update: string
@@ -7,6 +8,9 @@ export type CaseStep = {
   correct: number
   rationale: string
   vitals: [string, string, string]
+  explanations?: string[]
+  thinkAloud?: string
+  missing?: string
 }
 export type GuidedCase = {
   id: string
@@ -23,7 +27,7 @@ export type GuidedCase = {
 }
 // Fictional, authored educational drafts. Stage tags describe the exercise design,
 // not validated item mappings. Incorrect choices are debriefed before the story advances.
-export const guidedCases: GuidedCase[] = [
+const originalCases: GuidedCase[] = [
   {
     id: 'sepsis',
     title: 'A change you cannot ignore.',
@@ -147,8 +151,8 @@ export const guidedCases: GuidedCase[] = [
       'A new conduction change, a slow pulse, and a patient who says, “I feel lightheaded.” Follow the signals from recognition to reassessment.',
     sources: [
       {
-        title: 'AHA 2025: adult bradycardia with a pulse',
-        url: 'https://cpr.heart.org/en/resuscitation-science/cpr-and%20ecc-guidelines/algorithms',
+        title: 'AHA 2025: adult advanced life support, bradycardia management',
+        url: 'https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support',
       },
       {
         title: 'ACC: conduction disturbances after TAVR',
@@ -249,3 +253,17 @@ export const guidedCases: GuidedCase[] = [
     ],
   },
 ]
+export const guidedCases: GuidedCase[] = originalCases.map((story) => ({
+  ...story,
+  stages: story.stages.map((step, index) => ({
+    ...step,
+    ...caseCoaching[story.id as keyof typeof caseCoaching][index],
+    options: [
+      ...caseCoaching[story.id as keyof typeof caseCoaching][index]!.options,
+    ],
+    explanations: [
+      ...caseCoaching[story.id as keyof typeof caseCoaching][index]!
+        .explanations,
+    ],
+  })),
+}))
