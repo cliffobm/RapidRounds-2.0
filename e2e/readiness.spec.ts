@@ -108,11 +108,23 @@ test('new learning routes fit narrow phones and pass automated dark-theme access
       '/pathway/transfer',
       '/content-review',
       '/reference/calculators',
+      '/leaderboard',
+      '/achievements',
       '/quiz',
       '/rr',
     ]) {
       await page.goto(route)
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+      if (route === '/leaderboard') {
+        await expect(
+          page.getByRole('heading', {
+            name: 'Shared leaderboards are not enabled',
+          })
+        ).toBeVisible()
+        await expect(page.getByText('Sarah Chen', { exact: true })).toHaveCount(
+          0
+        )
+      }
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth
