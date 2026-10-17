@@ -13,7 +13,7 @@ Implemented on `feature/cjis-foundation`. Main, the original production deployme
 - Four inherited reference pages retain their URLs but withhold unreviewed drug doses, lab tables, emergency summaries and calculators. Original source remains recoverable in Git history.
 - Removed fabricated leaderboard people, personal ranks, dashboard statistics and earned badges. An absent user no longer receives a fictional leaderboard entry. Fixed omitted allergy information and the missing ordering-question stem.
 - Repaired inherited test-runner/mocking/query-chain defects and a missing-profile rationale helper check. No tests were excluded or skipped to make the regression suite pass. Rewritten data tests assert filtering, aggregation and absence of fabricated fallback records.
-- CI now includes the new continuity tests and browser checks. Local runs use Edge; CI installs Chromium.
+- CI now includes the new continuity tests and browser checks. Local runs use Edge; CI installs official Chrome for its media codec support. The first Linux run with bundled Chromium passed all learning/accessibility flows but failed the three original-video playback checks. Those assertions are retained; an additional test verifies the existing still-logo fallback on media failure.
 
 ## Executed verification
 
@@ -22,7 +22,7 @@ Implemented on `feature/cjis-foundation`. Main, the original production deployme
 - `npm run typecheck`: **passed**; Next production build also performs type validation.
 - `npm run build`: **passed** on Node 22 / Next 15.5.28. A final rebuild includes the corrected AHA publisher URL and formatting cleanup.
 - `npx playwright test --config playwright.cjis.config.ts`: **9 passed** against the production build. New checks cover case/practice reload, resumed feedback, pathway completion, first application persistence, immediate-practice labeling, the actual CSV download, withheld reference content, and dark-theme automated accessibility/layout checks at 320/390/1440px. Existing settings, calendar, OS appearance and privacy-boundary checks remain in the suite. Browser page errors are asserted rather than suppressed.
-- The browser run preceded a publisher-link correction and formatting-only cleanup; the final source is rebuilt and its complete unit suite rerun. CI reruns the browser suite on the pushed commit.
+- The browser suite was rerun after the final rebuild and publisher-link correction: **9 passed** again. A subsequent CI-only browser selection fix and dedicated fallback test do not change the application runtime. CI reruns the complete browser suite on that commit and retains traces on failure.
 
 Build warnings about old browser-support datasets remain. Linting is still bypassed by the inherited Next configuration; successful type/build/test results are not a lint pass. Automated accessibility checks are not a complete WCAG certification or physical-phone test.
 

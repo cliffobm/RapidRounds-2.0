@@ -11,7 +11,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        ...(process.env.CI ? {} : { channel: 'msedge' }),
+        channel: process.env.CI ? 'chrome' : 'msedge',
       },
     },
   ],

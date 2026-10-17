@@ -19,8 +19,15 @@ jobs:
       - run: npx vitest run lib/cjis components/qbank/LegacyPractice.spec.tsx components/learning/Experience.spec.tsx components/learning/Readiness.spec.tsx components/settings/Settings.spec.tsx
       - run: npm run typecheck
       - run: npm run build
-      - run: npx playwright install --with-deps chromium
+      # The original H.264 logo video needs a branded browser's media codecs.
+      - run: npx playwright install --with-deps chrome
       - run: npx playwright test --config playwright.cjis.config.ts
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failure-traces
+          path: test-results/
+          retention-days: 7
   legacy-regressions:
     runs-on: ubuntu-latest
     steps:

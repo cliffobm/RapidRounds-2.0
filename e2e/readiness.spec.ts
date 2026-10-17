@@ -2,6 +2,23 @@ import { test, expect } from '@playwright/test'
 import { guidedCases } from '../lib/learning/cases'
 import { transferQuestions } from '../lib/learning/worked-examples'
 
+test('original logo remains available when the introduction video cannot load', async ({
+  page,
+}) => {
+  await page.route('**/brand/rapidrounds-intro.mp4', (route) => route.abort())
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Play original introduction' }).click()
+  await expect(page.getByRole('status')).toContainText(
+    'The video could not load'
+  )
+  await expect(
+    page
+      .getByRole('img', { name: 'Rapid Rounds metallic RR logo', exact: true })
+      .last()
+  ).toBeVisible()
+  await expect(page.locator('video')).toHaveCount(0)
+})
+
 test('saved learning flows connect to the pathway and preserve first application evidence', async ({
   page,
 }) => {
