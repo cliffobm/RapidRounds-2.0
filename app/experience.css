@@ -2879,6 +2879,62 @@ html[data-rr-motion='true'] *::after {
 }
 
 /* Rapid Rounds review experience: warm editorial canvas + a clinical instrument-panel accent. */
+.reference-shelf {
+  margin: 24px 0;
+  padding: 16px;
+  border: 1px solid var(--rr-line);
+  border-radius: 16px;
+  background: var(--rr-surface);
+}
+.reference-shelf > summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 700;
+}
+.reference-shelf .glossary-browser {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 4px 10px 12px 4px;
+}
+.glossary-search {
+  display: block;
+  font-weight: 600;
+  margin: 20px 0;
+}
+.glossary-search input {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--rr-line);
+  color: var(--rr-ink);
+  background: var(--rr-surface);
+  font: inherit;
+}
+.glossary-entry {
+  border-top: 1px solid var(--rr-line);
+  padding: 24px 0;
+  overflow-wrap: anywhere;
+}
+.glossary-entry h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+.glossary-entry p {
+  margin: 12px 0;
+  line-height: 1.7;
+}
+.rr-app .glossary-entry a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reference-value {
+  display: block;
+  color: var(--rr-ink);
+  margin: 12px 0;
+  font-size: 1.2rem;
+}
 .rr-app .learning-hero-compact {
   min-height: 0;
   padding: 28px 32px;

@@ -175,6 +175,7 @@ export default function StudyExperience({
       <div className="reference-links">
         <Link href="/pathway">Follow the deterioration pathway →</Link>
         <strong>Keep a reference close.</strong>
+        <Link href="/glossary">Medical terms & value examples ↗</Link>
         <Link href="/reference/lab-values">Lab values ↗</Link>
         <Link href="/reference/drug-reference">Drug reference ↗</Link>
         <Link href="/reference/calculators">Calculators ↗</Link>

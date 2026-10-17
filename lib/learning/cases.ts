@@ -1,5 +1,6 @@
 import type { PillarId } from './pillars'
 import { caseCoaching } from './case-coaching'
+import { additionalCases } from './additional-cases'
 export type CaseStep = {
   competency: PillarId
   update: string
@@ -13,6 +14,8 @@ export type CaseStep = {
   missing?: string
 }
 export type GuidedCase = {
+  revision?: string
+  objective?: string
   id: string
   title: string
   subtitle: string
@@ -253,17 +256,20 @@ const originalCases: GuidedCase[] = [
     ],
   },
 ]
-export const guidedCases: GuidedCase[] = originalCases.map((story) => ({
-  ...story,
-  stages: story.stages.map((step, index) => ({
-    ...step,
-    ...caseCoaching[story.id as keyof typeof caseCoaching][index],
-    options: [
-      ...caseCoaching[story.id as keyof typeof caseCoaching][index]!.options,
-    ],
-    explanations: [
-      ...caseCoaching[story.id as keyof typeof caseCoaching][index]!
-        .explanations,
-    ],
+export const guidedCases: GuidedCase[] = [
+  ...originalCases.map((story) => ({
+    ...story,
+    stages: story.stages.map((step, index) => ({
+      ...step,
+      ...caseCoaching[story.id as keyof typeof caseCoaching][index],
+      options: [
+        ...caseCoaching[story.id as keyof typeof caseCoaching][index]!.options,
+      ],
+      explanations: [
+        ...caseCoaching[story.id as keyof typeof caseCoaching][index]!
+          .explanations,
+      ],
+    })),
   })),
-}))
+  ...additionalCases,
+]

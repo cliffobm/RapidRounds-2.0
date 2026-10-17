@@ -1,4 +1,4 @@
-import ReferenceReview from '@/components/learning/ReferenceReview'
+import { redirect } from 'next/navigation'
 export default function Page() {
-  return <ReferenceReview title="Lab values" />
+  redirect('/glossary?view=values')
 }

@@ -16,9 +16,12 @@ import {
 import Link from 'next/link'
 import JudgmentPillars from '@/components/learning/JudgmentPillars'
 import DecisionCard from '@/components/learning/DecisionCard'
+import { ReferenceShelf } from '@/components/learning/GlossaryExperience'
+import { contentSources } from '@/lib/learning/sources'
+import { pillars } from '@/lib/learning/pillars'
 import { practiceTopics } from '@/lib/learning/catalog'
 import {
-  loadLegacyPractice,
+  loadPractice,
   recordPracticeResponse,
   type PracticeResponse,
 } from '@/lib/cjis/practice'
@@ -140,7 +143,7 @@ export default function LegacyPractice({
               <span className="quiet-label">
                 {topic.items < 5
                   ? 'Preview collection · limited coverage'
-                  : 'Legacy collection · review pending'}
+                  : 'Draft collection · review pending'}
               </span>
               <span className="topic-bottom">
                 <span>
@@ -159,8 +162,8 @@ export default function LegacyPractice({
       </section>
       <JudgmentPillars compact />
       <p className="review-note">
-        Review content · These legacy questions are practice only and are not
-        mapped to a validated competency score.
+        Review content · These questions are practice only and are not mapped to
+        a validated competency score.
       </p>
     </div>
   )
@@ -175,7 +178,7 @@ function PracticeRound({
 }) {
   const [bank] = useState(() => {
     try {
-      return loadLegacyPractice(bankKey)
+      return loadPractice(bankKey)
     } catch {
       return null
     }
@@ -189,9 +192,9 @@ function PracticeRound({
     outcome: z.enum(['correct', 'incorrect', 'nonresponse']),
     first_attempt: z.boolean(),
     hints_used: z.literal(0),
-    definitions_used: z.literal(0),
+    definitions_used: z.number().int().nonnegative(),
     elapsed_ms: z.number().int().nonnegative(),
-    evidence_class: z.literal('legacy_practice'),
+    evidence_class: z.enum(['legacy_practice', 'authored_draft_practice']),
     competency_eligible: z.literal(false),
   })
   const schema = z
@@ -200,6 +203,7 @@ function PracticeRound({
       responses: z.array(responseSchema).max(5),
       finished: z.boolean(),
       roundNumber: z.number().int().nonnegative(),
+      definitionUses: z.number().int().nonnegative(),
     })
     .refine((value) => {
       const current =
@@ -222,7 +226,8 @@ function PracticeRound({
                   bank!.version,
                   response.selected_option_id,
                   response.elapsed_ms,
-                  []
+                  [],
+                  response.definitions_used
                 )
               )
             )
@@ -240,6 +245,7 @@ function PracticeRound({
       responses: [] as PracticeResponse[],
       finished: false,
       roundNumber: 0,
+      definitionUses: 0,
     },
     schema
   )
@@ -267,7 +273,8 @@ function PracticeRound({
       bank.version,
       selected,
       Math.max(0, Date.now() - started.current),
-      responses
+      responses,
+      session.definitionUses
     )
     setSession((previous) => ({
       ...previous,
@@ -286,7 +293,11 @@ function PracticeRound({
       })
       return
     }
-    setSession((previous) => ({ ...previous, index: previous.index + 1 }))
+    setSession((previous) => ({
+      ...previous,
+      index: previous.index + 1,
+      definitionUses: 0,
+    }))
     submitted.current = false
     started.current = Date.now()
   }
@@ -296,10 +307,6 @@ function PracticeRound({
   const answered = responses.filter(
     (response) => response.outcome !== 'nonresponse'
   ).length
-  const original = item.legacy.source as {
-    question?: string
-    stem?: string | null
-  }
   return (
     <div className="rr-experience round-layout page-enter">
       <button className="back-link" onClick={onExit}>
@@ -328,6 +335,7 @@ function PracticeRound({
                 onClick={() => {
                   setSession((previous) => ({
                     roundNumber: previous.roundNumber + 1,
+                    definitionUses: 0,
                     index: 0,
                     responses: [],
                     finished: false,
@@ -350,6 +358,7 @@ function PracticeRound({
               onClick={() => {
                 setSession({
                   roundNumber: 0,
+                  definitionUses: 0,
                   index: 0,
                   responses: [],
                   finished: false,
@@ -401,21 +410,24 @@ function PracticeRound({
             </span>
             <span>Single best answer</span>
           </div>
+          <p className="review-note">
+            {item.origin === 'authored'
+              ? 'Authored educational draft · Clinical review pending'
+              : 'Imported practice question · Clinical review pending'}
+          </p>
           <DecisionCard
             key={item.id}
-            title={original.question ?? item.stem}
+            title={item.prompt}
             committedId={answer?.selected_option_id ?? undefined}
-            {...(original.stem ? { context: original.stem } : {})}
+            {...(item.stem ? { context: item.stem } : {})}
             options={item.options}
             feedback={
               answer
                 ? {
                     correct: answer.outcome === 'correct',
                     correctId: item.correct_option_id,
-                    rationale:
-                      typeof item.rationale.legacy_text === 'string'
-                        ? item.rationale.legacy_text
-                        : 'Rationale pending content review.',
+                    rationale: item.rationaleText,
+                    explanations: item.explanations,
                   }
                 : null
             }
@@ -425,6 +437,64 @@ function PracticeRound({
               index === items.length - 1 ? 'Finish round' : 'Next question'
             }
           />
+          {answer && item.reflection && (
+            <section className="reflection-box">
+              <h2>Explain your reasoning</h2>
+              <p>{item.reflection}</p>
+              {item.primaryCompetency && (
+                <Link
+                  className="text-link"
+                  href={`/study?pillar=${item.primaryCompetency}`}
+                >
+                  Review{' '}
+                  {pillars
+                    .find((pillar) => pillar.id === item.primaryCompetency)!
+                    .title.toLowerCase()}{' '}
+                  →
+                </Link>
+              )}
+            </section>
+          )}
+          <ReferenceShelf
+            key={`reference:${item.id}`}
+            onLookup={() => {
+              if (!answer)
+                setSession((previous) => ({
+                  ...previous,
+                  definitionUses: previous.definitionUses + 1,
+                }))
+            }}
+          />
+          {(session.definitionUses > 0 ||
+            (answer?.definitions_used ?? 0) > 0) && (
+            <p className="review-note">
+              Reference-assisted practice · Glossary use recorded with this
+              question.
+            </p>
+          )}
+          {item.sources.length > 0 && (
+            <details className="source-note">
+              <summary>Question sources & review status</summary>
+              <p>
+                Original draft, revision {bank.version}. Skill focus is an
+                editorial tag; no clinical approval or validated competency
+                mapping is implied.
+              </p>
+              {item.sources.map((id) => (
+                <p key={id}>
+                  <a
+                    href={contentSources[id].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {contentSources[id].title} ↗
+                  </a>
+                  <br />
+                  {contentSources[id].section}
+                </p>
+              ))}
+            </details>
+          )}
           {!answer && (
             <button className="skip-link" onClick={next}>
               Skip this question

@@ -1,7 +1,14 @@
 import manifest from '@/qbank/bank.manifest.json'
 import type { BankKey } from '@/qbank/banks'
+import { authoredQuestions } from './authored-questions'
 export const practiceTopics = manifest.banks.map((bank) => ({
   ...bank,
+  legacyItems: bank.items,
+  authoredItems: authoredQuestions.filter((item) => item.bankKey === bank.key)
+    .length,
+  items:
+    bank.items +
+    authoredQuestions.filter((item) => item.bankKey === bank.key).length,
   key: bank.key as BankKey,
   title:
     (

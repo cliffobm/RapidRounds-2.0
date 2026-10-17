@@ -16,6 +16,7 @@ import DecisionCard from './DecisionCard'
 import { useLearningSession } from './useLearningSession'
 import { caseRevision } from '@/lib/learning/case-coaching'
 import { recordActivity } from '@/lib/learning/sessions'
+import { ReferenceShelf } from './GlossaryExperience'
 export function RoundsLobby() {
   return (
     <div className="rr-experience page-enter">
@@ -37,7 +38,7 @@ export function RoundsLobby() {
             Enter the case room <ArrowRight size={18} />
           </Link>
           <span className="hero-footnote">
-            2 guided cases · 6 decisions in each · Your pace
+            {guidedCases.length} guided cases · 6 decisions in each · Your pace
           </span>
         </div>
         <div className="case-preview" aria-hidden="true">
@@ -145,7 +146,7 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
     )
   const [session, setSession, notice] = useLearningSession(
     `case:${story.id}`,
-    caseRevision,
+    story.revision ?? caseRevision,
     {
       index: 0,
       answer: null as number | null,
@@ -164,9 +165,13 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
       </Link>
       <p className="review-note">
         Educational draft · Clinical reviewer not yet assigned · Revision{' '}
-        {caseRevision}. Answers save on this device after confirmation.
+        {story.revision ?? caseRevision}. Answers save on this device after
+        confirmation.
       </p>
       {notice && <p role="status">{notice}</p>}
+      {story.objective && (
+        <p className="lesson-objective">Learning aim: {story.objective}</p>
+      )}
       {complete ? (
         <section className="completion-card">
           <span className="completion-icon">
@@ -318,7 +323,7 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
               if (index === story.stages.length - 1) {
                 setSession((previous) => ({ ...previous, complete: true }))
                 recordActivity({
-                  id: `case:${story.id}:${caseRevision}`,
+                  id: `case:${story.id}:${story.revision ?? caseRevision}`,
                   title: story.subtitle,
                   href: `/rr/${story.id}`,
                   completedAt: new Date().toISOString(),
@@ -367,6 +372,7 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
           </a>
         ))}
       </details>
+      <ReferenceShelf />
     </div>
   )
 }

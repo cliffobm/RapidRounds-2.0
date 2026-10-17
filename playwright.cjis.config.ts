@@ -2,7 +2,12 @@ import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './e2e',
-  testMatch: ['cjis-practice.spec.ts', 'settings.spec.ts', 'readiness.spec.ts'],
+  testMatch: [
+    'cjis-practice.spec.ts',
+    'settings.spec.ts',
+    'readiness.spec.ts',
+    'content-expansion.spec.ts',
+  ],
   workers: 1,
   reporter: 'list',
   use: { baseURL: 'http://localhost:3100', trace: 'retain-on-failure' },

@@ -3,6 +3,9 @@ import { practiceTopics } from '@/lib/learning/catalog'
 import { guidedCases } from '@/lib/learning/cases'
 import { studyUnits } from '@/lib/learning/study'
 import { caseRevision } from '@/lib/learning/case-coaching'
+import { authoredQuestions } from '@/lib/learning/authored-questions'
+import { glossaryEntries, valueExamples } from '@/lib/learning/glossary'
+import { expansionRevision } from '@/lib/learning/sources'
 export default function ContentReviewPage() {
   return (
     <div className="rr-experience pathway-layout page-enter">
@@ -37,9 +40,19 @@ export default function ContentReviewPage() {
             feedback after submission.
           </li>
           <li>
-            {practiceTopics.reduce((sum, topic) => sum + topic.items, 0)}{' '}
+            {practiceTopics.reduce((sum, topic) => sum + topic.legacyItems, 0)}{' '}
             inherited questions across {practiceTopics.length} collections;
             these are unmapped draft practice.
+          </li>
+          <li>
+            {authoredQuestions.length} new authored draft questions, each with
+            option explanations, a reflection prompt and source context. These
+            have editorial skill tags, not validated mappings.
+          </li>
+          <li>
+            {glossaryEntries.length} glossary entries and {valueExamples.length}{' '}
+            educational value examples. Human clinical review pending; expansion
+            revision {expansionRevision}.
           </li>
         </ul>
         <p>
@@ -52,7 +65,8 @@ export default function ContentReviewPage() {
             <li key={topic.key}>
               <Link href={`/quiz?bank=${topic.key}`}>{topic.title}</Link>
               <span>
-                {topic.items} items ·{' '}
+                {topic.items} items ({topic.legacyItems} imported +{' '}
+                {topic.authoredItems} authored) ·{' '}
                 {topic.items < 5 ? 'Limited preview' : 'Draft collection'}
               </span>
             </li>
@@ -96,10 +110,12 @@ export default function ContentReviewPage() {
           </li>
         </ol>
         <p>
-          Lab tables, drug doses, emergency protocol summaries and calculators
-          are withheld pending this review. Permissions for reproduced
-          third-party models and media also need resolution before commercial
-          release.
+          Drug doses, emergency protocol summaries and clinical calculators are
+          withheld pending this review. The glossary offers a small set of
+          sourced adult value examples, with units and limits; these are draft
+          educational references, not patient-specific targets. Permissions for
+          reproduced third-party models and media also need resolution before
+          commercial release.
         </p>
       </section>
       <section className="pathway-section">

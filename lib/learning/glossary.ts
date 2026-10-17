@@ -1,0 +1,372 @@
+import type { SourceId } from './sources'
+export type GlossaryEntry = {
+  id: string
+  term: string
+  aliases: string[]
+  category: string
+  definition: string
+  reasoning: string
+  source: SourceId
+}
+type TermTuple = [string, string, string[], string, string, string, SourceId]
+const terms: TermTuple[] = [
+  [
+    'baseline',
+    'Baseline',
+    [],
+    'Reasoning',
+    'The patient’s usual or previously documented state, used as a comparison.',
+    'A result can be within a population interval yet represent an important change for this person.',
+    'deterioration',
+  ],
+  [
+    'cue-cluster',
+    'Cue cluster',
+    ['clinical cues'],
+    'Reasoning',
+    'Related observations, symptoms and history considered together.',
+    'Ask which findings fit together and which challenge your explanation.',
+    'reasoning',
+  ],
+  [
+    'anchoring',
+    'Anchoring',
+    [],
+    'Reasoning',
+    'Remaining attached to an early explanation as new information arrives.',
+    'Name an alternative and actively look for evidence that would change your mind.',
+    'reasoning',
+  ],
+  [
+    'confirmation-bias',
+    'Confirmation bias',
+    [],
+    'Reasoning',
+    'Giving more attention to information that supports an existing belief.',
+    'Look for the finding that does not fit, rather than collecting only confirming details.',
+    'reasoning',
+  ],
+  [
+    'differential',
+    'Differential diagnosis',
+    ['working hypothesis'],
+    'Reasoning',
+    'The set of possible explanations being considered during clinical evaluation.',
+    'A working concern supports communication; it does not establish a diagnosis.',
+    'reasoning',
+  ],
+  [
+    'reassessment',
+    'Reassessment',
+    [],
+    'Reasoning',
+    'Repeating and comparing relevant assessments after a change or response.',
+    'Specify what should change, what has changed and what remains unresolved.',
+    'deterioration',
+  ],
+  [
+    'escalation',
+    'Escalation',
+    [],
+    'Communication',
+    'Requesting a more urgent or higher level of clinical support through the local process.',
+    'Include the change, observations and a specific request; confirm what happens next.',
+    'deterioration',
+  ],
+  [
+    'sbar',
+    'SBAR',
+    ['situation background assessment recommendation'],
+    'Communication',
+    'A handover structure: situation, background, assessment and recommendation or request.',
+    'Lead with urgency and current findings; do not bury the request in the full history.',
+    'deterioration',
+  ],
+  [
+    'perfusion',
+    'Perfusion',
+    [],
+    'Circulation',
+    'Delivery of blood through tissues.',
+    'Use multiple findings such as cognition, pulse, skin and urine trends; a pressure alone is incomplete.',
+    'fluids',
+  ],
+  [
+    'hypovolaemia',
+    'Hypovolaemia',
+    ['hypovolemia', 'volume depletion'],
+    'Circulation',
+    'Reduced circulating blood volume.',
+    'Consider intake, losses, history and examination together; do not prescribe a fixed fluid plan from a label.',
+    'fluids',
+  ],
+  [
+    'hypotension',
+    'Hypotension',
+    ['low blood pressure'],
+    'Circulation',
+    'Blood pressure that is low in the relevant clinical context.',
+    'Compare with baseline and symptoms; a falling trend matters even before a fixed threshold is crossed.',
+    'fluids',
+  ],
+  [
+    'tachycardia',
+    'Tachycardia',
+    ['fast pulse'],
+    'Circulation',
+    'A heart rate faster than expected for the person and situation.',
+    'Pain, exertion and illness can all affect rate; connect the rate with the wider assessment.',
+    'vitals',
+  ],
+  [
+    'bradycardia',
+    'Bradycardia',
+    ['slow pulse'],
+    'Circulation',
+    'A heart rate slower than expected for the person and situation.',
+    'Symptoms and perfusion findings help distinguish a tolerated rate from an urgent change.',
+    'deterioration',
+  ],
+  [
+    'ischaemia',
+    'Ischaemia',
+    ['ischemia'],
+    'Cardiac',
+    'Insufficient blood supply for a tissue’s needs.',
+    'A symptom pattern may raise concern, but clinical assessment and investigations determine the cause.',
+    'acs',
+  ],
+  [
+    'acs',
+    'Acute coronary syndrome',
+    ['ACS', 'myocardial infarction', 'MI'],
+    'Cardiac',
+    'A group of acute conditions associated with reduced blood flow to heart muscle; myocardial infarction is one member of that group.',
+    'Symptoms, timing, ECG and blood tests are interpreted together. These terms are related, not interchangeable.',
+    'acs',
+  ],
+  [
+    'ecg',
+    'Electrocardiogram',
+    ['ECG', 'EKG'],
+    'Cardiac',
+    'A recording of the heart’s electrical activity.',
+    'A tracing describes electrical signals; assess the patient and circulation as well.',
+    'acs',
+  ],
+  [
+    'murmur',
+    'Heart murmur',
+    ['cardiac murmur'],
+    'Cardiac',
+    'A sound associated with turbulent blood flow during the cardiac cycle.',
+    'Describe timing and associated findings; one sound does not identify a specific valve lesion.',
+    'auscultation',
+  ],
+  [
+    's1-s2',
+    'S1 and S2',
+    ['heart sounds'],
+    'Cardiac',
+    'The main heart sounds associated with closure of the atrioventricular valves (S1) and semilunar valves (S2).',
+    'Use the cycle to describe when another sound occurs instead of guessing its cause.',
+    'auscultation',
+  ],
+  [
+    's3',
+    'Third heart sound',
+    ['S3'],
+    'Cardiac',
+    'An additional early-diastolic sound associated with ventricular filling.',
+    'Age and clinical context matter. A newly noted sound with new breathlessness warrants assessment, not a diagnosis from sound alone.',
+    'auscultation',
+  ],
+  [
+    'dyspnoea',
+    'Dyspnoea',
+    ['dyspnea', 'shortness of breath'],
+    'Respiratory',
+    'The person’s experience of difficult or uncomfortable breathing.',
+    'The symptom can be important even when a displayed oxygen saturation looks reassuring.',
+    'oximetry',
+  ],
+  [
+    'tachypnoea',
+    'Tachypnoea',
+    ['tachypnea', 'respiratory rate'],
+    'Respiratory',
+    'Breathing faster than expected in context.',
+    'Count and compare the trend, breathing effort and ability to speak. Rate is more than a chart entry.',
+    'deterioration',
+  ],
+  [
+    'oxygenation',
+    'Oxygenation',
+    ['hypoxaemia', 'hypoxemia'],
+    'Respiratory',
+    'Transfer of oxygen into blood; hypoxaemia means low oxygen in arterial blood.',
+    'Pulse oximetry estimates saturation and has limitations; interpret it with the assessment and prescribed target.',
+    'oximetry',
+  ],
+  [
+    'ventilation',
+    'Ventilation',
+    [],
+    'Respiratory',
+    'Movement of air into and out of the lungs.',
+    'An oxygen saturation reading does not directly measure carbon dioxide removal or breathing adequacy.',
+    'deterioration',
+  ],
+  [
+    'spo2',
+    'SpO₂',
+    ['SpO2', 'pulse oximetry', 'oxygen saturation'],
+    'Respiratory',
+    'An estimate of peripheral oxygen saturation from a pulse oximeter.',
+    'Check signal quality, symptoms and trends. Accuracy can be affected by several factors, including skin pigmentation and circulation.',
+    'oximetry',
+  ],
+  [
+    'stridor',
+    'Stridor',
+    [],
+    'Respiratory',
+    'A harsh sound that can accompany upper-airway narrowing.',
+    'A new noisy airway with distress needs an urgent response through the local emergency process.',
+    'anaphylaxis',
+  ],
+  [
+    'wheeze',
+    'Wheeze',
+    [],
+    'Respiratory',
+    'A musical breathing sound associated with narrowed airways.',
+    'Interpret with effort, air movement, symptoms and history; it does not establish one diagnosis.',
+    'anaphylaxis',
+  ],
+  [
+    'aphasia',
+    'Aphasia',
+    [],
+    'Neurologic',
+    'Difficulty producing or understanding language.',
+    'Do not assume a new language problem is confusion or a language barrier; establish baseline and timing.',
+    'stroke',
+  ],
+  [
+    'dysarthria',
+    'Dysarthria',
+    [],
+    'Neurologic',
+    'Difficulty articulating speech because speech movements are impaired.',
+    'Slurred speech and impaired language are different observations; describe what you actually hear.',
+    'stroke',
+  ],
+  [
+    'focal-deficit',
+    'Focal neurologic deficit',
+    ['unilateral weakness', 'facial droop'],
+    'Neurologic',
+    'A change affecting a particular neurologic function or body region.',
+    'Sudden one-sided weakness or speech change needs urgent evaluation even if other observations appear stable.',
+    'stroke',
+  ],
+  [
+    'last-known-well',
+    'Last known well',
+    ['LKW', 'last known normal'],
+    'Neurologic',
+    'The latest time the person was known to be at their usual neurologic baseline.',
+    'This may differ from when symptoms were first discovered. Communicate both times and their source.',
+    'strokeTiming',
+  ],
+  [
+    'sepsis',
+    'Sepsis',
+    [],
+    'Critical care',
+    'Life-threatening organ dysfunction associated with a dysregulated response to infection.',
+    'Infection plus new organ-related changes raises concern; the scenario does not prove the diagnosis.',
+    'sepsis',
+  ],
+  [
+    'anaphylaxis',
+    'Anaphylaxis',
+    [],
+    'Critical care',
+    'A severe systemic hypersensitivity reaction that can compromise airway, breathing or circulation.',
+    'A rash is not required for a serious presentation; follow the local emergency pathway.',
+    'anaphylaxis',
+  ],
+]
+export const glossaryEntries: GlossaryEntry[] = terms.map(
+  ([id, term, aliases, category, definition, reasoning, source]) => ({
+    id,
+    term,
+    aliases,
+    category,
+    definition,
+    reasoning,
+    source,
+  })
+)
+export const valueExamples = [
+  {
+    id: 'pulse',
+    name: 'Resting adult pulse',
+    example: '60–100 beats/min',
+    context:
+      'Example for a healthy adult at rest; medicines, fitness and illness can change the expected rate.',
+    source: 'vitals' as const,
+  },
+  {
+    id: 'breathing',
+    name: 'Resting adult respiratory rate',
+    example: '12–18 breaths/min',
+    context:
+      'This is the interval in the linked source, not a universal escalation threshold. Other references and local charts use different intervals.',
+    source: 'vitals' as const,
+  },
+  {
+    id: 'temperature',
+    name: 'Resting adult temperature',
+    example: '36.5–37.3 °C (97.7–99.1 °F)',
+    context:
+      'Measurement site, technique and individual variation affect interpretation; no fever cutoff is supplied by this example.',
+    source: 'vitals' as const,
+  },
+  {
+    id: 'sodium',
+    name: 'Serum sodium',
+    example: '135–145 mEq/L',
+    context:
+      'A source-specific example for a blood sodium test. Use the interval printed by the reporting laboratory; specimen and method matter.',
+    source: 'sodium' as const,
+  },
+  {
+    id: 'potassium',
+    name: 'Serum potassium',
+    example: '3.7–5.2 mmol/L',
+    context:
+      'Example from the linked panel reference. Many laboratories use a different interval. Specimen quality and the patient’s condition matter.',
+    source: 'chemistry' as const,
+  },
+  {
+    id: 'bun',
+    name: 'Blood urea nitrogen (BUN)',
+    example: '6–20 mg/dL',
+    context:
+      'An example interval, not a stand-alone measure of perfusion or kidney function. Interpret with baseline, other tests and clinical context.',
+    source: 'chemistry' as const,
+  },
+]
+export function searchGlossary(query: string, category = 'All terms') {
+  const normalized = query.trim().toLowerCase()
+  return glossaryEntries.filter(
+    (entry) =>
+      (category === 'All terms' || entry.category === category) &&
+      `${entry.term} ${entry.aliases.join(' ')} ${entry.definition} ${entry.reasoning}`
+        .toLowerCase()
+        .includes(normalized)
+  )
+}

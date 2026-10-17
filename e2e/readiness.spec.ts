@@ -110,6 +110,7 @@ test('new learning routes fit narrow phones and pass automated dark-theme access
       '/reference/calculators',
       '/leaderboard',
       '/achievements',
+      '/glossary',
       '/quiz',
       '/rr',
     ]) {

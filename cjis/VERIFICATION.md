@@ -1,33 +1,37 @@
-# CJIS integration verification
+# CJIS integration verification — October 17, 2026
 
-Local environment: Windows, Node 22.19.0, npm 10.9.3, Next.js 15.5.3. The inherited package engine requests Node 20; GitHub Actions is configured for Node 20. Local results must not be represented as executed Node 20 or hosted CI results.
+This report supersedes the initial migration results retained in Git history. Current implementation: `feature/cjis-foundation`, Node 22, Next.js 15.5.28, React 19.1.10. The original 68 imported questions and answer keys remain intact; the application also includes 32 authored draft questions.
 
-## Executed checks
+## Executed local checks for content expansion
 
 | Check | Result |
 | --- | --- |
-| Dependency installation, `npm ci --ignore-scripts --no-audit --no-fund` | Passed; engine warning for local Node 22 versus requested Node 20 |
-| Adapter, `npm run test:cjis` | 8 tests passed |
-| Runtime integration, `npx vitest run lib/cjis components/qbank/LegacyPractice.spec.tsx` | 19 tests passed |
+| Full regression suite, `npm test -- --reporter=json --outputFile=../content-expansion-tests.json` | 129 passed, 0 failed |
+| Legacy adapter, `npm run test:cjis` | 8 passed |
 | TypeScript, `npm run typecheck` | Passed |
-| Production compilation, `npm run build` | Passed, including final header/asset repair; compiler errors are not bypassed |
-| Production browser, `npx playwright test --config playwright.cjis.config.ts` | 1 passed using local Microsoft Edge; no external requests or browser runtime errors |
-| Full suite, `npm test` | Failed: 74 passed, 14 failed; 8 failed files including 3 suites that failed to load, 5 passed files |
+| Production compilation, `npm run build` | Passed, including the reference-panel reconciliation fix |
+| Production browser, `npx playwright test --config playwright.cjis.config.ts` | 15 passed against the final production build |
 
-The adapter/registry tests exercise all 68 questions in the ten active catalog banks, including null stems. They verify original answers/options/source preservation, invalid/multi-letter answer rejection, duplicate/malformed content rejection, registry/schema agreement, release gating and practice-only response classification. Client and server query tests and privileged-write tests verify no network call occurs without explicit configuration.
+No tests are excluded or skipped to make the regression suite pass. The inherited test-runner/mock failures reported during initial migration were repaired in the previous readiness work. Builds enforce TypeScript validation but skip lint under the inherited configuration; these results do not constitute a lint pass.
 
-The production browser test verifies competency display, bank selection, correct-answer feedback, advancing, resetting after a bank change, and skipping without competency credit. It caught an external Google Fonts request and a persisted-auth header hydration mismatch; both were repaired before the passing final run. The missing logo was restored from the original component's embedded SVG.
+Browser checks exercise full case progression, practice feedback, saved answers and feedback after reload, study-to-application continuity, glossary search, assistance tracking, original-logo video and still fallback, settings/calendar export, and narrow-screen/dark-theme automated accessibility. Local browser runs use official Microsoft Edge. GitHub Actions uses official Chrome for H.264 support and independently runs the tests/build on each development push. Local results must not be represented as hosted CI results before the workflow completes.
 
-## Known blockers and limits
+The first expansion browser run found duplicate React sibling keys shared by the question and reference shelf. Distinct keys fix stale question retention; the unit regression asserts a single question after advancing and reset assistance, while the browser flow selects an authored question, opens the glossary, confirms the answer and verifies the persisted assistance classification.
 
-- Full suite failures remain in `lib/rationales.spec.ts` (3), `store/useAuth.spec.ts` (5), `components/learning/__tests__/OrderQuestion.test.tsx` (4), `components/scenario/ScenarioCard.spec.tsx` (1), and `components/scenario/AnswerBlock.spec.tsx` (1). Three other suites fail to load: dashboard StudentDashboard, database achievements and leaderboard. Failures include Jest APIs used under Vitest, incomplete database mocks, undefined helper functions, and stale/ambiguous UI assertions. They are not excluded from `npm test` or hidden in CI.
-- Database/auth, payment and AI features have not been verified against a development service. No production database was accessed or altered. No deployment was requested or performed.
-- Clinical SME review, competency mapping, rationale enrichment, source verification and calibration remain necessary for scored release. The TAVR case is still an outline.
-- Noncatalog respiratory array-format banks and the additional pulmonary core bank remain preserved source files but are not added to the active catalog by this change.
-- Lint is not verified: the legacy `next lint` script/ESLint 9 configuration needs modernization. Builds skip lint but enforce TypeScript checks. Browser-list data and Vite's CJS API emit inherited warnings.
-- Practice response records are ephemeral and deliberately provide no competency score or durable assessment evidence. There are no hint/definition controls in this practice UI, so their recorded usage counts are zero.
-- Automatic approval review rejected removal of unused copied content tooling. It remains inert source, and none was executed.
+## Content and evidence boundaries
+
+- Six guided fictional cases, 36 decisions; 100 practice items; six foundational study units; one three-decision application exercise. See [content expansion](CONTENT_EXPANSION.md) and [prior readiness work](READINESS_IMPLEMENTATION.md).
+- All authored content remains a draft without human clinical signoff. Editorial skill tags do not establish validated mappings. Guided cases are scripted, formative stories, not physiologic simulations.
+- The glossary includes 32 terms and six sourced adult value examples. Examples include units and context and are not universal targets or critical-value thresholds. Clinical dosing, emergency protocol summaries and clinical calculators remain withheld.
+- Practice/case progress is validated and stored on the device. Opening the inline glossary before confirming a practice answer records assistance. External references cannot be detected. No result is tamper-resistant or suitable for competency certification.
+- The application pathway's 48-hour comparison is a scheduling convention, not validated evidence of retention or clinical transfer.
+
+## Remaining blockers and limits
+
+Human clinical review, curriculum/coverage review, source and media rights, item calibration, outcome validation, physical-device testing, production account/backend integration, monitoring/support ownership and production release approval remain outstanding. Automated accessibility checks are not a full accessibility certification. Old browser-support dataset and Vite CJS warnings remain; lint modernization is outstanding.
+
+No production database was accessed or changed. Database/auth, payment and AI services have not been verified against a development service. The review project remains separate from the original production project and has no application credentials. No production promotion is included.
 
 ## Preservation
 
-The original repository remains unchanged. The 2.0 main branch was inspected at `fc73715d70427b457fc3dd4258a7d54fee8fbb9f`. All implementation commits target `feature/cjis-foundation`; the migration commit is `740972855554422aa48502977c8f0a79ab405108`.
+The original repository is unchanged. The 2.0 main branch remains `fc73715d70427b457fc3dd4258a7d54fee8fbb9f`. All implementation work targets `feature/cjis-foundation`; the initial migration commit is `740972855554422aa48502977c8f0a79ab405108`. Exact expansion commit, CI status and review deployment are reported on delivery.

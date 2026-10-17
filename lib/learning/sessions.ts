@@ -27,7 +27,9 @@ const activitySchema = z.object({
   title: z.string().max(150),
   href: z
     .string()
-    .regex(/^\/(rr\/(sepsis|tavr)|quiz\?bank=[a-z_]+|study\?pillar=[a-z_]+)$/),
+    .regex(
+      /^\/(rr\/(sepsis|tavr|chest-pain|neuro-change|respiratory-change|fluid-loss)|quiz\?bank=[a-z_]+|study\?pillar=[a-z_]+)$/
+    ),
   completedAt: z.string().datetime(),
 })
 export type LearningActivity = z.infer<typeof activitySchema>

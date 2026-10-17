@@ -74,14 +74,18 @@ describe('learning continuity and evidence boundaries', () => {
     view.unmount()
     view = render(<LegacyPractice initialBank="acute_mi" />)
     expect(screen.getAllByRole('radio')[1]).toBeChecked()
-    fireEvent.click(screen.getByRole('button', { name: 'Finish round' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Next question' }))
+    for (let index = 0; index < 4; index++)
+      fireEvent.click(
+        screen.getByRole('button', { name: 'Skip this question' })
+      )
     expect(
-      screen.getByText('1 correct · 1 answered · 0 skipped')
+      screen.getByText('1 correct · 1 answered · 4 skipped')
     ).toBeInTheDocument()
     view.unmount()
     render(<LegacyPractice initialBank="acute_mi" />)
     expect(
-      screen.getByText('1 correct · 1 answered · 0 skipped')
+      screen.getByText('1 correct · 1 answered · 4 skipped')
     ).toBeInTheDocument()
     expect(readActivities(localStorage.getItem(activityKey))).toHaveLength(1)
   })

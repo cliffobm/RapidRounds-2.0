@@ -12,6 +12,7 @@ import {
   Sun,
   UserRound,
   Settings,
+  BookA,
 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { useTheme } from '@/app/providers'
@@ -55,6 +56,14 @@ function HeaderActions() {
   useEffect(() => setMounted(true), [])
   return (
     <div className="rr-header-actions">
+      <Link
+        href="/glossary"
+        className="rr-icon-button"
+        aria-label="Glossary"
+        title="Glossary"
+      >
+        <BookA size={20} />
+      </Link>
       <Link
         href="/settings"
         className="rr-icon-button rr-settings-link"
