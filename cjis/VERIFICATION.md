@@ -6,7 +6,7 @@ This report supersedes the initial migration results retained in Git history. Cu
 
 | Check | Result |
 | --- | --- |
-| Full regression suite, `npm test -- --reporter=json --outputFile=../evolving-tests.json` | 140 passed, 0 failed |
+| Full regression suite, `npm test -- --reporter=json --outputFile=../evolving-tests.json` | 141 passed, 0 failed |
 | Legacy adapter, `npm run test:cjis` | 8 passed |
 | TypeScript, `npm run typecheck` | Passed |
 | Production compilation, `npm run build` | Passed, including final readability and selection-control refinements |
@@ -19,6 +19,8 @@ No tests are excluded or skipped to make the regression suite pass. The inherite
 Browser checks exercise full case progression, practice feedback, saved answers and feedback after reload, study-to-application continuity, glossary search, assistance tracking, original-logo video and still fallback, settings/calendar export, and narrow-screen/dark-theme automated accessibility. Local browser runs use official Microsoft Edge. GitHub Actions uses official Chrome for H.264 support and independently runs the tests/build on each development push. Local results must not be represented as hosted CI results before the workflow completes.
 
 The 26 browser checks have executed across the local runs. A combined Windows Edge run repeatedly closed its browser process before creating the context for the dark-theme/layout check; the isolated check passes. The assertions were not removed, skipped or weakened. CI retains the full 26-test Chrome run. The new evolving-case check caught a non-focusable horizontal observation table; it now has a named, keyboard-focusable scroll region and a test that scrolls it with the keyboard.
+
+The first expansion CI run passed 25 browser checks and failed the observation-table assertion because it read the scroll offset immediately after sending the arrow key. The check now waits for the browser's scroll result while retaining the same positive-offset assertion. Final continuity review also added a departure-time regression for internal navigation and checks that Advanced level and the return-handoff setting survive reload into the debrief/replay controls. Final CI results are reported separately after completion.
 
 The first expansion browser run found duplicate React sibling keys shared by the question and reference shelf. Distinct keys fix stale question retention; the unit regression asserts a single question after advancing and reset assistance, while the browser flow selects an authored question, opens the glossary, confirms the answer and verifies the persisted assistance classification.
 

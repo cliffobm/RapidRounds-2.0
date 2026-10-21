@@ -1,4 +1,4 @@
-import { beforeEach, describe, it, expect } from 'vitest'
+import { beforeEach, describe, it, expect, vi } from 'vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { PreferencesProvider } from '@/components/settings/PreferencesProvider'
 import {
@@ -24,6 +24,25 @@ import EvolvingCaseExperience from './EvolvingCases'
 import QuickCheck from './QuickCheck'
 beforeEach(() => localStorage.clear())
 describe('evolving reasoning practice', () => {
+  it('records departure time for internal navigation rather than counting reading time as time away', () => {
+    const story = evolvingCases[0]!,
+      saved = newCaseSession(story, 'foundation', 'handoff', 0, 100)
+    localStorage.setItem(evolvingKey(story.id), JSON.stringify(saved))
+    const view = render(
+      <PreferencesProvider>
+        <EvolvingCaseExperience story={story} />
+      </PreferencesProvider>
+    )
+    const now = vi.spyOn(Date, 'now').mockReturnValue(5000)
+    try {
+      view.unmount()
+    } finally {
+      now.mockRestore()
+    }
+    expect(
+      JSON.parse(localStorage.getItem(evolvingKey(story.id))!).lastSeen
+    ).toBe(5000)
+  })
   it('has complete reviewed-shape draft content and distinct clinical paths without generating arbitrary values', () => {
     expect(evolvingCases).toHaveLength(6)
     expect(reasoningQuestions).toHaveLength(36)
@@ -173,6 +192,9 @@ describe('evolving reasoning practice', () => {
     expect(
       screen.getByRole('heading', { name: 'Debrief the decisions' })
     ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: 'Advanced', exact: true })
+    ).toHaveAttribute('aria-pressed', 'true')
     expect(readActivities(localStorage.getItem(activityKey))).toEqual([
       expect.objectContaining({ href: '/evolving/fever-neuro' }),
     ])

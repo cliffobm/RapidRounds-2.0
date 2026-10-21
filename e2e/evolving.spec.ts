@@ -101,6 +101,11 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
   const story = evolvingCases[1]!
   await page.goto(`/evolving/${story.id}`)
   await page.getByRole('button', { name: 'Advanced', exact: true }).click()
+  await page
+    .getByRole('checkbox', {
+      name: 'Offer a new handoff after 30 minutes away',
+    })
+    .check()
   await page.getByRole('button', { name: 'Start this case' }).click()
   for (const [index, frame] of story.paths[0]!.frames.entries()) {
     const question = questionFor(frame, 'advanced')
@@ -144,6 +149,14 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
   await page
     .getByText('Decision 1 · Unassisted in-app response', { exact: true })
     .click()
+  await expect(
+    page.getByRole('button', { name: 'Advanced', exact: true })
+  ).toHaveAttribute('aria-pressed', 'true')
+  await expect(
+    page.getByRole('checkbox', {
+      name: 'Offer a new handoff after 30 minutes away',
+    })
+  ).toBeChecked()
   await expect(
     page.getByText(story.paths[0]!.frames[0]!.complex.options[0]!.explanation, {
       exact: true,
@@ -227,11 +240,13 @@ test('focus interface streamlines entry and a ten-question check saves progress 
   await page
     .getByRole('region', { name: 'Observation trend', exact: true })
     .press('ArrowRight')
-  expect(
-    await page
-      .getByRole('region', { name: 'Observation trend', exact: true })
-      .evaluate((element) => element.scrollLeft)
-  ).toBeGreaterThan(0)
+  await expect
+    .poll(() =>
+      page
+        .getByRole('region', { name: 'Observation trend', exact: true })
+        .evaluate((element) => element.scrollLeft)
+    )
+    .toBeGreaterThan(0)
   await page.screenshot({
     path: '../evolving-case-390.png',
     fullPage: true,

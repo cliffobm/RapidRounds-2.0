@@ -215,10 +215,6 @@ export default function EvolvingCaseExperience({
   story: EvolvingCase
 }) {
   const { preferences, ready } = usePreferences()
-  const [level, setLevel] = useState<ReasoningLevel>(preferences.reasoningLevel)
-  const [clock, setClock] = useState<'pause' | 'handoff'>(
-    preferences.scenarioClock
-  )
   const [session, setSession] = useState<EvolvingSession | null>(() => {
     try {
       return readCaseSession(localStorage.getItem(evolvingKey(story.id)), story)
@@ -226,6 +222,12 @@ export default function EvolvingCaseExperience({
       return null
     }
   })
+  const [level, setLevel] = useState<ReasoningLevel>(
+    session?.level ?? preferences.reasoningLevel
+  )
+  const [clock, setClock] = useState<'pause' | 'handoff'>(
+    session?.clock ?? preferences.scenarioClock
+  )
   const [notice, setNotice] = useState('')
   const [returnPending, setReturnPending] = useState(() =>
     session ? offerReturnHandoff(session) : false
@@ -249,6 +251,7 @@ export default function EvolvingCaseExperience({
       }
   }, [session, story.id])
   useEffect(() => {
+    let active = true
     const saveDeparture = () => {
       if (!latest.current) return
       const value = { ...latest.current, lastSeen: Date.now() }
@@ -256,7 +259,7 @@ export default function EvolvingCaseExperience({
       try {
         localStorage.setItem(evolvingKey(story.id), JSON.stringify(value))
       } catch {
-        setNotice('Progress could not be saved on this device.')
+        if (active) setNotice('Progress could not be saved on this device.')
       }
     }
     const visibility = () => {
@@ -267,6 +270,8 @@ export default function EvolvingCaseExperience({
     window.addEventListener('pagehide', saveDeparture)
     document.addEventListener('visibilitychange', visibility)
     return () => {
+      active = false
+      saveDeparture()
       window.removeEventListener('pagehide', saveDeparture)
       document.removeEventListener('visibilitychange', visibility)
     }
