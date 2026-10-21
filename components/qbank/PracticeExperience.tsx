@@ -26,6 +26,10 @@ import {
   type PracticeResponse,
 } from '@/lib/cjis/practice'
 import type { BankKey } from '@/qbank/banks'
+import {
+  QuickLaunch,
+  ReasoningBankCards,
+} from '@/components/learning/QuickCheck'
 
 export default function LegacyPractice({
   initialBank = '',
@@ -52,7 +56,9 @@ export default function LegacyPractice({
   )
   return (
     <div className="rr-experience page-enter">
-      <section className="rr-hero practice-hero learning-hero-compact">
+      <h1 className="focus-only">Practice</h1>
+      <QuickLaunch />
+      <section className="rr-hero practice-hero learning-hero-compact mode-introduction">
         <div className="hero-copy">
           <span className="hero-kicker">
             <Zap size={15} /> THE PRACTICE LAB
@@ -94,6 +100,7 @@ export default function LegacyPractice({
           </div>
         </div>
       </section>
+      <ReasoningBankCards />
       <section aria-labelledby="topics-title">
         <div className="section-heading">
           <div>

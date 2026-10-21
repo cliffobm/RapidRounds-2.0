@@ -12,6 +12,9 @@ const escapePattern = (text: string) =>
   text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 // Search aliases include related concepts. Only equivalent labels belong in inline definitions.
 const inlineAliases: Record<string, string[]> = {
+  dvt: ['DVT'],
+  pe: ['PE'],
+  coeliac: ['celiac disease'],
   hypovolaemia: ['hypovolemia'],
   hypotension: ['low blood pressure'],
   ischaemia: ['ischemia'],

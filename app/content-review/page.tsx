@@ -6,6 +6,11 @@ import { caseRevision } from '@/lib/learning/case-coaching'
 import { authoredQuestions } from '@/lib/learning/authored-questions'
 import { glossaryEntries, valueExamples } from '@/lib/learning/glossary'
 import { expansionRevision } from '@/lib/learning/sources'
+import {
+  evolvingCases,
+  reasoningQuestions,
+} from '@/lib/learning/evolving-content'
+import { evolvingRevision } from '@/lib/learning/evolving-types'
 export default function ContentReviewPage() {
   return (
     <div className="rr-experience pathway-layout page-enter">
@@ -26,6 +31,28 @@ export default function ContentReviewPage() {
       <section className="pathway-section">
         <h2>Current coverage</h2>
         <ul>
+          <li>
+            {evolvingCases.length} evolving case families, each with two
+            authored clinical paths and three support levels (
+            {evolvingCases.reduce(
+              (sum, story) =>
+                sum +
+                story.paths.reduce((n, path) => n + path.frames.length, 0),
+              0
+            )}{' '}
+            scripted checkpoints). Advanced feedback follows the debrief. Paths
+            and formats are not independent case samples.
+          </li>
+          <li>
+            {reasoningQuestions.length} additional case-linked draft questions
+            in six new collections, available in 5- or 10-question checks.
+            Together with the existing practice catalog:{' '}
+            {reasoningQuestions.length +
+              practiceTopics.reduce((sum, topic) => sum + topic.items, 0)}{' '}
+            questions. Questions and case decisions sharing a family are not
+            independent transfer evidence. Evolving revision: {evolvingRevision}
+            .
+          </li>
           <li>
             {studyUnits.length} foundational reasoning units, each with a worked
             example and two checks.

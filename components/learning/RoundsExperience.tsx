@@ -18,10 +18,12 @@ import { useLearningSession } from './useLearningSession'
 import { caseRevision } from '@/lib/learning/case-coaching'
 import { recordActivity } from '@/lib/learning/sessions'
 import { ReferenceShelf } from './GlossaryExperience'
+import { EvolvingCaseGallery } from './EvolvingCases'
 export function RoundsLobby() {
   return (
     <div className="rr-experience page-enter">
-      <section className="rr-hero rounds-hero learning-hero-compact">
+      <h1 className="focus-only">Case room</h1>
+      <section className="rr-hero rounds-hero learning-hero-compact mode-introduction">
         <div className="hero-copy">
           <span className="hero-kicker">
             <Activity size={16} /> RAPID ROUNDS / CASE ROOM
@@ -69,6 +71,7 @@ export function RoundsLobby() {
           <span>What would you notice first?</span>
         </div>
       </section>
+      <EvolvingCaseGallery />
       <div className="section-heading">
         <div>
           <p className="eyebrow">PATIENT STORIES, WITH PURPOSE</p>

@@ -8,6 +8,8 @@ import {
 } from '@/lib/learning/sessions'
 import { practiceTopics } from '@/lib/learning/catalog'
 import { guidedCases } from '@/lib/learning/cases'
+import { evolvingCases } from '@/lib/learning/evolving-content'
+import { evolvingKey, readCaseSession } from '@/lib/learning/evolving-session'
 
 export default function ContinueLearning() {
   const [snapshot, setSnapshot] = useState({
@@ -54,8 +56,22 @@ export default function ContinueLearning() {
             }
           })
           .map(({ title, href }) => ({ title, href }))
+        const evolvingLinks = evolvingCases.flatMap((story) => {
+          const saved = readCaseSession(
+            localStorage.getItem(evolvingKey(story.id)),
+            story
+          )
+          return saved && !saved.complete
+            ? [
+                {
+                  title: `Evolving case: ${story.title}`,
+                  href: `/evolving/${story.id}`,
+                },
+              ]
+            : []
+        })
         setSnapshot({
-          links,
+          links: [...evolvingLinks, ...links],
           completed: readActivities(localStorage.getItem(activityKey)).length,
           unavailable: false,
         })

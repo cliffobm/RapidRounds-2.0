@@ -206,9 +206,9 @@ export default function GlossaryExperience({
         source-specific value examples explain units and context.
       </p>
       <p className="review-note">
-        Original educational draft · Source context checked October 17, 2026 ·
-        Human clinical review pending. Definitions and values are for learning
-        outside patient care.
+        Original educational draft · Updated October 21, 2026 · Human clinical
+        review pending. Definitions and values are for learning outside patient
+        care.
       </p>
       <GlossaryBrowser initialQuery={initialQuery} initialView={initialView} />
     </div>

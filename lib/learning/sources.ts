@@ -1,4 +1,39 @@
 export const contentSources = {
+  meningitis: {
+    title: 'NICE NG240: bacterial meningitis recognition and management',
+    url: 'https://www.nice.org.uk/guidance/ng240/chapter/Recommendations',
+    section: 'Recognition, urgent response and timing of investigations',
+  },
+  pancreatitis: {
+    title: 'NICE NG104: pancreatitis',
+    url: 'https://www.nice.org.uk/guidance/ng104/chapter/recommendations',
+    section: 'Assessment, individualized fluids, nutrition and complications',
+  },
+  cellulitis: {
+    title: 'NICE NG141: cellulitis reassessment',
+    url: 'https://www.nice.org.uk/guidance/ng141/chapter/Recommendations',
+    section: '1.1.9–1.1.14: worsening symptoms, alternatives and referral',
+  },
+  vte: {
+    title: 'NICE NG158: venous thromboembolic disease',
+    url: 'https://www.nice.org.uk/guidance/ng158/chapter/Recommendations',
+    section: 'Assessment of suspected DVT/PE and patient information',
+  },
+  appendicitis: {
+    title: 'NHS: appendicitis',
+    url: 'https://www.nhs.uk/conditions/appendicitis/',
+    section: 'Changing symptoms, assessment and complications',
+  },
+  coeliac: {
+    title: 'NICE NG20: coeliac disease',
+    url: 'https://www.nice.org.uk/guidance/ng20/chapter/Recommendations',
+    section: 'Testing context, specialist confirmation and dietary review',
+  },
+  sharedDecisions: {
+    title: 'NICE NG197: shared decision making',
+    url: 'https://www.nice.org.uk/guidance/ng197/chapter/Recommendations',
+    section: '1.2: priorities, uncertainty, preferences and teach-back',
+  },
   deterioration: {
     title: 'NICE CG50: recognising deterioration',
     url: 'https://www.nice.org.uk/guidance/cg50/chapter/recommendations',

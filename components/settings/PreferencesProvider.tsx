@@ -49,6 +49,7 @@ function createPreferencesStore() {
       root.dataset.rrText = next.preferences.textSize
       root.dataset.rrContrast = String(next.preferences.highContrast)
       root.dataset.rrMotion = String(next.motionReduced)
+      root.dataset.rrInterface = next.preferences.interfaceMode
       root.style.colorScheme = next.isDark ? 'dark' : 'light'
     }
     listeners.forEach((listener) => listener())

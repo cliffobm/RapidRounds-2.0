@@ -1,5 +1,8 @@
 export const PREFERENCES_KEY = 'rapidrounds-preferences-v1'
 export type Preferences = {
+  interfaceMode: 'guided' | 'focus'
+  reasoningLevel: 'foundation' | 'challenge' | 'advanced'
+  scenarioClock: 'pause' | 'handoff'
   theme: 'system' | 'light' | 'dark'
   textSize: 'standard' | 'large' | 'larger'
   reduceMotion: boolean
@@ -19,6 +22,9 @@ export type Preferences = {
   reminderDay: number
 }
 export const defaultPreferences: Preferences = {
+  interfaceMode: 'guided',
+  reasoningLevel: 'foundation',
+  scenarioClock: 'pause',
   theme: 'system',
   textSize: 'standard',
   reduceMotion: false,
@@ -57,6 +63,13 @@ export function readPreferences(raw: string | null): Preferences {
     if (!p || typeof p !== 'object' || Array.isArray(p))
       return { ...defaultPreferences }
     return {
+      interfaceMode: oneOf(p.interfaceMode, ['guided', 'focus'], 'guided'),
+      reasoningLevel: oneOf(
+        p.reasoningLevel,
+        ['foundation', 'challenge', 'advanced'],
+        'foundation'
+      ),
+      scenarioClock: oneOf(p.scenarioClock, ['pause', 'handoff'], 'pause'),
       theme: oneOf(p.theme, ['system', 'light', 'dark'], 'system'),
       textSize: oneOf(p.textSize, ['standard', 'large', 'larger'], 'standard'),
       reduceMotion: p.reduceMotion === true,

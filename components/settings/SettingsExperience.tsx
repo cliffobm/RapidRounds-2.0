@@ -84,9 +84,76 @@ export default function SettingsExperience() {
         <a href="#profile">About you</a>
         <a href="#goals">Goals</a>
         <a href="#reminders">Reminders</a>
+        <a href="#learning-mode">Learning mode</a>
       </nav>
       <fieldset disabled={!ready} className="settings-container">
         <legend className="sr-only">Your preferences</legend>
+        <section className="settings-card" id="learning-mode">
+          <h2>Make practice fit your experience</h2>
+          <fieldset className="settings-choice">
+            <legend>Interface</legend>
+            <div>
+              {(['guided', 'focus'] as const).map((value) => (
+                <label key={value}>
+                  <input
+                    type="radio"
+                    name="interface-mode"
+                    checked={p.interfaceMode === value}
+                    onChange={() => update({ interfaceMode: value })}
+                  />
+                  {value === 'guided'
+                    ? 'Guided introductions'
+                    : 'Focus interface'}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <p>
+            Focus keeps practice controls and clinical information while
+            shortening introductory copy. This is a display preference, not
+            verification of a paid subscription.
+          </p>
+          <label className="settings-field">
+            Default reasoning level
+            <select
+              value={p.reasoningLevel}
+              onChange={(event) =>
+                update({
+                  reasoningLevel: event.target
+                    .value as Preferences['reasoningLevel'],
+                })
+              }
+            >
+              <option value="foundation">Foundation — coached decisions</option>
+              <option value="challenge">Challenge — integrate evidence</option>
+              <option value="advanced">
+                Advanced — feedback after the case
+              </option>
+            </select>
+          </label>
+          <label className="settings-field">
+            When returning to an evolving case
+            <select
+              value={p.scenarioClock}
+              onChange={(event) =>
+                update({
+                  scenarioClock: event.target
+                    .value as Preferences['scenarioClock'],
+                })
+              }
+            >
+              <option value="pause">Pause at my saved moment</option>
+              <option value="handoff">
+                Offer a new handoff after 30 minutes away
+              </option>
+            </select>
+          </label>
+          <p>
+            A new handoff is an authored fictional update. You can keep the
+            saved moment or advance one checkpoint; time away never causes an
+            automatic failure.
+          </p>
+        </section>
         <section className="settings-card" id="appearance">
           <div className="settings-card-title">
             <Eye />

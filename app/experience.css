@@ -10,6 +10,177 @@
   color: var(--rr-ink);
   min-height: 100vh;
 }
+.focus-only {
+  display: none;
+}
+html[data-rr-interface='focus'] .rr-app :is(.mode-introduction, .intro-copy) {
+  display: none;
+}
+html[data-rr-interface='focus'] .rr-app .focus-only {
+  display: block;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 20px 0;
+}
+html[data-rr-interface='focus'] .rr-app .topic-card {
+  min-height: 150px;
+}
+.quick-launch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 20px 0 28px;
+}
+.scenario-layout h1 {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+}
+.scenario-controls {
+  padding: 20px;
+  border: 1px solid var(--rr-line);
+  border-radius: 16px;
+  background: var(--rr-surface);
+  margin: 20px 0;
+}
+.scenario-controls fieldset,
+.scenario-question {
+  min-width: 0;
+}
+.scenario-question .answer-option {
+  font-size: 1rem;
+  line-height: 1.55;
+  align-items: flex-start;
+  gap: 12px;
+}
+.scenario-checkbox {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  border: 1px solid var(--rr-muted);
+  border-radius: 5px;
+  margin-top: 2px;
+}
+.answer-option.is-chosen .scenario-checkbox {
+  background: #b8f5dc;
+  color: #10382b;
+  border-color: #127158;
+}
+.scenario-layout .patient-context p {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+html[data-rr-interface='focus'] .rr-app :is(.method-note, .judgment-system) {
+  display: none;
+}
+html[data-rr-interface='focus'] .rr-app .case-card-copy > p:not(.eyebrow) {
+  display: none;
+}
+.scenario-controls legend,
+.scenario-question legend {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.scenario-controls p {
+  margin: 12px 0;
+}
+.scenario-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  line-height: 1.5;
+}
+.scenario-toggle input {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.scenario-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  margin: 24px 0;
+}
+.scenario-chart {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--rr-line);
+  border-radius: 16px;
+  margin: 24px 0;
+  background: var(--rr-surface);
+}
+.scenario-chart table {
+  width: 100%;
+  min-width: 580px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.85rem;
+}
+.scenario-chart:focus-visible {
+  outline: 3px solid #078666;
+  outline-offset: 4px;
+}
+.scenario-chart caption {
+  text-align: left;
+  padding: 16px;
+  font-weight: 700;
+  color: var(--rr-ink);
+}
+.scenario-chart th,
+.scenario-chart td {
+  padding: 14px 12px;
+  border-top: 1px solid var(--rr-line);
+  white-space: nowrap;
+}
+.scenario-chart tbody tr:last-child {
+  background: var(--rr-bg);
+  font-weight: 700;
+}
+.scenario-layout .patient-context {
+  margin: 20px 0;
+  padding: 20px;
+  background: var(--rr-surface);
+  border: 1px solid var(--rr-line);
+  border-radius: 16px;
+}
+.scenario-layout .patient-context h2 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+.scenario-question {
+  margin: 24px 0;
+}
+.scenario-feedback {
+  padding: 20px;
+  border-left: 4px solid #078666;
+  background: var(--rr-surface);
+  margin: 20px 0;
+}
+.scenario-feedback li {
+  margin: 16px 0;
+}
+.scenario-feedback p {
+  margin: 8px 0;
+}
+.handoff-notice {
+  border: 2px solid #078666;
+  padding: 22px;
+  border-radius: 18px;
+  margin: 24px 0;
+  background: var(--rr-surface);
+}
+.handoff-notice h2 {
+  font-size: 1.5rem;
+}
+.handoff-notice p {
+  margin: 16px 0;
+}
+.handoff-notice button {
+  margin: 8px 8px 0 0;
+}
 .dark .rr-app {
   --rr-bg: #101a27;
   --rr-surface: #182637;

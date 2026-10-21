@@ -12,9 +12,12 @@ import { Logo } from '@/components/ui/Logo'
 import JudgmentPillars from './JudgmentPillars'
 import LearningIntention from './LearningIntention'
 import ContinueLearning from './ContinueLearning'
+import { QuickLaunch } from './QuickCheck'
 export default function HomeExperience() {
   return (
     <div className="rr-experience page-enter">
+      <h1 className="focus-only">Your learning</h1>
+      <QuickLaunch />
       <LearningIntention />
       <ContinueLearning />
       <div className="welcome-line">
@@ -23,7 +26,7 @@ export default function HomeExperience() {
         </span>
         <span>Made for the way you learn.</span>
       </div>
-      <section className="rr-hero home-hero">
+      <section className="rr-hero home-hero mode-introduction">
         <div className="hero-copy">
           <span className="hero-kicker">
             <Sparkles size={15} /> CLINICAL JUDGMENT, MADE ACTIVE

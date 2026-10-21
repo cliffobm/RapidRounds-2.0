@@ -1,20 +1,24 @@
-# CJIS integration verification — October 17, 2026
+# CJIS integration verification — October 21, 2026
 
-This report supersedes the initial migration results retained in Git history. Current implementation: `feature/cjis-foundation`, Node 22, Next.js 15.5.28, React 19.1.10. The original 68 imported questions and answer keys remain intact; the application also includes 32 authored draft questions.
+This report supersedes the initial migration results retained in Git history. Current implementation: `feature/cjis-foundation`, Node 22, Next.js 15.5.28, React 19.1.10. The original 68 imported questions and answer keys remain intact; the application also includes 32 earlier authored draft questions and 36 new case-linked questions.
 
-## Executed local checks for content expansion and contextual reference cards
+## Executed local checks for evolving cases, quick checks and interface modes
 
 | Check | Result |
 | --- | --- |
-| Full regression suite, `npm test -- --reporter=json --outputFile=../inline-reference-tests.json` | 134 passed, 0 failed |
+| Full regression suite, `npm test -- --reporter=json --outputFile=../evolving-tests.json` | 140 passed, 0 failed |
 | Legacy adapter, `npm run test:cjis` | 8 passed |
 | TypeScript, `npm run typecheck` | Passed |
-| Production compilation, `npm run build` | Passed, including final reference-card/theme fixes |
-| Production browser, `npx playwright test --config playwright.cjis.config.ts` | 17 passed against the final production build |
+| Production compilation, `npm run build` | Passed, including final readability and selection-control refinements |
+| New evolving browser file, `npx playwright test --config playwright.cjis.config.ts e2e/evolving.spec.ts` | 9 passed against the final production build |
+| Other browser files in one local run | 16 passed; one Edge fixture failed before opening a page |
+| Dark-theme/layout browser check in isolation | Passed; see the delivery report for final-run confirmation |
 
 No tests are excluded or skipped to make the regression suite pass. The inherited test-runner/mock failures reported during initial migration were repaired in the previous readiness work. Builds enforce TypeScript validation but skip lint under the inherited configuration; these results do not constitute a lint pass.
 
 Browser checks exercise full case progression, practice feedback, saved answers and feedback after reload, study-to-application continuity, glossary search, assistance tracking, original-logo video and still fallback, settings/calendar export, and narrow-screen/dark-theme automated accessibility. Local browser runs use official Microsoft Edge. GitHub Actions uses official Chrome for H.264 support and independently runs the tests/build on each development push. Local results must not be represented as hosted CI results before the workflow completes.
+
+The 26 browser checks have executed across the local runs. A combined Windows Edge run repeatedly closed its browser process before creating the context for the dark-theme/layout check; the isolated check passes. The assertions were not removed, skipped or weakened. CI retains the full 26-test Chrome run. The new evolving-case check caught a non-focusable horizontal observation table; it now has a named, keyboard-focusable scroll region and a test that scrolls it with the keyboard.
 
 The first expansion browser run found duplicate React sibling keys shared by the question and reference shelf. Distinct keys fix stale question retention; the unit regression asserts a single question after advancing and reset assistance, while the browser flow selects an authored question, opens the glossary, confirms the answer and verifies the persisted assistance classification.
 
@@ -22,9 +26,9 @@ Contextual reference-card checks additionally cover activation versus focus, key
 
 ## Content and evidence boundaries
 
-- Six guided fictional cases, 36 decisions; 100 practice items; six foundational study units; one three-decision application exercise. See [content expansion](CONTENT_EXPANSION.md) and [prior readiness work](READINESS_IMPLEMENTATION.md).
+- Six existing guided cases plus six evolving case families with two authored paths each (72 new scripted checkpoints); 136 question items; 42 glossary terms; six foundational study units; one three-decision application exercise. Paths, question formats and related items are not independent case samples. See [evolving implementation and source review](EVOLVING_IMPLEMENTATION.md), [content expansion](CONTENT_EXPANSION.md) and [prior readiness work](READINESS_IMPLEMENTATION.md).
 - All authored content remains a draft without human clinical signoff. Editorial skill tags do not establish validated mappings. Guided cases are scripted, formative stories, not physiologic simulations.
-- The glossary includes 32 terms and six sourced adult value examples. Examples include units and context and are not universal targets or critical-value thresholds. Clinical dosing, emergency protocol summaries and clinical calculators remain withheld.
+- The glossary includes 42 terms and six sourced adult value examples. Examples include units and context and are not universal targets or critical-value thresholds. Clinical dosing, emergency protocol summaries and clinical calculators remain withheld.
 - Practice/case progress is validated and stored on the device. Opening the inline glossary before confirming a practice answer records assistance. External references cannot be detected. No result is tamper-resistant or suitable for competency certification.
 - The application pathway's 48-hour comparison is a scheduling convention, not validated evidence of retention or clinical transfer.
 
