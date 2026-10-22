@@ -6,6 +6,7 @@ import { questionFor } from '../lib/learning/evolving-types'
 test('case results distinguish correct, incorrect and unanswered decisions and survive reload', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.setViewportSize({ width: 390, height: 950 })
   const story = evolvingCases[0]!
   const saved = {
@@ -71,6 +72,9 @@ test('case results distinguish correct, incorrect and unanswered decisions and s
   await page.getByRole('button', { name: 'All decisions (6)' }).click()
   await page.reload()
   await expect(result.getByText('80%', { exact: true })).toBeVisible()
+  await expect(page.locator('html')).toHaveClass(/dark/)
+  await expect(page.locator('html')).toHaveAttribute('data-rr-motion', 'true')
+  await expect(page.locator('.rr-experience')).toHaveCSS('opacity', '1')
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') })
   const violations = await page.evaluate(async () =>
     (
@@ -79,7 +83,10 @@ test('case results distinguish correct, incorrect and unanswered decisions and s
       })
     ).violations.map((v: any) => ({
       id: v.id,
-      targets: v.nodes.map((n: any) => n.target),
+      nodes: v.nodes.map((n: any) => ({
+        target: n.target,
+        summary: n.failureSummary,
+      })),
     }))
   )
   expect(violations).toEqual([])
