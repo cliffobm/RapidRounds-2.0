@@ -106,7 +106,7 @@ export default function LandingExperience() {
           </span>
           <ArrowRight />
         </Link>
-        <Link href="/quiz">
+        <Link href="/practice">
           <Zap />
           <span>
             Make one clear choice<strong>Focused practice</strong>

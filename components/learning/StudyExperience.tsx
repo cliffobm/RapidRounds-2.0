@@ -21,6 +21,12 @@ import {
 import DecisionCard from './DecisionCard'
 import { workedExamples } from '@/lib/learning/worked-examples'
 import { recordActivity } from '@/lib/learning/sessions'
+import {
+  newStudySession,
+  readStudySession,
+  studySessionKey,
+  type StudySession as SavedStudySession,
+} from '@/lib/learning/study-session'
 const storageKey = 'rapidrounds-study-v1'
 export default function StudyExperience({
   initialUnit = '',
@@ -206,12 +212,42 @@ function StudySession({
   onComplete: (record: StudyRecord) => void
   storageNotice: string
 }) {
-  const [phase, setPhase] = useState<'before' | 'learn' | 'after' | 'complete'>(
-    'before'
+  const [session, setSession] = useState<SavedStudySession>(() =>
+    newStudySession(unit)
   )
-  const [before, setBefore] = useState<boolean | null>(null)
-  const [after, setAfter] = useState<boolean | null>(null)
-  const [choice, setChoice] = useState<number | null>(null)
+  const [sessionNotice, setSessionNotice] = useState('')
+  useEffect(() => {
+    try {
+      const saved = readStudySession(
+        localStorage.getItem(studySessionKey(unit.id)),
+        unit
+      )
+      const current = saved ?? newStudySession(unit)
+      setSession(current)
+      if (!saved)
+        localStorage.setItem(studySessionKey(unit.id), JSON.stringify(current))
+    } catch {
+      setSessionNotice(
+        'This study session is available for this visit only; browser storage is unavailable.'
+      )
+    }
+  }, [unit])
+  const updateSession = (next: SavedStudySession) => {
+    const updated = { ...next, updatedAt: new Date().toISOString() }
+    setSession(updated)
+    try {
+      localStorage.setItem(studySessionKey(unit.id), JSON.stringify(updated))
+    } catch {
+      setSessionNotice(
+        'Your study progress is visible now but could not be saved on this device.'
+      )
+    }
+  }
+  const phase = session.phase
+  const before = session.before?.correct ?? null
+  const after = session.after?.correct ?? null
+  const choice =
+    (phase === 'before' ? session.before : session.after)?.selected ?? null
   const pillar = pillars.find((entry) => entry.id === unit.id)!
   const checkpoint = phase === 'before' ? unit.pre : unit.post
   return (
@@ -263,26 +299,37 @@ function StudySession({
                     rationale: checkpoint.rationale,
                   }
             }
+            committedId={choice === null ? undefined : String(choice)}
             onCommit={(value) => {
               if (choice !== null) return
               const selected = Number(value)
-              setChoice(selected)
-              if (phase === 'before') setBefore(selected === checkpoint.correct)
-              else setAfter(selected === checkpoint.correct)
+              if (
+                !Number.isInteger(selected) ||
+                selected < 0 ||
+                selected >= checkpoint.options.length
+              )
+                return
+              updateSession({
+                ...session,
+                [phase === 'before' ? 'before' : 'after']: {
+                  selected,
+                  correct: selected === checkpoint.correct,
+                },
+              })
             }}
             onNext={() => {
               if (phase === 'before') {
-                setPhase('learn')
-                setChoice(null)
+                updateSession({ ...session, phase: 'learn' })
               } else if (before !== null && after !== null) {
+                const completedAt = new Date().toISOString()
                 onComplete({
                   version: 1,
                   unitId: unit.id,
                   preCorrect: before,
                   postCorrect: after,
-                  completedAt: new Date().toISOString(),
+                  completedAt,
                 })
-                setPhase('complete')
+                updateSession({ ...session, phase: 'complete', completedAt })
               }
             }}
             nextLabel={
@@ -332,8 +379,7 @@ function StudySession({
           <button
             className="rr-button"
             onClick={() => {
-              setPhase('after')
-              setChoice(null)
+              updateSession({ ...session, phase: 'after' })
             }}
           >
             Apply what you explored <ArrowRight size={18} />
@@ -379,10 +425,18 @@ function StudySession({
             <button onClick={onExit} className="rr-button-secondary">
               Explore another skill
             </button>
+            <button
+              onClick={() => updateSession(newStudySession(unit))}
+              className="rr-button-secondary"
+            >
+              Restart checks
+            </button>
           </div>
         </section>
       )}
-      {storageNotice && <p role="status">{storageNotice}</p>}
+      {(sessionNotice || storageNotice) && (
+        <p role="status">{sessionNotice || storageNotice}</p>
+      )}
     </div>
   )
 }

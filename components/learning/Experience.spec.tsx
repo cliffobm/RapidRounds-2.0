@@ -5,6 +5,7 @@ import StudyExperience from './StudyExperience'
 import JudgmentPillars from './JudgmentPillars'
 import { guidedCases } from '@/lib/learning/cases'
 import { studyUnits, readStudyRecords } from '@/lib/learning/study'
+import { historyKey, readAttempts } from '@/lib/learning/attempt-history'
 import { competencyRegistry } from '@/lib/cjis/competencies'
 
 beforeEach(() => localStorage.clear())
@@ -40,6 +41,15 @@ describe('clinical judgment learning experience', () => {
       )
     }
     expect(screen.getByText(/6 of 6 decisions correct/)).toBeInTheDocument()
+    expect(readAttempts(localStorage.getItem(historyKey))).toMatchObject([
+      {
+        kind: 'guided-case',
+        correct: 6,
+        answered: 6,
+        skipped: 0,
+        source: 'tracked',
+      },
+    ])
     expect(
       screen.getByText(/does not establish clinical competence/)
     ).toBeInTheDocument()
@@ -95,6 +105,7 @@ describe('clinical judgment learning experience', () => {
         name: /See the signal, not just the numbers/,
       })
     )
+    fireEvent.click(screen.getByRole('button', { name: 'Restart checks' }))
     fireEvent.click(screen.getAllByRole('radio')[unit.pre.correct]!)
     fireEvent.click(screen.getByRole('button', { name: 'Check answer' }))
     fireEvent.click(screen.getByRole('button', { name: 'Explore the lesson' }))

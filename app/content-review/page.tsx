@@ -90,7 +90,9 @@ export default function ContentReviewPage() {
         <ul className="coverage-list">
           {practiceTopics.map((topic) => (
             <li key={topic.key}>
-              <Link href={`/quiz?bank=${topic.key}`}>{topic.title}</Link>
+              <Link href={`/practice?collection=${topic.key}`}>
+                {topic.title}
+              </Link>
               <span>
                 {topic.items} items ({topic.legacyItems} imported +{' '}
                 {topic.authoredItems} authored) ·{' '}

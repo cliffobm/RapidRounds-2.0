@@ -1,7 +1,13 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { z } from 'zod'
+import {
+  readQuickSession,
+  type QuickSession,
+} from '@/lib/learning/legacy-sessions'
+import { recordAttempt } from '@/lib/learning/attempt-history'
+import { quickAttempt } from '@/lib/learning/attempt-adapters'
+import { findPracticeCollection } from '@/lib/learning/practice-library'
 import { reasoningQuestions } from '@/lib/learning/evolving-content'
 import {
   evolvingRevision,
@@ -13,16 +19,6 @@ import { QuestionExplanation, PracticeScore } from './PracticeFeedback'
 import { summarizePractice } from '@/lib/learning/practice-result'
 import { usePreferences } from '@/components/settings/PreferencesProvider'
 import { contentSources } from '@/lib/learning/sources'
-const schema = z.object({
-  revision: z.literal(evolvingRevision),
-  ids: z.array(z.string()).min(5).max(10),
-  index: z.number().int().min(0).max(9),
-  answers: z.array(z.string()).max(10),
-  selected: z.string(),
-  complete: z.boolean(),
-  attempt: z.number().int().nonnegative(),
-})
-type QuickSession = z.infer<typeof schema>
 const topics = [...new Set(reasoningQuestions.map((q) => q.topic))]
 function shuffle<T>(items: T[], seed: number) {
   const result = [...items]
@@ -48,7 +44,7 @@ export function ReasoningBankCards() {
           <Link
             key={topic}
             className="topic-card tone-violet"
-            href={`/quick-check?count=5&topic=${encodeURIComponent(topic)}`}
+            href={`/practice?mode=check&count=5&collection=${encodeURIComponent(findPracticeCollection(topic)?.id ?? 'all')}`}
           >
             <span className="topic-meta">NEW COLLECTION</span>
             <h3>{topic}</h3>
@@ -62,10 +58,13 @@ export function ReasoningBankCards() {
 export function QuickLaunch() {
   return (
     <div className="quick-launch">
-      <Link className="rr-button" href="/quick-check?count=5">
+      <Link className="rr-button" href="/practice?mode=check&count=5">
         5-question check
       </Link>
-      <Link className="rr-button-secondary" href="/quick-check?count=10">
+      <Link
+        className="rr-button-secondary"
+        href="/practice?mode=check&count=10"
+      >
         10-question check
       </Link>
       <Link className="text-link" href="/rr#evolving-title">
@@ -100,33 +99,13 @@ export default function QuickCheck({
   const key = `rapidrounds-quick-v1:${initialCount}:${initialTopic}`
   useEffect(() => {
     try {
-      const parsed = schema.safeParse(
-        JSON.parse(localStorage.getItem(key) ?? 'null')
-      )
-      if (parsed.success) {
-        const s = parsed.data
-        if (
-          s.index < s.ids.length &&
-          s.answers.length === s.index + Number(s.complete) &&
-          (!s.complete || s.index === s.ids.length - 1) &&
-          new Set(s.ids).size === s.ids.length &&
-          s.ids.every((id) => reasoningQuestions.some((q) => q.id === id)) &&
-          s.answers.every((id, i) =>
-            reasoningQuestions
-              .find((q) => q.id === s.ids[i])!
-              .options.some((o) => o.id === id)
-          ) &&
-          (!s.selected ||
-            reasoningQuestions
-              .find((q) => q.id === s.ids[s.index])!
-              .options.some((o) => o.id === s.selected))
+      const raw = localStorage.getItem(key)
+      const restored = readQuickSession(raw)
+      if (restored) setSession(restored)
+      else if (raw)
+        setNotice(
+          'The saved check no longer matches this content. Start a new check.'
         )
-          setSession(s)
-        else
-          setNotice(
-            'The saved check no longer matches this content. Start a new check.'
-          )
-      }
     } catch {
       setNotice('Saved progress is unavailable in this browser.')
     }
@@ -173,7 +152,7 @@ export default function QuickCheck({
     : null
   return (
     <div className="rr-experience pathway-layout page-enter">
-      <Link className="back-link" href="/quiz">
+      <Link className="back-link" href="/practice">
         ← Practice
       </Link>
       <p className="eyebrow">QUICK KNOWLEDGE CHECK</p>
@@ -331,22 +310,29 @@ export default function QuickCheck({
             <button
               className="rr-button"
               disabled={!session.selected}
-              onClick={() =>
-                setSession((previous) =>
-                  !previous || !previous.selected
-                    ? previous
-                    : {
-                        ...previous,
-                        answers: [...previous.answers, previous.selected],
-                        index:
-                          previous.index === previous.ids.length - 1
-                            ? previous.index
-                            : previous.index + 1,
-                        selected: '',
-                        complete: previous.index === previous.ids.length - 1,
-                      }
+              onClick={() => {
+                if (!session.selected) return
+                const complete = session.index === session.ids.length - 1
+                const completedAt = new Date().toISOString()
+                const next: QuickSession = {
+                  ...session,
+                  answers: [...session.answers, session.selected],
+                  index: complete ? session.index : session.index + 1,
+                  selected: '',
+                  complete,
+                  ...(complete ? { completedAt } : {}),
+                }
+                if (
+                  complete &&
+                  !recordAttempt(
+                    quickAttempt(next, key, initialTopic, completedAt)
+                  )
                 )
-              }
+                  setNotice(
+                    'Your result is visible, but could not be added to Progress on this device.'
+                  )
+                setSession(next)
+              }}
             >
               {session.index === session.ids.length - 1
                 ? 'Submit check'

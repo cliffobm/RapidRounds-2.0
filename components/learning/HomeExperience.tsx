@@ -34,7 +34,7 @@ export default function HomeExperience() {
             <Link href="/rr" className="rr-button rr-button-mint">
               Browse cases <ArrowRight size={18} />
             </Link>
-            <Link href="/quiz" className="hero-text-link">
+            <Link href="/practice" className="hero-text-link">
               Practice questions <ArrowUpRight size={17} />
             </Link>
           </div>
@@ -68,7 +68,7 @@ export default function HomeExperience() {
               Browse cases <ArrowRight size={17} />
             </span>
           </Link>
-          <Link href="/quiz" className="mode-card tone-mint">
+          <Link href="/practice" className="mode-card tone-mint">
             <Zap size={27} />
             <span className="topic-meta">QUICK QUESTIONS</span>
             <h3>Practice</h3>

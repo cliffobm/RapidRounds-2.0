@@ -9,6 +9,7 @@ export default defineConfig({
     'content-expansion.spec.ts',
     'evolving.spec.ts',
     'debrief.spec.ts',
+    'progress.spec.ts',
   ],
   workers: 1,
   reporter: 'list',

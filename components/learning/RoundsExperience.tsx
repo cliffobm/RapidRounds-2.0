@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { z } from 'zod'
+import { useState } from 'react'
 import {
   ArrowRight,
   ArrowLeft,
@@ -21,6 +21,12 @@ import { ReferenceShelf } from './GlossaryExperience'
 import { EvolvingCaseGallery } from './EvolvingCases'
 import { PracticeScore } from './PracticeFeedback'
 import { summarizePractice } from '@/lib/learning/practice-result'
+import {
+  guidedSessionSchema,
+  type GuidedSession,
+} from '@/lib/learning/legacy-sessions'
+import { newAttemptId, recordAttempt } from '@/lib/learning/attempt-history'
+import { guidedAttempt } from '@/lib/learning/attempt-adapters'
 export function RoundsLobby() {
   return (
     <div className="rr-experience page-enter">
@@ -132,35 +138,21 @@ export function RoundsLobby() {
   )
 }
 export function GuidedRound({ story }: { story: GuidedCase }) {
-  const schema = z
-    .object({
-      index: z
-        .number()
-        .int()
-        .min(0)
-        .max(story.stages.length - 1),
-      answer: z.number().int().min(0).max(2).nullable(),
-      responses: z.array(z.boolean()).max(story.stages.length),
-      complete: z.boolean(),
-    })
-    .refine(
-      (value) =>
-        value.responses.length ===
-          value.index + Number(value.answer !== null) &&
-        (!value.complete ||
-          (value.index === story.stages.length - 1 && value.answer !== null))
-    )
-  const [session, setSession, notice] = useLearningSession(
+  const [initial] = useState<GuidedSession>(() => ({
+    index: 0,
+    answer: null,
+    responses: [],
+    complete: false,
+    attemptId: newAttemptId('guided'),
+    startedAt: new Date().toISOString(),
+  }))
+  const [session, setSession, notice] = useLearningSession<GuidedSession>(
     `case:${story.id}`,
     story.revision ?? caseRevision,
-    {
-      index: 0,
-      answer: null as number | null,
-      responses: [] as boolean[],
-      complete: false,
-    },
-    schema
+    initial,
+    guidedSessionSchema
   )
+  const [historyNotice, setHistoryNotice] = useState('')
   const { index, answer, responses, complete } = session
   const step = story.stages[index]!
   const pillar = pillars.find((entry) => entry.id === step.competency)!
@@ -174,7 +166,9 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
         {story.revision ?? caseRevision}. Answers save on this device after
         confirmation.
       </p>
-      {notice && <p role="status">{notice}</p>}
+      {(historyNotice || notice) && (
+        <p role="status">{historyNotice || notice}</p>
+      )}
       {story.objective && (
         <p className="lesson-objective">Learning aim: {story.objective}</p>
       )}
@@ -235,6 +229,8 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
                 answer: null,
                 responses: [],
                 complete: false,
+                attemptId: newAttemptId('guided'),
+                startedAt: new Date().toISOString(),
               })
             }
           >
@@ -339,6 +335,14 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
             }}
             onNext={() => {
               if (index === story.stages.length - 1) {
+                if (
+                  !recordAttempt(
+                    guidedAttempt(story, session, new Date().toISOString())
+                  )
+                )
+                  setHistoryNotice(
+                    'Your result is visible, but could not be added to Progress on this device.'
+                  )
                 setSession((previous) => ({ ...previous, complete: true }))
                 recordActivity({
                   id: `case:${story.id}:${story.revision ?? caseRevision}`,

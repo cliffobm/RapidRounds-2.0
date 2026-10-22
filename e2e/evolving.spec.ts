@@ -1,8 +1,6 @@
 import { test, expect } from '@playwright/test'
-import {
-  evolvingCases,
-  reasoningQuestions,
-} from '../lib/learning/evolving-content'
+import { evolvingCases } from '../lib/learning/evolving-content'
+import { practiceLibrary } from '../lib/learning/practice-library'
 import { questionFor } from '../lib/learning/evolving-types'
 for (const story of evolvingCases) {
   test(`evolving case completes and offers a distinct replay: ${story.id}`, async ({
@@ -194,20 +192,34 @@ test('focus interface streamlines entry and a ten-question check saves progress 
   await page.getByRole('button', { name: 'Start 10-question check' }).click()
   for (let index = 0; index < 10; index++) {
     const ids = await page.evaluate(
-      () => JSON.parse(localStorage.getItem('rapidrounds-quick-v1:10:')!).ids
+      () =>
+        JSON.parse(localStorage.getItem('rapidrounds-practice-sessions-v1')!)[0]
+          .ids
     )
-    const item = reasoningQuestions.find((q) => q.id === ids[index])!
+    const item = practiceLibrary.find((q) => q.id === ids[index])!
     await page
-      .getByRole('radio', { name: item.options[0]!.text, exact: true })
+      .getByRole('radio', {
+        name: item.options.find((option) => option.id === item.correct[0])!
+          .text,
+        exact: true,
+      })
       .check()
     if (index === 3) {
       await page.reload()
       await expect(
-        page.getByRole('radio', { name: item.options[0]!.text, exact: true })
+        page.getByRole('radio', {
+          name: item.options.find((option) => option.id === item.correct[0])!
+            .text,
+          exact: true,
+        })
       ).toBeChecked()
     }
     await expect(
-      page.getByText(item.options[0]!.explanation, { exact: true })
+      page.getByText(
+        item.options.find((option) => option.id === item.correct[0])!
+          .explanation,
+        { exact: true }
+      )
     ).toHaveCount(0)
     await page
       .getByRole('button', {

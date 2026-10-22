@@ -7,7 +7,7 @@ import {
   Layers3,
   Zap,
   BookOpen,
-  LayoutGrid,
+  ChartNoAxesCombined,
   Moon,
   Sun,
   UserRound,
@@ -21,9 +21,9 @@ import { DATABASE_CONFIGURED } from '@/lib/env'
 const navigation = [
   { href: '/home', title: 'Home', icon: Home },
   { href: '/rr', title: 'Rounds', icon: Layers3 },
-  { href: '/quiz', title: 'Practice', icon: Zap },
+  { href: '/practice', title: 'Practice', icon: Zap },
   { href: '/study', title: 'Study', icon: BookOpen },
-  { href: '/test', title: 'Explore', icon: LayoutGrid },
+  { href: '/progress', title: 'Progress', icon: ChartNoAxesCombined },
 ]
 function NavigationLinks() {
   const pathname = usePathname()
@@ -32,7 +32,14 @@ function NavigationLinks() {
   return (
     <>
       {navigation.map(({ href, title, icon: Icon }) => {
-        const active = mounted && pathname?.startsWith(href)
+        const active =
+          mounted &&
+          (pathname?.startsWith(href) ||
+            (href === '/practice' &&
+              (pathname?.startsWith('/quiz') ||
+                pathname?.startsWith('/quick-check'))) ||
+            (href === '/rr' && pathname?.startsWith('/evolving')) ||
+            (href === '/study' && pathname?.startsWith('/pathway')))
         return (
           <Link
             key={href}

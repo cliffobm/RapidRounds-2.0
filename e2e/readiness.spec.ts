@@ -111,7 +111,8 @@ test('new learning routes fit narrow phones and pass automated dark-theme access
       '/leaderboard',
       '/achievements',
       '/glossary',
-      '/quiz',
+      '/practice',
+      '/progress',
       '/rr',
     ]) {
       await page.goto(route)
@@ -142,7 +143,10 @@ test('new learning routes fit narrow phones and pass automated dark-theme access
         }))
       })
       expect(violations).toEqual([])
-      if (width === 390 && ['/home', '/pathway', '/quiz'].includes(route))
+      if (
+        width === 390 &&
+        ['/home', '/pathway', '/practice', '/progress'].includes(route)
+      )
         await page.screenshot({
           path: `../readiness-${route.slice(1)}-390.png`,
           fullPage: true,

@@ -24,6 +24,8 @@ import { contentSources } from '@/lib/learning/sources'
 import { recordActivity } from '@/lib/learning/sessions'
 import CaseDebrief from './CaseDebrief'
 import { QuestionExplanation } from './PracticeFeedback'
+import { recordAttempt } from '@/lib/learning/attempt-history'
+import { evolvingAttempt } from '@/lib/learning/attempt-adapters'
 
 export function EvolvingCaseGallery() {
   return (
@@ -317,7 +319,10 @@ export default function EvolvingCaseExperience({
           <button className="rr-button" onClick={start}>
             Try another version
           </button>
-          <Link className="rr-button-secondary" href="/quick-check?count=5">
+          <Link
+            className="rr-button-secondary"
+            href="/practice?mode=check&count=5"
+          >
             Try a quick knowledge check
           </Link>
         </section>
@@ -535,6 +540,18 @@ export default function EvolvingCaseExperience({
                       onClick={() => {
                         shouldFocusHeading.current = true
                         if (session.index === 5) {
+                          if (
+                            !recordAttempt(
+                              evolvingAttempt(
+                                story,
+                                session,
+                                new Date().toISOString()
+                              )
+                            )
+                          )
+                            setNotice(
+                              'Your result is visible, but could not be added to Progress on this device.'
+                            )
                           change({ complete: true })
                           recordActivity({
                             id: `evolving:${story.id}:${session.pathId}:${session.level}:${evolvingRevision}`,

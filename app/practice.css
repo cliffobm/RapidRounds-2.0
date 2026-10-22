@@ -1,0 +1,230 @@
+.unified-practice {
+  max-width: 1080px;
+}
+.unified-practice > h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 12px 0 20px;
+}
+.unified-practice > h1:focus,
+.unified-practice h2:focus {
+  outline: 3px solid #078666;
+  outline-offset: 6px;
+}
+.unified-practice .intro-copy {
+  margin-bottom: 24px;
+}
+.practice-setup,
+.practice-question-panel,
+.practice-resume {
+  padding: clamp(20px, 4vw, 32px);
+  border: 1px solid var(--rr-line);
+  border-radius: 22px;
+  background: var(--rr-surface);
+}
+.practice-resume {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.practice-resume h2 {
+  width: 100%;
+  font-size: 1.3rem;
+}
+.practice-setup fieldset {
+  min-width: 0;
+  margin-bottom: 24px;
+}
+.practice-setup legend {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.practice-topic-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  text-align: left;
+  width: 100%;
+  border: 1px solid var(--rr-line);
+  background: var(--rr-bg);
+  color: var(--rr-ink);
+  padding: 18px;
+  border-radius: 14px;
+}
+.practice-topic-picker span {
+  display: grid;
+  gap: 4px;
+}
+.practice-topic-picker small,
+.practice-topic-card small,
+.practice-topic-card > span {
+  color: var(--rr-muted);
+}
+.practice-topic-options {
+  padding: 22px 0 0;
+}
+.practice-topic-options .rr-search {
+  margin-bottom: 18px;
+  width: 100%;
+}
+.practice-topic-options .filter-row {
+  margin-bottom: 18px;
+}
+.practice-topic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.practice-topic-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  padding: 18px;
+  border: 1px solid var(--rr-line);
+  background: var(--rr-surface);
+  border-radius: 14px;
+  min-height: 130px;
+}
+.practice-topic-card strong {
+  color: var(--rr-ink);
+}
+.practice-topic-card small {
+  font-size: 0.75rem;
+}
+.practice-topic-card > span {
+  margin-top: auto;
+  font-size: 0.85rem;
+}
+.practice-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.practice-mode {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  text-align: left;
+  border: 1px solid var(--rr-line);
+  border-radius: 14px;
+  background: var(--rr-surface);
+}
+.practice-mode strong {
+  color: var(--rr-ink);
+}
+.practice-mode > span {
+  color: var(--rr-muted);
+  font-size: 0.9rem;
+}
+.unified-practice .is-selected {
+  border-color: #14754e;
+  box-shadow: inset 0 0 0 1px #14754e;
+  background: color-mix(in srgb, var(--rr-mint) 18%, var(--rr-surface));
+}
+.practice-customize {
+  padding: 18px 0;
+  margin: 12px 0;
+  border-top: 1px solid var(--rr-line);
+  border-bottom: 1px solid var(--rr-line);
+}
+.practice-customize summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.practice-customize fieldset {
+  margin: 18px 0 0;
+}
+.practice-customize p {
+  margin-top: 14px;
+  color: var(--rr-muted);
+  font-size: 0.9rem;
+}
+.practice-availability {
+  margin: 18px 0;
+  color: var(--rr-muted);
+}
+.practice-setup > .rr-button,
+.practice-setup > .text-link {
+  margin: 8px 12px 0 0;
+}
+.practice-notice {
+  border-left: 3px solid #14754e;
+  padding: 14px;
+  background: var(--rr-surface);
+  margin: 18px 0;
+}
+.practice-progress {
+  height: 7px;
+  margin: 18px 0;
+  background: var(--rr-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.practice-progress span {
+  display: block;
+  height: 100%;
+  background: #14754e;
+}
+.unified-practice .scenario-question .answer-option,
+.unified-practice .scenario-question legend,
+.unified-practice .patient-context p,
+.unified-practice .answer-review {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.unified-practice .scenario-question legend {
+  font-size: 1.15rem;
+}
+.practice-review > h2 {
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+.practice-review .filter-row {
+  margin-bottom: 20px;
+}
+.practice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.dark .unified-practice .is-selected {
+  border-color: #83ddb5;
+  box-shadow: inset 0 0 0 1px #83ddb5;
+}
+.dark .practice-progress span {
+  background: #83ddb5;
+}
+@media (max-width: 760px) {
+  .practice-topic-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 460px) {
+  .practice-mode-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .practice-topic-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .practice-topic-card {
+    min-height: 100px;
+  }
+  .practice-topic-picker {
+    padding: 14px;
+  }
+  .practice-resume .rr-button-secondary,
+  .practice-actions .rr-button,
+  .practice-actions .rr-button-secondary {
+    width: 100%;
+  }
+}
+
+.unified-practice :is(button, summary) {
+  min-height: 44px;
+}
+.unified-practice .filter-chip {
+  font-size: 0.875rem !important;
+}

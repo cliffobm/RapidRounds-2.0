@@ -30,6 +30,9 @@ import {
   QuickLaunch,
   ReasoningBankCards,
 } from '@/components/learning/QuickCheck'
+import { newAttemptId, recordAttempt } from '@/lib/learning/attempt-history'
+import { legacyPracticeAttempt } from '@/lib/learning/attempt-adapters'
+import type { LegacyPracticeSession } from '@/lib/learning/legacy-sessions'
 
 export default function LegacyPractice({
   initialBank = '',
@@ -214,6 +217,8 @@ function PracticeRound({
       finished: z.boolean(),
       roundNumber: z.number().int().nonnegative(),
       definitionUses: z.number().int().nonnegative(),
+      attemptId: z.string().max(150).optional(),
+      startedAt: z.string().datetime().optional(),
     })
     .refine((value) => {
       const current =
@@ -247,18 +252,23 @@ function PracticeRound({
         })
       )
     })
-  const [session, setSession, notice] = useLearningSession(
-    `practice:${bankKey}`,
-    revision,
-    {
-      index: 0,
-      responses: [] as PracticeResponse[],
-      finished: false,
-      roundNumber: 0,
-      definitionUses: 0,
-    },
-    schema
-  )
+  const [initial] = useState<LegacyPracticeSession>(() => ({
+    index: 0,
+    responses: [],
+    finished: false,
+    roundNumber: 0,
+    definitionUses: 0,
+    attemptId: newAttemptId('legacy'),
+    startedAt: new Date().toISOString(),
+  }))
+  const [session, setSession, notice] =
+    useLearningSession<LegacyPracticeSession>(
+      `practice:${bankKey}`,
+      revision,
+      initial,
+      schema
+    )
+  const [historyNotice, setHistoryNotice] = useState('')
   const { index, responses, finished, roundNumber } = session
   const answer = responses[index] ?? null
   const started = useRef(Date.now())
@@ -290,10 +300,27 @@ function PracticeRound({
       ...previous,
       responses: [...previous.responses, response],
     }))
+    return response
   }
   const next = () => {
-    if (!submitted.current) respond(null)
+    const skipped = !submitted.current ? respond(null) : null
     if (index === items.length - 1) {
+      if (
+        !recordAttempt(
+          legacyPracticeAttempt(
+            bankKey,
+            {
+              ...session,
+              responses: skipped ? [...responses, skipped] : responses,
+              finished: true,
+            },
+            new Date().toISOString()
+          )
+        )
+      )
+        setHistoryNotice(
+          'Your result is visible, but could not be added to Progress on this device.'
+        )
       setSession((previous) => ({ ...previous, finished: true }))
       recordActivity({
         id: `practice:${bankKey}:${revision}:${roundNumber}`,
@@ -322,7 +349,9 @@ function PracticeRound({
       <button className="back-link" onClick={onExit}>
         <ArrowLeft size={17} /> All topics
       </button>
-      {notice && <p role="status">{notice}</p>}
+      {(historyNotice || notice) && (
+        <p role="status">{historyNotice || notice}</p>
+      )}
       {finished ? (
         <section className="completion-card">
           <span className="completion-icon">
@@ -349,6 +378,8 @@ function PracticeRound({
                     index: 0,
                     responses: [],
                     finished: false,
+                    attemptId: newAttemptId('legacy'),
+                    startedAt: new Date().toISOString(),
                   }))
                   submitted.current = false
                   started.current = Date.now()
@@ -372,6 +403,8 @@ function PracticeRound({
                   index: 0,
                   responses: [],
                   finished: false,
+                  attemptId: newAttemptId('legacy'),
+                  startedAt: new Date().toISOString(),
                 })
                 submitted.current = false
                 started.current = Date.now()

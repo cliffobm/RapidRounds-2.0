@@ -23,7 +23,7 @@ for (const width of [390, 1440]) {
       ['/quiz', 'practice'],
       ['/rr', 'rounds'],
       ['/study', 'study'],
-      ['/test', 'explore'],
+      ['/progress', 'progress'],
     ]) {
       await page.goto(route!)
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
@@ -41,18 +41,7 @@ for (const width of [390, 1440]) {
         )
       ).toBe(true)
     }
-    await page.goto('/quiz')
-    await page
-      .getByRole('button', { name: 'Choose a topic', exact: true })
-      .click()
-    await expect(
-      page.getByRole('heading', {
-        name: 'Choose a practice topic',
-        exact: true,
-      })
-    ).toBeFocused()
-    await expect(page.getByRole('combobox')).toHaveCount(0)
-    await page.getByRole('button', { name: /Acute coronary syndromes/ }).click()
+    await page.goto('/quiz?bank=acute_mi')
     await expect(
       page.getByRole('button', { name: 'Check answer' })
     ).toBeDisabled()

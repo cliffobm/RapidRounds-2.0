@@ -1,4 +1,5 @@
-import QuickCheck from '@/components/learning/QuickCheck'
+import LegacyCheckEntry from '@/components/learning/LegacyCheckEntry'
+import '../practice.css'
 export default async function Page({
   searchParams,
 }: {
@@ -6,7 +7,7 @@ export default async function Page({
 }) {
   const params = await searchParams
   return (
-    <QuickCheck
+    <LegacyCheckEntry
       key={`${params.count}:${params.topic}`}
       initialCount={params.count === '10' ? 10 : 5}
       initialTopic={params.topic?.slice(0, 100) ?? ''}

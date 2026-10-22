@@ -1,8 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import LegacyPractice from './LegacyPractice'
 import { BANKS } from '@/qbank/banks'
+import { historyKey, readAttempts } from '@/lib/learning/attempt-history'
 
+beforeEach(() => localStorage.clear())
 describe('mobile practice flow', () => {
   it('replaces the dropdown with topics and requires confirmation before grading', () => {
     render(<LegacyPractice />)
@@ -33,6 +35,15 @@ describe('mobile practice flow', () => {
       screen.getByText('1 correct · 1 answered · 4 skipped')
     ).toBeInTheDocument()
     expect(screen.getByText(/not a competency estimate/)).toBeInTheDocument()
+    expect(readAttempts(localStorage.getItem(historyKey))).toMatchObject([
+      {
+        kind: 'legacy-practice',
+        correct: 1,
+        answered: 1,
+        skipped: 4,
+        source: 'tracked',
+      },
+    ])
   })
   it('filters topics, caps rounds at five and records skipped questions accurately', () => {
     render(<LegacyPractice />)
@@ -48,6 +59,9 @@ describe('mobile practice flow', () => {
     expect(
       screen.getByText('0 correct · 0 answered · 5 skipped')
     ).toBeInTheDocument()
+    const recorded = readAttempts(localStorage.getItem(historyKey))
+    expect(recorded).toHaveLength(1)
+    expect(recorded[0]).toMatchObject({ correct: 0, answered: 0, skipped: 5 })
     fireEvent.click(screen.getByRole('button', { name: /Continue this topic/ }))
     expect(
       screen.getByRole('group', {
