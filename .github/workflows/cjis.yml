@@ -20,7 +20,15 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
       # The original H.264 logo video needs a branded browser's media codecs.
-      - run: npx playwright install --with-deps chrome
+      # GitHub's Ubuntu image includes Chrome; avoid unnecessary apt downloads.
+      # Keep the installer fallback when that executable is not available.
+      - name: Ensure official Chrome is available
+        run: |
+          if [ -x /opt/google/chrome/chrome ]; then
+            /opt/google/chrome/chrome --version
+          else
+            npx playwright install --with-deps chrome
+          fi
       - run: npx playwright test --config playwright.cjis.config.ts
       - uses: actions/upload-artifact@v4
         if: failure()

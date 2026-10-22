@@ -24,6 +24,8 @@ Review mode permits application requests to the configured project's Auth endpoi
 
 A successful live tester login is not claimed until a real account is provisioned and this walkthrough is completed. Mocked session/component tests cannot establish that live result.
 
+Live preview verification confirmed an enabled sign-in form, unauthenticated Account redirects and a clear rejected-login error using a deliberately invalid synthetic identity. No account was created or email sent by that check. A deployed Advanced skin-infection question was also inspected. Positive login, refresh/reopen persistence, expiry refresh and sign-out still require the tester account walkthrough.
+
 ## Unified Practice and Progress
 
 Practice now has one searchable 136-question catalog across 16 collections. Learners choose Guided feedback or a 5/10-question Check, with optional area and authored reasoning-level filters. Imported answer keys and clinical wording are preserved; questions without an authored level remain unclassified. Guided questions allow contextual glossary support. Check mode withholds explanations and inline references until submission. Neither mode is timed.
@@ -56,6 +58,8 @@ The evolving debrief separates next-step study links from decision review. Each 
 Case names and descriptions are shorter; cards retain “6 guided decisions” and move replay mechanics into the optional source/limits section. Home preserves its branded hero in both Guided and Focus, with a concise nursing purpose, direct actions, and resume links only when unfinished work exists. Buttons use larger labels. Practice starts at explicit topic/mode/count setup. Clinical question keys, earlier content revisions and production services are unchanged.
 
 Browser checks cover full case progression, practice feedback, saved answers and feedback after reload, study-to-application continuity, glossary search, assistance tracking, original-logo video and still fallback, settings/calendar export, unified Practice and Progress, and phone/dark-theme automated accessibility. Local checks use official Microsoft Edge; GitHub Actions uses official Chrome for the original H.264 logo. No assertions are removed or skipped to make the suite pass. Builds enforce TypeScript but skip lint under the inherited configuration; these results do not constitute a lint pass.
+
+CI now checks Playwright's expected official Chrome executable before running the installer. The [GitHub Ubuntu runner image includes Google Chrome](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md#browsers-and-drivers). If the executable is absent, the existing dependency/browser installer still runs. This avoids redundant apt font downloads observed in the first run for this change; the browser channel and all 37 assertions/tests remain unchanged.
 
 See [inline reference cards](INLINE_REFERENCE_CARDS.md) for matching rules and interaction limits. Earlier migration, source-expansion and debrief test runs remain in Git history; the table above describes the current implementation.
 
