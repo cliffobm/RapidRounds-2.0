@@ -83,7 +83,7 @@ for (const width of [320, 390, 1440]) {
       animations: 'disabled',
     })
     await page.goto('/home')
-    await expect(page.getByText('Make this moment yours, Alex.')).toBeVisible()
+    await expect(page.getByText('Alex’s learning goal')).toBeVisible()
     await expect(
       page.getByText('Recognize deterioration earlier')
     ).toBeVisible()

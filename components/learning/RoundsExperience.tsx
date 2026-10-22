@@ -19,6 +19,8 @@ import { caseRevision } from '@/lib/learning/case-coaching'
 import { recordActivity } from '@/lib/learning/sessions'
 import { ReferenceShelf } from './GlossaryExperience'
 import { EvolvingCaseGallery } from './EvolvingCases'
+import { PracticeScore } from './PracticeFeedback'
+import { summarizePractice } from '@/lib/learning/practice-result'
 export function RoundsLobby() {
   return (
     <div className="rr-experience page-enter">
@@ -187,11 +189,11 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
             <br />
             through all six lenses.
           </h1>
-          <p>
-            {responses.filter(Boolean).length} of {story.stages.length}{' '}
-            decisions matched the teaching answers. This is practice feedback,
-            not a competency score.
-          </p>
+          <PracticeScore
+            result={summarizePractice(
+              responses.map((correct) => ({ correct }))
+            )}
+          />
           <div className="debrief-list">
             {pillars.map((entry, position) => (
               <div key={entry.id}>
@@ -203,11 +205,7 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
                 <Link href={`/study?pillar=${entry.id}`}>
                   <strong>{entry.title}</strong>
                 </Link>
-                <span>
-                  {responses[position]
-                    ? 'Teaching answer selected'
-                    : 'Worth another look'}
-                </span>
+                <span>{responses[position] ? 'Correct' : 'Incorrect'}</span>
               </div>
             ))}
           </div>

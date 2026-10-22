@@ -1,18 +1,29 @@
-# CJIS integration verification — October 21, 2026
+# CJIS integration verification — October 22, 2026
 
 This report supersedes the initial migration results retained in Git history. Current implementation: `feature/cjis-foundation`, Node 22, Next.js 15.5.28, React 19.1.10. The original 68 imported questions and answer keys remain intact; the application also includes 32 earlier authored draft questions and 36 new case-linked questions.
 
-## Executed local checks for evolving cases, quick checks and interface modes
+## Executed local checks for debrief and interface refinements
 
 | Check | Result |
 | --- | --- |
-| Full regression suite, `npm test -- --reporter=json --outputFile=../evolving-tests.json` | 141 passed, 0 failed |
+| Full regression suite, `npm test -- --reporter=json --outputFile=../debrief-tests.json` | 155 passed, 0 failed |
 | Legacy adapter, `npm run test:cjis` | 8 passed |
 | TypeScript, `npm run typecheck` | Passed |
 | Production compilation, `npm run build` | Passed, including final readability and selection-control refinements |
-| New evolving browser file, `npx playwright test --config playwright.cjis.config.ts e2e/evolving.spec.ts` | 9 passed against the final production build |
-| Other browser files in one local run | 16 passed; one Edge fixture failed before opening a page |
-| Dark-theme/layout browser check in isolation | Passed; see the delivery report for final-run confirmation |
+| Full browser run, `npx playwright test --config playwright.cjis.config.ts` | 23 passed; one ambiguous test selector and three browser/timeouts failed |
+| Focused browser rerun after correcting the selector | 4 passed, covering mixed debrief results, nutrition-case replay, Advanced feedback and narrow-phone accessibility |
+
+All 27 browser scenarios passed across those local runs against the same application build. A clean combined 27-test local run is not claimed. GitHub's independent full Chrome run and exact commit are reported on delivery.
+
+## Debrief and interface refinements
+
+Practice results now lead with a whole-number percentage and the correct/answered count. Each submitted decision earns one point when the full required answer set is correct. Handoff skips are shown separately and excluded from the denominator; reference use is disclosed without a point deduction. Reasoning notes and confidence remain ungraded. No pass threshold, letter grade or validated competency estimate is introduced.
+
+The evolving debrief separates next-step study links from decision review. Each decision shows its clinical judgment skill and Correct / Incorrect / Not answered outcome; expanded review includes the original question, the learner's answer, correct answers, rationales and optional notes. An incorrect-only filter opens missed decisions. Skipped rows no longer display incorrect-answer feedback. Quick checks and guided-case summaries use the same percentage convention.
+
+Case names and descriptions are shorter; cards retain “6 guided decisions” and move replay mechanics into the optional source/limits section. Home preserves its branded hero in both Guided and Focus, with a concise nursing purpose, direct actions, and resume links only when unfinished work exists. Buttons use larger labels. The Practice hero now focuses topic selection instead of silently starting a fixed hypertension collection. Clinical question keys, saved-content revisions and production services are unchanged.
+
+Eight new score-helper tests and six debrief component tests cover denominators, assistance, skipped feedback, answer identification, filtering and ungraded notes. Browser assertions additionally cover score persistence, correct/incorrect/unanswered review, Focus hero preservation, topic-selection focus, phone overflow and dark-theme accessibility. Exact final browser/CI results and preview commit are reported on delivery.
 
 No tests are excluded or skipped to make the regression suite pass. The inherited test-runner/mock failures reported during initial migration were repaired in the previous readiness work. Builds enforce TypeScript validation but skip lint under the inherited configuration; these results do not constitute a lint pass.
 

@@ -8,7 +8,9 @@ import {
   matchesAnswer,
   type ReasoningLevel,
 } from '@/lib/learning/evolving-types'
-import { ScenarioQuestion, QuestionExplanation } from './EvolvingCases'
+import { ScenarioQuestion } from './EvolvingCases'
+import { QuestionExplanation, PracticeScore } from './PracticeFeedback'
+import { summarizePractice } from '@/lib/learning/practice-result'
 import { usePreferences } from '@/components/settings/PreferencesProvider'
 import { contentSources } from '@/lib/learning/sources'
 const schema = z.object({
@@ -175,10 +177,9 @@ export default function QuickCheck({
         ← Practice
       </Link>
       <p className="eyebrow">QUICK KNOWLEDGE CHECK</p>
-      <h1>Get straight to the decisions.</h1>
+      <h1>Quick check</h1>
       <p className="review-note">
-        Original draft · Feedback after submission · No validated competency
-        estimate. These items share the evolving case families.
+        Draft practice questions · Feedback after submission
       </p>
       {notice && <p role="status">{notice}</p>}
       {!loaded ? (
@@ -201,7 +202,7 @@ export default function QuickCheck({
             </div>
           </fieldset>
           <fieldset>
-            <legend>Editorial difficulty</legend>
+            <legend>Reasoning level</legend>
             <div className="filter-row">
               {(['all', 'foundation', 'challenge', 'advanced'] as const).map(
                 (value) => (
@@ -233,8 +234,7 @@ export default function QuickCheck({
             </div>
           </fieldset>
           <p>
-            {pool.length} draft questions match. Difficulty labels are
-            editorial, not calibrated.{' '}
+            {pool.length} questions available.{' '}
             {pool.length < count
               ? 'Choose fewer questions, all levels or a broader collection.'
               : ''}
@@ -249,27 +249,31 @@ export default function QuickCheck({
         </section>
       ) : session.complete ? (
         <section className="pathway-section">
-          <h2>Your feedback</h2>
-          <p>
-            {
-              session.answers.filter((answer, i) =>
-                matchesAnswer(
+          <h2>Your results</h2>
+          <PracticeScore
+            noun="questions"
+            result={summarizePractice(
+              session.answers.map((answer, i) => ({
+                correct: matchesAnswer(
                   reasoningQuestions.find((q) => q.id === session.ids[i])!,
                   [answer]
-                )
-              ).length
-            }{' '}
-            of {session.ids.length} choices matched the teaching answers. This
-            is a practice result, not proof of clinical competence.
-          </p>
+                ),
+              }))
+            )}
+          />
           {session.ids.map((id, i) => {
             const question = reasoningQuestions.find((q) => q.id === id)!
             return (
-              <details className="source-note" key={id}>
+              <details className="source-note question-review" key={id}>
                 <summary>
-                  Question {i + 1} · {question.topic}
+                  Question {i + 1} ·{' '}
+                  {matchesAnswer(question, [session.answers[i]!])
+                    ? 'Correct'
+                    : 'Incorrect'}{' '}
+                  · {question.topic}
                 </summary>
                 <p>{question.context}</p>
+                <h3>{question.prompt}</h3>
                 <QuestionExplanation
                   question={question}
                   selected={[session.answers[i]!]}

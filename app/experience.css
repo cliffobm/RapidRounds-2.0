@@ -527,7 +527,7 @@ html[data-rr-interface='focus'] .rr-app .case-card-copy > p:not(.eyebrow) {
   min-height: 48px;
   border-radius: 13px;
   padding: 13px 21px;
-  font-size: 12px !important;
+  font-size: 0.875rem !important;
   font-weight: 700;
   transition:
     transform 0.18s,
@@ -549,7 +549,8 @@ html[data-rr-interface='focus'] .rr-app .case-card-copy > p:not(.eyebrow) {
   border: 1px solid var(--rr-line);
   border-radius: 13px;
   color: var(--rr-ink);
-  font-size: 12px;
+  font-size: 0.875rem;
+  font-weight: 650;
   min-height: 48px;
   background: var(--rr-surface);
 }
@@ -3343,5 +3344,132 @@ html[data-rr-motion='true'] *::after {
   .coverage-list li {
     flex-direction: column;
     gap: 4px;
+  }
+}
+
+/* Focus reduces Home copy while preserving the Rapid Rounds identity. */
+.home-experience .home-hero {
+  min-height: 340px;
+  align-items: center;
+  padding: 36px 40px;
+  margin-bottom: 24px;
+}
+.home-experience .home-hero .hero-copy > p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.home-experience :is(.rr-button, .rr-button-secondary) {
+  font-size: 0.875rem !important;
+}
+.home-experience :is(.hero-text-link, .text-link) {
+  font-size: 0.875rem;
+}
+.home-experience .quick-launch {
+  margin: 0 0 24px;
+}
+.home-experience .home-modes .mode-card h3 {
+  font-size: 1.6rem;
+}
+.home-experience .home-modes .mode-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.home-experience .home-pathway-link {
+  margin-top: 20px;
+}
+.home-experience .storage-notice {
+  color: var(--rr-muted);
+  margin: 0 0 24px;
+}
+html[data-rr-interface='focus'] .home-experience .home-hero {
+  min-height: 250px;
+  padding: 28px 34px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+}
+html[data-rr-interface='focus'] .home-experience .home-hero h1 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  margin: 14px 0;
+}
+html[data-rr-interface='focus'] .home-experience .home-hero .hero-actions {
+  margin-top: 18px;
+}
+html[data-rr-interface='focus'] .home-experience .home-hero .brand-stage {
+  min-height: 0;
+  padding: 0;
+}
+html[data-rr-interface='focus']
+  .home-experience
+  .home-hero
+  .rr-brand-lg
+  .rr-original-logo {
+  width: 170px;
+  height: 170px;
+}
+html[data-rr-interface='focus'] .home-experience .home-hero .brand-halo {
+  width: 220px;
+  height: 220px;
+}
+html[data-rr-interface='focus'] .home-experience .home-modes .mode-card {
+  padding: 22px;
+}
+html[data-rr-interface='focus'] .home-experience .home-modes .mode-card > svg {
+  margin-bottom: 14px;
+}
+
+@media (max-width: 760px) {
+  .home-experience .home-hero {
+    padding: 26px 24px;
+    gap: 20px;
+  }
+  .home-experience .home-hero .brand-stage {
+    padding: 0;
+    min-height: 180px;
+  }
+  .home-experience .home-hero .rr-brand-lg .rr-original-logo {
+    width: 150px;
+    height: 150px;
+  }
+  .home-experience .home-hero .brand-stage-label {
+    margin-top: 12px;
+  }
+  html[data-rr-interface='focus'] .home-experience .home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 22px;
+    gap: 20px;
+  }
+  html[data-rr-interface='focus'] .home-experience .home-hero h1 {
+    font-size: 2rem !important;
+  }
+  html[data-rr-interface='focus'] .home-experience .home-hero .hero-copy {
+    padding: 0;
+  }
+  html[data-rr-interface='focus'] .home-experience .home-hero .hero-actions {
+    gap: 14px;
+  }
+  html[data-rr-interface='focus'] .home-experience .home-hero .brand-stage {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 18px;
+  }
+  html[data-rr-interface='focus']
+    .home-experience
+    .home-hero
+    .rr-brand-lg
+    .rr-original-logo {
+    width: 80px;
+    height: 80px;
+  }
+  html[data-rr-interface='focus']
+    .home-experience
+    .home-hero
+    .brand-stage-label {
+    margin: 0;
+    max-width: 150px;
+    line-height: 1.6;
+  }
+  html[data-rr-interface='focus'] .home-experience .home-hero .brand-halo {
+    width: 160px;
+    height: 160px;
+    left: -40px;
   }
 }

@@ -8,7 +8,6 @@ import {
   evolvingRevision,
   questionFor,
   orderedOptions,
-  matchesAnswer,
   type EvolvingCase,
   type EvolvingQuestion,
   type ReasoningLevel,
@@ -23,20 +22,21 @@ import {
 } from '@/lib/learning/evolving-session'
 import { contentSources } from '@/lib/learning/sources'
 import { recordActivity } from '@/lib/learning/sessions'
+import CaseDebrief from './CaseDebrief'
+import { QuestionExplanation } from './PracticeFeedback'
 
 export function EvolvingCaseGallery() {
   return (
     <section className="pathway-section" aria-labelledby="evolving-title">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">THE NEXT LEVEL</p>
-          <h2 id="evolving-title">A different handover. A deeper decision.</h2>
+          <p className="eyebrow">EVOLVING CASES</p>
+          <h2 id="evolving-title">Choose your next case.</h2>
         </div>
       </div>
       <p className="intro-copy">
-        Six evolving case families · Two authored clinical paths each · Three
-        support levels. Observations change at story checkpoints; they are
-        scripted educational data, not a prediction of treatment response.
+        Changing observations. Three reasoning levels. A fresh version to
+        replay.
       </p>
       <div className="topic-grid">
         {evolvingCases.map((story) => (
@@ -48,7 +48,9 @@ export function EvolvingCaseGallery() {
             <span className="topic-meta">{story.topic}</span>
             <h3>{story.title}</h3>
             <p className="intro-copy">{story.summary}</p>
-            <span>2 paths · 6 decisions per path →</span>
+            <span>
+              6 guided decisions <span aria-hidden="true">→</span>
+            </span>
           </Link>
         ))}
       </div>
@@ -176,39 +178,6 @@ export function ScenarioQuestion({
     </fieldset>
   )
 }
-export function QuestionExplanation({
-  question,
-  selected,
-}: {
-  question: EvolvingQuestion
-  selected: string[]
-}) {
-  return (
-    <div className="scenario-feedback">
-      <p>
-        <strong>
-          {matchesAnswer(question, selected)
-            ? 'Teaching answer matched.'
-            : 'Compare the reasoning.'}
-        </strong>
-      </p>
-      <ul>
-        {question.options.map((option) => (
-          <li key={option.id}>
-            <strong>
-              {question.correct.includes(option.id) ? 'Teaching choice: ' : ''}
-              {option.text}
-            </strong>
-            <p>{option.explanation}</p>
-          </li>
-        ))}
-      </ul>
-      <p>
-        <strong>Reflect:</strong> {question.reflection}
-      </p>
-    </div>
-  )
-}
 export default function EvolvingCaseExperience({
   story,
 }: {
@@ -233,6 +202,14 @@ export default function EvolvingCaseExperience({
     session ? offerReturnHandoff(session) : false
   )
   const latest = useRef(session)
+  const heading = useRef<HTMLHeadingElement>(null)
+  const shouldFocusHeading = useRef(false)
+  useEffect(() => {
+    if (shouldFocusHeading.current) {
+      heading.current?.focus()
+      shouldFocusHeading.current = false
+    }
+  }, [session?.index, session?.complete])
   useEffect(() => {
     if (ready && !session) {
       setLevel(preferences.reasoningLevel)
@@ -294,6 +271,7 @@ export default function EvolvingCaseExperience({
         return
       }
     }
+    shouldFocusHeading.current = true
     setSession(
       newCaseSession(story, level, clock, session ? session.attempt + 1 : 0)
     )
@@ -313,71 +291,31 @@ export default function EvolvingCaseExperience({
         ← Case room
       </Link>
       <p className="eyebrow">EVOLVING CASE / {story.topic}</p>
-      <h1>{title}</h1>
+      <h1 ref={heading} tabIndex={-1}>
+        {title}
+      </h1>
       <p className="review-note">
-        Fictional draft · Clinical review pending · Revision {evolvingRevision}.
-        No validated competency score or physiologic simulation.
+        Fictional practice case · Clinical review pending
       </p>
       {notice && <p role="status">{notice}</p>}
       {!session ? (
         <section className="pathway-section">
           <p>{story.summary}</p>
-          <p>
-            Each replay alternates between two authored clinical paths. The
-            saved path and selected answers remain stable when you leave.
-            Options change position between attempts.
+          <p className="quiet-label">
+            6 guided decisions · Progress saves on this device
           </p>
           <LevelControls {...{ level, setLevel, clock, setClock }} />
           <button className="rr-button" onClick={start}>
-            Start this case
+            Start case
           </button>
         </section>
       ) : session.complete ? (
         <section className="pathway-section">
-          <h2>Debrief the decisions</h2>
-          <p>
-            {
-              session.answers.filter(
-                (a, i) =>
-                  !a.skipped &&
-                  matchesAnswer(
-                    questionFor(path.frames[i]!, session.level),
-                    a.selected
-                  )
-              ).length
-            }{' '}
-            teaching answers matched ·{' '}
-            {session.answers.filter((a) => !a.skipped).length} decisions
-            answered · {session.answers.filter((a) => a.skipped).length} moved
-            past at handoff. This is formative feedback, not a mastery estimate.
-          </p>
-          {session.answers.map((entry, index) => (
-            <details key={index} className="source-note">
-              <summary>
-                Decision {index + 1} ·{' '}
-                {entry.skipped
-                  ? 'Unanswered before handoff'
-                  : entry.assisted
-                    ? 'Reference-assisted'
-                    : 'Unassisted in-app response'}
-              </summary>
-              <p>{path.frames[index]!.update}</p>
-              {entry.rationale && (
-                <p>
-                  <strong>Your reasoning note (not graded):</strong>{' '}
-                  {entry.rationale}
-                </p>
-              )}
-              <QuestionExplanation
-                question={questionFor(path.frames[index]!, session.level)}
-                selected={entry.selected}
-              />
-            </details>
-          ))}
+          <CaseDebrief story={story} session={session} />
           <h3>Change the challenge</h3>
           <LevelControls {...{ level, setLevel, clock, setClock }} />
           <button className="rr-button" onClick={start}>
-            Try the next authored version
+            Try another version
           </button>
           <Link className="rr-button-secondary" href="/quick-check?count=5">
             Try a quick knowledge check
@@ -419,6 +357,7 @@ export default function EvolvingCaseExperience({
                 <button
                   className="rr-button"
                   onClick={() => {
+                    shouldFocusHeading.current = true
                     setSession((previous) =>
                       previous
                         ? acceptReturnHandoff({
@@ -575,7 +514,7 @@ export default function EvolvingCaseExperience({
                         )
                       }
                     >
-                      Commit decision
+                      Submit answer
                     </button>
                   </>
                 )}
@@ -591,15 +530,10 @@ export default function EvolvingCaseExperience({
                         />
                       )}
                     </div>
-                    {session.level === 'foundation' && (
-                      <p>
-                        <strong>Reasoning checkpoint:</strong>{' '}
-                        {question.reflection}
-                      </p>
-                    )}
                     <button
                       className="rr-button"
                       onClick={() => {
+                        shouldFocusHeading.current = true
                         if (session.index === 5) {
                           change({ complete: true })
                           recordActivity({
@@ -618,9 +552,7 @@ export default function EvolvingCaseExperience({
                           })
                       }}
                     >
-                      {session.index === 5
-                        ? 'Open the debrief'
-                        : 'Next clinical checkpoint'}
+                      {session.index === 5 ? 'View results' : 'Next decision'}
                     </button>
                   </>
                 )}
@@ -631,6 +563,10 @@ export default function EvolvingCaseExperience({
       )}
       <details className="source-note">
         <summary>Sources & limits</summary>
+        <p>
+          Revision {evolvingRevision}. Replays alternate between two authored
+          versions; saved attempts keep the same information and answer order.
+        </p>
         <p>
           Observations and paths are authored teaching data. Choice-dependent
           support changes the explanation; it does not calculate drug effects or

@@ -142,7 +142,7 @@ describe('evolving reasoning practice', () => {
         screen.getByRole('button', { name: 'Advanced', exact: true })
       ).toHaveAttribute('aria-pressed', 'true')
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Start this case' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Start case' }))
     const path = story.paths[0]!
     for (const [index, frame] of path.frames.entries()) {
       const q = frame.complex
@@ -176,7 +176,7 @@ describe('evolving reasoning practice', () => {
           ).toBeChecked()
         )
       }
-      fireEvent.click(screen.getByRole('button', { name: 'Commit decision' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Submit answer' }))
       expect(screen.getByRole('status')).toHaveTextContent(
         'Feedback will appear in the debrief'
       )
@@ -185,12 +185,12 @@ describe('evolving reasoning practice', () => {
       ).not.toBeInTheDocument()
       fireEvent.click(
         screen.getByRole('button', {
-          name: index === 5 ? 'Open the debrief' : 'Next clinical checkpoint',
+          name: index === 5 ? 'View results' : 'Next decision',
         })
       )
     }
     expect(
-      screen.getByRole('heading', { name: 'Debrief the decisions' })
+      screen.getByRole('heading', { name: 'Your case results' })
     ).toBeInTheDocument()
     expect(
       screen.getByRole('button', { name: 'Advanced', exact: true })
@@ -198,9 +198,7 @@ describe('evolving reasoning practice', () => {
     expect(readActivities(localStorage.getItem(activityKey))).toEqual([
       expect.objectContaining({ href: '/evolving/fever-neuro' }),
     ])
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Try the next authored version' })
-    )
+    fireEvent.click(screen.getByRole('button', { name: 'Try another version' }))
     expect(
       JSON.parse(localStorage.getItem(evolvingKey(story.id))!).pathId
     ).toBe('b')
@@ -247,7 +245,7 @@ describe('evolving reasoning practice', () => {
         })
       )
     }
-    expect(screen.getByText(/10 of 10 choices matched/)).toBeInTheDocument()
+    expect(screen.getByText(/10 of 10 questions correct/)).toBeInTheDocument()
     expect(new Set(JSON.parse(localStorage.getItem(key)!).ids).size).toBe(10)
   })
   it('keeps focus and challenge preferences separate from subscription identity', () => {

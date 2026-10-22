@@ -8,14 +8,12 @@ export default function LearningIntention() {
     <aside className="learning-intention">
       <div>
         <strong>
-          {p.name
-            ? `Make this moment yours, ${p.name}.`
-            : 'Your next small step.'}
+          {p.name ? `${p.name}’s learning goal` : 'Your learning goal'}
         </strong>
-        <p>{p.goal || 'A little practice makes room for clearer thinking.'}</p>
+        {p.goal ? <p>{p.goal}</p> : null}
         <small>
-          Your weekly intention: {p.weeklySessions} sessions ·{' '}
-          {p.sessionMinutes} minutes each
+          {p.weeklySessions} sessions each week · {p.sessionMinutes} minutes
+          each
         </small>
       </div>
       <Link href="/settings#goals" className="text-link">

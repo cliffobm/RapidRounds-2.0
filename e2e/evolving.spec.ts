@@ -12,7 +12,7 @@ for (const story of evolvingCases) {
     const errors: string[] = []
     page.on('pageerror', (error) => errors.push(error.message))
     await page.goto(`/evolving/${story.id}`)
-    await page.getByRole('button', { name: 'Start this case' }).click()
+    await page.getByRole('button', { name: 'Start case' }).click()
     for (const [index, frame] of story.paths[0]!.frames.entries()) {
       await page
         .getByRole('radio', {
@@ -20,7 +20,7 @@ for (const story of evolvingCases) {
           exact: true,
         })
         .check()
-      await page.getByRole('button', { name: 'Commit decision' }).click()
+      await page.getByRole('button', { name: 'Submit answer' }).click()
       await expect(page.getByRole('status')).toContainText(
         frame.question.options[0]!.explanation
       )
@@ -31,16 +31,14 @@ for (const story of evolvingCases) {
       ).toBe(true)
       await page
         .getByRole('button', {
-          name: index === 5 ? 'Open the debrief' : 'Next clinical checkpoint',
+          name: index === 5 ? 'View results' : 'Next decision',
         })
         .click()
     }
     await expect(
-      page.getByRole('heading', { name: 'Debrief the decisions' })
+      page.getByRole('heading', { name: 'Your case results' })
     ).toBeVisible()
-    await page
-      .getByRole('button', { name: 'Try the next authored version' })
-      .click()
+    await page.getByRole('button', { name: 'Try another version' }).click()
     await expect(
       page.getByText(story.paths[1]!.patient, { exact: true })
     ).toBeVisible()
@@ -62,7 +60,7 @@ test('return handoffs preserve a saved draft or advance exactly one checkpoint b
       name: 'Offer a new handoff after 30 minutes away',
     })
     .check()
-  await page.getByRole('button', { name: 'Start this case' }).click()
+  await page.getByRole('button', { name: 'Start case' }).click()
   const choice = page.getByRole('radio').first()
   await choice.check()
   const label = await choice.getAttribute('value')
@@ -106,7 +104,7 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
       name: 'Offer a new handoff after 30 minutes away',
     })
     .check()
-  await page.getByRole('button', { name: 'Start this case' }).click()
+  await page.getByRole('button', { name: 'Start case' }).click()
   for (const [index, frame] of story.paths[0]!.frames.entries()) {
     const question = questionFor(frame, 'advanced')
     for (const id of question.correct)
@@ -125,7 +123,7 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
       await page.reload()
       await expect(page.getByRole('textbox')).toHaveValue(/I prioritize/)
     }
-    await page.getByRole('button', { name: 'Commit decision' }).click()
+    await page.getByRole('button', { name: 'Submit answer' }).click()
     await expect(page.getByRole('status')).toContainText(
       'Feedback will appear in the debrief'
     )
@@ -139,16 +137,14 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
     ).toBe(true)
     await page
       .getByRole('button', {
-        name: index === 5 ? 'Open the debrief' : 'Next clinical checkpoint',
+        name: index === 5 ? 'View results' : 'Next decision',
       })
       .click()
   }
   await expect(
-    page.getByRole('heading', { name: 'Debrief the decisions' })
+    page.getByRole('heading', { name: 'Your case results' })
   ).toBeVisible()
-  await page
-    .getByText('Decision 1 · Unassisted in-app response', { exact: true })
-    .click()
+  await page.locator('.decision-review > summary').first().click()
   await expect(
     page.getByRole('button', { name: 'Advanced', exact: true })
   ).toHaveAttribute('aria-pressed', 'true')
@@ -175,14 +171,23 @@ test('focus interface streamlines entry and a ten-question check saves progress 
   await page.getByLabel('Default reasoning level').selectOption('advanced')
   await page.goto('/home')
   await expect(
-    page.getByRole('heading', { level: 1, name: 'Your learning', exact: true })
-  ).toBeVisible()
-  await expect(
     page.getByRole('heading', {
       level: 1,
       name: 'Think clearly. Act with purpose.',
+      exact: true,
     })
-  ).toBeHidden()
+  ).toBeVisible()
+  await expect(
+    page
+      .locator('.home-hero')
+      .getByRole('img', { name: 'Rapid Rounds metallic RR logo' })
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      'Practice nursing decisions with patient cases, quick questions and focused lessons.'
+    )
+  ).toBeVisible()
+  await expect(page.locator('.home-modes .intro-copy').first()).toBeHidden()
   await page
     .getByRole('link', { name: '10-question check', exact: true })
     .click()
@@ -210,7 +215,7 @@ test('focus interface streamlines entry and a ten-question check saves progress 
       })
       .click()
   }
-  await expect(page.getByText(/10 of 10 choices matched/)).toBeVisible()
+  await expect(page.getByText(/10 of 10 questions correct/)).toBeVisible()
   await page.goto('/rr')
   await expect(
     page.getByRole('heading', { level: 1, name: 'Case room', exact: true })
@@ -221,7 +226,7 @@ test('focus interface streamlines entry and a ten-question check saves progress 
     animations: 'disabled',
   })
   await page.goto('/evolving/skin-systemic')
-  await page.getByRole('button', { name: 'Start this case' }).click()
+  await page.getByRole('button', { name: 'Start case' }).click()
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') })
   const violations = await page.evaluate(async () =>
     (

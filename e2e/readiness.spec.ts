@@ -51,7 +51,7 @@ test('saved learning flows connect to the pathway and preserve first application
       })
       .click()
   }
-  await expect(page.getByText(/5 of 6 decisions matched/)).toBeVisible()
+  await expect(page.getByText(/5 of 6 decisions correct/)).toBeVisible()
   await page.goto('/pathway')
   await expect(
     page.getByRole('link', { name: 'Revisit the guided case' })

@@ -42,6 +42,15 @@ for (const width of [390, 1440]) {
       ).toBe(true)
     }
     await page.goto('/quiz')
+    await page
+      .getByRole('button', { name: 'Choose a topic', exact: true })
+      .click()
+    await expect(
+      page.getByRole('heading', {
+        name: 'Choose a practice topic',
+        exact: true,
+      })
+    ).toBeFocused()
     await expect(page.getByRole('combobox')).toHaveCount(0)
     await page.getByRole('button', { name: /Acute coronary syndromes/ }).click()
     await expect(
@@ -85,7 +94,7 @@ for (const width of [390, 1440]) {
         })
         .click()
     }
-    await expect(page.getByText(/6 of 6 decisions matched/)).toBeVisible()
+    await expect(page.getByText(/6 of 6 decisions correct/)).toBeVisible()
     await page.goto('/study?pillar=recognize_cues')
     const unit = studyUnits[0]!
     await page.getByRole('radio').nth(1).check()

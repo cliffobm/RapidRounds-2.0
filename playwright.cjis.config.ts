@@ -8,6 +8,7 @@ export default defineConfig({
     'readiness.spec.ts',
     'content-expansion.spec.ts',
     'evolving.spec.ts',
+    'debrief.spec.ts',
   ],
   workers: 1,
   reporter: 'list',

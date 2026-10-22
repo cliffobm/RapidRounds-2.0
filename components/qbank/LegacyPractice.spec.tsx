@@ -58,7 +58,7 @@ describe('mobile practice flow', () => {
     fireEvent.click(screen.getByRole('button', { name: 'All topics' }))
     expect(screen.queryByRole('status')).toBeNull()
     expect(
-      screen.getByRole('heading', { name: 'Pick your next round.' })
+      screen.getByRole('heading', { name: 'Choose a practice topic' })
     ).toBeInTheDocument()
   })
 })

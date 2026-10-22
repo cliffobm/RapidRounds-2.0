@@ -46,10 +46,9 @@ type Family = {
 const families: Family[] = [
   {
     id: 'fever-neuro',
-    title: 'The headache changes its meaning',
+    title: 'The Unusual Headache',
     topic: 'Infection & neurology',
-    summary:
-      'A changing neurologic assessment, uncertain cause and an investigation plan that must not delay an urgent response.',
+    summary: 'A headache, fever and a changing neurologic assessment.',
     sources: ['meningitis', 'deterioration', 'sharedDecisions'],
     patients: ['Avery Cole · 27 years', 'Robin Ellis · 72 years'],
     histories: [
@@ -249,10 +248,10 @@ const families: Family[] = [
   },
   {
     id: 'pancreas-balance',
-    title: 'Pain improves. The balance shifts.',
+    title: 'Pancreatitis & Fluid Balance',
     topic: 'Inflammation & fluid balance',
     summary:
-      'Acute pancreatic inflammation, fluid losses and competing cardiac/renal risks. Evaluate the whole response rather than a single symptom.',
+      'Abdominal pain, fluid losses and competing cardiac or renal risks.',
     sources: ['pancreatitis', 'fluids', 'deterioration'],
     patients: ['Sam Rivera · 48 years', 'Lee Bennett · 66 years'],
     histories: [
@@ -452,10 +451,10 @@ const families: Family[] = [
   },
   {
     id: 'skin-systemic',
-    title: 'More than a changing skin border',
+    title: 'The Spreading Skin Infection',
     topic: 'Infection & immunity',
     summary:
-      'Spreading local symptoms, immunosuppression and systemic change. Distinguish delayed skin recovery from a rapidly changing illness.',
+      'New pain and spreading symptoms during treatment for a skin infection.',
     sources: ['cellulitis', 'sepsis', 'deterioration'],
     patients: ['Dara Singh · 52 years', 'Alex Monroe · 45 years'],
     histories: [
@@ -655,10 +654,9 @@ const families: Family[] = [
   },
   {
     id: 'leg-to-lung',
-    title: 'The new symptom changes the priority',
+    title: 'Leg Swelling & Breathlessness',
     topic: 'Circulation & bleeding',
-    summary:
-      'A swollen leg, a respiratory change and the risks of treatment. Integrate competing explanations and a time-sensitive handover.',
+    summary: 'Leg swelling, new breathlessness and competing treatment risks.',
     sources: ['vte', 'deterioration', 'sharedDecisions'],
     patients: ['Morgan Hale · 60 years', 'Jules Park · 70 years'],
     histories: [
@@ -858,10 +856,9 @@ const families: Family[] = [
   },
   {
     id: 'abdomen-turn',
-    title: 'When less pain is not enough',
+    title: 'Abdominal Pain',
     topic: 'Abdominal assessment',
-    summary:
-      'Evolving abdominal symptoms, diagnostic uncertainty and a changed pain story. Compare the whole trend before concluding recovery.',
+    summary: 'Abdominal pain and a changing assessment.',
     sources: ['appendicitis', 'deterioration', 'sharedDecisions'],
     patients: ['Nico Reed · 31 years', 'Emery Shaw · 67 years'],
     histories: [
@@ -1061,10 +1058,10 @@ const families: Family[] = [
   },
   {
     id: 'nutrition-context',
-    title: 'The test result is only part of the story',
+    title: 'Nutrition & Diagnosis',
     topic: 'Nutrition & person-centred care',
     summary:
-      'Persistent gastrointestinal symptoms, diagnostic uncertainty, dietary restrictions and practical barriers to care.',
+      'Persistent digestive symptoms, weight change and barriers to care.',
     sources: ['coeliac', 'sharedDecisions', 'fluids'],
     patients: ['Taylor Kim · 39 years', 'Rowan Diaz · 56 years'],
     histories: [

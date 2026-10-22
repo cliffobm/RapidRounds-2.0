@@ -1,11 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import {
-  activityKey,
-  learningStoragePrefix,
-  readActivities,
-} from '@/lib/learning/sessions'
+import { learningStoragePrefix } from '@/lib/learning/sessions'
 import { practiceTopics } from '@/lib/learning/catalog'
 import { guidedCases } from '@/lib/learning/cases'
 import { evolvingCases } from '@/lib/learning/evolving-content'
@@ -14,7 +10,6 @@ import { evolvingKey, readCaseSession } from '@/lib/learning/evolving-session'
 export default function ContinueLearning() {
   const [snapshot, setSnapshot] = useState({
     links: [] as { title: string; href: string }[],
-    completed: 0,
     unavailable: false,
   })
   useEffect(() => {
@@ -72,11 +67,10 @@ export default function ContinueLearning() {
         })
         setSnapshot({
           links: [...evolvingLinks, ...links],
-          completed: readActivities(localStorage.getItem(activityKey)).length,
           unavailable: false,
         })
       } catch {
-        setSnapshot({ links: [], completed: 0, unavailable: true })
+        setSnapshot({ links: [], unavailable: true })
       }
     }
     read()
@@ -87,19 +81,22 @@ export default function ContinueLearning() {
       window.removeEventListener('rapidrounds-progress', read)
     }
   }, [])
+  if (!snapshot.links.length) {
+    return snapshot.unavailable ? (
+      <p className="storage-notice" role="status">
+        Saved progress is unavailable in this browser.
+      </p>
+    ) : null
+  }
   return (
     <section
       className="continue-learning"
       aria-label="Your next learning activity"
     >
       <div>
-        <p className="eyebrow">YOUR NEXT STEP</p>
-        <h2>Pick up the thread.</h2>
-        <p>
-          {snapshot.unavailable
-            ? 'Device storage is unavailable. You can still explore the pathway.'
-            : `${snapshot.completed} distinct learning activities completed on this device. Activity is not a mastery score.`}
-        </p>
+        <p className="eyebrow">SAVED ON THIS DEVICE</p>
+        <h2>Continue learning</h2>
+        <p>Resume an unfinished case or question set.</p>
       </div>
       <div className="continue-links">
         {snapshot.links.map((link) => (
@@ -111,12 +108,6 @@ export default function ContinueLearning() {
             Continue: {link.title} →
           </Link>
         ))}
-        <Link className="rr-button" href="/pathway">
-          Follow the deterioration pathway →
-        </Link>
-        <Link className="text-link" href="/content-review">
-          Content coverage & review status →
-        </Link>
       </div>
     </section>
   )

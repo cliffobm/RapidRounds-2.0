@@ -119,7 +119,7 @@ for (const story of additionalCases) {
         })
         .click()
     }
-    await expect(page.getByText(/6 of 6 decisions matched/)).toBeVisible()
+    await expect(page.getByText(/6 of 6 decisions correct/)).toBeVisible()
     const activities = await page.evaluate(() =>
       JSON.parse(localStorage.getItem('rapidrounds-activity-v1') ?? '[]')
     )

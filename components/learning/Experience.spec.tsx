@@ -39,8 +39,10 @@ describe('clinical judgment learning experience', () => {
         })
       )
     }
-    expect(screen.getByText(/6 of 6 decisions matched/)).toBeInTheDocument()
-    expect(screen.getByText(/not a competency score/)).toBeInTheDocument()
+    expect(screen.getByText(/6 of 6 decisions correct/)).toBeInTheDocument()
+    expect(
+      screen.getByText(/does not establish clinical competence/)
+    ).toBeInTheDocument()
   })
   it('makes the six pillars explorable without claiming mastery', () => {
     render(<JudgmentPillars />)

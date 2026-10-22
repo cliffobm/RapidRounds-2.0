@@ -39,6 +39,7 @@ export default function LegacyPractice({
   const [bankKey, setBankKey] = useState<BankKey | ''>(initialBank)
   const [category, setCategory] = useState('All topics')
   const [search, setSearch] = useState('')
+  const topicHeading = useRef<HTMLHeadingElement>(null)
   if (bankKey)
     return (
       <PracticeRound
@@ -74,9 +75,9 @@ export default function LegacyPractice({
           </p>
           <button
             className="rr-button rr-button-mint"
-            onClick={() => setBankKey('cv_hypertensive_crises')}
+            onClick={() => topicHeading.current?.focus()}
           >
-            Start a quick round <ArrowRight size={18} />
+            Choose a topic <ArrowRight size={18} />
           </button>
           <span className="hero-footnote">
             Up to 5 questions · Pause whenever you need
@@ -105,7 +106,9 @@ export default function LegacyPractice({
         <div className="section-heading">
           <div>
             <p className="eyebrow">FOLLOW YOUR CURIOSITY</p>
-            <h2 id="topics-title">Pick your next round.</h2>
+            <h2 id="topics-title" ref={topicHeading} tabIndex={-1}>
+              Choose a practice topic
+            </h2>
           </div>
           <label className="rr-search">
             <Search size={17} />
