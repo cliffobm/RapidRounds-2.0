@@ -1,3 +1,4 @@
+import { LEGACY_DATABASE_ENABLED } from '@/lib/env'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User, Session } from '@supabase/supabase-js'
@@ -21,23 +22,27 @@ interface AuthState {
   session: Session | null
   profile: UserProfile | null
   loading: boolean
-  
+
   // Actions
   setUser: (user: User | null) => void
   setSession: (session: Session | null) => void
   setProfile: (profile: UserProfile | null) => void
   setLoading: (loading: boolean) => void
-  
+
   // Auth methods
   signIn: (email: string, password: string) => Promise<{ error?: any }>
-  signUp: (email: string, password: string, metadata?: any) => Promise<{ error?: any }>
+  signUp: (
+    email: string,
+    password: string,
+    metadata?: any
+  ) => Promise<{ error?: any }>
   signInWithGoogle: () => Promise<{ error?: any }>
   signOut: () => Promise<void>
-  
+
   // Profile methods
   fetchProfile: () => Promise<void>
   updateProfile: (updates: Partial<UserProfile>) => Promise<void>
-  
+
   // Subscription methods
   isTrialActive: () => boolean
   isPremiumUser: () => boolean
@@ -64,14 +69,14 @@ export const useAuth = create<AuthState>()(
         try {
           const { data, error } = await supabase.auth.signInWithPassword({
             email,
-            password
+            password,
           })
-          
+
           if (error) return { error }
-          
+
           set({ user: data.user, session: data.session })
           await get().fetchProfile()
-          
+
           return {}
         } catch (error) {
           return { error }
@@ -84,14 +89,14 @@ export const useAuth = create<AuthState>()(
             email,
             password,
             options: {
-              data: metadata
-            }
+              data: metadata,
+            },
           })
-          
+
           if (error) return { error }
-          
+
           set({ user: data.user, session: data.session })
-          
+
           return {}
         } catch (error) {
           return { error }
@@ -103,10 +108,10 @@ export const useAuth = create<AuthState>()(
           const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-              redirectTo: `${window.location.origin}/auth/callback`
-            }
+              redirectTo: `${window.location.origin}/auth/callback`,
+            },
           })
-          
+
           return { error }
         } catch (error) {
           return { error }
@@ -114,12 +119,14 @@ export const useAuth = create<AuthState>()(
       },
 
       signOut: async () => {
-        await supabase.auth.signOut()
+        const { error } = await supabase.auth.signOut({ scope: 'local' })
+        if (error) throw error
         set({ user: null, session: null, profile: null })
       },
 
       // Profile methods
       fetchProfile: async () => {
+        if (!LEGACY_DATABASE_ENABLED) return
         const { user } = get()
         if (!user) return
 
@@ -142,6 +149,10 @@ export const useAuth = create<AuthState>()(
       },
 
       updateProfile: async (updates) => {
+        if (!LEGACY_DATABASE_ENABLED)
+          throw new Error(
+            'Profile updates are unavailable in the review edition'
+          )
         const { user, profile } = get()
         if (!user || !profile) return
 
@@ -150,7 +161,7 @@ export const useAuth = create<AuthState>()(
             .from('profiles')
             .update({
               ...updates,
-              updated_at: new Date().toISOString()
+              updated_at: new Date().toISOString(),
             })
             .eq('id', user.id)
             .select()
@@ -172,10 +183,12 @@ export const useAuth = create<AuthState>()(
       isTrialActive: () => {
         const { profile } = get()
         if (!profile) return false
-        
-        return !!(profile.trial_active && 
-               profile.trial_expires_at && 
-               new Date(profile.trial_expires_at) > new Date())
+
+        return !!(
+          profile.trial_active &&
+          profile.trial_expires_at &&
+          new Date(profile.trial_expires_at) > new Date()
+        )
       },
 
       isPremiumUser: () => {
@@ -200,19 +213,18 @@ export const useAuth = create<AuthState>()(
         const freeFeatures = [
           'basic_scenarios',
           'limited_rationales',
-          'basic_progress_tracking'
+          'basic_progress_tracking',
         ]
 
         return freeFeatures.includes(feature)
-      }
+      },
     }),
     {
       name: 'auth-storage',
-      partialize: (state) => ({
-        user: state.user,
-        session: state.session,
-        profile: state.profile
-      })
+      // Supabase owns session storage. Do not persist a second, stale copy of tokens/profile.
+      version: 2,
+      migrate: () => ({}),
+      partialize: () => ({}),
     }
   )
 )
@@ -221,18 +233,18 @@ export const useAuth = create<AuthState>()(
 if (typeof window !== 'undefined') {
   supabase.auth.onAuthStateChange((event, session) => {
     const { setUser, setSession, setLoading, fetchProfile } = useAuth.getState()
-    
+
     setUser(session?.user ?? null)
     setSession(session)
-    
+
     if (session?.user) {
-      fetchProfile()
+      setTimeout(() => {
+        void fetchProfile()
+      }, 0)
     } else {
       useAuth.setState({ profile: null })
     }
-    
+
     setLoading(false)
   })
 }
-
-

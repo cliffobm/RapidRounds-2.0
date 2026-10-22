@@ -2,7 +2,7 @@ import { loadPractice } from '@/lib/cjis/practice'
 import { practiceTopics } from './catalog'
 import { evolvingCases, reasoningQuestions } from './evolving-content'
 import {
-  evolvingRevision,
+  legacyEvolvingRevision,
   type EvolvingQuestion,
   type ReasoningLevel,
 } from './evolving-types'
@@ -66,7 +66,7 @@ const caseQuestions: UnifiedPracticeQuestion[] = evolvingCases.flatMap(
       .filter((question) => question.id.startsWith(`rr-context-${story.id}-`))
       .map((question, index) => ({
         ...question,
-        revision: evolvingRevision,
+        revision: legacyEvolvingRevision,
         collectionId: `reasoning:${story.id}`,
         collectionTitle: story.topic,
         category: 'Clinical reasoning',

@@ -92,7 +92,7 @@ function HeaderActions() {
       {DATABASE_CONFIGURED && (
         <Link
           className="rr-icon-button"
-          href={mounted && user ? '/profile' : '/auth/sign-in'}
+          href={mounted && user ? '/account' : '/auth/sign-in'}
           aria-label="Your account"
         >
           <UserRound size={19} />

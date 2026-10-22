@@ -10,6 +10,7 @@ export default defineConfig({
     'evolving.spec.ts',
     'debrief.spec.ts',
     'progress.spec.ts',
+    'case-levels.spec.ts',
   ],
   workers: 1,
   reporter: 'list',
@@ -30,6 +31,7 @@ export default defineConfig({
     timeout: 60_000,
     env: {
       NEXT_PUBLIC_SUPABASE_URL: '',
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: '',
       NEXT_PUBLIC_SUPABASE_ANON_KEY: '',
       SUPABASE_SERVICE_ROLE_KEY: '',
     },

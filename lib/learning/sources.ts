@@ -1,4 +1,30 @@
 export const contentSources = {
+  nutritionSupport: {
+    title: 'NICE CG32: adult nutrition assessment',
+    url: 'https://www.nice.org.uk/guidance/cg32/chapter/Recommendations',
+    section: '1.2–1.3: BMI, unintentional weight loss and reduced intake',
+  },
+  suddenHeadache: {
+    title: 'NICE NG228: sudden severe headache assessment',
+    url: 'https://www.nice.org.uk/guidance/ng228/chapter/Recommendations',
+    section:
+      '1.1: onset history, alternative causes and urgent clinical review',
+  },
+  deepSkinInfection: {
+    title: 'IDSA: skin and soft-tissue infection guideline',
+    url: 'https://www.idsociety.org/practice-guideline/skin-and-soft-tissue-infections/',
+    section: 'Severe infection, deep tissue involvement and urgent review',
+  },
+  compartment: {
+    title: 'British Orthopaedic Association: compartment syndrome',
+    url: 'https://www.boa.ac.uk/resource/boast-10-pdf.html',
+    section: 'Disproportionate pain, serial assessment and escalation',
+  },
+  abdominalCare: {
+    title: 'NSW Agency for Clinical Innovation: adult abdominal pain',
+    url: 'https://aci.health.nsw.gov.au/ecat/adult/abdominal-pain',
+    section: 'Nursing assessment, analgesia, monitoring and reassessment',
+  },
   meningitis: {
     title: 'NICE NG240: bacterial meningitis recognition and management',
     url: 'https://www.nice.org.uk/guidance/ng240/chapter/Recommendations',

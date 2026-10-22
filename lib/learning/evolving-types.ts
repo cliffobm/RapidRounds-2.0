@@ -1,6 +1,7 @@
 import type { SourceId } from './sources'
 import type { PillarId } from './pillars'
-export const evolvingRevision = '2026-10-21.1'
+export const legacyEvolvingRevision = '2026-10-21.1'
+export const evolvingRevision = '2026-10-22.2'
 export type ReasoningLevel = 'foundation' | 'challenge' | 'advanced'
 export type EvolvingQuestion = {
   prompt: string
@@ -23,6 +24,8 @@ export type CaseFrame = {
   evidence: string[]
   question: EvolvingQuestion
   complex: EvolvingQuestion
+  challenge: EvolvingQuestion
+  advanced: EvolvingQuestion
   observation: Observation
 }
 export type CasePath = {
@@ -81,8 +84,15 @@ export function evidenceQuestion(
     reflection,
   }
 }
-export function questionFor(frame: CaseFrame, level: ReasoningLevel) {
-  return level === 'foundation' ? frame.question : frame.complex
+export function questionFor(
+  frame: CaseFrame,
+  level: ReasoningLevel,
+  revision: string = evolvingRevision
+) {
+  if (level === 'foundation') return frame.question
+  // Previous attempts retain their exact questions/keys; replay starts the current version.
+  if (revision === legacyEvolvingRevision) return frame.complex
+  return level === 'challenge' ? frame.challenge : frame.advanced
 }
 export function orderedOptions(question: EvolvingQuestion, seed: number) {
   const offset = Math.abs(seed) % question.options.length

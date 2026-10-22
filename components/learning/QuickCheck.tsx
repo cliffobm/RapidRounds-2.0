@@ -10,7 +10,7 @@ import { quickAttempt } from '@/lib/learning/attempt-adapters'
 import { findPracticeCollection } from '@/lib/learning/practice-library'
 import { reasoningQuestions } from '@/lib/learning/evolving-content'
 import {
-  evolvingRevision,
+  legacyEvolvingRevision,
   matchesAnswer,
   type ReasoningLevel,
 } from '@/lib/learning/evolving-types'
@@ -136,7 +136,7 @@ export default function QuickCheck({
       setNotice('This check will last for the current visit.')
     }
     setSession({
-      revision: evolvingRevision,
+      revision: legacyEvolvingRevision,
       ids: shuffle(pool, attempt)
         .slice(0, count)
         .map((q) => q.id),

@@ -1,5 +1,6 @@
 'use client'
 
+import { REVIEW_AUTH_ONLY } from '@/lib/env'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -125,7 +126,7 @@ const mockStreakData: StreakData = {
   }))
 }
 
-export default function ProfilePage() {
+function LegacyProfilePage() {
   const { user } = useAuth()
   const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
@@ -591,3 +592,10 @@ export default function ProfilePage() {
     </div>
   )
 }
+
+function ReviewProfileRedirect() {
+  const router = useRouter()
+  useEffect(() => { router.replace('/account') }, [router])
+  return <div className="rr-experience"><p>Opening your account…</p></div>
+}
+export default function ProfilePage() { return REVIEW_AUTH_ONLY ? <ReviewProfileRedirect /> : <LegacyProfilePage /> }

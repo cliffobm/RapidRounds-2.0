@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import {
   evolvingRevision,
+  legacyEvolvingRevision,
   questionFor,
   type EvolvingCase,
   type ReasoningLevel,
@@ -13,7 +14,7 @@ const answerSchema = z.object({
   skipped: z.boolean(),
 })
 const sessionSchema = z.object({
-  revision: z.literal(evolvingRevision),
+  revision: z.enum([evolvingRevision, legacyEvolvingRevision]),
   caseId: z.string(),
   pathId: z.string(),
   attempt: z.number().int().min(0).max(100000),
@@ -74,7 +75,7 @@ export function readCaseSession(
     const valid = (ids: string[], index: number) =>
       new Set(ids).size === ids.length &&
       ids.every((id) =>
-        questionFor(path.frames[index]!, s.level).options.some(
+        questionFor(path.frames[index]!, s.level, s.revision).options.some(
           (o) => o.id === id
         )
       )
@@ -86,7 +87,7 @@ export function readCaseSession(
           (a.skipped && a.selected.length > 0) ||
           (!a.skipped &&
             a.selected.length !==
-              questionFor(path.frames[i]!, s.level).correct.length)
+              questionFor(path.frames[i]!, s.level, s.revision).correct.length)
       )
     )
       return null

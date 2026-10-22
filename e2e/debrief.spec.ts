@@ -17,7 +17,16 @@ test('case results distinguish correct, incorrect and unanswered decisions and s
       const question = questionFor(frame, 'challenge')
       return {
         selected:
-          index === 4 ? [] : index === 5 ? ['0', '2'] : question.correct,
+          index === 4
+            ? []
+            : index === 5
+              ? [
+                  ...question.correct.slice(1),
+                  question.options.find(
+                    (option) => !question.correct.includes(option.id)
+                  )!.id,
+                ]
+              : question.correct,
         rationale: '',
         confidence: 'confident',
         assisted: index === 1 || index === 4,
@@ -59,16 +68,22 @@ test('case results distinguish correct, incorrect and unanswered decisions and s
   ).toHaveCount(0)
   await page.getByRole('button', { name: 'Review incorrect decisions' }).click()
   await expect(rows).toHaveCount(1)
-  const question = story.paths[0]!.frames[5]!.complex
+  const question = questionFor(story.paths[0]!.frames[5]!, 'challenge')
   await expect(
     rows.getByRole('heading', { name: question.prompt, exact: true })
   ).toBeVisible()
   await expect(
     rows.getByRole('region', { name: 'Your answer', exact: true })
-  ).toContainText(question.options[2]!.text)
+  ).toContainText(
+    question.options.find((option) => !question.correct.includes(option.id))!
+      .text
+  )
   await expect(
     rows.getByRole('region', { name: 'Correct answer', exact: true })
-  ).toContainText(question.options[1]!.text)
+  ).toContainText(
+    question.options.find((option) => question.correct.includes(option.id))!
+      .text
+  )
   await page.getByRole('button', { name: 'All decisions (6)' }).click()
   await page.reload()
   await expect(result.getByText('80%', { exact: true })).toBeVisible()

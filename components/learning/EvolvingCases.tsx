@@ -96,8 +96,8 @@ export function LevelControls({
         {level === 'foundation'
           ? 'Single best choices with immediate coaching.'
           : level === 'challenge'
-            ? 'Combine two relevant elements, with feedback after each decision.'
-            : 'Combine evidence and write a brief rationale. Feedback is held until the debrief; notes are not automatically graded.'}
+            ? 'Prioritize case-specific findings and next steps, with feedback after each decision.'
+            : 'Weigh competing explanations, choose time-sensitive actions and reassess conflicting evidence. Feedback follows the case; reasoning notes are not automatically graded.'}
       </p>
       <label className="scenario-toggle">
         <input
@@ -275,7 +275,14 @@ export default function EvolvingCaseExperience({
     }
     shouldFocusHeading.current = true
     setSession(
-      newCaseSession(story, level, clock, session ? session.attempt + 1 : 0)
+      newCaseSession(
+        story,
+        level,
+        clock,
+        session
+          ? session.attempt + Number(session.revision === evolvingRevision)
+          : 0
+      )
     )
     setReturnPending(false)
     setNotice('')
@@ -284,7 +291,10 @@ export default function EvolvingCaseExperience({
     ? story.paths.find((p) => p.id === session.pathId)!
     : story.paths[0]!
   const frame = session ? path.frames[session.index]! : null
-  const question = frame && session ? questionFor(frame, session.level) : null
+  const question =
+    frame && session
+      ? questionFor(frame, session.level, session.revision)
+      : null
   const answer = session?.answers[session.index]
   const title = story.title
   return (
@@ -300,6 +310,18 @@ export default function EvolvingCaseExperience({
         Fictional practice case · Clinical review pending
       </p>
       {notice && <p role="status">{notice}</p>}
+      {session && session.revision !== evolvingRevision && (
+        <section className="handoff-notice" aria-label="Updated case questions">
+          <h2>New reasoning questions available</h2>
+          <p>
+            Your saved attempt keeps its earlier questions and score. Start an
+            updated case for distinct Challenge and Advanced decisions.
+          </p>
+          <button className="rr-button" onClick={start}>
+            Start updated case
+          </button>
+        </section>
+      )}
       {!session ? (
         <section className="pathway-section">
           <p>{story.summary}</p>

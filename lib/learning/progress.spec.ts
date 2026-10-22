@@ -4,7 +4,7 @@ import { guidedCases } from './cases'
 import { caseRevision } from './case-coaching'
 import { evolvingCases, reasoningQuestions } from './evolving-content'
 import { evolvingKey, newCaseSession } from './evolving-session'
-import { evolvingRevision, questionFor } from './evolving-types'
+import { legacyEvolvingRevision, questionFor } from './evolving-types'
 import { evolvingAttempt } from './attempt-adapters'
 import { historyKey } from './attempt-history'
 import { contentRevision, learningStoragePrefix } from './sessions'
@@ -53,7 +53,7 @@ function saveQuick() {
   localStorage.setItem(
     'rapidrounds-quick-v1:5:',
     JSON.stringify({
-      revision: evolvingRevision,
+      revision: legacyEvolvingRevision,
       ids: questions.map((question) => question.id),
       index: 4,
       answers: questions.map((question) => question.correct[0]!),

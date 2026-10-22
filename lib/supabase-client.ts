@@ -1,21 +1,11 @@
-// lib/supabase-client.ts - Client-side Supabase client (Legacy - use lib/supabase/client.ts instead)
+// Shared cookie/PKCE client: browser sign-in and server verification use the same session.
 'use client'
-
-import { createClient } from '@supabase/supabase-js'
-import { SUPABASE_CONFIG, validateEnvironment, DATABASE_CONFIGURED, offlineFetch } from '@/lib/env'
-
-// Validate environment on import
-validateEnvironment()
-
-export const supabaseClient = createClient(
-  SUPABASE_CONFIG.url, 
-  SUPABASE_CONFIG.anonKey, 
+import { createBrowserClient } from '@supabase/ssr'
+import { SUPABASE_CONFIG, supabaseFetch } from '@/lib/env'
+export const supabaseClient = createBrowserClient(
+  SUPABASE_CONFIG.url,
+  SUPABASE_CONFIG.anonKey,
   {
-    ...(!DATABASE_CONFIGURED ? { global: { fetch: offlineFetch } } : {}),
-    auth: { 
-      persistSession: true, 
-      autoRefreshToken: true, 
-      detectSessionInUrl: true 
-    },
+    global: { fetch: supabaseFetch },
   }
 )

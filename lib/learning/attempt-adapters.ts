@@ -4,7 +4,11 @@ import { contentRevision } from './sessions'
 import { caseRevision } from './case-coaching'
 import type { GuidedCase } from './cases'
 import type { EvolvingCase } from './evolving-types'
-import { evolvingRevision, matchesAnswer, questionFor } from './evolving-types'
+import {
+  legacyEvolvingRevision,
+  matchesAnswer,
+  questionFor,
+} from './evolving-types'
 import type { EvolvingSession } from './evolving-session'
 import type {
   GuidedSession,
@@ -51,7 +55,7 @@ export function evolvingAttempt(
     correct:
       !answer.skipped &&
       matchesAnswer(
-        questionFor(path.frames[index]!, session.level),
+        questionFor(path.frames[index]!, session.level, session.revision),
         answer.selected
       ),
   }))
@@ -163,7 +167,7 @@ export function quickAttempt(
     kind: 'quick-check',
     contentId: topic || 'all',
     title: topic ? `${topic} check` : 'Mixed quick check',
-    revision: evolvingRevision,
+    revision: legacyEvolvingRevision,
     level: levels.size === 1 ? questions[0]!.level : 'mixed',
     mode: 'check',
     variant: '',

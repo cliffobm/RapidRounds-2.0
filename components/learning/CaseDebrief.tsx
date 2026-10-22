@@ -26,7 +26,7 @@ export default function CaseDebrief({
   const path = story.paths.find((path) => path.id === session.pathId)!
   const decisions = session.answers.map((answer, index) => {
     const frame = path.frames[index]!
-    const question = questionFor(frame, session.level)
+    const question = questionFor(frame, session.level, session.revision)
     const correct = !answer.skipped && matchesAnswer(question, answer.selected)
     return {
       answer,

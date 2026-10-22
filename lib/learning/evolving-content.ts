@@ -1,3 +1,5 @@
+import { complexSkinAbdomen } from './complex-cases-skin-abdomen'
+import { complexCasesOther } from './complex-cases-other'
 import { pillars } from './pillars'
 import {
   choiceQuestion,
@@ -1436,12 +1438,24 @@ const alternateDecisions: Record<string, Record<number, TeachingRow>> = {
     ),
   },
 }
+const distinctQuestions = { ...complexSkinAbdomen, ...complexCasesOther }
 export const evolvingCases: EvolvingCase[] = families.map((family) => ({
   id: family.id,
   title: family.title,
   topic: family.topic,
   summary: family.summary,
-  sources: family.sources,
+  sources: [
+    ...family.sources,
+    ...(family.id === 'nutrition-context'
+      ? (['nutritionSupport'] as SourceId[])
+      : family.id === 'fever-neuro'
+        ? (['suddenHeadache'] as SourceId[])
+        : family.id === 'skin-systemic'
+          ? (['deepSkinInfection', 'compartment'] as SourceId[])
+          : family.id === 'abdomen-turn'
+            ? (['abdominalCare'] as SourceId[])
+            : []),
+  ],
   paths: family.patients.map((patient, pathIndex) => ({
     id: pathIndex === 0 ? 'a' : 'b',
     label: pathIndex === 0 ? 'Initial presentation' : 'Complicating context',
@@ -1475,6 +1489,12 @@ export const evolvingCases: EvolvingCase[] = families.map((family) => ({
             : family.rows[index - 1]!.update,
         ],
         observation,
+        challenge:
+          distinctQuestions[family.id]![pathIndex === 0 ? 'a' : 'b']![index]!
+            .challenge,
+        advanced:
+          distinctQuestions[family.id]![pathIndex === 0 ? 'a' : 'b']![index]!
+            .advanced,
         question: choiceQuestion(
           teaching.prompt,
           teaching.choices,

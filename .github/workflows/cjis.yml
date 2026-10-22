@@ -16,7 +16,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run test:cjis
-      - run: npx vitest run lib/cjis lib/learning components/qbank/LegacyPractice.spec.tsx components/learning/Experience.spec.tsx components/learning/Readiness.spec.tsx components/learning/ContentExpansion.spec.tsx components/learning/InlineReferences.spec.tsx components/learning/Evolving.spec.tsx components/learning/CaseDebrief.spec.tsx components/learning/UnifiedPractice.spec.tsx components/learning/ProgressExperience.spec.tsx components/learning/StudyResume.spec.tsx components/settings/Settings.spec.tsx
+      - run: npx vitest run lib/cjis lib/learning lib/review-auth.spec.ts lib/review-middleware.spec.ts app/auth/ReviewSession.spec.tsx components/auth components/qbank/LegacyPractice.spec.tsx components/learning/Experience.spec.tsx components/learning/Readiness.spec.tsx components/learning/ContentExpansion.spec.tsx components/learning/InlineReferences.spec.tsx components/learning/Evolving.spec.tsx components/learning/CaseDebrief.spec.tsx components/learning/UnifiedPractice.spec.tsx components/learning/ProgressExperience.spec.tsx components/learning/StudyResume.spec.tsx components/settings/Settings.spec.tsx
       - run: npm run typecheck
       - run: npm run build
       # The original H.264 logo video needs a branded browser's media codecs.

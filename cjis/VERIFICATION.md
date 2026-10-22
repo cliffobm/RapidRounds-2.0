@@ -2,6 +2,28 @@
 
 This report supersedes the initial migration results retained in Git history. Current implementation: `feature/cjis-foundation`, Node 22, Next.js 15.5.28, React 19.1.10. The original 68 imported questions and answer keys remain intact; the application also includes 32 earlier authored draft questions and 36 new case-linked questions.
 
+## Distinct clinical reasoning levels and tester login
+
+The evolving cases now include 144 newly authored higher-level questions: one Challenge and one Advanced question at each of 72 checkpoints across six families and two patient paths. Foundation, Challenge and Advanced have different prompts and choices. Challenge focuses on case-specific priorities with immediate feedback. Advanced asks learners to weigh competing explanations, reconcile conflicting findings, plan escalation and evaluate response; feedback follows completion. Required selections vary from one to three, and reasoning notes remain ungraded. Supplemental clinical findings are explicitly labeled as simulated in the relevant question.
+
+The skin-infection and abdominal-pain cases incorporate the supplied reference material through original questions about pain/appearance mismatch, deep tissue and thrombosis differentials, changing function and location, nondiagnostic investigations, reassessment after analgesia, diagnostic advocacy and safe follow-up. The other four families now include distinct higher-level questions on headache differentials, fluid intolerance, thromboembolic/bleeding risk, nutrition and test validity. References are visible in the cases. These are editorially reviewed drafts, not clinically signed-off or calibrated items.
+
+Current evolving revision is `2026-10-22.2`. Existing `2026-10-21.1` attempts retain their original questions, answer keys and scores. **Start updated case** archives the earlier attempt and starts the new questions. Practice's separate 136-item catalog and earlier Quick Check content are preserved; the 144 new questions belong to evolving cases.
+
+The review deployment now supports provisioned email/password tester accounts using the isolated Supabase project **RapidRounds-2.0-Sprint4-Test** (`ztjudfbsvwqnmqqgkknn`). Preview configuration is restricted to `feature/cjis-foundation` in the separate Vercel review project. No service-role key is used. Browser and server clients share cookie-based sessions; the Account page verifies identity with Auth, shows the actual account email and provides sign-out. Middleware persists refreshed session cookies. Failed or incomplete callbacks return an explicit error instead of a success page.
+
+Review mode permits application requests to the configured project's Auth endpoints and blocks legacy database/profile/progress synchronization. This application guard does not replace RLS or database authorization. Sign-in identifies the tester; learning content is still accessible without login and progress remains browser-local, shared between accounts in that browser. It does not provide cross-device or per-account progress. Use separate browser profiles on shared devices.
+
+### Manual positive-login verification
+
+1. Open the test project's **Authentication → Users → Add user → Create user**. Enter the tester email/password directly in Supabase and confirm the test email if required. Do not send passwords in chat. Creating the account is a user handoff.
+2. Open the review site's `/auth/sign-in`, enter that account and submit. Expect `/account` with the same email.
+3. Refresh and reopen the app; verify Account remains authenticated. Also verify persistence after access-token expiry. Practice and Progress should retain browser-local work.
+4. Sign out; expect a signed-out notice. Visiting `/account` should require sign-in again. A wrong password should produce a clear error without navigating to Account.
+5. Repeat with another provisioned tester in a separate browser profile. Self-service signup, OAuth and email delivery have not been verified or enabled by this change.
+
+A successful live tester login is not claimed until a real account is provisioned and this walkthrough is completed. Mocked session/component tests cannot establish that live result.
+
 ## Unified Practice and Progress
 
 Practice now has one searchable 136-question catalog across 16 collections. Learners choose Guided feedback or a 5/10-question Check, with optional area and authored reasoning-level filters. Imported answer keys and clinical wording are preserved; questions without an authored level remain unclassified. Guided questions allow contextual glossary support. Check mode withholds explanations and inline references until submission. Neither mode is timed.
@@ -16,15 +38,14 @@ All history is browser-local. The history journal retains 200 attempt summaries;
 
 | Check | Executed result |
 | --- | --- |
-| Full regression suite, `npm test -- --reporter=json --outputFile=../practice-progress-tests.json` | 235 passed, 0 failed |
+| Full regression suite, `npm test -- --reporter=json --outputFile=../case-auth-tests.json` | 267 passed, 0 failed |
 | Legacy adapter, `npm run test:cjis` | 8 passed |
 | TypeScript, `npm run typecheck` | Passed after final production changes |
 | Production compilation, `npm run build` | Passed after final production changes |
-| Full Windows Edge browser run, `npx playwright test --config playwright.cjis.config.ts` | 27 passed, 4 failed; see below |
-| Four new browser flows after test corrections | 4 passed, including axe/no-overflow checks on setup, active Check and populated Progress |
-| Isolated dark-theme/layout browser check | Passed, including Practice and Progress at 320/390/1440px |
+| Full Windows Edge browser run, `npx playwright test --config playwright.cjis.config.ts` | 36 passed, 1 browser-context creation failure; see below |
+| Isolated rerun after final middleware build, `--grep "new learning routes\|unconfigured login"` | 2 passed, including unchanged dark accessibility/no-overflow assertions at 320/390/1440px and account redirect |
 
-The full Edge run found two test synchronization/name issues, an accessibility check sampling the initialization fade, and the previously observed browser-context closure in the dark-layout test. The new tests now wait for the session URL, account for the existing correct-answer icon in accessible names, and wait for preference initialization/full opacity before running the same axe assertions. Phone controls also use 44px targets and larger filter labels. All 31 distinct browser checks have passed across these runs. A combined clean local 31-test run is not claimed. The first GitHub run for `aa046ff` passed all unit/adapter/type/build checks and 30 of 31 Chrome browser tests. The remaining older debrief test sampled its dark-theme initialization transition; it now waits for the settled theme, reduced-motion preference and final opacity before the unchanged axe assertions. Its isolated local rerun passed. The final GitHub Chrome run and exact commit are reported on delivery.
+The current full Edge run passed all six new checks: both paths and all six decisions for skin-infection/abdominal-pain Challenge and Advanced, preservation/restart of an earlier Advanced attempt, and explicit offline login/account/callback behavior. One existing dark-layout check failed before page creation with `browser.newContext: Target page, context or browser has been closed`; no application assertion ran in that check. Its isolated rerun passed along with the account guard after the final middleware build. The final GitHub Chrome run is reported on delivery. No combined clean local 37-test run is claimed. Earlier initialization/selector corrections remain in place without weakening the accessibility assertions.
 
 ## Debrief and interface refinements
 
@@ -50,7 +71,7 @@ See [inline reference cards](INLINE_REFERENCE_CARDS.md) for matching rules and i
 
 Human clinical review, curriculum/coverage review, source and media rights, item calibration, outcome validation, physical-device testing, production account/backend integration, monitoring/support ownership and production release approval remain outstanding. Automated accessibility checks are not a full accessibility certification. Old browser-support dataset and Vite CJS warnings remain; lint modernization is outstanding.
 
-No production database was accessed or changed. Database/auth, payment and AI services have not been verified against a development service. The review project remains separate from the original production project and has no application credentials. No production promotion is included.
+No production database was accessed or changed. Only the isolated test project's Auth configuration, table/RLS metadata and security-advisor results were inspected. Existing test-project findings include mutable function search paths and disabled leaked-password protection; no database or security settings were changed. See [function search-path remediation](https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable) and [password protection guidance](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). These findings need review before any production backend integration. Payment, AI, database synchronization and live positive login remain unverified. The separate review project uses only public test Auth configuration; no production promotion is included.
 
 ## Preservation
 

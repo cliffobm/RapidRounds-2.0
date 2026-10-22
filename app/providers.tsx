@@ -1,5 +1,6 @@
 'use client'
 
+import { LEGACY_DATABASE_ENABLED } from '@/lib/env'
 import { useEffect, ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ToastProvider } from '@/components/ui/Toast'
@@ -46,7 +47,7 @@ function Providers({ children }: { children: ReactNode }) {
       const syncInterval = setInterval(
         () => {
           const { user } = useAuth.getState()
-          if (user) {
+          if (user && LEGACY_DATABASE_ENABLED) {
             progressStore.syncToServer()
           }
         },

@@ -3,7 +3,7 @@ import { contentRevision, readSession } from './sessions'
 import { type GuidedCase } from './cases'
 import { type BankKey } from '@/qbank/banks'
 import { loadPractice, recordPracticeResponse } from '@/lib/cjis/practice'
-import { evolvingRevision } from './evolving-types'
+import { legacyEvolvingRevision } from './evolving-types'
 import { reasoningQuestions } from './evolving-content'
 import { caseRevision } from './case-coaching'
 
@@ -98,7 +98,7 @@ export function readLegacyPracticeSession(
   )
 }
 export const quickSessionSchema = z.object({
-  revision: z.literal(evolvingRevision),
+  revision: z.literal(legacyEvolvingRevision),
   ids: z.array(z.string()).min(5).max(10),
   index: z.number().int().min(0).max(9),
   answers: z.array(z.string()).max(10),

@@ -107,7 +107,7 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
     const question = questionFor(frame, 'advanced')
     for (const id of question.correct)
       await page
-        .getByRole('checkbox', {
+        .getByRole(question.correct.length === 1 ? 'radio' : 'checkbox', {
           name: question.options.find((o) => o.id === id)!.text,
           exact: true,
         })
@@ -152,9 +152,17 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
     })
   ).toBeChecked()
   await expect(
-    page.getByText(story.paths[0]!.frames[0]!.complex.options[0]!.explanation, {
-      exact: true,
-    })
+    page.getByText(
+      questionFor(story.paths[0]!.frames[0]!, 'advanced').options.find(
+        option =>
+          questionFor(story.paths[0]!.frames[0]!, 'advanced').correct.includes(
+            option.id
+          )
+      )!.explanation,
+      {
+        exact: true,
+      }
+    )
   ).toBeVisible()
 })
 test('focus interface streamlines entry and a ten-question check saves progress without answer leaks', async ({

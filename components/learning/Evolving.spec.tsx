@@ -63,7 +63,11 @@ describe('evolving reasoning practice', () => {
       for (const path of story.paths) {
         expect(path.frames).toHaveLength(6)
         for (const frame of path.frames) {
-          for (const question of [frame.question, frame.complex]) {
+          for (const question of [
+            frame.question,
+            frame.challenge,
+            frame.advanced,
+          ]) {
             expect(
               question.correct.every((id) =>
                 question.options.some((option) => option.id === id)
@@ -102,7 +106,9 @@ describe('evolving reasoning practice', () => {
     const story = evolvingCases[0]!,
       now = 31 * 60 * 1000
     const first = {
-      selected: ['0', '1'],
+      selected: [
+        ...questionFor(story.paths[0]!.frames[0]!, 'challenge').correct,
+      ],
       rationale: 'The new cognitive change needs review alongside uncertainty.',
       confidence: 'confident' as const,
       assisted: false,
@@ -145,10 +151,10 @@ describe('evolving reasoning practice', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Start case' }))
     const path = story.paths[0]!
     for (const [index, frame] of path.frames.entries()) {
-      const q = frame.complex
+      const q = questionFor(frame, 'advanced')
       q.correct.forEach((id) =>
         fireEvent.click(
-          screen.getByRole('checkbox', {
+          screen.getByRole(q.correct.length === 1 ? 'radio' : 'checkbox', {
             name: q.options.find((o) => o.id === id)!.text,
             exact: true,
           })
@@ -169,7 +175,7 @@ describe('evolving reasoning practice', () => {
         )
         q.correct.forEach((id) =>
           expect(
-            screen.getByRole('checkbox', {
+            screen.getByRole(q.correct.length === 1 ? 'radio' : 'checkbox', {
               name: q.options.find((o) => o.id === id)!.text,
               exact: true,
             })

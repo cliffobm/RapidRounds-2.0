@@ -1,3 +1,4 @@
+import { LEGACY_DATABASE_ENABLED } from '@/lib/env'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { supabaseClient as supabase } from '@/lib/supabase-client'
@@ -45,15 +46,15 @@ interface ProgressState {
   achievements: Achievement[]
   scenarioProgress: ScenarioProgress[]
   bookmarks: BookmarkedItem[]
-  
+
   // Offline cache
   offlineScenarios: any[]
   lastSyncAt: string | null
-  
+
   // Loading states
   loading: boolean
   syncing: boolean
-  
+
   // Actions
   setXP: (xp: number) => void
   addXP: (amount: number) => void
@@ -62,13 +63,13 @@ interface ProgressState {
   updateScenarioProgress: (progress: ScenarioProgress) => void
   addBookmark: (bookmark: BookmarkedItem) => void
   removeBookmark: (scenarioItemId: string) => void
-  
+
   // Sync methods
   syncToServer: () => Promise<void>
   syncFromServer: () => Promise<void>
   cacheScenarioOffline: (scenario: any) => void
   clearOfflineCache: () => void
-  
+
   // Computed getters
   getCurrentLevel: () => number
   getXPForNextLevel: () => number
@@ -113,9 +114,9 @@ export const useProgress = create<ProgressState>()(
         const newXP = xp + amount
         const newLevel = calculateLevel(newXP)
         const oldLevel = get().level
-        
+
         set({ xp: newXP, level: newLevel })
-        
+
         // Check for level up achievement
         if (newLevel > oldLevel) {
           // TODO: Trigger level up celebration
@@ -127,7 +128,7 @@ export const useProgress = create<ProgressState>()(
 
       addAchievement: (achievement) => {
         const { achievements } = get()
-        if (!achievements.find(a => a.id === achievement.id)) {
+        if (!achievements.find((a) => a.id === achievement.id)) {
           set({ achievements: [...achievements, achievement] })
           get().addXP(achievement.xp_reward)
         }
@@ -135,8 +136,10 @@ export const useProgress = create<ProgressState>()(
 
       updateScenarioProgress: (progress) => {
         const { scenarioProgress } = get()
-        const existingIndex = scenarioProgress.findIndex(p => p.scenario_id === progress.scenario_id)
-        
+        const existingIndex = scenarioProgress.findIndex(
+          (p) => p.scenario_id === progress.scenario_id
+        )
+
         if (existingIndex >= 0) {
           // Update existing progress
           const updated = [...scenarioProgress]
@@ -146,53 +149,60 @@ export const useProgress = create<ProgressState>()(
           // Add new progress
           set({ scenarioProgress: [...scenarioProgress, progress] })
         }
-        
+
         // Add XP for completion
         get().addXP(progress.score * 10) // 10 XP per percentage point
       },
 
       addBookmark: (bookmark) => {
         const { bookmarks } = get()
-        if (!bookmarks.find(b => b.scenario_item_id === bookmark.scenario_item_id)) {
+        if (
+          !bookmarks.find(
+            (b) => b.scenario_item_id === bookmark.scenario_item_id
+          )
+        ) {
           set({ bookmarks: [...bookmarks, bookmark] })
         }
       },
 
       removeBookmark: (scenarioItemId) => {
         const { bookmarks } = get()
-        set({ bookmarks: bookmarks.filter(b => b.scenario_item_id !== scenarioItemId) })
+        set({
+          bookmarks: bookmarks.filter(
+            (b) => b.scenario_item_id !== scenarioItemId
+          ),
+        })
       },
 
       // Sync methods
       syncToServer: async () => {
+        if (!LEGACY_DATABASE_ENABLED) return
         const state = get()
         // Get user from auth store
-        const { user } = await import('./useAuth').then(m => m.useAuth.getState())
+        const { user } = await import('./useAuth').then((m) =>
+          m.useAuth.getState()
+        )
         if (!user) return
 
         try {
           set({ syncing: true })
-          
+
           // Sync progress
           for (const progress of state.scenarioProgress) {
-            await supabase
-              .from('progress')
-              .upsert({
-                user_id: user.id,
-                ...progress
-              })
+            await supabase.from('progress').upsert({
+              user_id: user.id,
+              ...progress,
+            })
           }
-          
+
           // Sync bookmarks
           for (const bookmark of state.bookmarks) {
-            await supabase
-              .from('bookmarks')
-              .upsert({
-                user_id: user.id,
-                ...bookmark
-              })
+            await supabase.from('bookmarks').upsert({
+              user_id: user.id,
+              ...bookmark,
+            })
           }
-          
+
           set({ lastSyncAt: new Date().toISOString() })
         } catch (error) {
           console.error('Sync to server failed:', error)
@@ -202,14 +212,14 @@ export const useProgress = create<ProgressState>()(
       },
 
       syncFromServer: async () => {
+        if (!LEGACY_DATABASE_ENABLED) return
         // TODO: Implement server sync
         try {
           set({ syncing: true })
-          
+
           // Fetch progress from server
           // Fetch bookmarks from server
           // Merge with local data
-          
         } catch (error) {
           console.error('Sync from server failed:', error)
         } finally {
@@ -219,8 +229,8 @@ export const useProgress = create<ProgressState>()(
 
       cacheScenarioOffline: (scenario) => {
         const { offlineScenarios } = get()
-        const exists = offlineScenarios.find(s => s.id === scenario.id)
-        
+        const exists = offlineScenarios.find((s) => s.id === scenario.id)
+
         if (!exists) {
           set({ offlineScenarios: [...offlineScenarios, scenario] })
         }
@@ -232,28 +242,28 @@ export const useProgress = create<ProgressState>()(
 
       // Computed getters
       getCurrentLevel: () => get().level,
-      
+
       getXPForNextLevel: () => {
         const { level } = get()
         return calculateXPForNextLevel(level)
       },
-      
+
       getProgressToNextLevel: () => {
         const { xp, level } = get()
         return calculateProgressToNextLevel(xp, level)
       },
-      
+
       getTotalScenariosCompleted: () => {
         return get().scenarioProgress.length
       },
-      
+
       getAverageScore: () => {
         const { scenarioProgress } = get()
         if (scenarioProgress.length === 0) return 0
-        
+
         const totalScore = scenarioProgress.reduce((sum, p) => sum + p.score, 0)
         return Math.round(totalScore / scenarioProgress.length)
-      }
+      },
     }),
     {
       name: 'progress-storage',
@@ -264,8 +274,8 @@ export const useProgress = create<ProgressState>()(
         scenarioProgress: state.scenarioProgress,
         bookmarks: state.bookmarks,
         offlineScenarios: state.offlineScenarios,
-        lastSyncAt: state.lastSyncAt
-      })
+        lastSyncAt: state.lastSyncAt,
+      }),
     }
   )
 )

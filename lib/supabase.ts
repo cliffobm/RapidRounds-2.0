@@ -1,31 +1,33 @@
 // lib/supabase.ts - Server-only Supabase client
 import 'server-only'
 import { createClient } from '@supabase/supabase-js'
-import { DATABASE_CONFIGURED, offlineFetch } from './env'
+import { supabaseFetch } from './env'
 
 // Supabase configuration with proper fallbacks
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:54321'
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'offline-placeholder-key'
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:54321'
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  'offline-placeholder-key'
 
 // Validate configuration
 if (!supabaseUrl || !supabaseKey || supabaseKey === 'placeholder-key') {
   if (process.env.NODE_ENV === 'development') {
-    console.error('❌ Missing or invalid Supabase configuration in server client')
+    console.error(
+      '❌ Missing or invalid Supabase configuration in server client'
+    )
   }
 }
 
-export const supabase = createClient(
-  supabaseUrl, 
-  supabaseKey, 
-  {
-    ...(!DATABASE_CONFIGURED ? { global: { fetch: offlineFetch } } : {}),
-    auth: { 
-      persistSession: false, 
-      autoRefreshToken: false, 
-      detectSessionInUrl: false 
-    },
-  }
-)
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  global: { fetch: supabaseFetch },
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+    detectSessionInUrl: false,
+  },
+})
 
 // Database types for TypeScript
 export interface Database {
