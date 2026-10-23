@@ -4,6 +4,7 @@ import { pillars } from './pillars'
 export const historyKey = 'rapidrounds-attempt-history-v1'
 export const progressEvent = 'rapidrounds-progress'
 const kinds = [
+  'rapid-response',
   'study',
   'practice',
   'guided-case',
@@ -24,7 +25,7 @@ export function isLearningHref(value: string) {
     const url = new URL(value, 'https://rapidrounds.local')
     return (
       url.origin === 'https://rapidrounds.local' &&
-      /^\/(practice|quick-check|quiz|study|study\/topics\/(medications-safety|renal-metabolic|assessment-safety|person-centered-genetics)|pathway\/transfer|rr\/(sepsis|tavr|chest-pain|neuro-change|respiratory-change|fluid-loss)|evolving\/(fever-neuro|pancreas-balance|skin-systemic|leg-to-lung|abdomen-turn|nutrition-context|medication-shift|kidney-trend))$/.test(
+      /^\/(rapid-response|practice|quick-check|quiz|study|study\/topics\/(medications-safety|renal-metabolic|assessment-safety|person-centered-genetics)|pathway\/transfer|rr\/(sepsis|tavr|chest-pain|neuro-change|respiratory-change|fluid-loss)|evolving\/(fever-neuro|pancreas-balance|skin-systemic|leg-to-lung|abdomen-turn|nutrition-context|medication-shift|kidney-trend))$/.test(
         url.pathname
       ) &&
       value.length <= 500
@@ -51,6 +52,14 @@ const recordSchema = z
     completedAt: z.string().datetime().nullable(),
     source: z.enum(['tracked', 'saved']),
     href: z.string().refine(isLearningHref),
+    timing: z
+      .object({
+        activeMs: z.number().int().min(0).max(86_400_000),
+        budgetMs: z.number().int().positive().max(86_400_000).nullable(),
+        mode: z.enum(['untimed', 'challenge']),
+        exceededBudget: z.boolean(),
+      })
+      .optional(),
     skills: z
       .array(
         z.object({

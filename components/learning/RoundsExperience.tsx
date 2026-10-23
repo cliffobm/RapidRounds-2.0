@@ -79,6 +79,24 @@ export function RoundsLobby() {
           <span>What would you notice first?</span>
         </div>
       </section>
+      <section className="rapid-entry" aria-labelledby="rapid-entry-title">
+        <div>
+          <p className="eyebrow">RECOGNIZE · PRIORITIZE · RESPOND</p>
+          <h2 id="rapid-entry-title">Rapid Response</h2>
+          <p>
+            Short deterioration cases. ECGs, changing observations and an
+            optional clock.
+          </p>
+        </div>
+        <div className="practice-actions">
+          <Link href="/rapid-response" className="rr-button rr-button-mint">
+            Start Rapid Response
+          </Link>
+          <Link href="/ecg" className="rr-button-secondary">
+            Explore ECG rhythms
+          </Link>
+        </div>
+      </section>
       <EvolvingCaseGallery />
       <div className="section-heading">
         <div>

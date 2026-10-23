@@ -38,8 +38,12 @@ function NavigationLinks() {
             (href === '/practice' &&
               (pathname?.startsWith('/quiz') ||
                 pathname?.startsWith('/quick-check'))) ||
-            (href === '/rr' && pathname?.startsWith('/evolving')) ||
-            (href === '/study' && pathname?.startsWith('/pathway')))
+            (href === '/rr' &&
+              (pathname?.startsWith('/evolving') ||
+                pathname?.startsWith('/rapid-response'))) ||
+            (href === '/study' &&
+              (pathname?.startsWith('/pathway') ||
+                pathname?.startsWith('/ecg'))))
         return (
           <Link
             key={href}

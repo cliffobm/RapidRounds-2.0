@@ -26,6 +26,12 @@ import { readStudySession, studySessionKey } from './study-session'
 import { caseRevision } from './case-coaching'
 import { materialStudyTopics } from './material-study'
 import {
+  RAPID_RESPONSE_KEY,
+  readRapidResponseSessions,
+  rapidResponseAttempt,
+} from './rapid-response-session'
+import { getRapidResponseCase } from './rapid-response-content'
+import {
   clinicalStudyKey,
   readClinicalStudySession,
   clinicalStudyAttempt,
@@ -61,6 +67,21 @@ export function readProgress(storage?: ProgressStorage): ProgressSnapshot {
     const add = (record: AttemptRecord) => {
       if (!result.attempts.some((item) => item.id === record.id))
         result.attempts.push(record)
+    }
+    for (const session of readRapidResponseSessions(
+      saved.getItem(RAPID_RESPONSE_KEY)
+    )) {
+      const story = getRapidResponseCase(session.caseId)!
+      if (session.complete) add(rapidResponseAttempt(session, 'saved'))
+      else
+        result.unfinished.push({
+          id: session.id,
+          title: story.title,
+          href: `/rapid-response?session=${encodeURIComponent(session.id)}`,
+          kind: 'rapid-response',
+          detail: `Rapid Response · Decision ${session.index + 1} of ${story.stages.length} · Paused`,
+          updatedAt: session.updatedAt,
+        })
     }
     for (const session of readPracticeSessions(
       saved.getItem(PRACTICE_SESSIONS_KEY)

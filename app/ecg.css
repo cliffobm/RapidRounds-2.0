@@ -1,0 +1,195 @@
+.ecg-library {
+  max-width: 1160px;
+}
+.ecg-library-intro,
+.ecg-context-note,
+.ecg-calibration-note {
+  max-width: 80ch;
+  line-height: 1.7;
+}
+.ecg-context-note {
+  padding: 18px 22px;
+  border: 1px solid var(--rr-line);
+  border-left: 4px solid #23886b;
+  border-radius: 14px;
+  background: var(--rr-surface);
+  margin: 22px 0;
+}
+.ecg-context-note p + p {
+  margin-top: 12px;
+}
+.ecg-library-controls {
+  display: grid;
+  gap: 12px;
+  margin: 30px 0;
+}
+.ecg-library-controls label {
+  font-weight: 700;
+}
+.ecg-library-controls input {
+  width: 100%;
+  max-width: 660px;
+  min-height: 48px;
+  border: 1px solid var(--rr-muted);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--rr-ink);
+  background: var(--rr-surface);
+}
+.ecg-category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.ecg-category-buttons button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--rr-muted);
+  border-radius: 999px;
+  background: var(--rr-surface);
+  color: var(--rr-ink);
+  font: inherit;
+  font-weight: 650;
+}
+.ecg-category-buttons button[aria-pressed='true'] {
+  color: #10382b;
+  background: #b8f5dc;
+  border-color: #23886b;
+}
+.ecg-library :is(input, button, a, summary):focus-visible,
+.ecg-strip-scroll:focus-visible {
+  outline: 3px solid var(--rr-ink);
+  outline-offset: 4px;
+}
+.ecg-library-list {
+  display: grid;
+  gap: 24px;
+}
+.ecg-library-card {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--rr-line);
+  border-radius: 22px;
+  background: var(--rr-surface);
+}
+.ecg-library-card h2 {
+  font-size: clamp(1.35rem, 4vw, 1.8rem);
+  font-weight: 750;
+  margin: 6px 0 18px;
+}
+.ecg-strip {
+  min-width: 0;
+  max-width: 100%;
+  margin: 18px 0;
+}
+.ecg-strip-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+.ecg-strip-heading span,
+.ecg-scroll-hint,
+.ecg-strip figcaption {
+  color: var(--rr-muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.ecg-scroll-hint {
+  margin-bottom: 8px;
+}
+.ecg-strip-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid #c5798a;
+  border-radius: 12px;
+  background: #fff8f9;
+  scrollbar-gutter: stable;
+}
+.ecg-strip-scroll svg {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: auto;
+}
+.ecg-strip-scroll[data-enlarged='true'] svg {
+  width: 1200px;
+  min-width: 1200px;
+  max-width: none;
+  height: 320px;
+}
+.ecg-enlarge {
+  min-height: 44px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--rr-muted);
+  border-radius: 10px;
+  color: var(--rr-ink);
+  background: var(--rr-surface);
+  font: inherit;
+  font-weight: 650;
+}
+.ecg-enlarge:focus-visible {
+  outline: 3px solid var(--rr-ink);
+  outline-offset: 3px;
+}
+.ecg-strip figcaption {
+  margin-top: 8px;
+}
+.ecg-teaching-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 22px;
+  line-height: 1.65;
+}
+.ecg-teaching-details h3 {
+  font-weight: 750;
+  margin-bottom: 8px;
+}
+.ecg-teaching-details ul,
+.ecg-sources ul {
+  list-style: disc;
+  padding-left: 22px;
+}
+.ecg-teaching-details :is(li, p) + :is(li, p) {
+  margin-top: 8px;
+}
+.ecg-sources {
+  margin-top: 18px;
+  font-size: 0.9rem;
+}
+.ecg-sources summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: list-item;
+  padding-top: 10px;
+  font-weight: 700;
+}
+.ecg-sources a,
+.ecg-calibration-note a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ecg-sources li {
+  margin: 10px 0;
+}
+.ecg-calibration-note {
+  margin: 30px 0;
+  font-size: 0.9rem;
+}
+@media (max-width: 640px) {
+  .ecg-library-card {
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
+  .ecg-teaching-details {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}

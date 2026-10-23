@@ -12,6 +12,7 @@ export default defineConfig({
     'progress.spec.ts',
     'case-levels.spec.ts',
     'material-learning.spec.ts',
+    'rapid-response.spec.ts',
   ],
   workers: 1,
   reporter: 'list',

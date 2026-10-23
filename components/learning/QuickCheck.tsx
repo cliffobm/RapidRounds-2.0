@@ -70,6 +70,9 @@ export function QuickLaunch() {
       <Link className="text-link" href="/rr#evolving-title">
         Evolving cases →
       </Link>
+      <Link className="text-link" href="/rapid-response">
+        Rapid Response →
+      </Link>
     </div>
   )
 }

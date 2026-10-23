@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import type { AttemptRecord } from '@/lib/learning/attempt-history'
+import { formatResponseTime } from '@/lib/learning/rapid-response-session'
 import { readProgress, type ProgressSnapshot } from '@/lib/learning/progress'
 import {
   comparePracticeAttempt,
@@ -12,6 +13,7 @@ import {
 } from '@/lib/learning/progress-view'
 
 const kinds: Record<AttemptRecord['kind'], string> = {
+  'rapid-response': 'Rapid Response',
   study: 'Clinical study',
   practice: 'Practice questions',
   'guided-case': 'Guided case',
@@ -110,12 +112,26 @@ function ResultCard({
         <div>
           <dt>Recorded reference use</dt>
           <dd>
-            {attempt.kind === 'guided-case' || attempt.kind === 'study'
+            {attempt.kind === 'guided-case' ||
+            attempt.kind === 'study' ||
+            attempt.kind === 'rapid-response'
               ? 'Not recorded'
               : attempt.assisted}
           </dd>
         </div>
       </dl>
+      {attempt.timing && (
+        <p className="progress-timing">
+          Active time {formatResponseTime(attempt.timing.activeMs)} ·{' '}
+          {attempt.timing.mode === 'untimed'
+            ? 'Open practice'
+            : `Time budget ${formatResponseTime(attempt.timing.budgetMs!)}`}
+          {attempt.timing.exceededBudget
+            ? ' · Continued after the time budget'
+            : ''}
+          . Time is a practice reference, separate from accuracy.
+        </p>
+      )}
       {saved ? (
         <p className="progress-comparison">
           Earlier saved result. Its position in your attempt history is unknown.
