@@ -22,20 +22,23 @@ async function accessible(page: Page) {
   })
   expect(violations).toEqual([])
 }
-test('colleague review guide supports phone layouts, dark accessibility and a real feedback download', async ({
+test('colleague review guide supports phone layouts, light/dark accessibility and a real feedback download', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/settings')
-  await page.getByRole('radio', { name: 'Dark', exact: true }).check()
-  for (const width of [320, 390, 1440]) {
-    await page.setViewportSize({ width, height: 950 })
-    await page.goto('/review-guide')
-    await expect(
-      page.getByRole('heading', { name: 'Help shape RapidRounds.' })
-    ).toBeVisible()
-    await expect(page.locator('html')).toHaveClass(/dark/)
-    await accessible(page)
+  for (const theme of ['Light', 'Dark']) {
+    await page.goto('/settings')
+    await page.getByRole('radio', { name: theme, exact: true }).check()
+    for (const width of [320, 390, 1440]) {
+      await page.setViewportSize({ width, height: 950 })
+      await page.goto('/review-guide')
+      await expect(
+        page.getByRole('heading', { name: 'Help shape RapidRounds.' })
+      ).toBeVisible()
+      if (theme === 'Dark') await expect(page.locator('html')).toHaveClass(/dark/)
+      else await expect(page.locator('html')).not.toHaveClass(/dark/)
+      await accessible(page)
+    }
   }
   await page
     .getByLabel('Review area', { exact: true })
