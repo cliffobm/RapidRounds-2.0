@@ -30,10 +30,10 @@ beforeEach(() => {
 describe('UnifiedPractice', () => {
   it('starts with every topic and level available and supports a searchable topic picker', async () => {
     render(<UnifiedPractice />)
-    expect(await screen.findByText('136 questions available.')).toBeVisible()
+    expect(await screen.findByText('196 questions available.')).toBeVisible()
     fireEvent.click(
       screen.getByRole('button', {
-        name: /All topics 136 questions/,
+        name: /All topics 196 questions/,
       })
     )
     fireEvent.change(
@@ -173,7 +173,7 @@ describe('UnifiedPractice', () => {
     expect(
       screen.getByRole('button', { name: 'Start 5-question guided practice' })
     ).toBeEnabled()
-    expect(screen.getByText('136 questions available.')).toBeVisible()
+    expect(screen.getByText('196 questions available.')).toBeVisible()
   })
 
   it('keeps practice usable during the visit when storage fails, without redirecting to an unsaved attempt', async () => {
@@ -225,7 +225,7 @@ describe('UnifiedPractice', () => {
     })
     render(page)
     expect(
-      await screen.findByText('12 questions available at this level.')
+      await screen.findByText('32 questions available at this level.')
     ).toBeVisible()
     fireEvent.click(screen.getByText('Customize reasoning level'))
     expect(
@@ -247,7 +247,7 @@ describe('UnifiedPractice', () => {
     render(
       await PracticePage({ searchParams: Promise.resolve({ level: 'expert' }) })
     )
-    expect(await screen.findByText('136 questions available.')).toBeVisible()
+    expect(await screen.findByText('196 questions available.')).toBeVisible()
     fireEvent.click(screen.getByText('Customize reasoning level'))
     expect(
       screen.getByRole('button', { name: 'All levels', exact: true })

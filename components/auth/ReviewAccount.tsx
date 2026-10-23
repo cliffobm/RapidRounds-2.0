@@ -51,6 +51,9 @@ export default function ReviewAccount({ email }: { email: string }) {
           </p>
         </div>
         <nav className="rr-auth-actions" aria-label="Continue your review">
+          <Link href="/review-guide" className="rr-auth-text-link">
+            Colleague review guide →
+          </Link>
           <Link href="/home" className="rr-button rr-button-mint">
             Review Home
           </Link>

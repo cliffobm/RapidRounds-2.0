@@ -699,6 +699,7 @@ export default function UnifiedPractice({
           {session.mode === 'guided' && answer ? (
             <details className="practice-customize">
               <summary>Question sources & review status</summary>
+              <p>Question reference: {question.id}</p>
               <p>
                 {question.origin === 'legacy'
                   ? 'Imported practice question'

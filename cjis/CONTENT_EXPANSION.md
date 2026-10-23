@@ -1,4 +1,35 @@
-# Content expansion — 2026-10-17.2
+# Content expansion
+
+## Source material expansion on October 22 2026
+
+The supplied materials were inventoried read-only. Original files, archives and the synced project `sources/` directory were not changed or copied into the application. Review distinguished topic coverage from clinical authority; no publisher test-bank stems, answer sets or textbook pages were imported into this expansion.
+
+| Supplied material | Verified scope |
+| --- | --- |
+| Medical-Surgical Nursing 9e chapter folder | 74 readable test-bank PDFs, 622 pages; all pages text-extracted; 1,773 answer markers |
+| Pharmacology 7e archive | 59 readable RTF chapter banks, 954 answer markers; inspected in-memory without bulk extraction |
+| Health Assessment 6e archive | 24 readable RTF chapter banks, 634 answer markers |
+| Pharmacology 9e 2017 PDF | 299 pages, 55 chapter numbers and 963 answer markers; coverage/structure extracted |
+| Fundamentals 9e PDF | 1,046 pages, 50 chapter numbers and 1,569 answer markers; this file is a test bank, not textbook prose |
+| Brunner & Suddarth medical-surgical textbook | 6,203 PDF pages; edition/contents and targeted conceptual/clinical pages reviewed, including visual inspection; a complete page-by-page clinical validation is not claimed |
+| Benner nursing-practice domains DOC | Legacy Word content read; references Benner 1984 and seven practice domains; pagination not verified |
+| Separate Genetics 05 and Emergency/Trauma 08 PDFs | Six pages each; SHA-256 identical to their chapter-folder copies and excluded from additional coverage counts |
+
+Answer-marker counts are extraction counts, not deduplicated or validated questions. PDF conversion dates do not establish publication dates. Older items contained questionable clinical priorities and overly broad genetics claims. They informed the coverage blueprint, with new clinical decisions checked against current primary guidance instead of importing their keys. Benner's domains inform attention to teaching, monitoring, safety and coordination; scores do not establish novice-to-expert progression.
+
+Implemented original drafts:
+
+- **60 standalone single-best-answer questions** in four new 15-item collections: medication decisions; kidney/metabolic changes; assessment/safety; genetics/shared decisions. Each has five Foundation, five Challenge and five Advanced items, option-specific rationales and source context. Unified Practice now has **196 items in 20 collections**. The 136 prior items and keys remain unchanged.
+- **Two evolving case families, four patient presentations and 24 new checkpoints:** postoperative opioid-associated ventilatory impairment, recurrent hypoglycaemia, gastrointestinal losses with renal/electrolyte change, and congestion with competing renal/perfusion risks. Each checkpoint has three distinct level-specific questions, adding **72 case questions**. The application now has eight evolving families, 16 paths and 96 scripted checkpoints. These are authored sequences, not random physiological simulation.
+- **Four clinical study lessons**, each with three reading sections, worked examples and three checks. Selected drafts, confirmed feedback, completion and restart persist locally. Study results appear as a distinct activity in Progress, and lessons link to related Practice collections and cases. The checks are formative, with no calibrated growth or competence claim.
+- **Eight glossary entries** covering AKI, oliguria, hypoglycaemia, hyperkalaemia, pharmacogenetics, polypharmacy, VUS and sedation, bringing the glossary to 50 terms. Inline equivalents include US/UK spellings. Existing six value examples are unchanged.
+- **A colleague review guide at `/review-guide`**, linked from Account, with suggested review tasks and a local text-file feedback download. Notes are not submitted, emailed or stored in a backend. The reviewer sends the downloaded file through their chosen channel. No patient identifiers or credentials are requested.
+
+Current source context includes NICE NG5/NG148/NG39/NG232/NG249/CG179/CG174, ADA 2026 hospital standards, APSF ventilatory-impairment monitoring, UK Kidney Association's July 2026 hyperkalaemia update, Lifeblood transfusion-reaction guidance, and FDA/NCI/CDC/MedlinePlus genetics resources. Visible source links identify the relevant context. These sources do not substitute for local pathways or human clinical signoff.
+
+Practice session compatibility explicitly retains `practice-1:c8409c89` only while the original 136 question definitions match that hash. Old sessions cannot contain newly added IDs; their saved order, answers, score and revision remain intact. New sessions use the expanded library hash. Existing six evolving case families and their legacy question revisions remain unchanged.
+
+## Earlier expansion on October 17 2026
 
 This revision adds original educational drafts to the review application. It does not establish clinical competence, validated competency mappings, or a passing standard. Human clinical review is pending.
 

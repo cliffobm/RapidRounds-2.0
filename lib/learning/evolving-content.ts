@@ -1,4 +1,5 @@
 import { complexSkinAbdomen } from './complex-cases-skin-abdomen'
+import { materialCases } from './material-cases'
 import { complexCasesOther } from './complex-cases-other'
 import { pillars } from './pillars'
 import {
@@ -1439,87 +1440,90 @@ const alternateDecisions: Record<string, Record<number, TeachingRow>> = {
   },
 }
 const distinctQuestions = { ...complexSkinAbdomen, ...complexCasesOther }
-export const evolvingCases: EvolvingCase[] = families.map((family) => ({
-  id: family.id,
-  title: family.title,
-  topic: family.topic,
-  summary: family.summary,
-  sources: [
-    ...family.sources,
-    ...(family.id === 'nutrition-context'
-      ? (['nutritionSupport'] as SourceId[])
-      : family.id === 'fever-neuro'
-        ? (['suddenHeadache'] as SourceId[])
-        : family.id === 'skin-systemic'
-          ? (['deepSkinInfection', 'compartment'] as SourceId[])
-          : family.id === 'abdomen-turn'
-            ? (['abdominalCare'] as SourceId[])
-            : []),
-  ],
-  paths: family.patients.map((patient, pathIndex) => ({
-    id: pathIndex === 0 ? 'a' : 'b',
-    label: pathIndex === 0 ? 'Initial presentation' : 'Complicating context',
-    patient,
-    history: family.histories[pathIndex]!,
-    frames: family.rows.map((item, index) => {
-      const teaching =
-        pathIndex === 1
-          ? (alternateDecisions[family.id]?.[index] ?? item)
-          : item
-      const values = family.vitals[pathIndex]![index]!
-      const observation: Observation = {
-        minute: index * 15,
-        hr: values[0],
-        bp: values[1],
-        rr: values[2],
-        temperature: values[3],
-        spo2: values[4],
-        note:
-          pathIndex === 0
-            ? item.update
-            : `${item.update.split(family.patients[0].split(' ')[0]!).join(patient.split(' ')[0]!)} ${family.alternate[index]!}`,
-      }
-      return {
-        skill: pillars[index]!.id,
-        update: observation.note,
-        evidence: [
-          ...item.support.map((pair) => pair[0]),
-          index === 0
-            ? family.histories[pathIndex]!
-            : family.rows[index - 1]!.update,
-        ],
-        observation,
-        challenge:
-          distinctQuestions[family.id]![pathIndex === 0 ? 'a' : 'b']![index]!
-            .challenge,
-        advanced:
-          distinctQuestions[family.id]![pathIndex === 0 ? 'a' : 'b']![index]!
-            .advanced,
-        question: choiceQuestion(
-          teaching.prompt,
-          teaching.choices,
-          teaching.reflection
-        ),
-        complex: evidenceQuestion(
-          `Select the TWO elements that best support the current reasoning and plan. ${teaching.prompt}`,
-          [
-            teaching.support[0][0],
-            teaching.support[1][0],
-            teaching.choices[1][0],
-            teaching.choices[2][0],
+export const evolvingCases: EvolvingCase[] = [
+  ...families.map((family) => ({
+    id: family.id,
+    title: family.title,
+    topic: family.topic,
+    summary: family.summary,
+    sources: [
+      ...family.sources,
+      ...(family.id === 'nutrition-context'
+        ? (['nutritionSupport'] as SourceId[])
+        : family.id === 'fever-neuro'
+          ? (['suddenHeadache'] as SourceId[])
+          : family.id === 'skin-systemic'
+            ? (['deepSkinInfection', 'compartment'] as SourceId[])
+            : family.id === 'abdomen-turn'
+              ? (['abdominalCare'] as SourceId[])
+              : []),
+    ],
+    paths: family.patients.map((patient, pathIndex) => ({
+      id: pathIndex === 0 ? 'a' : 'b',
+      label: pathIndex === 0 ? 'Initial presentation' : 'Complicating context',
+      patient,
+      history: family.histories[pathIndex]!,
+      frames: family.rows.map((item, index) => {
+        const teaching =
+          pathIndex === 1
+            ? (alternateDecisions[family.id]?.[index] ?? item)
+            : item
+        const values = family.vitals[pathIndex]![index]!
+        const observation: Observation = {
+          minute: index * 15,
+          hr: values[0],
+          bp: values[1],
+          rr: values[2],
+          temperature: values[3],
+          spo2: values[4],
+          note:
+            pathIndex === 0
+              ? item.update
+              : `${item.update.split(family.patients[0].split(' ')[0]!).join(patient.split(' ')[0]!)} ${family.alternate[index]!}`,
+        }
+        return {
+          skill: pillars[index]!.id,
+          update: observation.note,
+          evidence: [
+            ...item.support.map((pair) => pair[0]),
+            index === 0
+              ? family.histories[pathIndex]!
+              : family.rows[index - 1]!.update,
           ],
-          [
-            teaching.support[0][1],
-            teaching.support[1][1],
-            teaching.choices[1][1],
-            teaching.choices[2][1],
-          ],
-          teaching.reflection
-        ),
-      }
-    }),
+          observation,
+          challenge:
+            distinctQuestions[family.id]![pathIndex === 0 ? 'a' : 'b']![index]!
+              .challenge,
+          advanced:
+            distinctQuestions[family.id]![pathIndex === 0 ? 'a' : 'b']![index]!
+              .advanced,
+          question: choiceQuestion(
+            teaching.prompt,
+            teaching.choices,
+            teaching.reflection
+          ),
+          complex: evidenceQuestion(
+            `Select the TWO elements that best support the current reasoning and plan. ${teaching.prompt}`,
+            [
+              teaching.support[0][0],
+              teaching.support[1][0],
+              teaching.choices[1][0],
+              teaching.choices[2][0],
+            ],
+            [
+              teaching.support[0][1],
+              teaching.support[1][1],
+              teaching.choices[1][1],
+              teaching.choices[2][1],
+            ],
+            teaching.reflection
+          ),
+        }
+      }),
+    })),
   })),
-}))
+  ...materialCases,
+]
 export const reasoningQuestions: ReasoningQuestion[] = families.flatMap(
   (family) =>
     family.rows.map((item, index) => ({

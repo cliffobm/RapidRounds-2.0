@@ -1,0 +1,76 @@
+.material-study .lesson-reading {
+  line-height: 1.75;
+  margin: 28px 0;
+}
+.material-study .lesson-reading > p {
+  margin: 16px 0;
+}
+.material-study .worked-example {
+  padding: 22px;
+  border: 1px solid var(--rr-line);
+  border-radius: 18px;
+  margin-top: 24px;
+  background: var(--rr-surface);
+}
+.material-study .answer-feedback {
+  display: block;
+}
+.material-study .material-sources {
+  display: block;
+  margin: 30px 0;
+}
+.material-sources summary {
+  cursor: pointer;
+  min-height: 44px;
+  font-weight: 700;
+}
+.material-sources li {
+  margin: 14px 0;
+}
+.review-guide > p {
+  max-width: 72ch;
+  line-height: 1.7;
+}
+.review-guide .study-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.review-guide .study-card .text-link {
+  min-height: 44px;
+}
+.review-feedback {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+  max-width: 760px;
+}
+.review-feedback label {
+  font-weight: 700;
+  margin-top: 10px;
+}
+.review-feedback :is(input, select, textarea) {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid var(--rr-muted);
+  border-radius: 10px;
+  background: var(--rr-surface);
+  color: var(--rr-ink);
+  font: inherit;
+  font-size: 1rem;
+}
+.review-feedback textarea {
+  resize: vertical;
+}
+.review-feedback button {
+  justify-self: start;
+  margin-top: 12px;
+}
+.review-feedback :is(input, select, textarea, button):focus-visible {
+  outline: 3px solid var(--rr-ink);
+  outline-offset: 3px;
+}
+.review-guide .study-grid {
+  align-items: stretch;
+}

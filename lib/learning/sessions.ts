@@ -28,7 +28,7 @@ const activitySchema = z.object({
   href: z
     .string()
     .regex(
-      /^\/(rr\/(sepsis|tavr|chest-pain|neuro-change|respiratory-change|fluid-loss)|evolving\/(fever-neuro|pancreas-balance|skin-systemic|leg-to-lung|abdomen-turn|nutrition-context)|quick-check|quiz\?bank=[a-z_]+|study\?pillar=[a-z_]+)$/
+      /^\/(rr\/(sepsis|tavr|chest-pain|neuro-change|respiratory-change|fluid-loss)|evolving\/(fever-neuro|pancreas-balance|skin-systemic|leg-to-lung|abdomen-turn|nutrition-context|medication-shift|kidney-trend)|quick-check|quiz\?bank=[a-z_]+|study\?pillar=[a-z_]+)$/
     ),
   completedAt: z.string().datetime(),
 })

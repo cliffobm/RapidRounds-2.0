@@ -11,6 +11,7 @@ export default defineConfig({
     'debrief.spec.ts',
     'progress.spec.ts',
     'case-levels.spec.ts',
+    'material-learning.spec.ts',
   ],
   workers: 1,
   reporter: 'list',

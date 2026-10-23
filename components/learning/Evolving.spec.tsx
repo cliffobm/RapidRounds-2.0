@@ -44,7 +44,7 @@ describe('evolving reasoning practice', () => {
     ).toBe(5000)
   })
   it('has complete reviewed-shape draft content and distinct clinical paths without generating arbitrary values', () => {
-    expect(evolvingCases).toHaveLength(6)
+    expect(evolvingCases).toHaveLength(8)
     expect(reasoningQuestions).toHaveLength(36)
     expect(new Set(reasoningQuestions.map((q) => q.id)).size).toBe(36)
     for (const level of ['foundation', 'challenge', 'advanced'])

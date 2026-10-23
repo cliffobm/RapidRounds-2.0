@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
 } from 'lucide-react'
 import { pillars, type PillarId } from '@/lib/learning/pillars'
+import { materialStudyTopics } from '@/lib/learning/material-study'
 import {
   studyUnits,
   readStudyRecords,
@@ -178,6 +179,29 @@ export default function StudyExperience({
           </Link>
         </div>
       </div>
+      <section
+        className="pathway-section"
+        aria-labelledby="clinical-topics-title"
+      >
+        <p className="eyebrow">TAKE THE NEXT STEP</p>
+        <h2 id="clinical-topics-title">Clinical topic lessons</h2>
+        <div className="study-grid">
+          {materialStudyTopics.map((topic) => (
+            <Link
+              className="study-card tone-mint"
+              key={topic.id}
+              href={`/study/topics/${topic.id}`}
+            >
+              <span className="topic-meta">
+                {topic.minutes} min · 3 applied checks
+              </span>
+              <h3>{topic.title}</h3>
+              <p>{topic.objective}</p>
+              <span className="text-link">Explore lesson →</span>
+            </Link>
+          ))}
+        </div>
+      </section>
       <div className="reference-links">
         <Link href="/pathway">Follow the deterioration pathway →</Link>
         <strong>Keep a reference close.</strong>

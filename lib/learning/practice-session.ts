@@ -5,6 +5,7 @@ import { matchesAnswer } from './evolving-types'
 import { summarizePractice } from './practice-result'
 import {
   PRACTICE_LIBRARY_REVISION,
+  LEGACY_PRACTICE_LIBRARY_REVISION,
   findPracticeCollection,
   getPracticeQuestion,
   practicePool,
@@ -14,7 +15,10 @@ import {
 export const PRACTICE_SESSIONS_KEY = 'rapidrounds-practice-sessions-v1'
 const schema = z.object({
   id: z.string().regex(/^[a-zA-Z0-9_-]{6,100}$/),
-  revision: z.literal(PRACTICE_LIBRARY_REVISION),
+  revision: z.enum([
+    PRACTICE_LIBRARY_REVISION,
+    LEGACY_PRACTICE_LIBRARY_REVISION,
+  ]),
   mode: z.enum(['guided', 'check']),
   collectionId: z.string().max(100),
   title: z.string().min(1).max(150),
@@ -59,7 +63,7 @@ function validSession(value: unknown): UnifiedPracticeSession | null {
     return null
   if (
     !session.ids.every((id) => {
-      const question = getPracticeQuestion(id)
+      const question = getPracticeQuestion(id, session.revision)
       return (
         question &&
         (session.collectionId === 'all' ||
@@ -73,13 +77,17 @@ function validSession(value: unknown): UnifiedPracticeSession | null {
     !session.answers.every(
       (answer, index) =>
         answer.selected === null ||
-        getPracticeQuestion(session.ids[index]!)!.options.some(
-          (option) => option.id === answer.selected
-        )
+        getPracticeQuestion(
+          session.ids[index]!,
+          session.revision
+        )!.options.some((option) => option.id === answer.selected)
     )
   )
     return null
-  const current = getPracticeQuestion(session.ids[session.index]!)!
+  const current = getPracticeQuestion(
+    session.ids[session.index]!,
+    session.revision
+  )!
   if (
     session.selected &&
     !current.options.some((option) => option.id === session.selected)
@@ -160,15 +168,16 @@ export function practiceAttemptRecord(
   const outcomes = session.answers.map((answer, index) => ({
     correct:
       answer.selected !== null &&
-      matchesAnswer(getPracticeQuestion(session.ids[index]!)!, [
-        answer.selected,
-      ]),
+      matchesAnswer(
+        getPracticeQuestion(session.ids[index]!, session.revision)!,
+        [answer.selected]
+      ),
     skipped: answer.selected === null,
     assisted: answer.assisted,
   }))
   const result = summarizePractice(outcomes)
   const levels = new Set(
-    session.ids.map((id) => getPracticeQuestion(id)!.level)
+    session.ids.map((id) => getPracticeQuestion(id, session.revision)!.level)
   )
   const level = levels.size === 1 ? [...levels][0]! : 'mixed'
   const skills = new Map<
@@ -176,7 +185,7 @@ export function practiceAttemptRecord(
     { skill: PillarId; correct: number; answered: number }
   >()
   session.answers.forEach((answer, index) => {
-    const question = getPracticeQuestion(session.ids[index]!)!
+    const question = getPracticeQuestion(session.ids[index]!, session.revision)!
     if (!question.skill || answer.selected === null) return
     const skill = skills.get(question.skill) ?? {
       skill: question.skill,

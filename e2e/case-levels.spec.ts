@@ -7,7 +7,12 @@ import {
 } from '../lib/learning/evolving-types'
 import { newCaseSession } from '../lib/learning/evolving-session'
 
-for (const id of ['skin-systemic', 'abdomen-turn'])
+for (const id of [
+  'skin-systemic',
+  'abdomen-turn',
+  'medication-shift',
+  'kidney-trend',
+])
   for (const level of ['challenge', 'advanced'] as const) {
     test(`${id} ${level} uses distinct clinical questions on both patient paths`, async ({
       page,

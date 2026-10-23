@@ -1,4 +1,86 @@
 export const contentSources = {
+  medicationSafety: {
+    title: 'NICE NG5: medicines optimisation',
+    url: 'https://www.nice.org.uk/guidance/ng5/chapter/Recommendations',
+    section:
+      'Reconciliation, medication review, shared decisions and transitions',
+  },
+  opioidSafety: {
+    title: 'APSF: monitoring opioid-induced ventilatory impairment',
+    url: 'https://www.apsf.org/article/monitoring-for-opioid-induced-respiratory-depression/',
+    section:
+      'Sedation, ventilation, supplemental oxygen and monitoring limitations',
+  },
+  insulinSafety: {
+    title: 'ADA 2026: diabetes care in the hospital',
+    url: 'https://diabetesjournals.org/care/article/49/Supplement_1/S339/163925/16-Diabetes-Care-in-the-Hospital-Standards-of-Care',
+    section:
+      'Hypoglycaemia, nutrition coordination, individualized insulin and type 1 basal requirements',
+  },
+  aki: {
+    title: 'NICE NG148: acute kidney injury',
+    url: 'https://www.nice.org.uk/guidance/ng148/chapter/Recommendations',
+    section:
+      'Baseline comparison, output, exposures, obstruction and clinical review',
+  },
+  hyperkalaemia: {
+    title: 'UK Kidney Association: hyperkalaemia guideline, July 2026 update',
+    url: 'https://www.ukkidney.org/health-professionals/guidelines/treatment-acute-hyperkalaemia-adults-0',
+    section:
+      'Clinical context, ECG limitations, repeat assessment and acute pathways',
+  },
+  transfusion: {
+    title: 'Australian Red Cross Lifeblood: suspected transfusion reactions',
+    url: 'https://www.lifeblood.com.au/health-professionals/clinical-practice/adverse-events/management-of-suspected-reactions',
+    section:
+      'Immediate response, ABC assessment, urgent assistance and contextual investigation',
+  },
+  geneticCounselling: {
+    title: 'NCI: genetic testing for inherited cancer risk',
+    url: 'https://www.cancer.gov/about-cancer/causes-prevention/genetics/genetic-testing-fact-sheet',
+    section:
+      'Test purpose, uncertainty, variants and germline versus tumor testing',
+  },
+  geneticConsent: {
+    title: 'MedlinePlus Genetics: informed consent for genetic testing',
+    url: 'https://medlineplus.gov/genetics/understanding/testing/informedconsent/',
+    section:
+      'Voluntary informed decisions, implications and questions before testing',
+  },
+  familyHistory: {
+    title: 'CDC: family health history and adults',
+    url: 'https://www.cdc.gov/family-health-history/family-health-history-and-you/family-health-history-and-adults.html',
+    section:
+      'Relevant relatives, diagnoses, ages and communication with clinicians',
+  },
+  pharmacogenetics: {
+    title: 'FDA: table of pharmacogenetic associations',
+    url: 'https://www.fda.gov/medical-devices/precision-medicine/table-pharmacogenetic-associations',
+    section:
+      'Specific gene–drug evidence, limitations and individual clinical context',
+  },
+  traumaAssessment: {
+    title: 'NICE NG39: major trauma assessment',
+    url: 'https://www.nice.org.uk/guidance/ng39/chapter/Recommendations',
+    section:
+      'Primary assessment, bleeding and limitations of negative initial findings',
+  },
+  headInjury: {
+    title: 'NICE NG232: head injury assessment',
+    url: 'https://www.nice.org.uk/guidance/ng232/chapter/Recommendations',
+    section: 'Changing symptoms, anticoagulants and timely assessment',
+  },
+  pressureInjury: {
+    title: 'NICE CG179: pressure ulcer prevention',
+    url: 'https://www.nice.org.uk/guidance/cg179/chapter/Recommendations',
+    section:
+      'Skin and risk assessment, individualized prevention and reassessment',
+  },
+  falls: {
+    title: 'NICE NG249: falls assessment and prevention',
+    url: 'https://www.nice.org.uk/guidance/ng249/chapter/Recommendations',
+    section: 'Individual risks, medicines, function and tailored interventions',
+  },
   nutritionSupport: {
     title: 'NICE CG32: adult nutrition assessment',
     url: 'https://www.nice.org.uk/guidance/cg32/chapter/Recommendations',

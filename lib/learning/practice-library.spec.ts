@@ -11,18 +11,18 @@ import {
 } from './practice-library'
 
 describe('unified practice library', () => {
-  it('contains all 136 unique questions in 16 collections', () => {
-    expect(practiceLibrary).toHaveLength(136)
+  it('contains all 196 unique questions in 20 collections', () => {
+    expect(practiceLibrary).toHaveLength(196)
     expect(new Set(practiceLibrary.map((question) => question.id)).size).toBe(
-      136
+      196
     )
-    expect(practiceCollections).toHaveLength(16)
+    expect(practiceCollections).toHaveLength(20)
     expect(
       practiceCollections.reduce(
         (total, collection) => total + collection.count,
         0
       )
-    ).toBe(136)
+    ).toBe(196)
   })
 
   it('preserves every existing question key, stem, prompt, option and answer key', () => {
@@ -53,7 +53,7 @@ describe('unified practice library', () => {
       expect(question.correct).toEqual(original.correct)
       expect(question.level).toBe(original.level)
     }
-    expect(practicePool('all', 'advanced')).toHaveLength(12)
+    expect(practicePool('all', 'advanced')).toHaveLength(32)
   })
 
   it('resolves old bank keys and new collection topic names for redirects', () => {

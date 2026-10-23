@@ -9,6 +9,7 @@ import {
 import type { PillarId } from './pillars'
 import type { SourceId } from './sources'
 import { contentRevision } from './sessions'
+import { materialCollections, materialQuestions } from './material-questions'
 
 export type PracticeLevel = ReasoningLevel | 'unclassified'
 export type UnifiedPracticeQuestion = EvolvingQuestion & {
@@ -75,9 +76,23 @@ const caseQuestions: UnifiedPracticeQuestion[] = evolvingCases.flatMap(
       }))
 )
 
-export const practiceLibrary: UnifiedPracticeQuestion[] = [
+const previousLibraryQuestions: UnifiedPracticeQuestion[] = [
   ...bankQuestions,
   ...caseQuestions,
+]
+// This is the exact deployed 136-question library. Older attempts remain valid
+// only while its question definitions and answer keys still match this hash.
+export const LEGACY_PRACTICE_LIBRARY_REVISION = 'practice-1:c8409c89'
+const previousLibraryUnchanged =
+  `practice-1:${contentRevision(previousLibraryQuestions)}` ===
+  LEGACY_PRACTICE_LIBRARY_REVISION
+const previousQuestionIds = new Set(
+  previousLibraryQuestions.map((question) => question.id)
+)
+
+export const practiceLibrary: UnifiedPracticeQuestion[] = [
+  ...previousLibraryQuestions,
+  ...materialQuestions,
 ]
 export const PRACTICE_LIBRARY_REVISION = `practice-1:${contentRevision(practiceLibrary)}`
 const questionsById = new Map(
@@ -95,17 +110,35 @@ export const practiceCollections: PracticeCollection[] = [
       (question) => question.collectionId === topic.key
     ).length,
   })),
-  ...evolvingCases.map((story) => ({
-    id: `reasoning:${story.id}`,
-    title: story.topic,
-    category: 'Clinical reasoning',
-    count: caseQuestions.filter(
-      (question) => question.collectionId === `reasoning:${story.id}`
+  ...evolvingCases
+    .map((story) => ({
+      id: `reasoning:${story.id}`,
+      title: story.topic,
+      category: 'Clinical reasoning',
+      count: caseQuestions.filter(
+        (question) => question.collectionId === `reasoning:${story.id}`
+      ).length,
+    }))
+    .filter((collection) => collection.count > 0),
+  ...materialCollections.map((collection) => ({
+    ...collection,
+    count: materialQuestions.filter(
+      (question) => question.collectionId === collection.id
     ).length,
   })),
 ]
 
-export function getPracticeQuestion(id: string) {
+export function getPracticeQuestion(
+  id: string,
+  revision = PRACTICE_LIBRARY_REVISION
+) {
+  if (
+    revision !== PRACTICE_LIBRARY_REVISION &&
+    (revision !== LEGACY_PRACTICE_LIBRARY_REVISION ||
+      !previousLibraryUnchanged ||
+      !previousQuestionIds.has(id))
+  )
+    return undefined
   return questionsById.get(id)
 }
 

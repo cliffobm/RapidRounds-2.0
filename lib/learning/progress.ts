@@ -24,6 +24,12 @@ import {
 import { studyUnits } from './study'
 import { readStudySession, studySessionKey } from './study-session'
 import { caseRevision } from './case-coaching'
+import { materialStudyTopics } from './material-study'
+import {
+  clinicalStudyKey,
+  readClinicalStudySession,
+  clinicalStudyAttempt,
+} from './clinical-study-session'
 
 export type ResumeActivity = {
   id: string
@@ -169,6 +175,22 @@ export function readProgress(storage?: ProgressStorage): ProgressSnapshot {
               : session.phase === 'before'
                 ? 'Starting knowledge check'
                 : 'Application knowledge check',
+          updatedAt: session.updatedAt,
+        })
+    }
+    for (const topic of materialStudyTopics) {
+      const session = readClinicalStudySession(
+        saved.getItem(clinicalStudyKey(topic.id)),
+        topic
+      )
+      if (session?.complete) add(clinicalStudyAttempt(topic, session))
+      else if (session)
+        result.unfinished.push({
+          id: session.id,
+          title: topic.title,
+          href: `/study/topics/${topic.id}`,
+          kind: 'study',
+          detail: `Clinical study · Section ${session.index + 1} of ${topic.sections.length}`,
           updatedAt: session.updatedAt,
         })
     }

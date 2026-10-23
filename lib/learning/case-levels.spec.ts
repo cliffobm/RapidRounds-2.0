@@ -10,7 +10,7 @@ import { newCaseSession, readCaseSession } from './evolving-session'
 import { evolvingAttempt } from './attempt-adapters'
 
 describe('distinct clinical reasoning levels', () => {
-  it('authors 144 distinct higher-level questions across every case, path and checkpoint', () => {
+  it('authors 192 distinct higher-level questions across every case, path and checkpoint', () => {
     const prompts: string[] = []
     for (const story of evolvingCases)
       for (const path of story.paths)
@@ -45,8 +45,8 @@ describe('distinct clinical reasoning levels', () => {
             expect(q.options.every((o) => o.explanation.length > 25)).toBe(true)
           }
         }
-    expect(prompts).toHaveLength(144)
-    expect(new Set(prompts).size).toBe(144)
+    expect(prompts).toHaveLength(192)
+    expect(new Set(prompts).size).toBe(192)
   })
   it('retains earlier case questions and scores instead of rescoring them with the updated keys', () => {
     const story = evolvingCases[0]!,

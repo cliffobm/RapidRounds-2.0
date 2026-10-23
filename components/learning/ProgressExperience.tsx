@@ -12,6 +12,7 @@ import {
 } from '@/lib/learning/progress-view'
 
 const kinds: Record<AttemptRecord['kind'], string> = {
+  study: 'Clinical study',
   practice: 'Practice questions',
   'guided-case': 'Guided case',
   'evolving-case': 'Evolving case',
@@ -109,7 +110,9 @@ function ResultCard({
         <div>
           <dt>Recorded reference use</dt>
           <dd>
-            {attempt.kind === 'guided-case' ? 'Not recorded' : attempt.assisted}
+            {attempt.kind === 'guided-case' || attempt.kind === 'study'
+              ? 'Not recorded'
+              : attempt.assisted}
           </dd>
         </div>
       </dl>
