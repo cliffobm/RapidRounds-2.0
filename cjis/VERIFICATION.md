@@ -66,10 +66,12 @@ All history is browser-local. The history journal retains 200 attempt summaries;
 | Legacy adapter, `npm run test:cjis` | 8 passed |
 | TypeScript, `npm run typecheck` | Passed after final production changes |
 | Production compilation, `npm run build` | Passed after final production changes |
-| Full Windows Edge browser run, `npx playwright test --config playwright.cjis.config.ts` | All 54 passed in one run (4.8 minutes). Includes all six Rapid Response cases, resume, expiry, sound and ECG library checks. A final countdown-rounding display polish is checked by the focused rerun and exact-commit CI reported on delivery. |
+| Full Windows Edge browser run, `npx playwright test --config playwright.cjis.config.ts` | All 54 passed in one run (4.8 minutes), including all six Rapid Response cases, resume, expiry, sound and ECG library. A six-check focused rerun passed after countdown rounding. The final gallery contrast check expands coverage to 55; its final focused rerun and exact-commit Chrome CI results are reported on delivery. |
 | Previous complete GitHub run at `cf1b84b3716a8b6baa8af3bcd3c6e2ebd1b6f7ba` | [287 unit, 8 adapter and all 48 Chrome browser tests passed](https://github.com/cliffobm/RapidRounds-2.0/actions/runs/39953595966); TypeScript and production build passed. Exact current commit and complete Chrome CI result are reported on delivery. |
 
 The first focused Rapid Response browser run passed five checks and failed one test expectation: the saved-session URL correctly encoded a colon, but the assertion expected an unencoded colon. The expectation now uses `encodeURIComponent`; the complete 54-test run passed without a production change for that mismatch. Earlier topic-picker, guided feedback, ventilation review, trauma Check, old case replays, settings and accessibility checks also passed in that combined run. Local Next.js compilation used its official WASM fallback because Windows App Control blocked the native SWC binary; no security setting was changed.
+
+A live preview screenshot subsequently revealed that the gallery's headline inherited a dark text color on its dark panel. A scoped foreground-color rule fixes it. The new gallery check covers contrast and overflow in Light/Dark at 320, 390 and 1440px, adding to the existing in-case and ECG accessibility coverage. Live verification uses authorized temporary preview access without weakening deployment protection; colleagues still need the existing Vercel review access or an organizer-provided preview share link.
 
 ## Debrief and interface refinements
 
@@ -81,7 +83,7 @@ Case names and descriptions are shorter; cards retain “6 guided decisions” a
 
 Browser checks cover full case progression, practice feedback, saved answers and feedback after reload, study-to-application continuity, glossary search, assistance tracking, original-logo video and still fallback, settings/calendar export, unified Practice and Progress, and phone/dark-theme automated accessibility. Local checks use official Microsoft Edge; GitHub Actions uses official Chrome for the original H.264 logo. No assertions are removed or skipped to make the suite pass. Builds enforce TypeScript but skip lint under the inherited configuration; these results do not constitute a lint pass.
 
-CI checks Playwright's expected official Chrome executable before running the installer. The [GitHub Ubuntu runner image includes Google Chrome](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md#browsers-and-drivers). If the executable is absent, the existing dependency/browser installer still runs. Browser coverage now contains 54 checks, including Rapid Response, ECG, layered-feedback and topic-selection workflows.
+CI checks Playwright's expected official Chrome executable before running the installer. The [GitHub Ubuntu runner image includes Google Chrome](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md#browsers-and-drivers). If the executable is absent, the existing dependency/browser installer still runs. Browser coverage now contains 55 checks, including the Rapid Response gallery, case timing, ECG, layered-feedback and topic-selection workflows.
 
 See [inline reference cards](INLINE_REFERENCE_CARDS.md) for matching rules and interaction limits. Earlier migration, source-expansion and debrief test runs remain in Git history; the table above describes the current implementation.
 

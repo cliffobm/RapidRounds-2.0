@@ -431,6 +431,25 @@ test('phone challenge is accessible, silent by default and resets optional sound
   expect(errors).toEqual([])
 })
 
+test('Rapid Response gallery has readable contrast and fits light and dark phone and desktop layouts', async ({
+  page,
+}) => {
+  test.setTimeout(90_000)
+  for (const theme of ['Light', 'Dark']) {
+    await page.goto('/settings')
+    await page.getByRole('radio', { name: theme, exact: true }).check()
+    for (const width of [320, 390, 1440]) {
+      await page.setViewportSize({ width, height: 950 })
+      await page.goto('/rapid-response')
+      await expect(
+        page.getByRole('heading', { name: 'Choose your response case' })
+      ).toBeVisible()
+      await expect(page.getByRole('button', { name: /^Open / })).toHaveCount(6)
+      await accessible(page)
+    }
+  }
+})
+
 test('ECG library filters all 17 examples and preserves readable strip scrolling in light and dark phone layouts', async ({
   page,
 }) => {

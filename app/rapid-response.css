@@ -44,7 +44,8 @@
 .response-hero .eyebrow {
   color: #b8f5dc;
 }
-.response-hero h1 {
+.rr-app .response-hero h1 {
+  color: #f6faf9;
   max-width: 20ch;
   margin: 12px 0 18px;
   font-size: clamp(2rem, 5vw, 3.5rem);
