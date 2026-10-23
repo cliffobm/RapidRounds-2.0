@@ -3,7 +3,9 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import UnifiedPractice from './UnifiedPractice'
 import {
   getPracticeQuestion,
+  practiceCollections,
   practiceLibrary,
+  practicePool,
 } from '@/lib/learning/practice-library'
 import {
   createPracticeSession,
@@ -28,14 +30,27 @@ beforeEach(() => {
 })
 
 describe('UnifiedPractice', () => {
-  it('starts with every topic and level available and supports a searchable topic picker', async () => {
+  it('shows searchable topic choices immediately and makes all topics discoverable without a dropdown', async () => {
     render(<UnifiedPractice />)
     expect(await screen.findByText('196 questions available.')).toBeVisible()
+    expect(screen.getByText('Selected topic')).toBeVisible()
+    expect(
+      screen.getByText('Questions from across all clinical areas.')
+    ).toBeVisible()
+    expect(
+      screen.getByRole('button', { name: /Mixed topics 196 questions/ })
+    ).toHaveAttribute('aria-pressed', 'true')
     fireEvent.click(
       screen.getByRole('button', {
-        name: /All topics 196 questions/,
+        name: `View all ${practiceCollections.length} topics`,
       })
     )
+    for (const topic of practiceCollections)
+      expect(
+        screen.getByRole('button', {
+          name: new RegExp(topic.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+        })
+      ).toBeVisible()
     fireEvent.change(
       screen.getByRole('textbox', { name: 'Search practice topics' }),
       { target: { value: 'respiratory' } }
@@ -46,6 +61,98 @@ describe('UnifiedPractice', () => {
     expect(
       screen.queryByRole('button', { name: /Heart sounds/ })
     ).not.toBeInTheDocument()
+  })
+
+  it('starts a topic-specific attempt and preserves the selected draft on resume', async () => {
+    const first = render(<UnifiedPractice initialMode="check" />)
+    fireEvent.change(
+      await screen.findByRole('textbox', { name: 'Search practice topics' }),
+      { target: { value: 'respiratory' } }
+    )
+    fireEvent.click(
+      screen.getByRole('button', { name: /Respiratory assessment/ })
+    )
+    expect(
+      screen.getByText('Every question comes from this topic.')
+    ).toBeVisible()
+    expect(screen.getByRole('button', { name: 'Change topic' })).toHaveFocus()
+    expect(
+      screen.queryByRole('textbox', { name: 'Search practice topics' })
+    ).not.toBeInTheDocument()
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Start 5-question check' })
+    )
+    const session = savedSession()
+    expect(session.collectionId).toBe('pulm_template')
+    expect(
+      session.ids.every(
+        (id) => getPracticeQuestion(id)!.collectionId === 'pulm_template'
+      )
+    ).toBe(true)
+    const option = getPracticeQuestion(session.ids[0]!)!.options[1]!
+    fireEvent.click(
+      screen.getByRole('radio', { name: option.text, exact: true })
+    )
+    expect(
+      screen.queryByRole('button', { name: 'Change topic' })
+    ).not.toBeInTheDocument()
+    first.unmount()
+    render(<UnifiedPractice initialSessionId={session.id} />)
+    expect(
+      await screen.findByRole('radio', { name: option.text, exact: true })
+    ).toBeChecked()
+    expect(savedSession().ids).toEqual(session.ids)
+    expect(savedSession().collectionId).toBe('pulm_template')
+    expect(savedSession().answers).toHaveLength(0)
+  })
+
+  it('keeps topic deep links clear and adjusts question counts when a chosen level has only five items', async () => {
+    render(
+      <UnifiedPractice
+        initialCollection="medications-safety"
+        initialCount={10}
+      />
+    )
+    expect(
+      await screen.findByText('Medication decisions', { exact: true })
+    ).toBeVisible()
+    expect(screen.getByRole('button', { name: 'Change topic' })).toBeVisible()
+    expect(
+      screen.queryByRole('textbox', { name: 'Search practice topics' })
+    ).not.toBeInTheDocument()
+    fireEvent.click(screen.getByText('Customize reasoning level'))
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Advanced', exact: true })
+    )
+    expect(
+      screen.getByRole('button', { name: '10 questions', exact: true })
+    ).toBeDisabled()
+    expect(
+      screen.getByRole('button', { name: '5 questions', exact: true })
+    ).toHaveAttribute('aria-pressed', 'true')
+    expect(
+      screen.getByText(
+        `${practicePool('medications-safety', 'advanced').length} questions available at this level.`
+      )
+    ).toBeVisible()
+    fireEvent.click(screen.getByRole('button', { name: 'Change topic' }))
+    fireEvent.click(
+      screen.getByRole('button', { name: /Mixed topics 196 questions/ })
+    )
+    expect(
+      screen.getByText('Questions from across all clinical areas.')
+    ).toBeVisible()
+    expect(
+      screen.getByRole('button', { name: 'Advanced', exact: true })
+    ).toHaveAttribute('aria-pressed', 'true')
+    expect(
+      screen.getByRole('button', { name: '10 questions', exact: true })
+    ).toBeEnabled()
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Start 5-question guided practice' })
+    )
+    expect(savedSession().collectionId).toBe('all')
+    expect(savedSession().level).toBe('advanced')
   })
 
   it('holds all check feedback until the final submission and records one completed attempt', async () => {

@@ -33,6 +33,9 @@ import {
 import { newAttemptId, recordAttempt } from '@/lib/learning/attempt-history'
 import { legacyPracticeAttempt } from '@/lib/learning/attempt-adapters'
 import type { LegacyPracticeSession } from '@/lib/learning/legacy-sessions'
+import { getPracticeQuestion } from '@/lib/learning/practice-library'
+import { getPracticeExplanation } from '@/lib/learning/practice-explanations'
+import { QuestionExplanation } from '@/components/learning/PracticeFeedback'
 
 export default function LegacyPractice({
   initialBank = '',
@@ -367,6 +370,41 @@ function PracticeRound({
             {responses.length - answered} skipped
           </p>
           <p>Feedback is for practice, not a competency estimate.</p>
+          <section
+            className="practice-review"
+            aria-labelledby="legacy-answer-review"
+          >
+            <h2 id="legacy-answer-review">Question review</h2>
+            {responses.map((response, position) => {
+              const question = getPracticeQuestion(response.item_id)
+              if (!question) return null
+              return (
+                <details className="decision-review" key={response.item_id}>
+                  <summary>
+                    Question {position + 1} ·{' '}
+                    {response.outcome === 'correct'
+                      ? 'Correct'
+                      : response.outcome === 'nonresponse'
+                        ? 'Not answered'
+                        : 'Incorrect'}
+                  </summary>
+                  <div className="decision-review-body">
+                    <p>{question.context}</p>
+                    <h3 className="review-question">{question.prompt}</h3>
+                    <QuestionExplanation
+                      question={question}
+                      selected={
+                        response.selected_option_id
+                          ? [response.selected_option_id]
+                          : []
+                      }
+                      skipped={response.selected_option_id === null}
+                    />
+                  </div>
+                </details>
+              )
+            })}
+          </section>
           <div className="completion-actions">
             {(roundNumber + 1) * 5 < bank.items.length && (
               <button
@@ -476,7 +514,9 @@ function PracticeRound({
                 ? {
                     correct: answer.outcome === 'correct',
                     correctId: item.correct_option_id,
-                    rationale: item.rationaleText,
+                    rationale:
+                      getPracticeExplanation(item.id)?.brief ??
+                      item.rationaleText,
                     explanations: item.explanations,
                   }
                 : null

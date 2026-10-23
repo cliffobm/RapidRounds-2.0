@@ -26,6 +26,7 @@ import CaseDebrief from './CaseDebrief'
 import { QuestionExplanation } from './PracticeFeedback'
 import { recordAttempt } from '@/lib/learning/attempt-history'
 import { evolvingAttempt } from '@/lib/learning/attempt-adapters'
+import { pillars } from '@/lib/learning/pillars'
 
 export function EvolvingCaseGallery() {
   return (
@@ -97,7 +98,7 @@ export function LevelControls({
           ? 'Single best choices with immediate coaching.'
           : level === 'challenge'
             ? 'Prioritize case-specific findings and next steps, with feedback after each decision.'
-            : 'Weigh competing explanations, choose time-sensitive actions and reassess conflicting evidence. Feedback follows the case; reasoning notes are not automatically graded.'}
+            : 'Weigh competing explanations, choose time-sensitive actions and reassess conflicting evidence through case-specific choices. Feedback follows the case.'}
       </p>
       <label className="scenario-toggle">
         <input
@@ -475,6 +476,10 @@ export default function EvolvingCaseExperience({
                       </p>
                     )}
                 </section>
+                <p className="eyebrow">
+                  Clinical judgment ·{' '}
+                  {pillars.find((pillar) => pillar.id === frame.skill)!.title}
+                </p>
                 <ScenarioQuestion
                   question={question}
                   selected={session.selected}
@@ -484,19 +489,6 @@ export default function EvolvingCaseExperience({
                 />
                 {!answer && (
                   <>
-                    <label className="settings-field">
-                      Your reasoning note{' '}
-                      {session.level === 'advanced'
-                        ? '(explain your priority, one alternative and what would change your plan; at least 30 characters; not automatically graded)'
-                        : '(optional)'}
-                      <textarea
-                        value={session.rationale}
-                        maxLength={600}
-                        onChange={(event) =>
-                          change({ rationale: event.target.value })
-                        }
-                      />
-                    </label>
                     <label className="settings-field">
                       Confidence in this decision
                       <select
@@ -516,9 +508,7 @@ export default function EvolvingCaseExperience({
                     <button
                       className="rr-button"
                       disabled={
-                        session.selected.length !== question.correct.length ||
-                        (session.level === 'advanced' &&
-                          session.rationale.trim().length < 30)
+                        session.selected.length !== question.correct.length
                       }
                       onClick={() =>
                         setSession((previous) =>
@@ -554,6 +544,7 @@ export default function EvolvingCaseExperience({
                         <QuestionExplanation
                           question={question}
                           selected={answer.selected}
+                          variant="brief"
                         />
                       )}
                     </div>

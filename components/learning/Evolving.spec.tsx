@@ -20,6 +20,7 @@ import {
 import { questionFor, orderedOptions } from '@/lib/learning/evolving-types'
 import { contentSources } from '@/lib/learning/sources'
 import { readActivities, activityKey } from '@/lib/learning/sessions'
+import { pillars } from '@/lib/learning/pillars'
 import EvolvingCaseExperience from './EvolvingCases'
 import QuickCheck from './QuickCheck'
 beforeEach(() => localStorage.clear())
@@ -160,12 +161,10 @@ describe('evolving reasoning practice', () => {
           })
         )
       )
-      fireEvent.change(screen.getByRole('textbox'), {
-        target: {
-          value:
-            'My priority is the changed clinical state; I would reassess alternatives and missing evidence.',
-        },
-      })
+      expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'Submit answer' })
+      ).toBeEnabled()
       if (index === 0) {
         view.unmount()
         view = render(
@@ -209,6 +208,52 @@ describe('evolving reasoning practice', () => {
       JSON.parse(localStorage.getItem(evolvingKey(story.id))!).pathId
     ).toBe('b')
   })
+  it.each(['foundation', 'challenge', 'advanced'] as const)(
+    'uses structured choices with a visible skill and selection count at %s level',
+    (level) => {
+      const story = evolvingCases[0]!
+      const saved = newCaseSession(story, level, 'pause')
+      // Earlier drafts retain any note already written; it never gates an answer.
+      saved.rationale = 'Earlier note'
+      localStorage.setItem(evolvingKey(story.id), JSON.stringify(saved))
+      render(
+        <PreferencesProvider>
+          <EvolvingCaseExperience story={story} />
+        </PreferencesProvider>
+      )
+      const frame = story.paths[0]!.frames[0]!
+      const question = questionFor(frame, level)
+      expect(
+        screen.getByText(
+          `Clinical judgment · ${pillars.find((pillar) => pillar.id === frame.skill)!.title}`
+        )
+      ).toBeInTheDocument()
+      expect(
+        screen.getByText(
+          question.correct.length === 1
+            ? 'Choose one response.'
+            : `Choose ${question.correct.length} responses.`
+        )
+      ).toBeInTheDocument()
+      expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
+      const submit = screen.getByRole('button', { name: 'Submit answer' })
+      expect(submit).toBeDisabled()
+      for (const id of question.correct)
+        fireEvent.click(
+          screen.getByRole(question.correct.length === 1 ? 'radio' : 'checkbox', {
+            name: question.options.find((option) => option.id === id)!.text,
+            exact: true,
+          })
+        )
+      expect(submit).toBeEnabled()
+      fireEvent.click(submit)
+      const stored = JSON.parse(localStorage.getItem(evolvingKey(story.id))!)
+      expect(stored.answers[0]).toMatchObject({
+        selected: question.correct,
+        rationale: 'Earlier note',
+      })
+    }
+  )
   it('runs ten unique case-linked questions without feedback leaks and resumes saved choices', async () => {
     let view = render(
       <PreferencesProvider>

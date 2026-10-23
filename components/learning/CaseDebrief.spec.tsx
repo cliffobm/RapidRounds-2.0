@@ -165,7 +165,7 @@ describe('CaseDebrief', () => {
     expect(skipped.querySelector('[data-outcome="incorrect"]')).toBeNull()
   })
 
-  it('keeps the Advanced reasoning note distinct from graded answer choices', () => {
+  it('preserves an earlier Advanced reasoning note read-only and distinct from graded answer choices', () => {
     const session = mixedAttempt('advanced')
     const view = render(<CaseDebrief story={story} session={session} />)
     const first = decisionRow(view.container, 0)
@@ -173,11 +173,12 @@ describe('CaseDebrief', () => {
     const row = within(first)
 
     expect(
-      row.getByText('Your reasoning note · not graded', { exact: true })
+      row.getByText('Your saved reasoning note · not graded', { exact: true })
     ).toBeInTheDocument()
     expect(
       row.getByText(session.answers[0]!.rationale, { exact: true })
     ).toBeInTheDocument()
     expect(screen.getByText('80%', { exact: true })).toBeInTheDocument()
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
   })
 })

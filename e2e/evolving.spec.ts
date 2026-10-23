@@ -11,17 +11,24 @@ for (const story of evolvingCases) {
     page.on('pageerror', (error) => errors.push(error.message))
     await page.goto(`/evolving/${story.id}`)
     await page.getByRole('button', { name: 'Start case' }).click()
+    await expect(page.getByRole('textbox')).toHaveCount(0)
     for (const [index, frame] of story.paths[0]!.frames.entries()) {
+      const correctOption = frame.question.options.find((option) =>
+        frame.question.correct.includes(option.id)
+      )!
       await page
         .getByRole('radio', {
-          name: frame.question.options[0]!.text,
+          name: correctOption.text,
           exact: true,
         })
         .check()
       await page.getByRole('button', { name: 'Submit answer' }).click()
       await expect(page.getByRole('status')).toContainText(
-        frame.question.options[0]!.explanation
+        correctOption.explanation
       )
+      await expect(
+        page.getByRole('heading', { name: 'Correct', exact: true })
+      ).toBeVisible()
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth
@@ -90,7 +97,7 @@ test('return handoffs preserve a saved draft or advance exactly one checkpoint b
   expect(saved.answers[0]).toMatchObject({ skipped: true, selected: [] })
   expect(saved.selected).toEqual([])
 })
-test('advanced cases keep draft rationale on reload and delay coaching until debrief', async ({
+test('advanced cases resume structured choices without writing and delay coaching until debrief', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 950 })
@@ -112,15 +119,20 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
           exact: true,
         })
         .check()
-    await page
-      .getByRole('textbox')
-      .fill(
-        'I prioritize the current change, compare an alternative cause and reassess evidence that could change the plan.'
-      )
+    await expect(page.getByRole('textbox')).toHaveCount(0)
     if (index === 0) {
       await page.reload()
-      await expect(page.getByRole('textbox')).toHaveValue(/I prioritize/)
+      for (const id of question.correct)
+        await expect(
+          page.getByRole(question.correct.length === 1 ? 'radio' : 'checkbox', {
+            name: question.options.find((option) => option.id === id)!.text,
+            exact: true,
+          })
+        ).toBeChecked()
     }
+    await expect(
+      page.getByRole('button', { name: 'Submit answer', exact: true })
+    ).toBeEnabled()
     await page.getByRole('button', { name: 'Submit answer' }).click()
     await expect(page.getByRole('status')).toContainText(
       'Feedback will appear in the debrief'
@@ -154,7 +166,7 @@ test('advanced cases keep draft rationale on reload and delay coaching until deb
   await expect(
     page.getByText(
       questionFor(story.paths[0]!.frames[0]!, 'advanced').options.find(
-        option =>
+        (option) =>
           questionFor(story.paths[0]!.frames[0]!, 'advanced').correct.includes(
             option.id
           )

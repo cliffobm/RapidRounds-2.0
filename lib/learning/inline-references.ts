@@ -12,6 +12,9 @@ const escapePattern = (text: string) =>
   text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 // Search aliases include related concepts. Only equivalent labels belong in inline definitions.
 const inlineAliases: Record<string, string[]> = {
+  'minute-ventilation': ['VE', 'V̇E'],
+  'tidal-volume': ['VT', 'Vₜ'],
+  'glasgow-coma-scale': ['GCS'],
   aki: ['AKI'],
   hypoglycaemia: ['hypoglycemia'],
   hyperkalaemia: ['hyperkalemia'],
@@ -69,6 +72,15 @@ const measurementPatterns = [
 
 export function referenceParts(text: string): ReferencePart[] {
   const matches = [...termPatterns, ...measurementPatterns]
+    // VT can also mean ventricular tachycardia. Define its abbreviation only
+    // when this text supplies a respiratory context; never infer it from VT alone.
+    .filter(
+      ({ pattern, reference }) =>
+        reference.id !== 'tidal-volume' ||
+        !['VT', 'Vₜ'].includes(pattern) ||
+        (/ventilat|tidal|\bmL\b|breath|plateau|PEEP|FiO2/iu.test(text) &&
+          !/ventricular|tachycardia|arrhythm/iu.test(text))
+    )
     .flatMap(({ pattern, reference }) =>
       [
         ...text.matchAll(

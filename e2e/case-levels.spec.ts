@@ -49,12 +49,10 @@ for (const id of [
                 exact: true,
               })
               .check()
-          if (level === 'advanced')
-            await page
-              .getByRole('textbox')
-              .fill(
-                'I would compare the new clinical findings with baseline, weigh competing causes and reassess the response to the prioritized plan.'
-              )
+          await expect(page.getByRole('textbox')).toHaveCount(0)
+          await expect(
+            page.getByRole('button', { name: 'Submit answer', exact: true })
+          ).toBeEnabled()
           if (pathIndex === 0 && index === 1) {
             await page.reload()
             for (const id of question.correct)
@@ -114,9 +112,9 @@ test('an earlier Advanced attempt keeps its score and explicitly starts updated 
     revision: legacyEvolvingRevision,
     index: 5,
     complete: true,
-    answers: story.paths[0]!.frames.map((frame) => ({
+    answers: story.paths[0]!.frames.map((frame, index) => ({
       selected: [...frame.complex.correct],
-      rationale: '',
+      rationale: index === 0 ? 'My saved note from an earlier attempt.' : '',
       confidence: 'unsure',
       assisted: false,
       skipped: false,
@@ -134,6 +132,11 @@ test('an earlier Advanced attempt keeps its score and explicitly starts updated 
   await expect(
     page.getByRole('region', { name: 'Practice result' })
   ).toContainText('100%')
+  await page.locator('.decision-review > summary').first().click()
+  await expect(
+    page.getByText('My saved note from an earlier attempt.', { exact: true })
+  ).toBeVisible()
+  await expect(page.getByRole('textbox')).toHaveCount(0)
   await page
     .getByRole('button', { name: 'Start updated case', exact: true })
     .click()
@@ -153,6 +156,9 @@ test('an earlier Advanced attempt keeps its score and explicitly starts updated 
     )
   )
   expect(archive[0].revision).toBe(legacyEvolvingRevision)
+  expect(archive[0].answers[0].rationale).toBe(
+    'My saved note from an earlier attempt.'
+  )
 })
 
 test('unconfigured login is explicit and account URLs require a session', async ({

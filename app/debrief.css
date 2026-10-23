@@ -227,6 +227,38 @@
 .reasoning-note p {
   white-space: pre-wrap;
 }
+.rationale-terms > div {
+  margin-top: 14px;
+}
+.rationale-terms dt {
+  font-weight: 750;
+  color: var(--rr-ink);
+}
+.rationale-terms dd {
+  margin: 4px 0 0;
+}
+.rationale-example {
+  padding: 16px;
+  background: var(--rr-surface);
+  border: 1px solid var(--rr-line);
+  border-radius: 12px;
+}
+.rationale-example p {
+  white-space: pre-line;
+}
+.feedback-takeaway,
+.rationale-references {
+  border-top: 1px solid var(--rr-line);
+  padding-top: 16px;
+}
+.rationale-references a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.rationale-references li + li {
+  margin-top: 8px;
+}
 .dark .decision-outcome[data-outcome='correct'] {
   background: #173e31;
   color: #b8f5dc;

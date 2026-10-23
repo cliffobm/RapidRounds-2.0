@@ -134,12 +134,13 @@ async function completeGuided(page: Page, firstWrong = false) {
         exact: true,
       })
     ).toBeVisible()
-    await expect(
-      page.getByRole('region', { name: 'Correct answer', exact: true })
-    ).toContainText(
+    await expect(page.locator('.brief-answer')).toContainText(
       question.options.find((option) => question.correct.includes(option.id))!
         .explanation
     )
+    await expect(
+      page.getByRole('region', { name: 'Clinical reasoning', exact: true })
+    ).toHaveCount(0)
     if (index === 0) {
       await page.reload()
       await expect(

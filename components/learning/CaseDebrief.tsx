@@ -159,7 +159,7 @@ export default function CaseDebrief({
               />
               {answer.rationale && (
                 <div className="reasoning-note">
-                  <h4>Your reasoning note · not graded</h4>
+                  <h4>Your saved reasoning note · not graded</h4>
                   <p>{answer.rationale}</p>
                 </div>
               )}

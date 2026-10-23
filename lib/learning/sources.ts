@@ -1,4 +1,15 @@
 export const contentSources = {
+  ventilationMechanics: {
+    title: 'Hamilton Medical: alveolar ventilation and dead space',
+    url: 'https://www.hamilton-medical.com/en_US/Article-page~knowledge-base~62e7ac96-b7b9-4566-a7bc-f7c9797d7348~Calculation-of-V-alv--VDaw-and-VDaw-VTe~.html',
+    section: 'Tidal volume, respiratory rate and dead-space subtraction',
+  },
+  ventilatoryFailure: {
+    title: 'Merck Manual Professional: ventilatory failure, June 2026',
+    url: 'https://www.merckmanuals.com/professional/critical-care-medicine/respiratory-failure-and-mechanical-ventilation/ventilatory-failure',
+    section:
+      'Minute ventilation, alveolar ventilation and carbon dioxide clearance',
+  },
   medicationSafety: {
     title: 'NICE NG5: medicines optimisation',
     url: 'https://www.nice.org.uk/guidance/ng5/chapter/Recommendations',

@@ -39,7 +39,7 @@
   font-weight: 700;
   margin-bottom: 12px;
 }
-.practice-topic-picker {
+.practice-topic-selection {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,14 +52,39 @@
   padding: 18px;
   border-radius: 14px;
 }
-.practice-topic-picker span {
+.practice-topic-selection > div {
   display: grid;
   gap: 4px;
+  min-width: 0;
 }
-.practice-topic-picker small,
+.practice-topic-label {
+  color: var(--rr-muted);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+.practice-topic-selection strong {
+  font-size: 1.1rem;
+}
+.practice-topic-selection p {
+  margin: 0;
+  color: var(--rr-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.practice-topic-selection > button {
+  flex-shrink: 0;
+}
 .practice-topic-card small,
 .practice-topic-card > span {
   color: var(--rr-muted);
+}
+.practice-topic-more {
+  margin-top: 14px;
+}
+.practice-topic-card:focus-visible,
+.practice-topic-selection button:focus-visible {
+  outline: 3px solid #078666;
+  outline-offset: 3px;
 }
 .practice-topic-options {
   padding: 22px 0 0;
@@ -212,7 +237,10 @@
   .practice-topic-card {
     min-height: 100px;
   }
-  .practice-topic-picker {
+  .practice-topic-selection {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
     padding: 14px;
   }
   .practice-resume .rr-button-secondary,

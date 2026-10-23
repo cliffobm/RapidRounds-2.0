@@ -8,6 +8,33 @@ import InlineReferenceText from './InlineReferenceText'
 
 beforeEach(() => localStorage.clear())
 describe('contextual glossary cards', () => {
+  it('defines ventilation abbreviations without mislabeling ventricular tachycardia', () => {
+    const text =
+      'Tidal volume VT changes minute ventilation VE; GCS describes consciousness.'
+    const refs = referenceParts(text).flatMap((part) =>
+      part.reference ? [part.reference.id] : []
+    )
+    expect(refs).toEqual([
+      'tidal-volume',
+      'minute-ventilation',
+      'glasgow-coma-scale',
+    ])
+    expect(
+      referenceParts('Sustained ventricular tachycardia (VT).').some(
+        (part) => part.reference?.id === 'tidal-volume'
+      )
+    ).toBe(false)
+    expect(
+      referenceParts('VT alone').some(
+        (part) => part.reference?.id === 'tidal-volume'
+      )
+    ).toBe(false)
+    expect(
+      referenceParts('VT 400 mL; VE 6 L/min')
+        .filter((part) => part.reference)
+        .map((part) => part.reference!.id)
+    ).toEqual(['tidal-volume', 'minute-ventilation'])
+  })
   it('preserves every character, matches complete phrases and limits repeated links', () => {
     const text =
       'Aphasia, SpO2 and last known well. Aphasia again; peripheral, permissive and misinformation are plain.'

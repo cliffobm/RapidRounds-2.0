@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, ChevronDown, Search } from 'lucide-react'
+import { ArrowRight, Search } from 'lucide-react'
 import {
   findPracticeCollection,
   getPracticeQuestion,
@@ -79,7 +79,10 @@ export default function UnifiedPractice({
       ? initialLevel
       : 'all'
   )
-  const [showTopics, setShowTopics] = useState(false)
+  const [showTopics, setShowTopics] = useState(
+    !findPracticeCollection(initialCollection)
+  )
+  const [showAllTopics, setShowAllTopics] = useState(false)
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('All areas')
   const [session, setSession] = useState<UnifiedPracticeSession | null>(null)
@@ -144,6 +147,11 @@ export default function UnifiedPractice({
         .toLowerCase()
         .includes(search.trim().toLowerCase())
   )
+  const filteredTopics = search.trim() !== '' || category !== 'All areas'
+  const displayedCollections =
+    showAllTopics || filteredTopics
+      ? visibleCollections
+      : visibleCollections.slice(0, 6)
   const question = session
     ? getPracticeQuestion(session.ids[session.index]!)!
     : null
@@ -163,6 +171,8 @@ export default function UnifiedPractice({
     )
       setCount(5)
     setShowTopics(false)
+    setSearch('')
+    setCategory('All areas')
     topicButton.current?.focus()
   }
   const start = () => {
@@ -245,7 +255,8 @@ export default function UnifiedPractice({
       ) : !session ? (
         <>
           <p className="intro-copy">
-            Choose a topic, your feedback style and five or ten questions.
+            Focus on a topic or mix your practice. Then choose your feedback
+            style and five or ten questions.
           </p>
           {saved.length ? (
             <section
@@ -268,21 +279,26 @@ export default function UnifiedPractice({
           <section className="practice-setup" aria-label="Set up practice">
             <fieldset>
               <legend>Topic</legend>
-              <button
-                ref={topicButton}
-                className="practice-topic-picker"
-                aria-expanded={showTopics}
-                aria-controls="practice-topic-options"
-                onClick={() => setShowTopics(!showTopics)}
-              >
-                <span>
-                  <strong>{collection?.title ?? 'All topics'}</strong>
-                  <small>
-                    {collection?.count ?? practiceLibrary.length} questions
-                  </small>
-                </span>
-                <ChevronDown size={20} aria-hidden="true" />
-              </button>
+              <div className="practice-topic-selection">
+                <div>
+                  <span className="practice-topic-label">Selected topic</span>
+                  <strong>{collection?.title ?? 'Mixed topics'}</strong>
+                  <p>
+                    {collection
+                      ? 'Every question comes from this topic.'
+                      : 'Questions from across all clinical areas.'}
+                  </p>
+                </div>
+                <button
+                  ref={topicButton}
+                  className="rr-button-secondary"
+                  aria-expanded={showTopics}
+                  aria-controls="practice-topic-options"
+                  onClick={() => setShowTopics(!showTopics)}
+                >
+                  {showTopics ? 'Done choosing' : 'Change topic'}
+                </button>
+              </div>
               {showTopics ? (
                 <div
                   className="practice-topic-options"
@@ -318,10 +334,11 @@ export default function UnifiedPractice({
                       aria-pressed={collectionId === 'all'}
                       onClick={() => chooseCollection('all')}
                     >
-                      <strong>All topics</strong>
+                      <small>Across clinical areas</small>
+                      <strong>Mixed topics</strong>
                       <span>{practiceLibrary.length} questions</span>
                     </button>
-                    {visibleCollections.map((entry) => (
+                    {displayedCollections.map((entry) => (
                       <button
                         key={entry.id}
                         className={`practice-topic-card ${collectionId === entry.id ? 'is-selected' : ''}`}
@@ -334,6 +351,17 @@ export default function UnifiedPractice({
                       </button>
                     ))}
                   </div>
+                  {!filteredTopics && visibleCollections.length > 6 ? (
+                    <button
+                      className="practice-topic-more text-link"
+                      aria-expanded={showAllTopics}
+                      onClick={() => setShowAllTopics(!showAllTopics)}
+                    >
+                      {showAllTopics
+                        ? 'Show fewer topics'
+                        : `View all ${practiceCollections.length} topics`}
+                    </button>
+                  ) : null}
                   {!visibleCollections.length ? (
                     <p role="status">
                       No topics match. Try a different search or area.
@@ -669,6 +697,7 @@ export default function UnifiedPractice({
                 <QuestionExplanation
                   question={question}
                   selected={[answer.selected]}
+                  variant="brief"
                 />
               )}
               <button className="rr-button" onClick={next}>
