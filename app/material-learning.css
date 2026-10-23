@@ -6,11 +6,16 @@
   margin: 16px 0;
 }
 .material-study .worked-example {
+  display: block;
   padding: 22px;
   border: 1px solid var(--rr-line);
   border-radius: 18px;
   margin-top: 24px;
   background: var(--rr-surface);
+}
+.material-study .worked-example h3 {
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 .material-study .answer-feedback {
   display: block;
