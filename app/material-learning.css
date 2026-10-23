@@ -79,3 +79,14 @@
 .review-guide .study-grid {
   align-items: stretch;
 }
+.review-guide .question-actions,
+.material-study .question-actions {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.review-guide .rr-button-outline,
+.material-study .rr-button-outline {
+  background: transparent;
+  color: var(--rr-ink);
+  box-shadow: inset 0 0 0 1px var(--rr-line);
+}

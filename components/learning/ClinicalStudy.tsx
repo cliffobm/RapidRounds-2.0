@@ -102,7 +102,7 @@ export default function ClinicalStudy({ topic }: { topic: ClinicalTopic }) {
           ))}
           <div className="question-actions">
             <Link
-              className="rr-button"
+            className="rr-button rr-button-mint"
               href={`/practice?collection=${topic.practiceCollectionId}`}
             >
               Practice this topic

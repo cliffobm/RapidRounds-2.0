@@ -38,7 +38,7 @@ export default function ReviewGuide() {
         work.
       </p>
       <div className="question-actions">
-        <Link className="rr-button" href="/auth/sign-in">
+        <Link className="rr-button rr-button-mint" href="/auth/sign-in">
           Tester sign in
         </Link>
         <Link className="rr-button rr-button-outline" href="/home">
