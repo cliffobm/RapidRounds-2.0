@@ -1,5 +1,13 @@
 # CJIS integration verification — October 23, 2026
 
+## Direct tester access — October 24, 2026
+
+The new `/tester-login` entry uses the existing isolated test Auth accounts. On the review deployment, all learning pages now require fresh server-verified identity and membership in a server-only tester allowlist. The initial allowlist contains six existing confirmed accounts; open signup does not grant app access. There is no guest link on the dedicated page. Login and logout use full document navigation; safe local deep links are preserved. This supersedes the earlier open-review behavior described in the historical observations below. Progress is still browser-local and is not separated by account.
+
+The public tester alias is exempted from Vercel authentication only after verifying the deployed app gate; project-wide deployment protection stays enabled for other deployment URLs. Gate flags and tester IDs are scoped to Preview and `feature/cjis-foundation` in the separate review project. No Auth settings, users, passwords, database tables or production services were changed. See [direct access design, account provisioning, verification limits and rollback](TESTER_ACCESS.md).
+
+New checks cover anonymous/unlisted/forged identities, missing configuration, private redirects, cookies, API isolation, unknown routes, RSC/prefetch and legacy data requests. Existing offline learning tests remain independent. Exact final executed counts, commit and CI results are reported on delivery. A positive login through the new URL requires the tester to enter their password privately; the agent does not claim that live positive check has been performed.
+
 This report supersedes the initial migration results retained in Git history. Current implementation: `feature/cjis-foundation`, Node 22, Next.js 15.5.28, React 19.1.10. The original 68 imported questions and answer keys remain intact; the application also includes 32 earlier authored draft questions, 36 earlier case-linked questions and 60 newly authored standalone questions.
 
 ## Rapid Response and ECG practice

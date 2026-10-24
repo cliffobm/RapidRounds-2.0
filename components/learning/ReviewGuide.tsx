@@ -38,7 +38,7 @@ export default function ReviewGuide() {
         work.
       </p>
       <div className="question-actions">
-        <Link className="rr-button rr-button-mint" href="/auth/sign-in">
+        <Link className="rr-button rr-button-mint" href="/tester-login">
           Tester sign in
         </Link>
         <Link className="rr-button rr-button-outline" href="/home">
@@ -47,8 +47,8 @@ export default function ReviewGuide() {
       </div>
       <p className="review-note">
         Use the individual tester account provided by your review organizer.
-        Content is also available without sign-in. Progress stays in this
-        browser; use separate browser profiles on shared devices.
+        Progress stays in this browser; use separate browser profiles on shared
+        devices.
       </p>
       <section className="pathway-section">
         <h2>A focused 15-minute review</h2>

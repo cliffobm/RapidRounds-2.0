@@ -2,6 +2,12 @@
   width: min(100% - 32px, 560px);
   margin: 48px auto 80px;
 }
+.rr-login-app {
+  padding-bottom: 0;
+}
+.rr-login-app .rr-topbar-inner {
+  justify-content: center;
+}
 .rr-auth-panel {
   padding: clamp(22px, 5vw, 40px);
   border: 1px solid var(--rr-line);

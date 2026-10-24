@@ -108,6 +108,23 @@ function HeaderActions() {
 // Keep browser subscriptions inside the controls. Updating the header must not
 // re-render the server page slot while Next is still hydrating its content.
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const isSignInPage =
+    pathname === '/tester-login' || pathname === '/auth/sign-in'
+  if (isSignInPage)
+    return (
+      <div className="rr-app rr-login-app">
+        <a href="#main-content" className="rr-skip">
+          Skip to sign in
+        </a>
+        <header className="rr-topbar">
+          <div className="rr-topbar-inner">
+            <Logo size="sm" />
+          </div>
+        </header>
+        {children}
+      </div>
+    )
   return (
     <div className="rr-app">
       <a href="#main-content" className="rr-skip">

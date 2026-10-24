@@ -2,16 +2,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import TesterSignIn from './TesterSignIn'
 
-const { signIn, replace, refresh } = vi.hoisted(() => ({
+const { signIn, navigate } = vi.hoisted(() => ({
   signIn: vi.fn(),
-  replace: vi.fn(),
-  refresh: vi.fn(),
+  navigate: vi.fn(),
 }))
 vi.mock('@/lib/supabase-client', () => ({
   supabaseClient: { auth: { signInWithPassword: signIn } },
-}))
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ replace, refresh }),
 }))
 
 beforeEach(() => {
@@ -30,8 +26,54 @@ function submit() {
 }
 
 describe('TesterSignIn', () => {
+  it('removes guest access when sign-in is required, including unavailable setup', () => {
+    render(
+      <TesterSignIn navigate={navigate} configured={false} requireSignIn />
+    )
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+    expect(screen.queryByText(/without signing in/)).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Sign in' })).toBeDisabled()
+    expect(screen.queryByText(/sign up/i)).not.toBeInTheDocument()
+  })
+
+  it('returns to a safe case link after successful sign-in', async () => {
+    signIn.mockResolvedValue({ data: { session: {} }, error: null })
+    render(
+      <TesterSignIn
+        navigate={navigate}
+        configured
+        requireSignIn
+        redirectTo="/rapid-response?case=irregular-pulse"
+      />
+    )
+    submit()
+    await waitFor(() =>
+      expect(navigate).toHaveBeenCalledWith(
+        '/rapid-response?case=irregular-pulse'
+      )
+    )
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+  })
+
+  it.each(['https://example.com/private', '//example.com', '/auth/sign-in'])(
+    'falls back to Home for an unsafe destination %s',
+    async (redirectTo) => {
+      signIn.mockResolvedValue({ data: { session: {} }, error: null })
+      render(
+        <TesterSignIn
+          navigate={navigate}
+          configured
+          requireSignIn
+          redirectTo={redirectTo}
+        />
+      )
+      submit()
+      await waitFor(() => expect(navigate).toHaveBeenCalledWith('/home'))
+    }
+  )
+
   it('explains unavailable setup and prevents authentication requests', () => {
-    render(<TesterSignIn configured={false} />)
+    render(<TesterSignIn navigate={navigate} configured={false} />)
     expect(screen.getByRole('status')).toHaveTextContent(
       'Tester login is not connected yet.'
     )
@@ -47,20 +89,19 @@ describe('TesterSignIn', () => {
     expect(screen.queryByText(/Continue with Google/)).not.toBeInTheDocument()
   })
 
-  it('signs in a provided account then refreshes verified account state', async () => {
+  it('opens a fresh document at Home after a verified cookie session is created', async () => {
     signIn.mockResolvedValue({
       data: { session: { user: { email: 'colleague@example.com' } } },
       error: null,
     })
-    render(<TesterSignIn configured />)
+    render(<TesterSignIn navigate={navigate} configured />)
     submit()
-    await waitFor(() => expect(replace).toHaveBeenCalledWith('/account'))
+    await waitFor(() => expect(navigate).toHaveBeenCalledWith('/home'))
     expect(signIn).toHaveBeenCalledOnce()
     expect(signIn).toHaveBeenCalledWith({
       email: 'colleague@example.com',
       password: 'tester-password',
     })
-    expect(refresh).toHaveBeenCalledOnce()
     expect(screen.getByLabelText('Password')).toHaveValue('')
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   })
@@ -70,13 +111,13 @@ describe('TesterSignIn', () => {
       data: { session: null },
       error: { code: 'invalid_credentials', message: 'private server detail' },
     })
-    render(<TesterSignIn configured />)
+    render(<TesterSignIn navigate={navigate} configured />)
     submit()
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'Email or password was not recognized.'
     )
     expect(screen.queryByText('private server detail')).not.toBeInTheDocument()
-    expect(replace).not.toHaveBeenCalled()
+    expect(navigate).not.toHaveBeenCalled()
     expect(screen.getByRole('button', { name: 'Sign in' })).toBeEnabled()
   })
 
@@ -85,32 +126,31 @@ describe('TesterSignIn', () => {
       data: { session: null },
       error: { code: 'email_not_confirmed' },
     })
-    render(<TesterSignIn configured />)
+    render(<TesterSignIn navigate={navigate} configured />)
     submit()
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'Contact the review organizer to check your tester account.'
     )
-    expect(replace).not.toHaveBeenCalled()
+    expect(navigate).not.toHaveBeenCalled()
   })
 
   it('handles an offline connection without claiming successful login', async () => {
     signIn.mockRejectedValue(new TypeError('Failed to fetch'))
-    render(<TesterSignIn configured />)
+    render(<TesterSignIn navigate={navigate} configured />)
     submit()
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'Check your connection and try again.'
     )
-    expect(replace).not.toHaveBeenCalled()
-    expect(refresh).not.toHaveBeenCalled()
+    expect(navigate).not.toHaveBeenCalled()
   })
 
   it('does not navigate if the SDK reports success without a session', async () => {
-    render(<TesterSignIn configured />)
+    render(<TesterSignIn navigate={navigate} configured />)
     submit()
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'We could not sign you in.'
     )
-    expect(replace).not.toHaveBeenCalled()
+    expect(navigate).not.toHaveBeenCalled()
   })
 
   it('prevents duplicate requests while sign-in is pending', async () => {
@@ -118,7 +158,7 @@ describe('TesterSignIn', () => {
     signIn.mockImplementation(
       () => new Promise((resolve) => (resolveSignIn = resolve))
     )
-    const view = render(<TesterSignIn configured />)
+    const view = render(<TesterSignIn navigate={navigate} configured />)
     submit()
     fireEvent.submit(view.container.querySelector('form')!)
     expect(signIn).toHaveBeenCalledOnce()
@@ -131,7 +171,7 @@ describe('TesterSignIn', () => {
   })
 
   it('offers an accessible password visibility toggle and password manager hints', () => {
-    render(<TesterSignIn configured />)
+    render(<TesterSignIn navigate={navigate} configured />)
     const password = screen.getByLabelText('Password')
     expect(password).toHaveAttribute('type', 'password')
     expect(password).toHaveAttribute('autocomplete', 'current-password')

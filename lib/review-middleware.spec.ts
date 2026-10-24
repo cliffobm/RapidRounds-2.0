@@ -62,9 +62,7 @@ beforeEach(() => {
 
 describe('review account session middleware', () => {
   it('covers Account alongside the existing protected routes', () => {
-    expect(config.matcher).toContain('/account/:path*')
-    expect(config.matcher).toContain('/profile/:path*')
-    expect(config.matcher).toContain('/admin/:path*')
+    expect(config.matcher).toContain('/:path*')
   })
 
   it('accepts the shared publishable key and passes refreshed cookies to the page and browser', async () => {

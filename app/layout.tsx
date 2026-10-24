@@ -60,11 +60,11 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   robots: {
-    index: true,
-    follow: true,
+    index: process.env.RR_REQUIRE_TESTER_LOGIN !== 'true',
+    follow: process.env.RR_REQUIRE_TESTER_LOGIN !== 'true',
     googleBot: {
-      index: true,
-      follow: true,
+      index: process.env.RR_REQUIRE_TESTER_LOGIN !== 'true',
+      follow: process.env.RR_REQUIRE_TESTER_LOGIN !== 'true',
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,

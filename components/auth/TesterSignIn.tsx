@@ -2,9 +2,15 @@
 
 import { useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, LockKeyhole } from 'lucide-react'
 import { supabaseClient } from '@/lib/supabase-client'
+import { safeTesterDestination } from '@/lib/tester-access'
+
+function navigateToApp(destination: string) {
+  // A document request discards any anonymous Next router cache. The server
+  // verifies the cookie session before returning the requested learning page.
+  window.location.assign(destination)
+}
 
 function signInError(error: unknown) {
   const code =
@@ -31,11 +37,16 @@ function signInError(error: unknown) {
 export default function TesterSignIn({
   configured,
   initialNotice = '',
+  requireSignIn = false,
+  redirectTo = '/home',
+  navigate = navigateToApp,
 }: {
   configured: boolean
   initialNotice?: string
+  requireSignIn?: boolean
+  redirectTo?: string
+  navigate?: (destination: string) => void
 }) {
-  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -58,8 +69,7 @@ export default function TesterSignIn({
       if (authError) throw authError
       if (!data.session) throw new Error('No session was created')
       setPassword('')
-      router.replace('/account')
-      router.refresh()
+      navigate(safeTesterDestination(redirectTo))
     } catch (authError) {
       setError(signInError(authError))
     } finally {
@@ -74,18 +84,20 @@ export default function TesterSignIn({
         <div className="rr-auth-symbol" aria-hidden="true">
           <LockKeyhole size={25} />
         </div>
-        <p className="eyebrow">COLLEAGUE REVIEW</p>
+        <p className="eyebrow">PRIVATE COLLEAGUE REVIEW</p>
         <h1 id="tester-sign-in-title">Tester sign in</h1>
         <p id="tester-sign-in-description" className="rr-auth-description">
           Use the email and password for the tester account provided by your
-          review organizer.
+          review organizer. No Vercel account is needed.
         </p>
         {!configured && (
           <div className="rr-auth-notice" role="status">
             <strong>Tester login is not connected yet.</strong>
             <p>
               The review organizer needs to connect the review authentication
-              project. You can still review the app without signing in.
+              project.
+              {!requireSignIn &&
+                ' You can still review the app without signing in.'}
             </p>
           </div>
         )}
@@ -148,9 +160,11 @@ export default function TesterSignIn({
         <p className="rr-auth-help">
           Need an account or a password reset? Contact your review organizer.
         </p>
-        <Link href="/home" className="rr-auth-text-link">
-          Continue reviewing without signing in →
-        </Link>
+        {!requireSignIn && (
+          <Link href="/home" className="rr-auth-text-link">
+            Continue reviewing without signing in →
+          </Link>
+        )}
       </section>
     </div>
   )

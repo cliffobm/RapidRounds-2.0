@@ -2,12 +2,23 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { Check, LogOut } from 'lucide-react'
 import { useAuth } from '@/store/useAuth'
 
-export default function ReviewAccount({ email }: { email: string }) {
-  const router = useRouter()
+function navigateAfterSignOut(destination: string) {
+  // Do not retain authenticated pages in the client router cache after logout.
+  window.location.assign(destination)
+}
+
+export default function ReviewAccount({
+  email,
+  requireSignIn = false,
+  navigate = navigateAfterSignOut,
+}: {
+  email: string
+  requireSignIn?: boolean
+  navigate?: (destination: string) => void
+}) {
   const [signingOut, setSigningOut] = useState(false)
   const [error, setError] = useState('')
   const submitting = useRef(false)
@@ -19,8 +30,9 @@ export default function ReviewAccount({ email }: { email: string }) {
     setError('')
     try {
       await useAuth.getState().signOut()
-      router.replace('/auth/sign-in?status=signed-out')
-      router.refresh()
+      navigate(
+        `${requireSignIn ? '/tester-login' : '/auth/sign-in'}?status=signed-out`
+      )
     } catch {
       setError(
         'We could not sign you out. Check your connection and try again. Your session may still be active.'

@@ -30,6 +30,7 @@ jobs:
             npx playwright install --with-deps chrome
           fi
       - run: npx playwright test --config playwright.cjis.config.ts
+      - run: npx playwright test --config playwright.tester.config.ts
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

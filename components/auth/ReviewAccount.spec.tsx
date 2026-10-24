@@ -2,16 +2,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import ReviewAccount from './ReviewAccount'
 
-const { signOut, replace, refresh } = vi.hoisted(() => ({
+const { signOut, navigate } = vi.hoisted(() => ({
   signOut: vi.fn(),
-  replace: vi.fn(),
-  refresh: vi.fn(),
+  navigate: vi.fn(),
 }))
 vi.mock('@/store/useAuth', () => ({
   useAuth: { getState: () => ({ signOut }) },
-}))
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ replace, refresh }),
 }))
 
 beforeEach(() => {
@@ -20,8 +16,23 @@ beforeEach(() => {
 })
 
 describe('ReviewAccount', () => {
+  it('returns a gated tester to the dedicated login page after signing out', async () => {
+    render(
+      <ReviewAccount
+        navigate={navigate}
+        email="colleague@example.com"
+        requireSignIn
+      />
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Sign out' }))
+    await waitFor(() =>
+      expect(navigate).toHaveBeenCalledWith('/tester-login?status=signed-out')
+    )
+    expect(signOut).toHaveBeenCalledOnce()
+  })
+
   it('shows verified identity with honest progress limits and review links', () => {
-    render(<ReviewAccount email="colleague@example.com" />)
+    render(<ReviewAccount navigate={navigate} email="colleague@example.com" />)
     expect(
       screen.getByRole('heading', { name: 'Your review account' })
     ).toBeVisible()
@@ -48,26 +59,24 @@ describe('ReviewAccount', () => {
     expect(signOut).not.toHaveBeenCalled()
   })
 
-  it('signs out then refreshes server state on the sign-in route', async () => {
-    render(<ReviewAccount email="colleague@example.com" />)
+  it('opens a fresh document on the compatible sign-in route after signing out', async () => {
+    render(<ReviewAccount navigate={navigate} email="colleague@example.com" />)
     fireEvent.click(screen.getByRole('button', { name: 'Sign out' }))
     await waitFor(() =>
-      expect(replace).toHaveBeenCalledWith('/auth/sign-in?status=signed-out')
+      expect(navigate).toHaveBeenCalledWith('/auth/sign-in?status=signed-out')
     )
     expect(signOut).toHaveBeenCalledOnce()
-    expect(refresh).toHaveBeenCalledOnce()
   })
 
   it('keeps a failed sign-out visible and does not navigate as if it succeeded', async () => {
     signOut.mockRejectedValue(new Error('Private backend detail'))
-    render(<ReviewAccount email="colleague@example.com" />)
+    render(<ReviewAccount navigate={navigate} email="colleague@example.com" />)
     fireEvent.click(screen.getByRole('button', { name: 'Sign out' }))
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'Your session may still be active.'
     )
     expect(screen.queryByText('Private backend detail')).not.toBeInTheDocument()
-    expect(replace).not.toHaveBeenCalled()
-    expect(refresh).not.toHaveBeenCalled()
+    expect(navigate).not.toHaveBeenCalled()
     expect(screen.getByRole('button', { name: 'Sign out' })).toBeEnabled()
   })
 
@@ -76,13 +85,13 @@ describe('ReviewAccount', () => {
     signOut.mockImplementation(
       () => new Promise<void>((resolve) => (resolveSignOut = resolve))
     )
-    render(<ReviewAccount email="colleague@example.com" />)
+    render(<ReviewAccount navigate={navigate} email="colleague@example.com" />)
     fireEvent.click(screen.getByRole('button', { name: 'Sign out' }))
     const pending = screen.getByRole('button', { name: 'Signing out…' })
     expect(pending).toBeDisabled()
     fireEvent.click(pending)
     expect(signOut).toHaveBeenCalledOnce()
     resolveSignOut()
-    await waitFor(() => expect(replace).toHaveBeenCalledOnce())
+    await waitFor(() => expect(navigate).toHaveBeenCalledOnce())
   })
 })
