@@ -1,5 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { rapidResponseCases } from './rapid-response-content'
+import {
+  rapidResponseCases,
+  legacyRapidResponseCases,
+  LEGACY_RAPID_RESPONSE_REVISION,
+  getRapidResponseCase,
+} from './rapid-response-content'
 import { historyKey, readAttempts, recordAttempt } from './attempt-history'
 import { readProgress } from './progress'
 import {
@@ -27,6 +32,59 @@ const make = (mode: 'untimed' | 'challenge' = 'untimed') =>
   })!
 beforeEach(() => localStorage.clear())
 describe('formative response timing and saved decisions', () => {
+  it('resumes an old draft and grades its original keys without replacing questions or charging time away', () => {
+    const oldStory = legacyRapidResponseCases[0]!
+    const old = {
+      ...make('challenge'),
+      revision: LEGACY_RAPID_RESPONSE_REVISION,
+      activeMs: 1200,
+      selected: oldStory.stages[0]!.question.correct,
+    }
+    expect(saveRapidResponseSession(old)).toBe(true)
+    let session = readRapidResponseSessions(
+      localStorage.getItem(RAPID_RESPONSE_KEY)
+    )[0]!
+    expect(session.revision).toBe(LEGACY_RAPID_RESPONSE_REVISION)
+    expect(session.activeMs).toBe(1200)
+    expect(session.selected).toEqual(old.selected)
+    expect(session.paused).toBe(true)
+    session = resumeRapidResponse(session, base + 86400000)
+    for (const [index, stage] of oldStory.stages.entries()) {
+      expect(
+        getRapidResponseCase(session.caseId, session.revision)!.stages[index]!
+          .question
+      ).toEqual(stage.question)
+      session = tickRapidResponse(
+        session,
+        1000,
+        base + 86400000 + index * 2000 + 1000
+      )
+      session = submitRapidResponseAnswer(
+        { ...session, selected: stage.question.correct },
+        base + 86400000 + index * 2000 + 1500
+      )
+    }
+    expect(session.complete).toBe(true)
+    expect(session.activeMs).toBe(5200)
+    expect(summarizeRapidResponse(session).score).toMatchObject({
+      correct: 4,
+      answered: 4,
+      percentage: 100,
+    })
+    expect(rapidResponseAttempt(session).revision).toBe(
+      LEGACY_RAPID_RESPONSE_REVISION
+    )
+    expect(saveRapidResponseSession(session)).toBe(true)
+    const reopened = readRapidResponseSessions(
+      localStorage.getItem(RAPID_RESPONSE_KEY)
+    )[0]!
+    expect(summarizeRapidResponse(reopened)).toEqual(
+      summarizeRapidResponse(session)
+    )
+    expect(
+      readProgress().attempts.find((a) => a.id === session.id)?.revision
+    ).toBe(LEGACY_RAPID_RESPONSE_REVISION)
+  })
   it('counts supplied active time, pauses explicitly and never charges time away on restore', () => {
     let session = tickRapidResponse(make(), 1200, base + 1200)
     session = pauseRapidResponse(session, base + 1300)

@@ -3,6 +3,7 @@ import { materialQuestions, materialCollections } from './material-questions'
 import { materialCases } from './material-cases'
 import { materialStudyTopics } from './material-study'
 import { contentSources } from './sources'
+import { loadPractice } from '@/lib/cjis/practice'
 import {
   createPracticeSession,
   readPracticeSessions,
@@ -11,7 +12,6 @@ import {
 import {
   LEGACY_PRACTICE_LIBRARY_REVISION,
   getPracticeQuestion,
-  practiceLibrary,
   PRACTICE_LIBRARY_REVISION,
 } from './practice-library'
 import { newCaseSession, readCaseSession } from './evolving-session'
@@ -53,12 +53,7 @@ describe('new source-informed learning material', () => {
     }
   })
   it('preserves old drafts and scores with their original library revision, and rejects new questions masquerading as old', () => {
-    const ids = practiceLibrary
-      .filter((q) =>
-        getPracticeQuestion(q.id, LEGACY_PRACTICE_LIBRARY_REVISION)
-      )
-      .slice(0, 5)
-      .map((q) => q.id)
+    const ids = loadPractice('pulm_template').items.map((q) => q.id)
     const base = createPracticeSession({
       mode: 'guided',
       count: 5,
@@ -68,7 +63,8 @@ describe('new source-informed learning material', () => {
       ...base,
       revision: LEGACY_PRACTICE_LIBRARY_REVISION,
       ids,
-      selected: getPracticeQuestion(ids[0]!)!.options[1]!.id,
+      selected: getPracticeQuestion(ids[0]!, LEGACY_PRACTICE_LIBRARY_REVISION)!
+        .options[1]!.id,
       answers: [],
     }
     expect(readPracticeSessions(JSON.stringify([old]))).toEqual([old])
@@ -78,7 +74,8 @@ describe('new source-informed learning material', () => {
       complete: true,
       selected: '',
       answers: ids.map((id) => ({
-        selected: getPracticeQuestion(id)!.correct[0]!,
+        selected: getPracticeQuestion(id, LEGACY_PRACTICE_LIBRARY_REVISION)!
+          .correct[0]!,
         assisted: false,
       })),
     }

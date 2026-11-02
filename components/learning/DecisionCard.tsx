@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ArrowRight, Check, CheckCircle2, Lightbulb } from 'lucide-react'
 import InlineReferenceText from './InlineReferenceText'
 import { referenceParts } from '@/lib/learning/inline-references'
+import { clinicalNarrative } from '@/lib/learning/clinical-narrative'
 export type DecisionOption = { id: string; text: string }
 export type DecisionFeedback = {
   correct: boolean
@@ -51,9 +52,9 @@ export default function DecisionCard({
           <span className="eyebrow">THE SITUATION</span>
           <p>
             {enableReferences ? (
-              <InlineReferenceText text={context} onLookup={lookup} />
+              <InlineReferenceText text={clinicalNarrative(context)} onLookup={lookup} />
             ) : (
-              context
+              clinicalNarrative(context)
             )}
           </p>
         </div>

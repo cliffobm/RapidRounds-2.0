@@ -33,7 +33,10 @@ import {
 import { newAttemptId, recordAttempt } from '@/lib/learning/attempt-history'
 import { legacyPracticeAttempt } from '@/lib/learning/attempt-adapters'
 import type { LegacyPracticeSession } from '@/lib/learning/legacy-sessions'
-import { getPracticeQuestion } from '@/lib/learning/practice-library'
+import {
+  getPracticeQuestion,
+  PREVIOUS_PRACTICE_LIBRARY_REVISION,
+} from '@/lib/learning/practice-library'
 import { getPracticeExplanation } from '@/lib/learning/practice-explanations'
 import { QuestionExplanation } from '@/components/learning/PracticeFeedback'
 
@@ -376,7 +379,10 @@ function PracticeRound({
           >
             <h2 id="legacy-answer-review">Question review</h2>
             {responses.map((response, position) => {
-              const question = getPracticeQuestion(response.item_id)
+              const question = getPracticeQuestion(
+                response.item_id,
+                PREVIOUS_PRACTICE_LIBRARY_REVISION
+              )
               if (!question) return null
               return (
                 <details className="decision-review" key={response.item_id}>

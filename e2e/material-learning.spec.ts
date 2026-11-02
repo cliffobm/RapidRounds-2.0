@@ -2,10 +2,12 @@ import { test, expect, type Page } from '@playwright/test'
 import fs from 'node:fs/promises'
 import { materialStudyTopics } from '../lib/learning/material-study'
 import { materialCollections } from '../lib/learning/material-questions'
+import { loadPractice } from '../lib/cjis/practice'
 import {
   getPracticeQuestion,
   practiceCollections,
   practiceLibrary,
+  PREVIOUS_PRACTICE_LIBRARY_REVISION,
 } from '../lib/learning/practice-library'
 import {
   createPracticeSession,
@@ -199,7 +201,7 @@ test('phone topic choices lead to focused practice, brief guided feedback and a 
         page.getByRole('textbox', { name: 'Search practice topics' })
       ).toBeVisible()
       await expect(
-        page.getByRole('button', { name: /Mixed topics 196 questions/ })
+        page.getByRole('button', { name: /Mixed topics 300 questions/ })
       ).toHaveAttribute('aria-pressed', 'true')
       await page
         .getByRole('button', {
@@ -217,15 +219,16 @@ test('phone topic choices lead to focused practice, brief guided feedback and a 
     .fill('respiratory')
   await expect(page.locator('.practice-topic-card')).toHaveCount(2)
   await page
-    .getByRole('button', { name: /Respiratory assessment 5 questions/ })
+    .getByRole('button', { name: /Respiratory assessment 15 questions/ })
     .click()
   await expect(
     page.getByText('Every question comes from this topic.')
   ).toBeVisible()
   await expect(page.getByRole('button', { name: 'Change topic' })).toBeVisible()
+  // Fresh sets use the v2 questions; historical attempts retain their original content.
   await expect(
     page.getByRole('button', { name: '10 questions', exact: true })
-  ).toBeDisabled()
+  ).toBeEnabled()
   await page.screenshot({
     path: '../practice-topics-390.png',
     fullPage: true,
@@ -238,12 +241,27 @@ test('phone topic choices lead to focused practice, brief guided feedback and a 
     })
     .click()
   await expect(page).toHaveURL(/\/practice\?session=/)
+  const fresh = await currentPractice(page)
+  expect(fresh.collectionId).toBe('pulm_template')
+  expect(fresh.ids).toHaveLength(5)
+  expect(fresh.ids.every((id) => id.startsWith('v2-'))).toBe(true)
+  expect(fresh.ids).not.toContain('pulm-demo-1')
+  const historical = {
+    ...fresh,
+    id: 'preserved-ventilation-review',
+    revision: PREVIOUS_PRACTICE_LIBRARY_REVISION,
+    ids: loadPractice('pulm_template').items.map((item) => item.id),
+  }
+  await page.evaluate(
+    ({ key, session }) => localStorage.setItem(key, JSON.stringify([session])),
+    { key: PRACTICE_SESSIONS_KEY, session: historical }
+  )
+  await page.goto(`/practice?session=${historical.id}`)
   const initial = await currentPractice(page)
-  expect(initial.collectionId).toBe('pulm_template')
-  expect(initial.ids).toHaveLength(5)
+  expect(initial.revision).toBe(PREVIOUS_PRACTICE_LIBRARY_REVISION)
   expect(initial.ids).toContain('pulm-demo-1')
   for (let index = 0; index < initial.ids.length; index++) {
-    const question = getPracticeQuestion(initial.ids[index]!)!
+    const question = getPracticeQuestion(initial.ids[index]!, initial.revision)!
     expect(question.collectionId).toBe('pulm_template')
     const option = question.options.find(
       (entry) => entry.id === question.correct[0]
@@ -284,7 +302,10 @@ test('phone topic choices lead to focused practice, brief guided feedback and a 
   await expect(
     page.getByRole('region', { name: 'Practice result' })
   ).toContainText('100%')
-  const ventilation = getPracticeQuestion('pulm-demo-1')!
+  const ventilation = getPracticeQuestion(
+    'pulm-demo-1',
+    PREVIOUS_PRACTICE_LIBRARY_REVISION
+  )!
   const review = page
     .locator('.decision-review')
     .filter({ hasText: ventilation.context })
@@ -335,8 +356,13 @@ test('trauma knowledge check conceals explanations until completion and then exp
 }) => {
   await page.setViewportSize({ width: 390, height: 950 })
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  const trauma = practiceLibrary.find((question) =>
-    question.context.includes('rider, GCS 12')
+  const originalBank = loadPractice('anaphylaxis_mods_trauma_sedation')
+  const traumaId = originalBank.items.find((item) =>
+    item.stem.includes('rider, GCS 12')
+  )!.id
+  const trauma = getPracticeQuestion(
+    traumaId,
+    PREVIOUS_PRACTICE_LIBRARY_REVISION
   )!
   expect(trauma).toBeDefined()
   const session = createPracticeSession({
@@ -345,16 +371,13 @@ test('trauma knowledge check conceals explanations until completion and then exp
     collectionId: trauma.collectionId,
     count: 5,
   })!
+  session.revision = PREVIOUS_PRACTICE_LIBRARY_REVISION
   session.ids = [
     trauma.id,
-    ...practiceLibrary
-      .filter(
-        (question) =>
-          question.collectionId === trauma.collectionId &&
-          question.id !== trauma.id
-      )
+    ...originalBank.items
+      .filter((item) => item.id !== trauma.id)
       .slice(0, 4)
-      .map((question) => question.id),
+      .map((item) => item.id),
   ]
   await page.goto('/practice')
   await page.evaluate(
@@ -363,7 +386,7 @@ test('trauma knowledge check conceals explanations until completion and then exp
   )
   await page.goto(`/practice?session=${session.id}`)
   for (let index = 0; index < session.ids.length; index++) {
-    const question = getPracticeQuestion(session.ids[index]!)!
+    const question = getPracticeQuestion(session.ids[index]!, session.revision)!
     const option = question.options.find(
       (entry) => entry.id === question.correct[0]
     )!

@@ -2,7 +2,6 @@ import { test, expect, type Page } from '@playwright/test'
 import {
   getPracticeQuestion,
   practiceCollections,
-  practicePool,
 } from '../lib/learning/practice-library'
 import {
   PRACTICE_SESSIONS_KEY,
@@ -15,11 +14,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 const collection = practiceCollections.find(
-  (entry) =>
-    entry.count >= 10 &&
-    practicePool(entry.id).every(
-      (question) => question.level === 'unclassified'
-    )
+  (entry) => entry.id === 'cv_hypertensive_crises' && entry.count >= 10
 )!
 
 async function assertAccessiblePhoneLayout(page: Page) {
@@ -78,7 +73,10 @@ async function currentSession(page: Page) {
 
 async function selectCanonicalAnswer(page: Page, wrong = false) {
   const session = await currentSession(page)
-  const question = getPracticeQuestion(session.ids[session.index]!)!
+  const question = getPracticeQuestion(
+    session.ids[session.index]!,
+    session.revision
+  )!
   const option = question.options.find((entry) =>
     wrong
       ? !question.correct.includes(entry.id)
@@ -94,7 +92,7 @@ async function startPractice(
   count: 5 | 10
 ) {
   await page.goto(
-    `/practice?collection=${encodeURIComponent(collection.id)}&mode=${mode}&count=${count}`
+    `/practice?collection=${encodeURIComponent(collection.id)}&mode=${mode}&count=${count}&level=${count === 5 ? 'challenge' : 'all'}`
   )
   await expect(
     page.getByRole('heading', { name: 'Practice your next decision' })

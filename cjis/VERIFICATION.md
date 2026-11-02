@@ -1,4 +1,23 @@
-# CJIS integration verification — October 23, 2026
+# CJIS integration verification — November 2, 2026
+
+## CJIS v2 question quality — current review scope
+
+This section supersedes the older Practice counts and level-coverage notes below. Fresh Practice now contains **300 original v2 questions in 20 topics**, with five distinct questions at each of Foundation, Challenge and Advanced. The 100 original unclassified bank items are excluded from fresh sets and remain available through the explicit legacy bank entry and historical reviews. The exact deployed 136- and 196-item Practice revisions remain readable; saved questions, selections, answer keys and scores are not silently replaced.
+
+The [v2 schema, authoring contract and commands](QUESTION_QUALITY_V2.md) require four alternatives, one best answer, option-specific rationales, distractor plausibility/error evidence, decisive cue links and a clinical judgment debrief. Advanced also requires competing evidence, linked reasoning operations, an anticipated endpoint or contingency and an uncertainty limit. The revised numerical rubric is explicitly an **uncalibrated editorial load score**. Curated-bank generation rejects unresolved automated editorial flags; these heuristics do not establish clinical quality or point-biserial discrimination. [Canonical examples](examples/question-v2.examples.json) show each level, including Riley's post-intervention reassessment.
+
+Completed question reviews add key cues, reasoning steps, competing evidence, reassessment/uncertainty, the debrief and references. Guided feedback remains brief, and knowledge checks conceal this material until submission. Known simulation-copy sentences are removed from displayed patient narratives without modifying historical case definitions. Rapid Response has 24 revised decisions with more plausible competing clinical priorities and explanations. Its original revision `2026-10-23.1:5cd9ead9` remains available to saved attempts, including their original timing and scores.
+
+Executed locally on Windows with Node 22:
+
+- Full Vitest regression suite: **384/384 passed** after the final authoring-gate test.
+- Legacy adapter suite: **8/8 passed**; original imported keys remain intact.
+- Generator, JSON Schema and cross-field audit: **300 items, 20 topics, five per level/topic, zero errors and zero current flags**. All 300 remain clinical drafts and uncalibrated. Canonical JSON export and the standalone audit command were executed.
+- TypeScript check and optimized Next.js build passed. The final build includes the Advanced shock refinements.
+- The initial 57-test browser run passed 53 and failed four: three Progress test fixtures still selected the now-retired unclassified pool; one Edge context closed before its accessibility check. The fixtures were corrected to use a declared current topic/level. All four reruns passed. After the final content refinements, both new v2 browser tests passed again, including all 60 topic/level entry points and the Advanced shock grade/debrief at phone widths.
+- Separate tester-access browser suite: **8/8 passed**, covering private redirects, forged cookies, public-path limits and disabled review APIs. These checks use no production services or tester passwords.
+
+The delivery commit and exact CI/preview status are reported with the handoff. See the [development workflow](https://github.com/cliffobm/RapidRounds-2.0/actions/workflows/cjis.yml) for the complete clean CI rerun against that commit. Human clinical/item-writing review, source-rights review where relevant, and representative response-data calibration remain required before a production-readiness claim. Guided and evolving cases still have separate legacy contracts; this change does not assert that every historical item has been converted to v2. Main and production data were not changed; publication is confined to the review preview.
 
 ## Direct tester access — October 24, 2026
 

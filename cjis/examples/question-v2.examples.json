@@ -1,0 +1,286 @@
+[
+  {
+    "schema_version": "2.0",
+    "id": "v2-cv-ami-f1",
+    "revision": "2026-11-02.1",
+    "collection_id": "acute_mi",
+    "topic": "Possible ischemia without chest pain",
+    "clinical_domain": "cardiovascular",
+    "reasoning_level": "foundation",
+    "primary_competency": "take_action",
+    "difficulty_score": 0.3,
+    "difficulty_kind": "editorial_load_not_calibrated",
+    "learner_context": {
+      "setting": "Adult acute care",
+      "audience": "Nursing learners practising formative clinical judgment"
+    },
+    "scenario": "Morgan arrives after developing nausea and jaw pressure while climbing stairs. The discomfort persists at rest. Their skin is cool and sweaty. They describe the sensation as indigestion.",
+    "key_cues": [
+      "Exertional jaw pressure persisting at rest",
+      "Nausea with diaphoresis"
+    ],
+    "question": "Which first assessment is most appropriate for possible myocardial ischemia presenting without chest pain?",
+    "options": {
+      "A": "Obtain a prompt 12-lead ECG.",
+      "B": "Perform a focused abdominal assessment.",
+      "C": "Assess jaw movement and dental tenderness.",
+      "D": "Complete an orthostatic blood pressure assessment."
+    },
+    "correct_answer": "A",
+    "rationale": "The symptom cluster can represent myocardial ischemia and needs early electrical assessment.",
+    "distractor_analysis": {
+      "A": "The symptom cluster can represent myocardial ischemia and needs early electrical assessment.",
+      "B": "Abdominal assessment may contribute later, but does not address possible time-sensitive ischemia.",
+      "C": "Exertional symptoms and sweating are poorly explained by an isolated dental problem.",
+      "D": "Standing the patient does not evaluate the principal ischemic concern and may provoke symptoms."
+    },
+    "debrief": "Recognize ischemic equivalents before assigning a gastrointestinal or musculoskeletal explanation.",
+    "reasoning_evidence": {
+      "cue_load": "sparse",
+      "distractor_demand": "plausible",
+      "operations": [
+        "Recognize an ischemic symptom equivalent."
+      ],
+      "decisive_cue_ids": [
+        "C1",
+        "C2"
+      ],
+      "single_best_justification": "The symptom cluster can represent myocardial ischemia and needs early electrical assessment."
+    },
+    "distractor_evidence": [
+      {
+        "option_id": "B",
+        "intended_error": "misprioritization",
+        "why_plausible": "Nausea suggests a gastrointestinal source.",
+        "why_not_best": "Abdominal assessment may contribute later, but does not address possible time-sensitive ischemia.",
+        "cue_ids": [
+          "C2"
+        ]
+      },
+      {
+        "option_id": "C",
+        "intended_error": "cue_misinterpretation",
+        "why_plausible": "Jaw pressure can arise from teeth.",
+        "why_not_best": "Exertional symptoms and sweating are poorly explained by an isolated dental problem.",
+        "cue_ids": [
+          "C1"
+        ]
+      },
+      {
+        "option_id": "D",
+        "intended_error": "misprioritization",
+        "why_plausible": "Cool skin can suggest volume depletion.",
+        "why_not_best": "Standing the patient does not evaluate the principal ischemic concern and may provoke symptoms.",
+        "cue_ids": [
+          "C2"
+        ]
+      }
+    ],
+    "references": [
+      "https://professional.heart.org/en/science-news/patient-resources/key-patient-messages-2025-acute-coronary-syndromes-guideline",
+      "https://www.nice.org.uk/guidance/cg50/chapter/recommendations"
+    ],
+    "review_status": "draft",
+    "clinical_review": null,
+    "calibration_status": "uncalibrated"
+  },
+  {
+    "schema_version": "2.0",
+    "id": "v2-cv-ami-c1",
+    "revision": "2026-11-02.1",
+    "collection_id": "acute_mi",
+    "topic": "Recurrent pain after nondiagnostic testing",
+    "clinical_domain": "cardiovascular",
+    "reasoning_level": "challenge",
+    "primary_competency": "take_action",
+    "difficulty_score": 0.8,
+    "difficulty_kind": "editorial_load_not_calibrated",
+    "learner_context": {
+      "setting": "Adult acute care",
+      "audience": "Nursing learners practising formative clinical judgment"
+    },
+    "scenario": "Quinn had a nondiagnostic ECG on arrival with chest discomfort. Thirty minutes later the pressure returns during rest. They are newly diaphoretic and their blood pressure has fallen from 138/82 to 106/68 mmHg. The scheduled repeat troponin is not yet due.",
+    "key_cues": [
+      "Recurrent pressure at rest",
+      "New diaphoresis",
+      "Falling blood pressure",
+      "Earlier nondiagnostic ECG"
+    ],
+    "question": "What should recurrent chest pressure change about the plan after initially nondiagnostic coronary tests?",
+    "options": {
+      "A": "Bring the repeat troponin forward as the first reassessment.",
+      "B": "Compare the episode with the previous reflux history first.",
+      "C": "Repeat orthostatic observations to explain the pressure change.",
+      "D": "Repeat the 12-lead ECG during the recurrent symptoms."
+    },
+    "correct_answer": "D",
+    "rationale": "New symptoms and deterioration can reveal evolving ischemic changes before the scheduled blood sample.",
+    "distractor_analysis": {
+      "A": "Blood sampling contributes, but must not displace immediate reassessment of active electrical ischemia.",
+      "B": "Prior reflux does not adequately account for diaphoresis and falling pressure during recurrent pain.",
+      "C": "Provoking posture changes delays assessment of an unstable ischemic symptom pattern.",
+      "D": "New symptoms and deterioration can reveal evolving ischemic changes before the scheduled blood sample."
+    },
+    "debrief": "Clinical deterioration overrides the reassurance of an earlier ECG and the routine timing of later tests.",
+    "reasoning_evidence": {
+      "cue_load": "moderate",
+      "distractor_demand": "inference",
+      "operations": [
+        "Integrate recurrent symptoms with the hemodynamic trend.",
+        "Prioritize time-sensitive reassessment."
+      ],
+      "decisive_cue_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "single_best_justification": "New symptoms and deterioration can reveal evolving ischemic changes before the scheduled blood sample."
+    },
+    "distractor_evidence": [
+      {
+        "option_id": "A",
+        "intended_error": "misprioritization",
+        "why_plausible": "A biomarker trend helps diagnose infarction.",
+        "why_not_best": "Blood sampling contributes, but must not displace immediate reassessment of active electrical ischemia.",
+        "cue_ids": [
+          "C1",
+          "C4"
+        ]
+      },
+      {
+        "option_id": "B",
+        "intended_error": "premature_closure",
+        "why_plausible": "Recurrent pain can have a familiar cause.",
+        "why_not_best": "Prior reflux does not adequately account for diaphoresis and falling pressure during recurrent pain.",
+        "cue_ids": [
+          "C1",
+          "C2",
+          "C3"
+        ]
+      },
+      {
+        "option_id": "C",
+        "intended_error": "cue_misinterpretation",
+        "why_plausible": "The blood pressure has fallen.",
+        "why_not_best": "Provoking posture changes delays assessment of an unstable ischemic symptom pattern.",
+        "cue_ids": [
+          "C3"
+        ]
+      }
+    ],
+    "references": [
+      "https://professional.heart.org/en/science-news/patient-resources/key-patient-messages-2025-acute-coronary-syndromes-guideline",
+      "https://www.nice.org.uk/guidance/cg50/chapter/recommendations"
+    ],
+    "review_status": "draft",
+    "clinical_review": null,
+    "calibration_status": "uncalibrated"
+  },
+  {
+    "schema_version": "2.0",
+    "id": "v2-cv-ami-a4",
+    "revision": "2026-11-02.1",
+    "collection_id": "acute_mi",
+    "topic": "Deterioration despite successful reperfusion",
+    "clinical_domain": "cardiovascular",
+    "reasoning_level": "advanced",
+    "primary_competency": "evaluate_outcomes",
+    "difficulty_score": 1.3,
+    "difficulty_kind": "editorial_load_not_calibrated",
+    "learner_context": {
+      "setting": "Adult acute care",
+      "audience": "Nursing learners practising formative clinical judgment"
+    },
+    "scenario": "Riley returns after coronary reperfusion with reduced ST elevation. They report less chest pressure but remain lightheaded. During the next hour they become cool and confused, urine output is 10 mL, and blood pressure falls to 86/56 mmHg. Lung crackles increase and the pulse pressure narrows. The catheterization report documented a patent treated artery.",
+    "key_cues": [
+      "Improved ST elevation after reperfusion",
+      "Minimal chest discomfort",
+      "Cool confusion",
+      "Urine output 10 mL in an hour",
+      "Blood pressure 86/56 mmHg with narrow pulse pressure",
+      "Increasing crackles",
+      "Patent treated artery"
+    ],
+    "question": "Which reassessment priority best evaluates Riley’s worsening perfusion despite reduced pressure and improved ST elevation?",
+    "options": {
+      "A": "Prioritize repeat coronary biomarkers and ECG trends to assess residual myocardial injury.",
+      "B": "Prioritize renal-function testing and contrast-exposure review to explain the new low output.",
+      "C": "Prioritize volume-loss assessment and a fluid trial to explain the hypotension and oliguria.",
+      "D": "Prioritize perfusion reassessment and urgent cardiac imaging for pump or mechanical failure."
+    },
+    "correct_answer": "D",
+    "rationale": "Successful reperfusion does not exclude pump failure or a new mechanical complication causing ongoing organ hypoperfusion. Current cerebral, renal, circulatory and pulmonary trends require urgent cardiac reassessment despite less pain.",
+    "distractor_analysis": {
+      "A": "Coronary surveillance remains useful, but biomarker and ECG trends cannot adequately evaluate the current low-output and congestive pattern. Bedside shock assessment and cardiac imaging should not be displaced by repeating the reperfusion endpoints.",
+      "B": "Contrast exposure deserves review, but isolated kidney injury does not explain the rapid combination of confusion, narrow pulse pressure and increasing congestion. The whole perfusion pattern takes priority.",
+      "C": "Volume loss is a possible contributor, but increasing crackles make unassessed additional fluid risky. The pattern requires urgent evaluation of cardiac function and fluid tolerance rather than assuming a volume-responsive mechanism.",
+      "D": "Successful reperfusion does not exclude pump failure or a new mechanical complication causing ongoing organ hypoperfusion. Current cerebral, renal, circulatory and pulmonary trends require urgent cardiac reassessment despite less pain."
+    },
+    "debrief": "Evaluate the patient response across organs rather than treating a technically successful procedure as the final outcome.",
+    "reasoning_evidence": {
+      "cue_load": "layered",
+      "distractor_demand": "multistep",
+      "operations": [
+        "Separate successful artery treatment from whole-patient recovery.",
+        "Evaluate a shock pattern and anticipate cardiac complications."
+      ],
+      "decisive_cue_ids": [
+        "C3",
+        "C4",
+        "C5",
+        "C6"
+      ],
+      "single_best_justification": "Successful reperfusion does not exclude pump failure or a new mechanical complication causing ongoing organ hypoperfusion. Current cerebral, renal, circulatory and pulmonary trends require urgent cardiac reassessment despite less pain.",
+      "conflicting_evidence": "Reassuring procedural and ECG results conflict with worsening systemic and pulmonary findings.",
+      "anticipation": "Identify pump or mechanical failure before further respiratory or circulatory collapse.",
+      "uncertainty": "The current mechanism of shock is not established by artery patency or urine output alone."
+    },
+    "distractor_evidence": [
+      {
+        "option_id": "A",
+        "intended_error": "misprioritization",
+        "why_plausible": "Serial ECG and biomarker trends are familiar objective measures after an acute coronary event.",
+        "why_not_best": "Coronary surveillance remains useful, but biomarker and ECG trends cannot adequately evaluate the current low-output and congestive pattern. Bedside shock assessment and cardiac imaging should not be displaced by repeating the reperfusion endpoints.",
+        "cue_ids": [
+          "C1",
+          "C3",
+          "C4",
+          "C5",
+          "C6"
+        ]
+      },
+      {
+        "option_id": "B",
+        "intended_error": "premature_closure",
+        "why_plausible": "Oliguria follows a contrast procedure and may draw attention toward a renal complication.",
+        "why_not_best": "Contrast exposure deserves review, but isolated kidney injury does not explain the rapid combination of confusion, narrow pulse pressure and increasing congestion. The whole perfusion pattern takes priority.",
+        "cue_ids": [
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7"
+        ]
+      },
+      {
+        "option_id": "C",
+        "intended_error": "cue_misinterpretation",
+        "why_plausible": "Hypotension and oliguria commonly suggest inadequate circulating volume after a procedure.",
+        "why_not_best": "Volume loss is a possible contributor, but increasing crackles make unassessed additional fluid risky. The pattern requires urgent evaluation of cardiac function and fluid tolerance rather than assuming a volume-responsive mechanism.",
+        "cue_ids": [
+          "C4",
+          "C5",
+          "C6"
+        ]
+      }
+    ],
+    "references": [
+      "https://professional.heart.org/en/science-news/patient-resources/key-patient-messages-2025-acute-coronary-syndromes-guideline",
+      "https://www.nice.org.uk/guidance/cg50/chapter/recommendations"
+    ],
+    "review_status": "draft",
+    "clinical_review": null,
+    "calibration_status": "uncalibrated"
+  }
+]

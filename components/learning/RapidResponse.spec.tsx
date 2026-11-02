@@ -1,7 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import RapidResponse from './RapidResponse'
-import { rapidResponseCases } from '@/lib/learning/rapid-response-content'
+import {
+  rapidResponseCases,
+  legacyRapidResponseCases,
+  LEGACY_RAPID_RESPONSE_REVISION,
+} from '@/lib/learning/rapid-response-content'
 import {
   RAPID_RESPONSE_KEY,
   createRapidResponseSession,
@@ -58,6 +62,34 @@ function choose(
 }
 
 describe('Rapid Response practice experience', () => {
+  it('shows the original question and selection when reopening a historical draft', () => {
+    const original = legacyRapidResponseCases[0]!
+    const old = {
+      ...createRapidResponseSession(original.id, {
+        mode: 'untimed',
+        id: 'old-response-draft',
+      })!,
+      revision: LEGACY_RAPID_RESPONSE_REVISION,
+      selected: original.stages[0]!.question.correct,
+      paused: true,
+    }
+    localStorage.setItem(RAPID_RESPONSE_KEY, JSON.stringify([old]))
+    render(<RapidResponse initialSessionId={old.id} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Resume case', exact: true }))
+    expect(
+      screen.getByText(original.stages[0]!.question.prompt, { exact: true })
+    ).toBeVisible()
+    const chosen = original.stages[0]!.question.options.find(
+      (o) => o.id === old.selected[0]
+    )!
+    expect(
+      screen.getByRole('radio', { name: new RegExp(escape(chosen.text)) })
+    ).toBeChecked()
+    expect(
+      screen.queryByText(story.stages[0]!.question.prompt, { exact: true })
+    ).not.toBeInTheDocument()
+    expect(saved()[0]!.revision).toBe(LEGACY_RAPID_RESPONSE_REVISION)
+  })
   it('makes the countdown optional and offers visible additional time before starting', () => {
     render(<RapidResponse />)
     expect(

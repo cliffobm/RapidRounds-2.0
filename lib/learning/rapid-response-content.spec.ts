@@ -1,10 +1,34 @@
 import { describe, expect, it } from 'vitest'
 import { buildEcgStrip, ECG_RHYTHMS } from './ecg-rhythms'
-import { getRapidResponseCase, rapidResponseCases, rapidResponseClinicalScope, rapidResponseRevision } from './rapid-response-content'
+import {
+  getRapidResponseCase,
+  rapidResponseCases,
+  rapidResponseClinicalScope,
+  rapidResponseRevision,
+  legacyRapidResponseCases,
+  LEGACY_RAPID_RESPONSE_REVISION,
+} from './rapid-response-content'
+import { contentRevision } from './sessions'
 
 describe('Rapid Response teaching content', () => {
+  it('preserves the deployed definitions under their exact historical hash', () => {
+    expect(`2026-10-23.1:${contentRevision(legacyRapidResponseCases)}`).toBe(
+      LEGACY_RAPID_RESPONSE_REVISION
+    )
+    for (const story of legacyRapidResponseCases) {
+      expect(
+        getRapidResponseCase(story.id, LEGACY_RAPID_RESPONSE_REVISION)
+      ).toBe(story)
+      expect(
+        getRapidResponseCase(story.id)!.stages.map((s) => s.question.prompt)
+      ).not.toEqual(story.stages.map((s) => s.question.prompt))
+    }
+    expect(
+      getRapidResponseCase(legacyRapidResponseCases[0]!.id, 'unknown')
+    ).toBeUndefined()
+  })
   it('provides six complete, distinct adult cases and 24 sequential decisions', () => {
-    expect(rapidResponseRevision).toBe('2026-10-23.1')
+    expect(rapidResponseRevision).toBe('2026-11-02.1')
     expect(rapidResponseClinicalScope).toMatch(/not clinical deadlines/i)
     expect(rapidResponseCases).toHaveLength(6)
     expect(new Set(rapidResponseCases.map((item) => item.id)).size).toBe(6)
@@ -16,7 +40,9 @@ describe('Rapid Response teaching content', () => {
       expect(new Set(item.stages.map((stage) => stage.id)).size).toBe(4)
       expect(item.timeBudgetSeconds).toBeGreaterThanOrEqual(240)
       expect(item.timeBudgetSeconds).toBeLessThanOrEqual(360)
-      expect(item.stages.filter((stage) => stage.critical).length).toBeGreaterThanOrEqual(2)
+      expect(
+        item.stages.filter((stage) => stage.critical).length
+      ).toBeGreaterThanOrEqual(2)
       expect(item.references.length).toBeGreaterThanOrEqual(2)
       for (const reference of item.references) {
         expect(reference.title.length).toBeGreaterThan(12)
@@ -29,10 +55,21 @@ describe('Rapid Response teaching content', () => {
         prompts.push(question.prompt)
         expect(question.options).toHaveLength(4)
         expect(question.correct).toHaveLength(1)
-        expect(new Set(question.options.map((option) => option.id)).size).toBe(4)
-        expect(question.options.map((option) => option.id)).toEqual(['0', '1', '2', '3'])
-        expect(question.options.some((option) => option.id === question.correct[0])).toBe(true)
-        expect(new Set(question.options.map((option) => option.text)).size).toBe(4)
+        expect(new Set(question.options.map((option) => option.id)).size).toBe(
+          4
+        )
+        expect(question.options.map((option) => option.id)).toEqual([
+          '0',
+          '1',
+          '2',
+          '3',
+        ])
+        expect(
+          question.options.some((option) => option.id === question.correct[0])
+        ).toBe(true)
+        expect(
+          new Set(question.options.map((option) => option.text)).size
+        ).toBe(4)
         for (const option of question.options) {
           expect(option.text.length).toBeGreaterThan(20)
           expect(option.explanation.length).toBeGreaterThan(100)
@@ -60,8 +97,17 @@ describe('Rapid Response teaching content', () => {
       }
     }
     const arrest = getRapidResponseCase('wide-complex-collapse')!
-    expect(arrest.stages.map((stage) => stage.rhythmId ?? null)).toEqual(['vt', 'pulseless-vt', null, 'pea'])
-    expect(getRapidResponseCase('potassium-warning')!.stages.every((stage) => !stage.rhythmId)).toBe(true)
+    expect(arrest.stages.map((stage) => stage.rhythmId ?? null)).toEqual([
+      'vt',
+      'pulseless-vt',
+      null,
+      'pea',
+    ])
+    expect(
+      getRapidResponseCase('potassium-warning')!.stages.every(
+        (stage) => !stage.rhythmId
+      )
+    ).toBe(true)
   })
 
   it('keeps displayed case rates consistent with the fixed synthetic teaching strips', () => {
@@ -86,17 +132,35 @@ describe('Rapid Response teaching content', () => {
     expect(answerCounts).toEqual([6, 6, 6, 6])
 
     const correctText = (caseId: string, stageId: string) => {
-      const question = getRapidResponseCase(caseId)!.stages.find((stage) => stage.id === stageId)!.question
-      return question.options.find((option) => option.id === question.correct[0])!.text
+      const question = getRapidResponseCase(caseId)!.stages.find(
+        (stage) => stage.id === stageId
+      )!.question
+      return question.options.find(
+        (option) => option.id === question.correct[0]
+      )!.text
     }
-    expect(correctText('wide-complex-collapse', 'pulse-present')).toMatch(/synchronized cardioversion/i)
-    expect(correctText('wide-complex-collapse', 'pulse-lost')).toMatch(/CPR.*unsynchronized defibrillation/i)
-    expect(correctText('wide-complex-collapse', 'organized-rhythm')).toMatch(/CPR.*nonshockable/i)
-    expect(correctText('slowing-conduction', 'capture')).toMatch(/mechanical capture/i)
-    expect(correctText('potassium-warning', 'stabilize-and-remove')).toMatch(/protects.*potassium lowering/i)
+    expect(correctText('wide-complex-collapse', 'pulse-present')).toMatch(
+      /synchronized cardioversion/i
+    )
+    expect(correctText('wide-complex-collapse', 'pulse-lost')).toMatch(
+      /CPR.*unsynchronized defibrillation/i
+    )
+    expect(correctText('wide-complex-collapse', 'organized-rhythm')).toMatch(
+      /CPR.*nonshockable/i
+    )
+    expect(correctText('slowing-conduction', 'capture')).toMatch(
+      /mechanical capture/i
+    )
+    expect(correctText('potassium-warning', 'stabilize-and-remove')).toMatch(
+      /protects.*potassium lowering/i
+    )
     expect(correctText('potassium-warning', 'second-risk')).toMatch(/glucose/i)
-    expect(correctText('hidden-loss', 'drain-stops')).toMatch(/Internal blood loss.*absent drain output/i)
-    expect(correctText('breathless-infection', 'fluid-tolerance')).toMatch(/fluid-tolerance/i)
+    expect(correctText('hidden-loss', 'drain-stops')).toMatch(
+      /Internal blood loss.*absent drain output/i
+    )
+    expect(correctText('breathless-infection', 'fluid-tolerance')).toMatch(
+      /fluid-tolerance/i
+    )
     expect(getRapidResponseCase('missing-case')).toBeUndefined()
   })
 })

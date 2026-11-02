@@ -3,8 +3,10 @@ import { orderedOptions } from './evolving-types'
 import {
   PRACTICE_LIBRARY_REVISION,
   getPracticeQuestion,
-  practiceLibrary,
+  practicePool,
+  PREVIOUS_PRACTICE_LIBRARY_REVISION,
 } from './practice-library'
+import { loadPractice } from '@/lib/cjis/practice'
 import {
   createPracticeSession,
   PRACTICE_SESSIONS_KEY,
@@ -125,7 +127,10 @@ describe('unified practice sessions', () => {
     ],
     [
       'invented difficulty',
-      (session: UnifiedPracticeSession) => ({ ...session, level: 'advanced' }),
+      (session: UnifiedPracticeSession) => ({
+        ...session,
+        level: 'unclassified',
+      }),
     ],
     [
       'backward time',
@@ -150,7 +155,7 @@ describe('unified practice sessions', () => {
       createPracticeSession({
         mode: 'check',
         count: 10,
-        collectionId: 'reasoning:fever-neuro',
+        collectionId: 'unknown-collection',
       })
     ).toBeNull()
     expect(
@@ -158,7 +163,7 @@ describe('unified practice sessions', () => {
         mode: 'check',
         count: 5,
         collectionId: 'reasoning:fever-neuro',
-        level: 'advanced',
+        level: 'unclassified',
       })
     ).toBeNull()
   })
@@ -214,6 +219,11 @@ describe('unified practice sessions', () => {
       count: 5,
       now: startedAt,
     })!
+    session.ids = [
+      ...practicePool('reasoning:fever-neuro', 'foundation').slice(0, 2),
+      ...practicePool('reasoning:fever-neuro', 'challenge').slice(0, 2),
+      ...practicePool('reasoning:fever-neuro', 'advanced').slice(0, 1),
+    ].map((question) => question.id)
     session.complete = true
     session.index = 4
     session.updatedAt = '2026-10-22T12:05:00.000Z'
@@ -254,16 +264,19 @@ describe('unified practice sessions', () => {
 
   it('does not guess a level or competency for imported questions', () => {
     const session = attempt()
-    session.ids = practiceLibrary
-      .filter((question) => question.origin === 'legacy')
+    session.revision = PREVIOUS_PRACTICE_LIBRARY_REVISION
+    session.ids = loadPractice('cv_hypertensive_crises')
+      .items.filter((question) => question.origin === 'legacy')
       .slice(0, 5)
       .map((question) => question.id)
+    expect(session.ids).toHaveLength(5)
     session.complete = true
     session.index = 4
     session.answers = session.ids.map((id) => ({
-      selected: getPracticeQuestion(id)!.correct[0]!,
+      selected: getPracticeQuestion(id, session.revision)!.correct[0]!,
       assisted: false,
     }))
+    expect(read(session)).toEqual(session)
     expect(practiceAttemptRecord(session)).toMatchObject({
       level: 'unclassified',
       skills: [],

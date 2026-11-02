@@ -3,11 +3,23 @@ import type { PillarId } from './pillars'
 export const legacyEvolvingRevision = '2026-10-21.1'
 export const evolvingRevision = '2026-10-22.2'
 export type ReasoningLevel = 'foundation' | 'challenge' | 'advanced'
+export type QuestionReview = {
+  schemaVersion: '2.0'
+  keyCues: string[]
+  reasoning: string[]
+  debrief: string
+  conflict?: string
+  anticipation?: string
+  uncertainty?: string
+  references: { title: string; url: string }[]
+}
 export type EvolvingQuestion = {
   prompt: string
   options: { id: string; text: string; explanation: string }[]
   correct: string[]
   reflection: string
+  /** Post-submission teaching evidence; never rendered before an answer is submitted. */
+  review?: QuestionReview
 }
 export type Observation = {
   minute: number

@@ -71,7 +71,7 @@ export function readProgress(storage?: ProgressStorage): ProgressSnapshot {
     for (const session of readRapidResponseSessions(
       saved.getItem(RAPID_RESPONSE_KEY)
     )) {
-      const story = getRapidResponseCase(session.caseId)!
+      const story = getRapidResponseCase(session.caseId, session.revision)!
       if (session.complete) add(rapidResponseAttempt(session, 'saved'))
       else
         result.unfinished.push({

@@ -2,7 +2,10 @@
 
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { rapidResponseCases } from '@/lib/learning/rapid-response-content'
+import {
+  rapidResponseCases,
+  getRapidResponseCase,
+} from '@/lib/learning/rapid-response-content'
 import {
   RAPID_RESPONSE_KEY,
   createRapidResponseSession,
@@ -239,8 +242,9 @@ export default function RapidResponse({
     }
   }, [caseId, session?.id, session?.index, session?.complete, session?.paused])
 
-  const story = rapidResponseCases.find(
-    (entry) => entry.id === (session?.caseId ?? caseId)
+  const story = getRapidResponseCase(
+    session?.caseId ?? caseId,
+    session?.revision
   )
   const stage = session && story ? story.stages[session.index] : null
   const remaining = session ? rapidResponseRemainingMs(session) : null

@@ -4,8 +4,8 @@ import UnifiedPractice from './UnifiedPractice'
 import {
   getPracticeQuestion,
   practiceCollections,
-  practiceLibrary,
   practicePool,
+  PREVIOUS_PRACTICE_LIBRARY_REVISION,
 } from '@/lib/learning/practice-library'
 import {
   createPracticeSession,
@@ -15,6 +15,8 @@ import {
 } from '@/lib/learning/practice-session'
 import { historyKey, readAttempts } from '@/lib/learning/attempt-history'
 import PracticePage from '@/app/practice/page'
+import { materialQuestions } from '@/lib/learning/material-questions'
+import { loadPractice } from '@/lib/cjis/practice'
 
 const { routerReplace } = vi.hoisted(() => ({ routerReplace: vi.fn() }))
 vi.mock('next/navigation', () => ({
@@ -30,15 +32,56 @@ beforeEach(() => {
 })
 
 describe('UnifiedPractice', () => {
+  it('resumes and scores a retired 196-item revision against its original questions', async () => {
+    const ids = materialQuestions
+      .filter(
+        (q) => q.collectionId === 'renal-metabolic' && q.level === 'advanced'
+      )
+      .map((q) => q.id)
+    const old = {
+      ...createPracticeSession({
+        id: 'old-material-draft',
+        collectionId: 'renal-metabolic',
+        level: 'advanced',
+        mode: 'check',
+        count: 5,
+      })!,
+      revision: PREVIOUS_PRACTICE_LIBRARY_REVISION,
+      ids,
+    }
+    expect(savePracticeSession(old)).toBe(true)
+    render(<UnifiedPractice initialSessionId={old.id} />)
+    for (const [index, id] of ids.entries()) {
+      const question = getPracticeQuestion(id, old.revision)!
+      const correct = question.options.find(
+        (o) => o.id === question.correct[0]
+      )!
+      expect(
+        await screen.findByText(question.context, { exact: true })
+      ).toBeVisible()
+      fireEvent.click(
+        screen.getByRole('radio', { name: correct.text, exact: true })
+      )
+      fireEvent.click(
+        screen.getByRole('button', {
+          name: index === 4 ? 'Submit check' : 'Save and continue',
+          exact: true,
+        })
+      )
+    }
+    expect(await screen.findByText('5 of 5 questions correct')).toBeVisible()
+    expect(savedSession().revision).toBe(old.revision)
+    expect(savedSession().ids).toEqual(ids)
+  })
   it('shows searchable topic choices immediately and makes all topics discoverable without a dropdown', async () => {
     render(<UnifiedPractice />)
-    expect(await screen.findByText('196 questions available.')).toBeVisible()
+    expect(await screen.findByText('300 questions available.')).toBeVisible()
     expect(screen.getByText('Selected topic')).toBeVisible()
     expect(
       screen.getByText('Questions from across all clinical areas.')
     ).toBeVisible()
     expect(
-      screen.getByRole('button', { name: /Mixed topics 196 questions/ })
+      screen.getByRole('button', { name: /Mixed topics 300 questions/ })
     ).toHaveAttribute('aria-pressed', 'true')
     fireEvent.click(
       screen.getByRole('button', {
@@ -137,7 +180,7 @@ describe('UnifiedPractice', () => {
     ).toBeVisible()
     fireEvent.click(screen.getByRole('button', { name: 'Change topic' }))
     fireEvent.click(
-      screen.getByRole('button', { name: /Mixed topics 196 questions/ })
+      screen.getByRole('button', { name: /Mixed topics 300 questions/ })
     )
     expect(
       screen.getByText('Questions from across all clinical areas.')
@@ -227,12 +270,18 @@ describe('UnifiedPractice', () => {
       count: 5,
       id: 'reference-guided',
     })!
-    const referenceQuestion = practiceLibrary.find((question) =>
-      /\bsepsis\b/i.test(question.context)
+    const bank = loadPractice('sepsis_septic_shock')
+    const reference = bank.items.find((item) => /\bsepsis\b/i.test(item.stem))!
+    const referenceQuestion = getPracticeQuestion(
+      reference.id,
+      PREVIOUS_PRACTICE_LIBRARY_REVISION
     )!
+    session.revision = PREVIOUS_PRACTICE_LIBRARY_REVISION
     session.ids = [
-      referenceQuestion.id,
-      ...session.ids.filter((id) => id !== referenceQuestion.id),
+      reference.id,
+      ...bank.items
+        .filter((item) => item.id !== reference.id)
+        .map((item) => item.id),
     ].slice(0, 5)
     savePracticeSession(session)
     render(<UnifiedPractice initialSessionId={session.id} />)
@@ -262,25 +311,34 @@ describe('UnifiedPractice', () => {
     expect(savedSession().assisted).toBe(false)
   })
 
-  it('disables an unavailable ten-question check and offers a broader pool for a narrow level', async () => {
+  it('offers a full Advanced set in a previously sparse topic and disables only the unavailable ten-question count', async () => {
     render(<UnifiedPractice initialCollection="reasoning:fever-neuro" />)
     expect(
       await screen.findByRole('button', { name: '10 questions', exact: true })
-    ).toBeDisabled()
+    ).toBeEnabled()
     fireEvent.click(screen.getByText('Customize reasoning level'))
     fireEvent.click(
       screen.getByRole('button', { name: 'Advanced', exact: true })
     )
     expect(
       screen.getByRole('button', { name: 'Start 5-question guided practice' })
+    ).toBeEnabled()
+    expect(
+      screen.getByRole('button', { name: '10 questions', exact: true })
     ).toBeDisabled()
+    expect(
+      screen.getByText('5 questions available at this level.')
+    ).toBeVisible()
+    fireEvent.click(screen.getByRole('button', { name: 'Change topic' }))
     fireEvent.click(
-      screen.getByRole('button', { name: 'Use all topics and levels' })
+      screen.getByRole('button', { name: /Mixed topics 300 questions/ })
     )
     expect(
       screen.getByRole('button', { name: 'Start 5-question guided practice' })
     ).toBeEnabled()
-    expect(screen.getByText('196 questions available.')).toBeVisible()
+    expect(
+      screen.getByText('100 questions available at this level.')
+    ).toBeVisible()
   })
 
   it('keeps practice usable during the visit when storage fails, without redirecting to an unsaved attempt', async () => {
@@ -332,7 +390,7 @@ describe('UnifiedPractice', () => {
     })
     render(page)
     expect(
-      await screen.findByText('32 questions available at this level.')
+      await screen.findByText('100 questions available at this level.')
     ).toBeVisible()
     fireEvent.click(screen.getByText('Customize reasoning level'))
     expect(
@@ -354,10 +412,61 @@ describe('UnifiedPractice', () => {
     render(
       await PracticePage({ searchParams: Promise.resolve({ level: 'expert' }) })
     )
-    expect(await screen.findByText('196 questions available.')).toBeVisible()
+    expect(await screen.findByText('300 questions available.')).toBeVisible()
     fireEvent.click(screen.getByText('Customize reasoning level'))
     expect(
       screen.getByRole('button', { name: 'All levels', exact: true })
     ).toHaveAttribute('aria-pressed', 'true')
+  })
+  it('uses current levelled questions for a retired unclassified setup link', async () => {
+    render(<UnifiedPractice initialLevel="unclassified" />)
+    expect(await screen.findByText('300 questions available.')).toBeVisible()
+    fireEvent.click(screen.getByText('Customize reasoning level'))
+    expect(
+      screen.getByRole('button', { name: 'All levels', exact: true })
+    ).toHaveAttribute('aria-pressed', 'true')
+    expect(
+      screen.queryByRole('button', { name: 'Level not assigned', exact: true })
+    ).not.toBeInTheDocument()
+  })
+  it('starts a current levelled set after reviewing a completed unclassified attempt', async () => {
+    const base = createPracticeSession({
+      id: 'old-unclassified-review',
+      collectionId: 'pulm_template',
+      mode: 'check',
+      count: 5,
+    })!
+    const ids = loadPractice('pulm_template').items.map((q) => q.id)
+    const old = {
+      ...base,
+      revision: PREVIOUS_PRACTICE_LIBRARY_REVISION,
+      level: 'unclassified' as const,
+      ids,
+      complete: true,
+      index: 4,
+      answers: ids.map((id) => ({
+        selected: getPracticeQuestion(id, PREVIOUS_PRACTICE_LIBRARY_REVISION)!
+          .correct[0]!,
+        assisted: false,
+      })),
+    }
+    expect(savePracticeSession(old)).toBe(true)
+    render(<UnifiedPractice initialSessionId={old.id} />)
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'Start another practice' })
+    )
+    expect(screen.getByText('15 questions available.')).toBeVisible()
+    fireEvent.click(screen.getByText('Customize reasoning level'))
+    expect(
+      screen.getByRole('button', { name: 'All levels', exact: true })
+    ).toHaveAttribute('aria-pressed', 'true')
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: 'Start 5-question check',
+        exact: true,
+      })
+    )
+    expect(savedSession().ids.every((id) => id.startsWith('v2-'))).toBe(true)
+    expect(savedSession().revision).not.toBe(old.revision)
   })
 })

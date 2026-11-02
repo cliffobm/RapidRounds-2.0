@@ -1,20 +1,19 @@
 import { z } from 'zod'
 import {
   getRapidResponseCase,
-  rapidResponseCases,
-  rapidResponseRevision,
+  CURRENT_RAPID_RESPONSE_REVISION,
+  LEGACY_RAPID_RESPONSE_REVISION,
 } from './rapid-response-content'
 import { matchesAnswer } from './evolving-types'
-import { contentRevision } from './sessions'
 import { newAttemptId, type AttemptRecord } from './attempt-history'
 import { summarizePractice } from './practice-result'
 
 export const RAPID_RESPONSE_KEY = 'rapidrounds-rapid-response-v1'
-export const RAPID_RESPONSE_REVISION = `${rapidResponseRevision}:${contentRevision(rapidResponseCases)}`
+export const RAPID_RESPONSE_REVISION = CURRENT_RAPID_RESPONSE_REVISION
 const maximumActiveMs = 24 * 60 * 60 * 1000
 const schema = z.object({
   id: z.string().regex(/^[a-zA-Z0-9:_-]{6,150}$/),
-  revision: z.literal(RAPID_RESPONSE_REVISION),
+  revision: z.enum([RAPID_RESPONSE_REVISION, LEGACY_RAPID_RESPONSE_REVISION]),
   caseId: z.string(),
   mode: z.enum(['untimed', 'challenge']),
   budgetMs: z.number().int().positive().max(maximumActiveMs).nullable(),
@@ -42,7 +41,7 @@ function valid(value: unknown): RapidResponseSession | null {
   const parsed = schema.safeParse(value)
   if (!parsed.success) return null
   const session = parsed.data
-  const story = getRapidResponseCase(session.caseId)
+  const story = getRapidResponseCase(session.caseId, session.revision)
   if (
     !story ||
     session.index >= story.stages.length ||
@@ -311,7 +310,7 @@ export function submitRapidResponseAnswer(
     !valid(session)
   )
     return session
-  const story = getRapidResponseCase(session.caseId)!
+  const story = getRapidResponseCase(session.caseId, session.revision)!
   const question = story.stages[session.index]!.question
   if (session.selected.length !== question.correct.length) return session
   const elapsedMs =
@@ -349,7 +348,7 @@ export function finishRapidResponse(
     : changed(session, { complete: true, paused: true, selected: [] }, now)
 }
 export function summarizeRapidResponse(session: RapidResponseSession) {
-  const story = getRapidResponseCase(session.caseId)!
+  const story = getRapidResponseCase(session.caseId, session.revision)!
   const outcomes = story.stages.map((stage, index) => ({
     correct:
       !!session.answers[index] &&
@@ -377,7 +376,7 @@ export function rapidResponseAttempt(
   session: RapidResponseSession,
   source: 'tracked' | 'saved' = 'tracked'
 ): AttemptRecord {
-  const story = getRapidResponseCase(session.caseId)!
+  const story = getRapidResponseCase(session.caseId, session.revision)!
   const summary = summarizeRapidResponse(session)
   return {
     id: session.id,

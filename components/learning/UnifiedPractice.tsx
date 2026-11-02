@@ -27,6 +27,7 @@ import { summarizePractice } from '@/lib/learning/practice-result'
 import { contentSources } from '@/lib/learning/sources'
 import InlineReferenceText from './InlineReferenceText'
 import { PracticeScore, QuestionExplanation } from './PracticeFeedback'
+import { clinicalNarrative } from '@/lib/learning/clinical-narrative'
 
 export type UnifiedPracticeProps = {
   initialCollection?: string
@@ -50,9 +51,12 @@ function QuestionContext({
     <div className="patient-context">
       <p>
         {references ? (
-          <InlineReferenceText text={question.context} onLookup={onLookup} />
+          <InlineReferenceText
+            text={clinicalNarrative(question.context)}
+            onLookup={onLookup}
+          />
         ) : (
-          question.context
+          clinicalNarrative(question.context)
         )}
       </p>
     </div>
@@ -73,9 +77,7 @@ export default function UnifiedPractice({
   const [mode, setMode] = useState<'guided' | 'check'>(initialMode)
   const [count, setCount] = useState<5 | 10>(initialCount)
   const [level, setLevel] = useState<PracticeLevel | 'all'>(
-    ['all', 'foundation', 'challenge', 'advanced', 'unclassified'].includes(
-      initialLevel
-    )
+    ['all', 'foundation', 'challenge', 'advanced'].includes(initialLevel)
       ? initialLevel
       : 'all'
   )
@@ -153,7 +155,7 @@ export default function UnifiedPractice({
       ? visibleCollections
       : visibleCollections.slice(0, 6)
   const question = session
-    ? getPracticeQuestion(session.ids[session.index]!)!
+    ? getPracticeQuestion(session.ids[session.index]!, session.revision)!
     : null
   const answer = session?.answers[session.index]
 
@@ -224,13 +226,14 @@ export default function UnifiedPractice({
     setCollectionId(session.collectionId)
     setMode(session.mode)
     setCount(session.ids.length === 10 ? 10 : 5)
-    setLevel(session.level)
+    const nextLevel = session.level === 'unclassified' ? 'all' : session.level
+    setLevel(nextLevel)
     setSession(null)
     setReviewFilter('all')
     setNotice('')
     focusHeading.current = true
     router.replace(
-      `/practice?collection=${encodeURIComponent(session.collectionId)}&mode=${session.mode}&count=${session.ids.length}&level=${session.level}`,
+      `/practice?collection=${encodeURIComponent(session.collectionId)}&mode=${session.mode}&count=${session.ids.length}&level=${nextLevel}`,
       { scroll: false }
     )
   }
@@ -412,13 +415,7 @@ export default function UnifiedPractice({
                 <legend className="sr-only">Reasoning level</legend>
                 <div className="filter-row">
                   {(
-                    [
-                      'all',
-                      'foundation',
-                      'challenge',
-                      'advanced',
-                      'unclassified',
-                    ] as const
+                    ['all', 'foundation', 'challenge', 'advanced'] as const
                   ).map((value) => (
                     <button
                       key={value}
@@ -435,16 +432,15 @@ export default function UnifiedPractice({
                     >
                       {value === 'all'
                         ? 'All levels'
-                        : value === 'unclassified'
-                          ? 'Level not assigned'
-                          : value[0]!.toUpperCase() + value.slice(1)}
+                        : value[0]!.toUpperCase() + value.slice(1)}
                     </button>
                   ))}
                 </div>
               </fieldset>
               <p>
-                Levels reflect authored labels. Questions without a declared
-                level remain available in All levels.
+                Each topic offers Foundation, Challenge and Advanced questions.
+                Levels reflect authored reasoning demands and are not calibrated
+                measures of difficulty.
               </p>
             </details>
             <p className="practice-availability" role="status">
@@ -493,9 +489,10 @@ export default function UnifiedPractice({
               session.answers.map((entry, index) => ({
                 correct:
                   entry.selected !== null &&
-                  matchesAnswer(getPracticeQuestion(session.ids[index]!)!, [
-                    entry.selected,
-                  ]),
+                  matchesAnswer(
+                    getPracticeQuestion(session.ids[index]!, session.revision)!,
+                    [entry.selected]
+                  ),
                 skipped: entry.selected === null,
                 assisted: entry.assisted,
               }))
@@ -519,7 +516,7 @@ export default function UnifiedPractice({
               ))}
             </div>
             {session.ids.map((id, index) => {
-              const item = getPracticeQuestion(id)!
+              const item = getPracticeQuestion(id, session.revision)!
               const response = session.answers[index]!
               const correct =
                 response.selected !== null &&
@@ -584,9 +581,10 @@ export default function UnifiedPractice({
             session.answers.every(
               (entry, index) =>
                 entry.selected === null ||
-                matchesAnswer(getPracticeQuestion(session.ids[index]!)!, [
-                  entry.selected,
-                ])
+                matchesAnswer(
+                  getPracticeQuestion(session.ids[index]!, session.revision)!,
+                  [entry.selected]
+                )
             ) ? (
               <p>No incorrect answers in this attempt.</p>
             ) : null}

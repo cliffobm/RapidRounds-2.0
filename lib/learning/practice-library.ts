@@ -10,6 +10,7 @@ import type { PillarId } from './pillars'
 import type { SourceId } from './sources'
 import { contentRevision } from './sessions'
 import { materialCollections, materialQuestions } from './material-questions'
+import generatedQualityQuestions from './quality-practice.generated.json'
 
 export type PracticeLevel = ReasoningLevel | 'unclassified'
 export type UnifiedPracticeQuestion = EvolvingQuestion & {
@@ -86,14 +87,29 @@ export const LEGACY_PRACTICE_LIBRARY_REVISION = 'practice-1:c8409c89'
 const previousLibraryUnchanged =
   `practice-1:${contentRevision(previousLibraryQuestions)}` ===
   LEGACY_PRACTICE_LIBRARY_REVISION
-const previousQuestionIds = new Set(
-  previousLibraryQuestions.map((question) => question.id)
+const previousQuestionsById = new Map(
+  previousLibraryQuestions.map((q) => [q.id, q])
 )
-
-export const practiceLibrary: UnifiedPracticeQuestion[] = [
+const octoberLibraryQuestions: UnifiedPracticeQuestion[] = [
   ...previousLibraryQuestions,
   ...materialQuestions,
 ]
+// Preserve the exact 196-item revision as well as the earlier 136-item revision.
+// Retired items remain reviewable only through their original saved revision.
+export const PREVIOUS_PRACTICE_LIBRARY_REVISION = 'practice-1:12faab85'
+const octoberLibraryUnchanged =
+  `practice-1:${contentRevision(octoberLibraryQuestions)}` ===
+  PREVIOUS_PRACTICE_LIBRARY_REVISION
+const octoberQuestionsById = new Map(
+  octoberLibraryQuestions.map((q) => [q.id, q])
+)
+
+export const qualityPracticeQuestions =
+  generatedQualityQuestions as UnifiedPracticeQuestion[]
+// Fresh attempts use the reviewed authoring contract. Original imported items
+// remain available in the legacy bank route and their exact historical maps.
+export const practiceLibrary: UnifiedPracticeQuestion[] =
+  qualityPracticeQuestions
 export const PRACTICE_LIBRARY_REVISION = `practice-1:${contentRevision(practiceLibrary)}`
 const questionsById = new Map(
   practiceLibrary.map((question) => [question.id, question])
@@ -106,7 +122,7 @@ export const practiceCollections: PracticeCollection[] = [
     id: topic.key,
     title: topic.title,
     category: topic.category,
-    count: bankQuestions.filter(
+    count: practiceLibrary.filter(
       (question) => question.collectionId === topic.key
     ).length,
   })),
@@ -115,14 +131,14 @@ export const practiceCollections: PracticeCollection[] = [
       id: `reasoning:${story.id}`,
       title: story.topic,
       category: 'Clinical reasoning',
-      count: caseQuestions.filter(
+      count: practiceLibrary.filter(
         (question) => question.collectionId === `reasoning:${story.id}`
       ).length,
     }))
     .filter((collection) => collection.count > 0),
   ...materialCollections.map((collection) => ({
     ...collection,
-    count: materialQuestions.filter(
+    count: practiceLibrary.filter(
       (question) => question.collectionId === collection.id
     ).length,
   })),
@@ -132,14 +148,15 @@ export function getPracticeQuestion(
   id: string,
   revision = PRACTICE_LIBRARY_REVISION
 ) {
+  if (revision === PRACTICE_LIBRARY_REVISION) return questionsById.get(id)
   if (
-    revision !== PRACTICE_LIBRARY_REVISION &&
-    (revision !== LEGACY_PRACTICE_LIBRARY_REVISION ||
-      !previousLibraryUnchanged ||
-      !previousQuestionIds.has(id))
+    revision === PREVIOUS_PRACTICE_LIBRARY_REVISION &&
+    octoberLibraryUnchanged
   )
-    return undefined
-  return questionsById.get(id)
+    return octoberQuestionsById.get(id)
+  if (revision === LEGACY_PRACTICE_LIBRARY_REVISION && previousLibraryUnchanged)
+    return previousQuestionsById.get(id)
+  return undefined
 }
 
 export function findPracticeCollection(value: string) {

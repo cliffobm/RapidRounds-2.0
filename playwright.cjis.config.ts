@@ -13,6 +13,7 @@ export default defineConfig({
     'case-levels.spec.ts',
     'material-learning.spec.ts',
     'rapid-response.spec.ts',
+    'quality-questions.spec.ts',
   ],
   workers: 1,
   reporter: 'list',

@@ -198,6 +198,51 @@ export function QuestionExplanation({
           ) : null}
         </>
       )}
+      {question.review && (
+        <>
+          <section aria-label="Key cues">
+            <h4>Key cues</h4>
+            <ul>
+              {question.review.keyCues.map((cue) => (
+                <li key={cue}>
+                  <InlineReferenceText text={cue} />
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section aria-label="Clinical reasoning" className="deep-reasoning">
+            <h4>Clinical reasoning</h4>
+            <ol>
+              {question.review.reasoning.map((step) => (
+                <li key={step}>
+                  <InlineReferenceText text={step} />
+                </li>
+              ))}
+            </ol>
+            {question.review.conflict && (
+              <p>
+                <strong>Competing evidence:</strong>{' '}
+                <InlineReferenceText text={question.review.conflict} />
+              </p>
+            )}
+          </section>
+          {(question.review.anticipation || question.review.uncertainty) && (
+            <section aria-label="Reassessment and uncertainty">
+              <h4>Reassessment and uncertainty</h4>
+              {question.review.anticipation && (
+                <p>
+                  <InlineReferenceText text={question.review.anticipation} />
+                </p>
+              )}
+              {question.review.uncertainty && (
+                <p>
+                  <InlineReferenceText text={question.review.uncertainty} />
+                </p>
+              )}
+            </section>
+          )}
+        </>
+      )}
       {mistaken.length > 0 && (
         <section aria-label="Why your answer was incorrect">
           <h4>Why your answer was incorrect</h4>
@@ -246,9 +291,39 @@ export function QuestionExplanation({
           </section>
         </>
       ) : null}
-      <p className="feedback-reflection">
-        <strong>Reflection:</strong> {question.reflection}
-      </p>
+      {question.review ? (
+        <>
+          <section
+            aria-label="Clinical judgment debrief"
+            className="feedback-takeaway"
+          >
+            <h4>Clinical judgment debrief</h4>
+            <p>
+              <InlineReferenceText text={question.review.debrief} />
+            </p>
+          </section>
+          <section
+            aria-label="Rationale references"
+            className="rationale-references"
+          >
+            <h4>References</h4>
+            <ul>
+              {question.review.references.map((reference) => (
+                <li key={reference.url}>
+                  <a href={reference.url} target="_blank" rel="noreferrer">
+                    {reference.title}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </>
+      ) : (
+        <p className="feedback-reflection">
+          <strong>Reflection:</strong> {question.reflection}
+        </p>
+      )}
     </div>
   )
 }

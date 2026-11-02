@@ -6,6 +6,7 @@ import { summarizePractice } from './practice-result'
 import {
   PRACTICE_LIBRARY_REVISION,
   LEGACY_PRACTICE_LIBRARY_REVISION,
+  PREVIOUS_PRACTICE_LIBRARY_REVISION,
   findPracticeCollection,
   getPracticeQuestion,
   practicePool,
@@ -18,6 +19,7 @@ const schema = z.object({
   revision: z.enum([
     PRACTICE_LIBRARY_REVISION,
     LEGACY_PRACTICE_LIBRARY_REVISION,
+    PREVIOUS_PRACTICE_LIBRARY_REVISION,
   ]),
   mode: z.enum(['guided', 'check']),
   collectionId: z.string().max(100),
