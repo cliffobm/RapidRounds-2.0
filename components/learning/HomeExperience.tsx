@@ -13,6 +13,7 @@ import JudgmentPillars from './JudgmentPillars'
 import LearningIntention from './LearningIntention'
 import ContinueLearning from './ContinueLearning'
 import { QuickLaunch } from './QuickCheck'
+import { rapidRoundsBrand as brand } from '@/lib/brand'
 export default function HomeExperience() {
   return (
     <div className="rr-experience home-experience page-enter">
@@ -22,14 +23,12 @@ export default function HomeExperience() {
             <Sparkles size={15} /> RAPID ROUNDS / CLINICAL JUDGMENT
           </span>
           <h1>
-            Think clearly.
+            {brand.headline[0]}
             <br />
-            <em>Act with purpose.</em>
+            <em>{brand.headline[1]}</em>
           </h1>
-          <p>
-            Practice nursing decisions with patient cases, quick questions and
-            focused lessons.
-          </p>
+          <p>{brand.supporting}</p>
+          <p className="intro-copy">{brand.summary}</p>
           <div className="hero-actions">
             <Link href="/rr" className="rr-button rr-button-mint">
               Browse cases <ArrowRight size={18} />
@@ -43,7 +42,7 @@ export default function HomeExperience() {
           <div className="brand-halo" />
           <Logo size="lg" showText={false} />
           <span className="brand-stage-label">
-            <Activity size={17} /> THINK CLEAR. ACT READY.
+            <Activity size={17} /> {brand.signoff}
           </span>
         </div>
       </section>

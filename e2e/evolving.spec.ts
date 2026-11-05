@@ -191,7 +191,7 @@ test('focus interface streamlines entry and a ten-question check saves progress 
   await expect(
     page.getByRole('heading', {
       level: 1,
-      name: 'Think clearly. Act with purpose.',
+      name: 'See More. Miss Less.',
       exact: true,
     })
   ).toBeVisible()
@@ -202,7 +202,7 @@ test('focus interface streamlines entry and a ten-question check saves progress 
   ).toBeVisible()
   await expect(
     page.getByText(
-      'Practice nursing decisions with patient cases, quick questions and focused lessons.'
+      'Build the clinical judgment to recognize patterns, connect clues, and choose what to do next.'
     )
   ).toBeVisible()
   await expect(page.locator('.home-modes .intro-copy').first()).toBeHidden()

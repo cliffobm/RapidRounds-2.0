@@ -8,7 +8,7 @@ for (const width of [320, 390, 1440]) {
     page.on('pageerror', (error) => errors.push(error.message))
     await page.goto('/')
     await expect(page.getByRole('heading', { level: 1 })).toContainText(
-      'Decide better.'
+      'Miss Less.'
     )
     await page
       .getByRole('button', { name: 'Play original introduction' })
@@ -28,8 +28,8 @@ for (const width of [320, 390, 1440]) {
       fullPage: true,
       animations: 'disabled',
     })
-    await page.getByRole('link', { name: 'Enter Rapid Rounds' }).click()
-    await expect(page).toHaveURL(/\/home$/)
+    await page.getByRole('link', { name: 'Browse cases', exact: true }).click()
+    await expect(page).toHaveURL(/\/rr$/)
     await page.getByRole('link', { name: 'Settings', exact: true }).click()
     await expect(
       page.getByText('Changes save automatically on this device.')

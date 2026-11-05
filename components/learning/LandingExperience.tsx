@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   ArrowRight,
+  ArrowUpRight,
   Play,
   Pause,
   Activity,
@@ -12,6 +13,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { usePreferences } from '@/components/settings/PreferencesProvider'
+import { rapidRoundsBrand as brand } from '@/lib/brand'
 export default function LandingExperience() {
   const { ready, motionReduced } = usePreferences()
   const [playing, setPlaying] = useState(false)
@@ -25,25 +27,22 @@ export default function LandingExperience() {
             <Activity size={16} /> FIND YOUR CLINICAL RHYTHM
           </p>
           <h1>
-            Think faster.
+            {brand.headline[0]}
             <br />
-            <em>Decide better.</em>
+            <em>{brand.headline[1]}</em>
           </h1>
           <p className="landing-description">
-            Build the judgment behind the next decision. Small moments of
-            practice. Patient stories that stay with you.
+            {brand.supporting}
           </p>
+          <p className="landing-summary intro-copy">{brand.summary}</p>
           <div className="landing-actions">
-            <Link href="/home" className="rr-button rr-button-mint">
-              Enter Rapid Rounds <ArrowRight size={19} />
+            <Link href="/rr" className="rr-button rr-button-mint">
+              Browse cases <ArrowRight size={19} />
             </Link>
-            <Link href="/settings" className="landing-secondary">
-              Make it yours →
+            <Link href="/practice" className="landing-secondary">
+              Practice questions <ArrowUpRight size={17} />
             </Link>
           </div>
-          <p className="landing-note">
-            Your pace. No account needed for this review edition.
-          </p>
         </div>
         <div className="landing-identity">
           <div className="landing-logo-stage">
@@ -76,7 +75,7 @@ export default function LandingExperience() {
           </div>
           <div className="landing-brand-caption">
             <span>RAPID ROUNDS</span>
-            <small>THE REASONING. THE RESPONSE. THE RHYTHM.</small>
+            <small>{brand.signoff}</small>
           </div>
           {ready && !motionReduced && (
             <button
@@ -122,7 +121,7 @@ export default function LandingExperience() {
         </Link>
       </section>
       <footer className="landing-footer">
-        <p>Six clinical judgment pillars. One connected way to learn.</p>
+        <p>{brand.approach}</p>
         <span>
           Educational review edition · Faculty review pending · For learning,
           outside patient care.

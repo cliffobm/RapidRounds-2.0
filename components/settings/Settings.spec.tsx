@@ -152,7 +152,7 @@ describe('device preferences and calendar reminders', () => {
       screen.queryByRole('button', { name: 'Play original introduction' })
     ).not.toBeInTheDocument()
     expect(
-      screen.getByRole('link', { name: /Enter Rapid Rounds/ })
-    ).toHaveAttribute('href', '/home')
+      screen.getByRole('link', { name: /Browse cases/ })
+    ).toHaveAttribute('href', '/rr')
   })
 })
