@@ -51,7 +51,7 @@ export default function LandingExperience() {
               <video
                 className="landing-film"
                 src="/brand/rapidrounds-intro.mp4"
-                poster="/brand/rapidrounds-metallic.png"
+                poster="/brand/rapidrounds-metallic-soft.webp"
                 autoPlay
                 muted
                 playsInline
@@ -65,7 +65,7 @@ export default function LandingExperience() {
             ) : (
               <Image
                 className="landing-logo"
-                src="/brand/rapidrounds-metallic.png"
+                src="/brand/rapidrounds-metallic-soft.webp"
                 alt="Rapid Rounds metallic RR logo"
                 width={600}
                 height={600}

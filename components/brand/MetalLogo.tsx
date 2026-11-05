@@ -16,7 +16,11 @@ export function Logo({
     <span className={`rr-brand rr-brand-${size} ${className}`}>
       <Image
         className="rr-monogram rr-original-logo"
-        src="/brand/rapidrounds-metallic.png"
+        src={
+          size === 'lg'
+            ? '/brand/rapidrounds-metallic-soft.webp'
+            : '/brand/rapidrounds-metallic.png'
+        }
         alt="Rapid Rounds metallic RR logo"
         width={280}
         height={280}
