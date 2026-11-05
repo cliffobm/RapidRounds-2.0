@@ -566,6 +566,9 @@ html[data-rr-interface='focus'] .rr-app .case-card-copy > p:not(.eyebrow) {
   position: relative;
   isolation: isolate;
 }
+.brand-stage > .rr-brand {
+  justify-content: center;
+}
 .brand-halo {
   position: absolute;
   z-index: -1;
