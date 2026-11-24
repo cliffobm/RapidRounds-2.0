@@ -310,6 +310,12 @@ function StudySession({
           <DecisionCard
             key={phase}
             title={checkpoint.prompt}
+            feedbackContext={{
+              activity: 'study',
+              itemId: `${unit!.id}:${phase}`,
+              revision: 'study-2026-10-23',
+              prompt: checkpoint.prompt,
+            }}
             options={checkpoint.options.map((text, index) => ({
               id: String(index),
               text,

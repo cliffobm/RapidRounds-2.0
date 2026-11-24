@@ -31,13 +31,11 @@ export default function LandingExperience() {
             <br />
             <em>{brand.headline[1]}</em>
           </h1>
-          <p className="landing-description">
-            {brand.supporting}
-          </p>
+          <p className="landing-description">{brand.supporting}</p>
           <p className="landing-summary intro-copy">{brand.summary}</p>
           <div className="landing-actions">
-            <Link href="/rr" className="rr-button rr-button-mint">
-              Browse cases <ArrowRight size={19} />
+            <Link href="/rapid-rounds" className="rr-button rr-button-mint">
+              Start a Rapid Round <ArrowRight size={19} />
             </Link>
             <Link href="/practice" className="landing-secondary">
               Practice questions <ArrowUpRight size={17} />
@@ -98,10 +96,10 @@ export default function LandingExperience() {
         </div>
       </section>
       <section className="landing-paths" aria-label="Ways to learn">
-        <Link href="/rr">
+        <Link href="/rapid-rounds">
           <Layers3 />
           <span>
-            Step into a story<strong>Patient rounds</strong>
+            One patient. Four focused prompts.<strong>Rapid Rounds</strong>
           </span>
           <ArrowRight />
         </Link>

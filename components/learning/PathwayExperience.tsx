@@ -179,6 +179,13 @@ export function TransferExperience() {
             key={session.answers.length}
             context={question.context}
             title={question.prompt}
+            feedbackContext={{
+              activity: 'study',
+              itemId: `transfer:${session.answers.length}`,
+              revision: 'transfer-2026-10-23',
+              prompt: question.prompt,
+              patientContext: question.context,
+            }}
             options={question.options.map((text, index) => ({
               id: String(index),
               text,

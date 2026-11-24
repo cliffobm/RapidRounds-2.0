@@ -28,8 +28,10 @@ for (const width of [320, 390, 1440]) {
       fullPage: true,
       animations: 'disabled',
     })
-    await page.getByRole('link', { name: 'Browse cases', exact: true }).click()
-    await expect(page).toHaveURL(/\/rr$/)
+    await page
+      .getByRole('link', { name: 'Start a Rapid Round', exact: true })
+      .click()
+    await expect(page).toHaveURL(/\/rapid-rounds$/)
     await page.getByRole('link', { name: 'Settings', exact: true }).click()
     await expect(
       page.getByText('Changes save automatically on this device.')

@@ -502,6 +502,31 @@ describe('review cloud API isolation', () => {
     expectPrivate(response)
   })
 
+  it('permits only the exact feedback endpoint after verifying the invited tester', async () => {
+    const allowed = await middleware(
+      request('/api/item-feedback', { method: 'POST' })
+    )
+    expect(allowed.headers.get('x-middleware-next')).toBe('1')
+    expect(mock.getUser).toHaveBeenCalledOnce()
+    expectPrivate(allowed)
+    mock.getUser.mockResolvedValue({ data: { user: null }, error: null })
+    expect((await middleware(request('/api/item-feedback'))).status).toBe(401)
+    mock.getUser.mockResolvedValue({
+      data: { user: { id: 'uninvited' } },
+      error: null,
+    })
+    expect(
+      (await middleware(request('/api/item-feedback', { method: 'PATCH' })))
+        .status
+    ).toBe(403)
+    for (const path of [
+      '/api/item-feedback/extra',
+      '/api/item-feedback.json',
+    ]) {
+      expect((await middleware(request(path))).status).toBe(503)
+    }
+  })
+
   it('retains the explicitly ungated offline learning mode without weakening Account protection', async () => {
     vi.stubEnv('RR_REQUIRE_TESTER_LOGIN', 'false')
     mock.getUser.mockResolvedValue({ data: { user: null }, error: null })

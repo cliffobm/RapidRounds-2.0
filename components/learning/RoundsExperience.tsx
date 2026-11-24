@@ -31,6 +31,19 @@ export function RoundsLobby() {
   return (
     <div className="rr-experience page-enter">
       <h1 className="focus-only">Case room</h1>
+      <section className="round-recommended" aria-label="New Rapid Rounds">
+        <span className="round-pill">
+          NEW · BUILT FOR NEWLY LICENSED NURSES
+        </span>
+        <h2>One patient. Four focused prompts.</h2>
+        <p>
+          Bring what you know into a short encounter, explore the reasoning, and
+          build your next connection.
+        </p>
+        <Link href="/rapid-rounds" className="rr-button rr-button-mint">
+          Start a Rapid Round <ArrowRight size={18} />
+        </Link>
+      </section>
       <section className="rr-hero rounds-hero learning-hero-compact mode-introduction">
         <div className="hero-copy">
           <span className="hero-kicker">
@@ -326,6 +339,13 @@ export function GuidedRound({ story }: { story: GuidedCase }) {
             key={index}
             enableReferences
             title={step.prompt}
+            feedbackContext={{
+              activity: 'guided',
+              itemId: `${story.id}:${index}`,
+              revision: caseRevision,
+              prompt: step.prompt,
+              patientContext: step.update,
+            }}
             committedId={answer === null ? undefined : String(answer)}
             context={step.update}
             options={step.options.map((text, position) => ({

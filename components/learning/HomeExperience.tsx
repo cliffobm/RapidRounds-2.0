@@ -13,6 +13,7 @@ import JudgmentPillars from './JudgmentPillars'
 import LearningIntention from './LearningIntention'
 import ContinueLearning from './ContinueLearning'
 import { QuickLaunch } from './QuickCheck'
+import RapidRoundProgress from './RapidRoundProgress'
 import { rapidRoundsBrand as brand } from '@/lib/brand'
 export default function HomeExperience() {
   return (
@@ -30,8 +31,8 @@ export default function HomeExperience() {
           <p>{brand.supporting}</p>
           <p className="intro-copy">{brand.summary}</p>
           <div className="hero-actions">
-            <Link href="/rr" className="rr-button rr-button-mint">
-              Browse cases <ArrowRight size={18} />
+            <Link href="/rapid-rounds" className="rr-button rr-button-mint">
+              Start a Rapid Round <ArrowRight size={18} />
             </Link>
             <Link href="/practice" className="hero-text-link">
               Practice questions <ArrowUpRight size={17} />
@@ -47,6 +48,7 @@ export default function HomeExperience() {
         </div>
       </section>
       <QuickLaunch />
+      <RapidRoundProgress />
       <ContinueLearning />
       <LearningIntention />
       <section className="home-modes" aria-labelledby="home-modes-title">
@@ -56,15 +58,18 @@ export default function HomeExperience() {
           </div>
         </div>
         <div className="mode-grid">
-          <Link href="/rr" className="mode-card tone-coral">
+          <Link href="/rapid-rounds" className="mode-card tone-coral">
             <Layers3 size={27} />
-            <span className="topic-meta">PATIENT CASES</span>
-            <h3>Rounds</h3>
+            <span className="topic-meta">
+              ONE PATIENT · FOUR FOCUSED PROMPTS
+            </span>
+            <h3>Rapid Rounds</h3>
             <p className="intro-copy">
-              Make decisions as a patient’s condition changes.
+              Connect the clues, explore your decisions, and take a clearer next
+              step.
             </p>
             <span className="text-link">
-              Browse cases <ArrowRight size={17} />
+              Meet your first patient <ArrowRight size={17} />
             </span>
           </Link>
           <Link href="/practice" className="mode-card tone-mint">

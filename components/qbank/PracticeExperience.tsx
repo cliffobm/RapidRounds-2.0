@@ -512,6 +512,13 @@ function PracticeRound({
               }))
             }
             title={item.prompt}
+            feedbackContext={{
+              activity: 'legacy',
+              itemId: item.id,
+              revision,
+              prompt: item.prompt,
+              patientContext: item.stem,
+            }}
             committedId={answer?.selected_option_id ?? undefined}
             {...(item.stem ? { context: item.stem } : {})}
             options={item.options}

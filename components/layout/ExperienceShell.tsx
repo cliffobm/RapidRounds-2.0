@@ -20,7 +20,7 @@ import { useAuth } from '@/store/useAuth'
 import { DATABASE_CONFIGURED } from '@/lib/env'
 const navigation = [
   { href: '/home', title: 'Home', icon: Home },
-  { href: '/rr', title: 'Rounds', icon: Layers3 },
+  { href: '/rapid-rounds', title: 'Rounds', icon: Layers3 },
   { href: '/practice', title: 'Practice', icon: Zap },
   { href: '/study', title: 'Study', icon: BookOpen },
   { href: '/progress', title: 'Progress', icon: ChartNoAxesCombined },
@@ -38,9 +38,10 @@ function NavigationLinks() {
             (href === '/practice' &&
               (pathname?.startsWith('/quiz') ||
                 pathname?.startsWith('/quick-check'))) ||
-            (href === '/rr' &&
+            (href === '/rapid-rounds' &&
               (pathname?.startsWith('/evolving') ||
-                pathname?.startsWith('/rapid-response'))) ||
+                pathname?.startsWith('/rapid-response') ||
+                pathname?.startsWith('/rr'))) ||
             (href === '/study' &&
               (pathname?.startsWith('/pathway') ||
                 pathname?.startsWith('/ecg'))))

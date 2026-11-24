@@ -47,7 +47,7 @@ test('the private tester entry is usable on a phone without a guest or Vercel li
   ).toHaveCount(0)
   await expect(
     page.locator(
-      'a[href="/home"], a[href="/practice"], a[href="/rr"], a[href="/study"], a[href="/progress"], a[href*="vercel.com"]'
+      'a[href="/home"], a[href="/practice"], a[href="/rr"], a[href="/rapid-rounds"], a[href="/feedback"], a[href="/study"], a[href="/progress"], a[href*="vercel.com"]'
     )
   ).toHaveCount(0)
   expect(
@@ -67,6 +67,9 @@ test('unauthenticated learning pages redirect before returning SSR content and p
     '/practice?topic=cardiac&count=5',
     '/quiz?bank=pulm_template',
     '/rapid-response?case=irregular-pulse',
+    '/rapid-rounds',
+    '/feedback',
+    '/blueprint',
     '/ecg',
     '/evolving/fever-neuro',
     '/study',

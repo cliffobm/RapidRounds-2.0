@@ -2,7 +2,7 @@
 export const TESTER_REVIEW_HOST =
   'rapidrounds-cjis-review-git-aee10c-benjamin-cliffords-projects.vercel.app'
 const destinations =
-  /^\/(?:home|account|profile|settings|progress|achievements|leaderboard|practice|quiz|quick-check|glossary|ecg|rapid-response|rr(?:\/[a-z0-9-]+)?|evolving\/[a-z0-9-]+|study(?:\/(?:topics\/[a-z0-9-]+|cardiac-fundamentals|wound-care))?|pathway(?:\/transfer)?|review|review-guide|content-review|scenario-library|scenarios?\/[a-z0-9-]+|test(?:\/[a-z0-9-]+)?|reference\/[a-z0-9-]+)$/
+  /^\/(?:home|account|profile|settings|progress|achievements|leaderboard|practice|quiz|quick-check|glossary|ecg|rapid-response|rapid-rounds|feedback|blueprint|rr(?:\/[a-z0-9-]+)?|evolving\/[a-z0-9-]+|study(?:\/(?:topics\/[a-z0-9-]+|cardiac-fundamentals|wound-care))?|pathway(?:\/transfer)?|review|review-guide|content-review|scenario-library|scenarios?\/[a-z0-9-]+|test(?:\/[a-z0-9-]+)?|reference\/[a-z0-9-]+)$/
 
 export function safeTesterDestination(value: unknown): string {
   if (

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { AttemptRecord } from '@/lib/learning/attempt-history'
 import { formatResponseTime } from '@/lib/learning/rapid-response-session'
 import { readProgress, type ProgressSnapshot } from '@/lib/learning/progress'
+import RapidRoundProgress from './RapidRoundProgress'
 import {
   comparePracticeAttempt,
   missedPracticeSkills,
@@ -269,6 +270,7 @@ export default function ProgressExperience() {
     <div className="rr-experience pathway-layout progress-experience page-enter">
       <p className="eyebrow">YOUR LEARNING</p>
       <h1>Progress</h1>
+      <RapidRoundProgress showEmpty />
       <p className="progress-lead">
         Pick up where you left off. See what to practice next.
       </p>

@@ -28,6 +28,7 @@ import { contentSources } from '@/lib/learning/sources'
 import InlineReferenceText from './InlineReferenceText'
 import { PracticeScore, QuestionExplanation } from './PracticeFeedback'
 import { clinicalNarrative } from '@/lib/learning/clinical-narrative'
+import ItemFeedback from './ItemFeedback'
 
 export type UnifiedPracticeProps = {
   initialCollection?: string
@@ -573,6 +574,18 @@ export default function UnifiedPractice({
                         Reference support used · No points deducted
                       </p>
                     ) : null}
+                    <ItemFeedback
+                      item={{
+                        activity: 'practice',
+                        itemId: item.id,
+                        revision: session.revision,
+                        prompt: item.prompt,
+                        patientContext: item.context ?? '',
+                        selected:
+                          response.selected === null ? [] : [response.selected],
+                        phase: 'after',
+                      }}
+                    />
                   </div>
                 </details>
               )
@@ -723,6 +736,24 @@ export default function UnifiedPractice({
               Reference support used for this question.
             </p>
           ) : null}
+          <ItemFeedback
+            item={{
+              activity: 'practice',
+              itemId: question.id,
+              revision: session.revision,
+              prompt: question.prompt,
+              patientContext: question.context ?? '',
+              selected:
+                answer?.selected === null
+                  ? []
+                  : answer?.selected
+                    ? [answer.selected]
+                    : session.selected
+                      ? [session.selected]
+                      : [],
+              phase: answer ? 'after' : 'before',
+            }}
+          />
           {session.mode === 'guided' && answer ? (
             <details className="practice-customize">
               <summary>Question sources & review status</summary>

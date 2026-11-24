@@ -10,6 +10,7 @@ import type { EvolvingSession } from '@/lib/learning/evolving-session'
 import { summarizePractice } from '@/lib/learning/practice-result'
 import { pillars } from '@/lib/learning/pillars'
 import { PracticeScore, QuestionExplanation } from './PracticeFeedback'
+import ItemFeedback from './ItemFeedback'
 
 export default function CaseDebrief({
   story,
@@ -156,6 +157,17 @@ export default function CaseDebrief({
                 question={question}
                 selected={answer.selected}
                 skipped={answer.skipped}
+              />
+              <ItemFeedback
+                item={{
+                  activity: 'evolving',
+                  itemId: `${story.id}:${path.id}:${session.level}:${index}`,
+                  revision: session.revision,
+                  prompt: question.prompt,
+                  patientContext: `${path.history}\n${frame.update}`,
+                  selected: answer.selected,
+                  phase: 'after',
+                }}
               />
               {answer.rationale && (
                 <div className="reasoning-note">

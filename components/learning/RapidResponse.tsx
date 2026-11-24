@@ -28,6 +28,7 @@ import { ScenarioQuestion } from './EvolvingCases'
 import { PracticeScore, QuestionExplanation } from './PracticeFeedback'
 import EcgStrip from './EcgStrip'
 import { useResponseSound } from './useResponseSound'
+import ItemFeedback from './ItemFeedback'
 
 type ResponseCase = (typeof rapidResponseCases)[number]
 
@@ -117,6 +118,17 @@ function ResponseResults({
                 selected={answer?.selected ?? []}
                 skipped={!answer}
               />
+              <ItemFeedback
+                item={{
+                  activity: 'rapid-response',
+                  itemId: `${story.id}:${stage.id}`,
+                  revision: session.revision,
+                  prompt: stage.question.prompt,
+                  patientContext: stage.update,
+                  selected: answer?.selected ?? [],
+                  phase: 'after',
+                }}
+              />
             </article>
           )
         })}
@@ -144,6 +156,7 @@ export default function RapidResponse({
   const [loaded, setLoaded] = useState(false)
   const [notice, setNotice] = useState('')
   const [finishPending, setFinishPending] = useState(false)
+  const [reportOpen, setReportOpen] = useState(false)
   const latest = useRef<RapidResponseSession | null>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const focusHeading = useRef(false)
@@ -197,7 +210,7 @@ export default function RapidResponse({
   }, [])
 
   useEffect(() => {
-    if (!session || session.paused || session.complete) return
+    if (!session || session.paused || session.complete || reportOpen) return
     let previous = performance.now()
     const interval = window.setInterval(() => {
       const now = performance.now()
@@ -215,7 +228,7 @@ export default function RapidResponse({
       previous = now
     }, 1000)
     return () => window.clearInterval(interval)
-  }, [session?.id, session?.paused, session?.complete, commit])
+  }, [session?.id, session?.paused, session?.complete, commit, reportOpen])
 
   useEffect(() => {
     const savePause = () => {
@@ -557,7 +570,13 @@ export default function RapidResponse({
                         : Math.ceil(remaining / 1000) * 1000
                     )}
                   </strong>
-                  <small>{session.paused ? 'Paused' : 'Running'}</small>
+                  <small>
+                    {reportOpen
+                      ? 'Paused for feedback'
+                      : session.paused
+                        ? 'Paused'
+                        : 'Running'}
+                  </small>
                 </div>
               </div>
               {expired ? (
@@ -641,13 +660,29 @@ export default function RapidResponse({
                     }}
                     seed={session.index}
                   />
+                  <ItemFeedback
+                    item={{
+                      activity: 'rapid-response',
+                      itemId: `${story.id}:${stage.id}`,
+                      revision: session.revision,
+                      prompt: stage.question.prompt,
+                      patientContext: stage.update,
+                      selected: session.selected,
+                      phase: 'before',
+                    }}
+                    onOpenChange={(open) => {
+                      setReportOpen(open)
+                      if (open) soundRef.current.disable()
+                    }}
+                  />
                   <div className="response-actions">
                     <button
                       className="rr-button rr-button-mint"
                       type="button"
                       disabled={
+                        reportOpen ||
                         session.selected.length !==
-                        stage.question.correct.length
+                          stage.question.correct.length
                       }
                       onClick={() => {
                         if (!latest.current) return

@@ -24,6 +24,7 @@ import { contentSources } from '@/lib/learning/sources'
 import { recordActivity } from '@/lib/learning/sessions'
 import CaseDebrief from './CaseDebrief'
 import { QuestionExplanation } from './PracticeFeedback'
+import ItemFeedback from './ItemFeedback'
 import { recordAttempt } from '@/lib/learning/attempt-history'
 import { evolvingAttempt } from '@/lib/learning/attempt-adapters'
 import { pillars } from '@/lib/learning/pillars'
@@ -486,6 +487,17 @@ export default function EvolvingCaseExperience({
                   onChange={(selected) => change({ selected })}
                   disabled={Boolean(answer)}
                   seed={session.attempt + session.index}
+                />
+                <ItemFeedback
+                  item={{
+                    activity: 'evolving',
+                    itemId: `${story.id}:${path.id}:${session.level}:${session.index}`,
+                    revision: session.revision,
+                    prompt: question.prompt,
+                    patientContext: `${path.history}\n${frame.update}`,
+                    selected: answer?.selected ?? session.selected,
+                    phase: answer ? 'after' : 'before',
+                  }}
                 />
                 {!answer && (
                   <>

@@ -19,6 +19,7 @@ import { QuestionExplanation, PracticeScore } from './PracticeFeedback'
 import { summarizePractice } from '@/lib/learning/practice-result'
 import { usePreferences } from '@/components/settings/PreferencesProvider'
 import { contentSources } from '@/lib/learning/sources'
+import ItemFeedback from './ItemFeedback'
 const topics = [...new Set(reasoningQuestions.map((q) => q.topic))]
 function shuffle<T>(items: T[], seed: number) {
   const result = [...items]
@@ -309,6 +310,17 @@ export default function QuickCheck({
                 )
               }
               seed={session.attempt + session.index}
+            />
+            <ItemFeedback
+              item={{
+                activity: 'practice',
+                itemId: item.id,
+                revision: legacyEvolvingRevision,
+                prompt: item.prompt,
+                patientContext: item.context,
+                selected: session.selected ? [session.selected] : [],
+                phase: 'before',
+              }}
             />
             <button
               className="rr-button"

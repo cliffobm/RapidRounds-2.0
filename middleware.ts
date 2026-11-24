@@ -48,7 +48,7 @@ export async function middleware(request: NextRequest) {
       )
     // Auth goes directly to the isolated Supabase Auth service. Review builds
     // must never execute the inherited payment, AI, metrics or database APIs.
-    if (api && REVIEW_AUTH_ONLY)
+    if (api && REVIEW_AUTH_ONLY && pathname !== '/api/item-feedback')
       return privateResponse(
         NextResponse.json(
           {

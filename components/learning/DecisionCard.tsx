@@ -4,6 +4,8 @@ import { ArrowRight, Check, CheckCircle2, Lightbulb } from 'lucide-react'
 import InlineReferenceText from './InlineReferenceText'
 import { referenceParts } from '@/lib/learning/inline-references'
 import { clinicalNarrative } from '@/lib/learning/clinical-narrative'
+import ItemFeedback from './ItemFeedback'
+import type { FeedbackContext } from '@/lib/feedback/schema'
 export type DecisionOption = { id: string; text: string }
 export type DecisionFeedback = {
   correct: boolean
@@ -24,6 +26,7 @@ export default function DecisionCard({
   commitLabel = 'Check answer',
   enableReferences = false,
   onReferenceLookup,
+  feedbackContext,
 }: {
   title: string
   context?: string
@@ -37,6 +40,7 @@ export default function DecisionCard({
   commitLabel?: string
   enableReferences?: boolean
   onReferenceLookup?: (() => void) | undefined
+  feedbackContext?: FeedbackContext
 }) {
   const [selected, setSelected] = useState('')
   const hasReferences =
@@ -52,7 +56,10 @@ export default function DecisionCard({
           <span className="eyebrow">THE SITUATION</span>
           <p>
             {enableReferences ? (
-              <InlineReferenceText text={clinicalNarrative(context)} onLookup={lookup} />
+              <InlineReferenceText
+                text={clinicalNarrative(context)}
+                onLookup={lookup}
+              />
             ) : (
               clinicalNarrative(context)
             )}
@@ -154,6 +161,16 @@ export default function DecisionCard({
           )
         )}
       </div>
+      {feedbackContext && (
+        <ItemFeedback
+          item={{
+            ...feedbackContext,
+            selected:
+              (committedId ?? selected) ? [committedId ?? selected] : [],
+            phase: feedback ? 'after' : 'before',
+          }}
+        />
+      )}
     </div>
   )
 }

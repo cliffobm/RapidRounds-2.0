@@ -176,6 +176,7 @@ Thumbs.db
 
 # Supabase
 .supabase
+supabase/.temp/
 
 playwright-report/
 test-results/
